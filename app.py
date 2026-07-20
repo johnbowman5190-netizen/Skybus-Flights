@@ -1,243 +1,353 @@
 import streamlit as st
-from datetime import datetime, timedelta
-from collections import deque
+import pandas as pd
+import random
+from datetime import datetime, time
 
-# Page Configuration for Mobile
-st.set_page_config(page_title="Skybus Flight Search", page_icon="✈️", layout="centered")
+# Set page config
+st.set_page_config(
+    page_title="SkyFly Flight Search & Booking",
+    page_icon="✈️",
+    layout="wide"
+)
 
-# ==========================================
-# 1. ROUTE NETWORK DATA
-# ==========================================
-ROUTES_DATA = [
-    # Inter-Base Trunk Network (100-299)
-    (100, "KBGR", "KSFB", 185, "Daily"), (102, "KIWA", "KBLI", 195, "Daily"),
-    (104, "TJBQ", "KSFB", 175, "Daily"), (106, "PAFA", "KBLI", 210, "Daily"),
-    (108, "KBGR", "TJBQ", 240, "Mon,Wed,Fri,Sun"), (110, "KIWA", "PAFA", 330, "Mon,Tue,Thu,Sat"),
-    
-    # Transcontinental Coast-to-Coast Bridges
-    (112, "KSFB", "KIWA", 270, "Daily"), (114, "KBGR", "KBLI", 310, "Daily"),
-    (116, "KMSY", "KIWA", 180, "Daily"),
+# -----------------------------------------------------------------------------
+# 1. FLEET & AMENITIES DATA CONFIGURATION
+# -----------------------------------------------------------------------------
+AIRCRAFT_FLEET = {
+    "A319": {
+        "model": "Airbus A319",
+        "seats": 150,
+        "rows": 25,
+        "tails": ["N800SB", "N801SB", "N802SB", "N803SB"]
+    },
+    "A320": {
+        "model": "Airbus A320",
+        "seats": 180,
+        "rows": 30,
+        "tails": ["N804SB", "N805SB", "N806SB", "N807SB"]
+    },
+    "A321": {
+        "model": "Airbus A321",
+        "seats": 220,
+        "rows": 37,
+        "tails": ["N808SB", "N809SB", "N810SB", "N811SB"]
+    }
+}
 
-    (200, "KSFB", "KRIC", 110, "Daily"), (202, "KIWA", "KPVU", 85, "Daily"),
-    (204, "KGRR", "KSWF", 105, "Mon,Wed,Fri,Sun"), (206, "KMSY", "KOMA", 135, "Tue,Thu,Sat,Sun"),
-    (208, "KSFB", "KMSY", 120, "Daily"), (210, "KBLI", "KPVU", 115, "Mon,Wed,Fri"),
+# Helper: Format total minutes to "Xh Ym"
+def format_duration(minutes: int) -> str:
+    h = minutes // 60
+    m = minutes % 60
+    if h == 0:
+        return f"{m}m"
+    elif m == 0:
+        return f"{h}h"
+    return f"{h}h {m}m"
 
-    # Hub Spokes & Focus Cities
-    (300, "KBGR", "KBOS", 55, "Daily"), (302, "KBGR", "KPWM", 40, "Daily"),
-    (304, "KBGR", "KPVD", 65, "Daily"), (306, "KBGR", "KBTV", 60, "Mon,Wed,Fri"),
-    (308, "KBGR", "KACK", 50, "Tue,Thu,Sat,Sun"), (310, "KBGR", "KMVY", 50, "Fri,Sat,Sun"),
-    (312, "KBGR", "KBDL", 70, "Daily"), (314, "KBGR", "KSYR", 80, "Mon,Wed,Fri"),
-    (316, "KBGR", "KROC", 90, "Tue,Thu,Sat"), (318, "KBGR", "KPBG", 60, "Mon,Fri"),
-
-    (400, "KSFB", "KEYW", 70, "Daily"), (402, "KSFB", "KPNS", 75, "Daily"),
-    (404, "KSFB", "KTLH", 55, "Daily"), (406, "KSFB", "KCHS", 65, "Daily"),
-    (408, "KSFB", "KSAV", 60, "Mon,Wed,Fri,Sun"), (410, "KSFB", "KBHM", 90, "Tue,Thu,Sat"),
-    (412, "KSFB", "KGSP", 80, "Mon,Wed,Fri"), (414, "KSFB", "KMYR", 70, "Daily"),
-    (416, "KSFB", "KAGS", 75, "Tue,Thu,Sat"), (418, "KSFB", "KCAE", 70, "Mon,Wed,Fri,Sun"),
-
-    (500, "TJBQ", "TJSJ", 35, "Daily"), (502, "TJBQ", "TIST", 50, "Daily"),
-    (504, "TJBQ", "TISX", 55, "Daily"), (506, "TJBQ", "TJPS", 30, "Daily"),
-    (508, "TJBQ", "TJIG", 35, "Daily"), (510, "TJBQ", "TNCM", 75, "Mon,Wed,Fri,Sun"),
-    (512, "TJBQ", "MDPC", 45, "Daily"), (514, "TJBQ", "MDSD", 50, "Daily"),
-    (516, "TJBQ", "MBPV", 80, "Tue,Thu,Sat"), (518, "TJBQ", "MYNN", 110, "Mon,Fri"),
-
-    (600, "KIWA", "KLAS", 60, "Daily"), (602, "KIWA", "KSAN", 65, "Daily"),
-    (604, "KIWA", "KPSP", 55, "Daily"), (606, "KIWA", "KTUS", 40, "Daily"),
-    (608, "KIWA", "KFLG", 40, "Daily"), (610, "KIWA", "KABQ", 70, "Daily"),
-    (612, "KIWA", "KSLC", 95, "Daily"), (614, "KIWA", "KRNO", 100, "Mon,Wed,Fri,Sun"),
-    (616, "KIWA", "KFAT", 85, "Tue,Thu,Sat"), (618, "KIWA", "KOAK", 115, "Daily"),
-
-    (700, "KBLI", "KGEG", 60, "Daily"), (702, "KBLI", "KYKM", 50, "Mon,Wed,Fri"),
-    (704, "KBLI", "KPSC", 55, "Daily"), (706, "KBLI", "KEAT", 45, "Tue,Thu,Sat"),
-    (708, "KBLI", "KALW", 60, "Mon,Fri"), (710, "KBLI", "KRDM", 75, "Daily"),
-    (712, "KBLI", "KEUG", 70, "Daily"), (714, "KBLI", "KMFR", 85, "Mon,Wed,Fri,Sun"),
-    (716, "KBLI", "KOTH", 80, "Tue,Thu,Sat"), (718, "KBLI", "KLWS", 70, "Mon,Wed,Fri"),
-
-    (900, "PAFA", "PANC", 55, "Daily"), (902, "PAFA", "PAJN", 85, "Daily"),
-    (904, "PAFA", "PAKT", 115, "Mon,Wed,Fri,Sun"), (906, "PAFA", "PASI", 100, "Tue,Thu,Sat"),
-    (908, "PAFA", "PABR", 80, "Daily"), (910, "PAFA", "PAOT", 75, "Mon,Wed,Fri"),
-    (912, "PAFA", "PAOM", 80, "Daily"), (914, "PAFA", "PABE", 70, "Mon,Wed,Fri,Sun"),
-    (916, "PAFA", "PACV", 65, "Tue,Thu,Sat"), (918, "PAFA", "PAPG", 95, "Mon,Fri"),
-
-    (1000, "KSWF", "KALB", 40, "Daily"), (1002, "KSWF", "KSYR", 50, "Daily"),
-    (1004, "KSWF", "KROC", 60, "Mon,Wed,Fri"), (1006, "KSWF", "KBUF", 70, "Daily"),
-    (1008, "KSWF", "KBTV", 50, "Tue,Thu,Sat"), (1010, "KSWF", "KMHT", 45, "Daily"),
-    (1012, "KSWF", "KPVD", 45, "Daily"), (1014, "KSWF", "KORF", 80, "Mon,Wed,Fri,Sun"),
-    (1016, "KSWF", "KABE", 35, "Daily"), (1018, "KSWF", "KAVP", 35, "Tue,Thu,Sat"),
-
-    (1100, "KRIC", "KROA", 45, "Daily"), (1102, "KRIC", "KCHO", 35, "Daily"),
-    (1104, "KRIC", "KLYH", 40, "Mon,Wed,Fri"), (1106, "KRIC", "KILM", 55, "Daily"),
-    (1108, "KRIC", "KEWN", 50, "Tue,Thu,Sat"), (1110, "KRIC", "KOAJ", 50, "Mon,Wed,Fri"),
-    (1112, "KRIC", "KTRI", 65, "Daily"), (1114, "KRIC", "KCHS", 70, "Daily"),
-    (1116, "KRIC", "KAVL", 75, "Tue,Thu,Sat,Sun"), (1118, "KRIC", "KSBY", 40, "Mon,Fri"),
-
-    (1200, "KMSY", "KBTR", 35, "Daily"), (1202, "KMSY", "KLFT", 40, "Daily"),
-    (1204, "KMSY", "KLCH", 50, "Mon,Wed,Fri"), (1206, "KMSY", "KMOB", 45, "Daily"),
-    (1208, "KMSY", "KGPT", 35, "Daily"), (1210, "KMSY", "KHSV", 75, "Tue,Thu,Sat"),
-    (1212, "KMSY", "KJAN", 55, "Daily"), (1214, "KMSY", "KSHV", 70, "Mon,Wed,Fri,Sun"),
-    (1216, "KMSY", "KLIT", 75, "Daily"), (1218, "KMSY", "KPNS", 50, "Daily"),
-
-    (1300, "KGRR", "KTVC", 45, "Daily"), (1302, "KGRR", "KMQT", 65, "Mon,Wed,Fri"),
-    (1304, "KGRR", "KPLN", 55, "Tue,Thu,Sat"), (1306, "KGRR", "KAZO", 30, "Daily"),
-    (1308, "KGRR", "KLAN", 30, "Daily"), (1310, "KGRR", "KFNT", 35, "Daily"),
-    (1312, "KGRR", "KMSN", 50, "Mon,Wed,Fri,Sun"), (1314, "KGRR", "KGRB", 45, "Daily"),
-    (1316, "KGRR", "KATW", 45, "Tue,Thu,Sat"), (1318, "KGRR", "KSBN", 35, "Daily"),
-
-    (1400, "KOMA", "KLNK", 30, "Daily"), (1402, "KOMA", "KGRI", 45, "Daily"),
-    (1404, "KOMA", "KEAR", 50, "Mon,Wed,Fri"), (1406, "KOMA", "KLBF", 60, "Tue,Thu,Sat"),
-    (1408, "KOMA", "KBFF", 85, "Mon,Fri"), (1410, "KOMA", "KSUX", 35, "Daily"),
-    (1412, "KOMA", "KFSD", 50, "Daily"), (1414, "KOMA", "KDSM", 40, "Daily"),
-    (1416, "KOMA", "KCID", 50, "Mon,Wed,Fri,Sun"), (1418, "KOMA", "KRST", 55, "Tue,Thu,Sat"),
-
-    (1500, "KPVU", "KCDC", 50, "Daily"), (1502, "KPVU", "KSGU", 55, "Daily"),
-    (1504, "KPVU", "KEKO", 60, "Mon,Wed,Fri"), (1506, "KPVU", "KPIH", 45, "Daily"),
-    (1508, "KPVU", "KIDA", 55, "Daily"), (1510, "KPVU", "KTWF", 50, "Tue,Thu,Sat"),
-    (1512, "KPVU", "KBOI", 70, "Daily"), (1514, "KPVU", "KJAC", 65, "Mon,Wed,Fri,Sun"),
-    (1516, "KPVU", "KWYS", 60, "Fri,Sat,Sun"), (1518, "KPVU", "KBZN", 75, "Daily"),
-
-    # International
-    (800, "KBGR", "CYHZ", 75, "Daily"), (802, "KBGR", "CYUL", 70, "Daily"),
-    (804, "KBGR", "CYYT", 130, "Mon,Wed,Fri"), (806, "KBGR", "TXKF", 145, "Tue,Thu,Sat,Sun"),
-    (808, "KBGR", "EINN", 360, "Mon,Wed,Fri,Sun"),
-    (810, "KSFB", "MYNN", 75, "Daily"), (812, "KSFB", "MKJS", 115, "Daily"),
-    (814, "KSFB", "MBPV", 125, "Tue,Thu,Sat"), (816, "KSFB", "MROC", 210, "Mon,Wed,Fri,Sun"),
-    (818, "KSFB", "MPTO", 230, "Tue,Thu,Sat"),
-    (820, "TJBQ", "MDPC", 45, "Daily"), (822, "TJBQ", "TNCM", 75, "Daily"),
-    (824, "TJBQ", "SKBO", 210, "Mon,Wed,Fri"), (826, "TJBQ", "TAPA", 95, "Tue,Thu,Sat"),
-    (828, "TJBQ", "MYNN", 110, "Mon,Fri"),
-    (830, "KIWA", "MMSD", 105, "Daily"), (832, "KIWA", "MMPR", 140, "Daily"),
-    (834, "KIWA", "MMME", 120, "Mon,Wed,Fri,Sun"), (836, "KIWA", "MMGL", 150, "Tue,Thu,Sat"),
-    (838, "KIWA", "MMMX", 195, "Daily"),
-    (840, "KBLI", "CYVR", 35, "Daily"), (842, "KBLI", "CYYJ", 30, "Daily"),
-    (844, "KBLI", "CYYC", 90, "Daily"), (846, "KBLI", "CYEG", 110, "Mon,Wed,Fri,Sun"),
-    (848, "KBLI", "MMSD", 260, "Tue,Thu,Sat"),
-    (850, "PAFA", "CYXY", 85, "Mon,Wed,Fri"), (852, "PAFA", "CYZF", 120, "Tue,Thu,Sat"),
-    (854, "PAFA", "CYEG", 210, "Mon,Wed,Fri,Sun"), (856, "PAFA", "RJAA", 430, "Wed,Fri,Sun"),
-    (858, "PAFA", "RKSI", 460, "Tue,Thu,Sat"),
-    (860, "KBGR", "EGSS", 390, "Daily"), (862, "KBGR", "LFOB", 410, "Mon,Wed,Fri,Sun"),
-    (864, "KBGR", "LIME", 450, "Tue,Thu,Sat"), (866, "KBGR", "EICK", 370, "Mon,Wed,Fri"),
-    (868, "KBGR", "LEGE", 440, "Tue,Thu,Sat,Sun"), (870, "KBGR", "EDJA", 430, "Mon,Thu,Sat")
-]
-
-# 4 Departure Waves to spread flights out across the day
-DEP_WAVES = ["06:00", "10:30", "15:00", "19:30"]
-
-# Build Multi-Wave Flight Catalog
-@st.cache_data
-def get_flight_catalog():
-    catalog = []
-    for flt_out, orig, dest, duration, days in ROUTES_DATA:
-        for wave_idx, dep_str in enumerate(DEP_WAVES):
-            base_dep = datetime.strptime(dep_str, "%H:%M")
-            flt_num_out = flt_out * 10 + wave_idx * 2
-            
-            # Outbound Leg
-            arr_out = base_dep + timedelta(minutes=duration)
-            catalog.append({
-                "Flight": flt_num_out, "Origin": orig, "Destination": dest,
-                "Dep": base_dep.strftime("%H:%M"), "Arr": arr_out.strftime("%H:%M"),
-                "Duration": duration, "Days": days
-            })
-            
-            # Inbound Leg (60 min turnaround)
-            in_dep = arr_out + timedelta(minutes=60)
-            in_arr = in_dep + timedelta(minutes=duration)
-            catalog.append({
-                "Flight": flt_num_out + 1, "Origin": dest, "Destination": orig,
-                "Dep": in_dep.strftime("%H:%M"), "Arr": in_arr.strftime("%H:%M"),
-                "Duration": duration, "Days": days
-            })
-    return catalog
-
-flights = get_flight_catalog()
-all_airports = sorted(list(set([f["Origin"] for f in flights] + [f["Destination"] for f in flights])))
-
-# ==========================================
-# 2. SEARCH ENGINE ALGORITHM
-# ==========================================
-def search_flights(origin, destination, max_connections, max_layover_hours=5):
-    queue = deque()
-    valid_itineraries = []
-    max_layover_mins = max_layover_hours * 60
-
-    for f in flights:
-        if f["Origin"] == origin:
-            queue.append([f])
-
-    while queue:
-        path = queue.popleft()
-        last_leg = path[-1]
-        curr_dest = last_leg["Destination"]
-
-        if curr_dest == destination:
-            valid_itineraries.append(path)
-            continue
-
-        if len(path) - 1 < max_connections:
-            last_arr = datetime.strptime(last_leg["Arr"], "%H:%M")
-            for next_f in flights:
-                if next_f["Origin"] == curr_dest:
-                    if next_f["Destination"] in {f["Origin"] for f in path}:
-                        continue
-                    
-                    next_dep = datetime.strptime(next_f["Dep"], "%H:%M")
-                    layover = (next_dep - last_arr).total_seconds() / 60
-                    
-                    if layover < 0:
-                        layover += 1440
-                        
-                    # Strict layover window (minimum 45 mins, max set by user)
-                    if 45 <= layover <= max_layover_mins:
-                        queue.append(path + [next_f])
-
-    return valid_itineraries
-
-# ==========================================
-# 3. STREAMLIT MOBILE UI
-# ==========================================
-st.title("✈️ Skybus Flight Search")
-st.caption("Book routes across your custom Hub & Spoke Network")
-
-col1, col2 = st.columns(2)
-with col1:
-    origin = st.selectbox("From (Origin)", all_airports, index=all_airports.index("KSFB") if "KSFB" in all_airports else 0)
-with col2:
-    destination = st.selectbox("To (Destination)", all_airports, index=all_airports.index("RJAA") if "RJAA" in all_airports else 1)
-
-c1, c2 = st.columns(2)
-with c1:
-    max_stops = st.select_slider("Max Connections", options=[0, 1, 2, 3, 4], value=2)
-with c2:
-    max_layover = st.slider("Max Layover (Hours)", min_value=1, max_value=8, value=5)
-
-if st.button("🔍 Search Flights", type="primary", use_container_width=True):
-    if origin == destination:
-        st.warning("Origin and Destination must be different.")
+# Helper: Assign an aircraft type and tail number deterministically based on flight number
+def assign_aircraft(flight_num: str, duration_mins: int) -> dict:
+    rng = random.Random(hash(flight_num))
+    if duration_mins >= 240:
+        ac_key = "A321"
+    elif duration_mins >= 150:
+        ac_key = "A320"
     else:
-        results = search_flights(origin, destination, max_stops, max_layover)
-        
-        st.markdown(f"### Results for **{origin}** ➔ **{destination}**")
-        st.write(f"Found **{len(results)}** itinerary option(s)")
+        ac_key = rng.choice(["A319", "A320"])
+    
+    spec = AIRCRAFT_FLEET[ac_key]
+    tail = rng.choice(spec["tails"])
+    return {
+        "type": ac_key,
+        "model": spec["model"],
+        "tail": tail,
+        "seats": spec["seats"],
+        "rows": spec["rows"]
+    }
 
-        if not results:
-            st.error("No valid flights found within connection limits and layover time.")
-        else:
-            for idx, itin in enumerate(results[:20], 1):
-                stops = len(itin) - 1
-                stop_label = "Nonstop" if stops == 0 else f"{stops} Connection(s)"
+# Helper: Generate pre-occupied seats for a leg
+def generate_occupied_seats(flight_num: str, total_seats: int, rows: int) -> tuple[list, set]:
+    rng = random.Random(hash(flight_num) + 42)
+    # 45% to 70% of seats randomly pre-booked
+    num_occupied = rng.randint(int(total_seats * 0.45), int(total_seats * 0.70))
+    
+    all_seats = []
+    for r in range(1, rows + 1):
+        for letter in ['A', 'B', 'C', 'D', 'E', 'F']:
+            seat_code = f"{r}{letter}"
+            all_seats.append(seat_code)
+            if len(all_seats) == total_seats:
+                break
+        if len(all_seats) == total_seats:
+            break
+            
+    occupied = set(rng.sample(all_seats, num_occupied))
+    return all_seats, occupied
+
+# Helper: Seat amenities lookup
+def get_seat_amenities(seat_code: str):
+    row = int(seat_code[:-1])
+    letter = seat_code[-1]
+    
+    pos_map = {
+        'A': 'Window (Left)', 'B': 'Middle (Left)', 'C': 'Aisle (Left)',
+        'D': 'Aisle (Right)', 'E': 'Middle (Right)', 'F': 'Window (Right)'
+    }
+    
+    power_map = {
+        'A': 'Shared AC Power Outlet (Between seats A & B)',
+        'B': 'Shared AC Power Outlet (Between seats A & B)',
+        'C': 'Shared AC Power Outlet (Between seats B & C)',
+        'D': 'Shared AC Power Outlet (Between seats D & E)',
+        'E': 'Shared AC Power Outlet (Between seats D & E)',
+        'F': 'Shared AC Power Outlet (Between seats E & F)'
+    }
+    
+    is_exit_row = row in [12, 13]
+    legroom = 'Extra Legroom (Exit Row - 34" Pitch)' if is_exit_row else 'Standard Economy (30" Pitch)'
+    recline = 'None (Exit Row)' if row == 12 else 'Standard 3-inch Recline'
+    
+    return {
+        'seat': seat_code,
+        'row': row,
+        'letter': letter,
+        'position': pos_map.get(letter, 'Standard'),
+        'power': power_map.get(letter, 'Shared Power Port'),
+        'wifi': 'High-Speed SkyFly In-Flight Wi-Fi Available',
+        'legroom': legroom,
+        'recline': recline
+    }
+
+# -----------------------------------------------------------------------------
+# 2. MOCK DATA GENERATION
+# -----------------------------------------------------------------------------
+@st.cache_data
+def load_mock_flights():
+    data = [
+        {
+            "id": "FL-101",
+            "airline": "SkyFly Express",
+            "price": 280,
+            "total_mins": 195,
+            "stops": 0,
+            "legs": [
+                {"flight": "SF101", "origin": "JFK", "dest": "ORD", "dep": "08:00", "arr": "11:15", "mins": 195}
+            ]
+        },
+        {
+            "id": "FL-102",
+            "airline": "SkyFly Connect",
+            "price": 340,
+            "total_mins": 330,
+            "stops": 1,
+            "legs": [
+                {"flight": "SF204", "origin": "JFK", "dest": "CLT", "dep": "07:30", "arr": "09:45", "mins": 135},
+                {"flight": "SF509", "origin": "CLT", "dest": "ORD", "dep": "11:00", "arr": "13:15", "mins": 135}
+            ]
+        },
+        {
+            "id": "FL-103",
+            "airline": "SkyFly Direct",
+            "price": 410,
+            "total_mins": 360,
+            "stops": 0,
+            "legs": [
+                {"flight": "SF880", "origin": "JFK", "dest": "LAX", "dep": "09:15", "arr": "12:15", "mins": 360}
+            ]
+        },
+        {
+            "id": "FL-104",
+            "airline": "SkyFly Connect",
+            "price": 390,
+            "total_mins": 465,
+            "stops": 1,
+            "legs": [
+                {"flight": "SF312", "origin": "JFK", "dest": "DFW", "dep": "10:00", "arr": "13:15", "mins": 255},
+                {"flight": "SF418", "origin": "DFW", "dest": "LAX", "dep": "15:00", "arr": "16:30", "mins": 150}
+            ]
+        }
+    ]
+    
+    # Attach aircraft assignments & formatted durations to legs
+    for item in data:
+        item["formatted_duration"] = format_duration(item["total_mins"])
+        for leg in item["legs"]:
+            leg["formatted_duration"] = format_duration(leg["mins"])
+            leg["aircraft"] = assign_aircraft(leg["flight"], leg["mins"])
+            
+    return data
+
+flights = load_mock_flights()
+
+# -----------------------------------------------------------------------------
+# 3. SESSION STATE MANAGEMENT
+# -----------------------------------------------------------------------------
+if "selected_flight" not in st.session_state:
+    st.session_state.selected_flight = None
+if "selected_seats" not in st.session_state:
+    st.session_state.selected_seats = {}  # {leg_flight_num: seat_code}
+
+# -----------------------------------------------------------------------------
+# 4. HEADER & TOP NAVIGATION
+# -----------------------------------------------------------------------------
+st.title("✈️ SkyFly Air Travel")
+
+if st.session_state.selected_flight:
+    # Top bar back button when a flight has been selected
+    col_nav1, col_nav2 = st.columns([1, 5])
+    with col_nav1:
+        if st.button("⬅️ Back to Search"):
+            st.session_state.selected_flight = None
+            st.rerun()
+
+# -----------------------------------------------------------------------------
+# 5. VIEW 1: FLIGHT SEARCH RESULTS (If no flight selected)
+# -----------------------------------------------------------------------------
+if not st.session_state.selected_flight:
+    st.subheader("Search & Select Flights")
+    
+    # Sidebar Filters
+    st.sidebar.header("Filter Results")
+    max_price = st.sidebar.slider("Max Price ($)", 200, 600, 600)
+    stops_filter = st.sidebar.multiselect("Stops", options=[0, 1], default=[0, 1])
+    
+    filtered_flights = [
+        f for f in flights 
+        if f["price"] <= max_price and f["stops"] in stops_filter
+    ]
+    
+    st.markdown(f"**Showing {len(filtered_flights)} flights**")
+    
+    for fl in filtered_flights:
+        with st.container(border=True):
+            col1, col2, col3, col4, col5 = st.columns([2, 2, 2, 2, 2])
+            
+            first_leg = fl["legs"][0]
+            last_leg = fl["legs"][-1]
+            
+            with col1:
+                st.markdown(f"### {fl['airline']}")
+                st.caption(f"{len(fl['legs'])} Leg(s)")
+            
+            with col2:
+                st.markdown(f"**{first_leg['dep']} → {last_leg['arr']}**")
+                st.caption(f"{first_leg['origin']} to {last_leg['dest']}")
+            
+            with col3:
+                st.markdown(f"**⏱️ {fl['formatted_duration']}**")
+                st.caption("Non-stop" if fl["stops"] == 0 else f"{fl['stops']} Stop")
+            
+            with col4:
+                st.markdown(f"### ${fl['price']}")
+                st.caption("Economy")
+            
+            with col5:
+                st.write("")
+                if st.button("Select Flight", key=f"btn_{fl['id']}", type="primary"):
+                    st.session_state.selected_flight = fl
+                    st.rerun()
+            
+            # Leg details expander
+            with st.expander("Flight Details & Assigned Aircraft"):
+                for idx, leg in enumerate(fl["legs"]):
+                    ac = leg["aircraft"]
+                    st.markdown(
+                        f"**Leg {idx+1}: {leg['flight']}** ({leg['origin']} → {leg['dest']}) | "
+                        f"🕒 {leg['dep']} - {leg['arr']} ({leg['formatted_duration']}) | "
+                        f"🛩️ **{ac['model']}** (`{ac['tail']}` - {ac['seats']} seats)"
+                    )
+
+# -----------------------------------------------------------------------------
+# 6. VIEW 2: POST-SELECTION & INTERACTIVE SEAT MAP
+# -----------------------------------------------------------------------------
+else:
+    flight = st.session_state.selected_flight
+    
+    st.success(f"Flight Selected! Total Price: **${flight['price']}** | Total Duration: **{flight['formatted_duration']}**")
+    st.divider()
+    
+    st.subheader("Seat Selection & Aircraft Overview")
+    st.info("Select a seat for each leg of your trip to view seat amenities, power port access, and Wi-Fi features.")
+    
+    for idx, leg in enumerate(flight["legs"]):
+        flight_num = leg["flight"]
+        ac = leg["aircraft"]
+        
+        st.markdown(f"### Leg {idx+1}: {leg['origin']} ✈️ {leg['dest']} ({flight_num})")
+        
+        # Aircraft badge summary
+        st.markdown(
+            f"> 🛩️ **Aircraft Assigned:** {ac['model']} &nbsp;|&nbsp; "
+            f"🏷️ **Tail Number:** `{ac['tail']}` &nbsp;|&nbsp; "
+            f"💺 **Capacity:** {ac['seats']} Seats (3x3 All Economy) &nbsp;|&nbsp; "
+            f"⏱️ **Duration:** {leg['formatted_duration']}"
+        )
+        
+        # Generate seat data
+        all_seats, occupied_seats = generate_occupied_seats(flight_num, ac["seats"], ac["rows"])
+        
+        col_map, col_info = st.columns([3, 2])
+        
+        # Current selected seat for this leg
+        current_seat = st.session_state.selected_seats.get(flight_num)
+        
+        with col_info:
+            st.markdown("#### 💺 Seat Details & Amenities")
+            
+            # Quick Seat Selector Dropdown
+            available_seats = [s for s in all_seats if s not in occupied_seats]
+            
+            selected_from_dropdown = st.selectbox(
+                f"Choose your seat for {flight_num}:",
+                options=["None Selected"] + available_seats,
+                index=0 if not current_seat or current_seat not in available_seats else available_seats.index(current_seat) + 1,
+                key=f"select_{flight_num}"
+            )
+            
+            if selected_from_dropdown != "None Selected":
+                st.session_state.selected_seats[flight_num] = selected_from_dropdown
+                current_seat = selected_from_dropdown
+            
+            if current_seat:
+                amenities = get_seat_amenities(current_seat)
                 
-                with st.expander(f"Option {idx}: {stop_label} ({itin[0]['Dep']} ➔ {itin[-1]['Arr']})", expanded=(idx==1)):
-                    for leg_i, leg in enumerate(itin, 1):
-                        st.markdown(f"**Leg {leg_i}: Flight {leg['Flight']}**")
-                        st.write(f"🛫 **{leg['Origin']}** ({leg['Dep']}) ➔ 🛬 **{leg['Destination']}** ({leg['Arr']})")
-                        st.caption(f"Duration: {leg['Duration']} mins | Days: {leg['Days']}")
-                        
-                        if leg_i < len(itin):
-                            arr = datetime.strptime(leg['Arr'], "%H:%M")
-                            nxt_dep = datetime.strptime(itin[leg_i]['Dep'], "%H:%M")
-                            layover = int((nxt_dep - arr).total_seconds() / 60)
-                            if layover < 0:
-                                layover += 1440
-                            st.info(f"⏱️ **{layover // 60}h {layover % 60}m layover** in {leg['Destination']}")
+                # Interactive Amenity Card
+                with st.container(border=True):
+                    st.markdown(f"### Seat {amenities['seat']} Details")
+                    st.markdown(f"* **Position:** `{amenities['position']}`")
+                    st.markdown(f"* **Legroom:** {amenities['legroom']}")
+                    st.markdown(f"* **Recline:** {amenities['recline']}")
+                    st.markdown(f"* **⚡ Power Outlet:** {amenities['power']}")
+                    st.markdown(f"* **📶 Wi-Fi:** {amenities['wifi']}")
+                    st.markdown("* **🧳 Storage:** Shared overhead bin space & under-seat storage")
+            else:
+                st.warning("Please choose a seat from the selector or map to inspect amenities.")
+                
+        with col_map:
+            st.markdown("#### 🗺️ Interactive Seat Layout (3x3)")
+            st.caption("🟥 Occupied &nbsp;&nbsp; 🟩 Selected &nbsp;&nbsp; ⬜ Available")
+            
+            # Legend & Row visual generator (first 10 rows for display)
+            with st.container(border=True, height=350):
+                for r in range(1, ac["rows"] + 1):
+                    c1, c2, c3, c_aisle, c4, c5, c6 = st.columns([1, 1, 1, 0.6, 1, 1, 1])
+                    letters = ['A', 'B', 'C', 'D', 'E', 'F']
+                    cols = [c1, c2, c3, c4, c5, c6]
                     
-                    st.button(f"Select Option {idx}", key=f"select_{idx}")
+                    for letter, col in zip(letters, cols):
+                        code = f"{r}{letter}"
+                        is_occ = code in occupied_seats
+                        is_sel = code == current_seat
+                        
+                        btn_label = f"🔴 {code}" if is_occ else (f"🟩 {code}" if is_sel else f"⬜ {code}")
+                        
+                        if col.button(btn_label, key=f"btn_{flight_num}_{code}", disabled=is_occ):
+                            st.session_state.selected_seats[flight_num] = code
+                            st.rerun()
+                    
+                    c_aisle.markdown(f"<p style='text-align: center; color: gray;'>{r}</p>", unsafe_allow_html=True)
+
+        st.divider()
+
+    if st.button("Confirm Booking & Continue", type="primary", use_container_width=True):
+        st.balloons()
+        st.success("🎉 Seats confirmed! Your flight has been booked successfully.")
