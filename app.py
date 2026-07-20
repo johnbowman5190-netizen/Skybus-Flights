@@ -1,4 +1,5 @@
 from collections import deque
+from datetime import datetime
 import random
 import textwrap
 import streamlit as st
@@ -38,12 +39,19 @@ header_css = """
 st.markdown(header_css, unsafe_allow_html=True)
 
 
-# Random Seat Generator (Consistent per flight leg)
+# Dynamic Random Generators (Seeded per flight leg for consistency during navigation)
 def get_random_seat(flight_num):
     random.seed(int(flight_num) + 42)
     row = random.randint(1, 32)
     letter = random.choice(["A", "B", "C", "D", "E", "F"])
     return f"{row}{letter}"
+
+
+def get_random_gate(flight_num):
+    random.seed(int(flight_num) + 99)
+    concourse = random.choice(["A", "B", "C", "D"])
+    gate_num = random.randint(1, 25)
+    return f"{concourse}{gate_num}"
 
 
 # ==========================================
@@ -436,7 +444,7 @@ if "search_results" in st.session_state:
 
 
 # ==========================================
-# 6. MOBILE BOARDING PASS (USING DIRECT HTML COMPONENT)
+# 6. MOBILE BOARDING PASS
 # ==========================================
 
 if "selected_itinerary" in st.session_state:
@@ -459,8 +467,9 @@ if "selected_itinerary" in st.session_state:
 
     active_leg = path[selected_leg_index]
     assigned_seat = get_random_seat(active_leg["Flight"])
+    assigned_gate = get_random_gate(active_leg["Flight"])
+    today_date = datetime.now().strftime("%d %b %Y").upper()
 
-    # Render via components.html to guarantee 0 Markdown code-block errors
     card_html = f"""
     <!DOCTYPE html>
     <html>
@@ -554,20 +563,20 @@ if "selected_itinerary" in st.session_state:
 
                 <div style="display: flex; justify-content: space-between; background: #F8F9FA; padding: 10px; border-radius: 8px; text-align: center;">
                     <div>
+                        <div class="bp-field">Date</div>
+                        <div class="bp-value">{today_date}</div>
+                    </div>
+                    <div>
                         <div class="bp-field">Gate</div>
-                        <div class="bp-value">B12</div>
+                        <div class="bp-value">{assigned_gate}</div>
                     </div>
                     <div>
                         <div class="bp-field">Zone</div>
                         <div class="bp-value">Zone 1</div>
                     </div>
                     <div>
-                        <div class="bp-field">Assigned Seat</div>
+                        <div class="bp-field">Seat</div>
                         <div class="bp-value" style="color: #FF5722;">{assigned_seat}</div>
-                    </div>
-                    <div>
-                        <div class="bp-field">Days</div>
-                        <div class="bp-value">{active_leg['Days']}</div>
                     </div>
                 </div>
 
