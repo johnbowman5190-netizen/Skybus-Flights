@@ -314,6 +314,7 @@ def find_routes(network, origin, destination, max_connections=10):
             queue.append([leg])
 
     valid_paths = []
+    max_search_depth = max_connections if max_connections is not None else 10
 
     while queue:
         path = queue.popleft()
@@ -322,11 +323,12 @@ def find_routes(network, origin, destination, max_connections=10):
 
         if current_node == destination:
             valid_paths.append(path)
-            if len(valid_paths) >= 15:
+            # Allow search to collect options across all hubs rather than stopping at 15 immediately
+            if len(valid_paths) >= 100:
                 break
             continue
 
-        if max_connections is not None and connections >= max_connections:
+        if connections >= max_search_depth:
             continue
 
         visited_airports = {leg["Origin"] for leg in path}
@@ -339,7 +341,11 @@ def find_routes(network, origin, destination, max_connections=10):
             ):
                 queue.append(path + [nxt])
 
-    return valid_paths
+    # Sort routes by shortest number of legs first
+    valid_paths.sort(key=lambda p: len(p))
+    
+    # Return top 15 shortest & most direct options
+    return valid_paths[:15]
 
 
 # ==========================================
