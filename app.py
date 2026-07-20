@@ -1,6 +1,6 @@
+from collections import deque
 import random
 import textwrap
-from collections import deque
 import streamlit as st
 
 # ==========================================
@@ -12,7 +12,7 @@ st.set_page_config(
     layout="wide",
 )
 
-# Skybus Custom CSS
+# Skybus Custom CSS (Dedented to prevent raw code block rendering)
 css_styles = textwrap.dedent("""
 <style>
     .skybus-header {
@@ -83,13 +83,13 @@ css_styles = textwrap.dedent("""
         font-size: 13px;
     }
 </style>
-""")
+""").strip()
+
 st.markdown(css_styles, unsafe_allow_html=True)
 
 
-# Dynamic Random Seat Generator
+# Random Seat Generator (Consistent per flight leg)
 def get_random_seat(flight_num):
-    # Seeded by flight number so each leg gets a consistent seat during navigation
     random.seed(int(flight_num) + 42)
     row = random.randint(1, 32)
     letter = random.choice(["A", "B", "C", "D", "E", "F"])
@@ -101,7 +101,7 @@ def get_random_seat(flight_num):
 # ==========================================
 
 routes_raw = [
-    # Inter-Base Transcontinental & Trunk Bridges
+    # Inter-Base Transcontinental Bridges
     (100, "KBGR", "KSFB", "Daily"),
     (102, "KIWA", "KBLI", "Daily"),
     (104, "TJBQ", "KSFB", "Daily"),
@@ -351,37 +351,32 @@ def find_routes(network, origin, destination, max_connections=10):
 # 4. APP UI
 # ==========================================
 
-st.markdown(
-    """
+header_html = textwrap.dedent("""
 <div class="skybus-header">
     <h1>✈️ SKYBUS AIRLINES</h1>
     <p style="margin:4px 0 0 0; opacity: 0.9;">Network Route Search & Mobile Boarding System</p>
 </div>
-""",
-    unsafe_allow_html=True,
-)
+""").strip()
+st.markdown(header_html, unsafe_allow_html=True)
 
 p_col1, p_col2 = st.columns(2)
 with p_col1:
-    st.markdown(
-        """
+    card1 = textwrap.dedent("""
     <div class="info-card">
         <div style="font-size: 11px; color: #888; font-weight: bold; text-transform: uppercase;">Passenger</div>
         <div style="font-size: 18px; font-weight: bold; color: #111;">👤 John Bowman</div>
     </div>
-    """,
-        unsafe_allow_html=True,
-    )
+    """).strip()
+    st.markdown(card1, unsafe_allow_html=True)
+
 with p_col2:
-    st.markdown(
-        """
+    card2 = textwrap.dedent("""
     <div class="info-card">
         <div style="font-size: 11px; color: #888; font-weight: bold; text-transform: uppercase;">In-Flight Wi-Fi</div>
         <div style="font-size: 18px; font-weight: bold; color: #FF5722;">📶 High-Speed SkyFly</div>
     </div>
-    """,
-        unsafe_allow_html=True,
-    )
+    """).strip()
+    st.markdown(card2, unsafe_allow_html=True)
 
 network = get_full_network()
 all_airports = sorted(list(set([f["Origin"] for f in network])))
@@ -485,7 +480,7 @@ if "search_results" in st.session_state:
 
 
 # ==========================================
-# 6. MOBILE BOARDING PASS (WITH RANDOM SEAT)
+# 6. MOBILE BOARDING PASS (DEDENTED FIXED HTML)
 # ==========================================
 
 if "selected_itinerary" in st.session_state:
@@ -509,9 +504,7 @@ if "selected_itinerary" in st.session_state:
     active_leg = path[selected_leg_index]
     assigned_seat = get_random_seat(active_leg["Flight"])
 
-    # Render clean Card UI
-    st.markdown(
-        f"""
+    bp_card_html = textwrap.dedent(f"""
     <div class="boarding-pass-card">
         <div class="bp-header">
             <div>
@@ -570,6 +563,6 @@ if "selected_itinerary" in st.session_state:
             </div>
         </div>
     </div>
-    """,
-        unsafe_allow_html=True,
-    )
+    """).strip()
+
+    st.markdown(bp_card_html, unsafe_allow_html=True)
