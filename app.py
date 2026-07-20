@@ -1,550 +1,534 @@
-import streamlit as st
+import csv
+import io
 from datetime import datetime, timedelta
-import random
-import string
+from collections import deque
+import streamlit as st
 
-# Page Configuration
+# ==========================================
+# 1. PAGE CONFIG & SKYBUS CUSTOM BRANDING
+# ==========================================
 st.set_page_config(
-    page_title="Skybus Airlines - Flight Search & Boarding Pass",
+    page_title="Skybus Operations & Boarding System",
     page_icon="✈️",
     layout="wide"
 )
 
-# -----------------------------------------------------------------------------
-# SKYBUS ORANGE & WHITE BRANDING + MOBILE PHONE FRAME STYLING
-# -----------------------------------------------------------------------------
+# Custom CSS for Skybus #FF5722 Vibrant Orange Theme & Boarding Pass Styling
 st.markdown("""
-    <style>
-    /* Primary Orange Color Scheme Override */
+<style>
+    /* Skybus Brand Colors */
     :root {
-        --skybus-orange: #FF5500;
-        --skybus-orange-hover: #E04B00;
-        --skybus-light-orange: #FFF0E6;
+        --skybus-orange: #FF5722;
+        --skybus-dark: #1A1A1A;
+        --skybus-light: #F4F6F8;
     }
     
-    /* Streamlit Primary Buttons in Skybus Orange */
-    div.stButton > button[kind="primary"] {
-        background-color: #FF5500 !important;
-        border-color: #FF5500 !important;
-        color: #FFFFFF !important;
-        font-weight: bold !important;
+    /* Header Styling */
+    .skybus-header {
+        background-color: #FF5722;
+        color: white;
+        padding: 20px 25px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 12px rgba(255, 87, 34, 0.25);
     }
-    div.stButton > button[kind="primary"]:hover {
-        background-color: #E04B00 !important;
-        border-color: #E04B00 !important;
+    
+    .skybus-header h1 {
+        margin: 0;
+        font-weight: 800;
+        letter-spacing: 1px;
     }
-
-    /* Mobile Phone Shell Container */
-    .phone-container {
-        width: 100%;
-        max-width: 380px;
-        margin: 0 auto;
-        background-color: #0F0F0F;
-        border-radius: 36px;
-        padding: 12px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        border: 4px solid #333333;
+    
+    /* Passenger & Wi-Fi Banner */
+    .info-card {
+        background: #FFFFFF;
+        border-left: 5px solid #FF5722;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        margin-bottom: 20px;
     }
-    .phone-screen {
-        background: linear-gradient(180deg, #FF5500 0%, #E04B00 140px, #F8F9FA 140px);
-        border-radius: 28px;
-        padding: 16px 16px 24px 16px;
-        color: #1E293B;
-        min-height: 620px;
+    
+    /* Boarding Pass Modal/Card */
+    .boarding-pass {
+        background: white;
+        border: 2px solid #FF5722;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        margin-top: 15px;
+        margin-bottom: 25px;
+        color: #333;
+    }
+    
+    .bp-header {
+        background-color: #FF5722;
+        color: white;
+        padding: 15px 20px;
         display: flex;
-        flex-direction: column;
         justify-content: space-between;
+        align-items: center;
     }
-    .phone-status-bar {
-        display: flex;
-        justify-content: space-between;
-        color: #FFFFFF;
-        font-size: 11px;
+    
+    .bp-body {
+        padding: 20px;
+    }
+    
+    .bp-field {
+        font-size: 12px;
+        color: #777;
+        text-transform: uppercase;
+        margin-bottom: 2px;
         font-weight: 600;
-        margin-bottom: 12px;
-        padding: 0 6px;
     }
-    .phone-card {
-        background-color: #FFFFFF;
-        border-radius: 18px;
-        padding: 18px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-        margin-top: 10px;
+    
+    .bp-value {
+        font-size: 16px;
+        font-weight: 700;
+        color: #222;
     }
-    .phone-stub {
-        background-color: #FFFFFF;
-        border-radius: 18px;
-        padding: 16px;
-        border-top: 2px dashed #CBD5E1;
-        margin-top: 2px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-        text-align: center;
-    }
-    .barcode-text {
+    
+    .barcode {
         font-family: 'Courier New', Courier, monospace;
-        letter-spacing: 5px;
+        background: #f0f0f0;
+        letter-spacing: 4px;
+        padding: 10px;
+        text-align: center;
+        border-radius: 6px;
         font-weight: bold;
-        font-size: 20px;
-        color: #0F172A;
+        margin-top: 15px;
+        border: 1px dashed #ccc;
     }
-    .home-indicator {
-        width: 120px;
-        height: 4px;
-        background-color: #CBD5E1;
-        border-radius: 2px;
-        margin: 16px auto 0 auto;
+    
+    .stButton>button {
+        background-color: #FF5722 !important;
+        color: white !important;
+        border: none !important;
+        font-weight: bold !important;
+        border-radius: 6px !important;
     }
-    </style>
+</style>
 """, unsafe_allow_html=True)
 
-# -----------------------------------------------------------------------------
-# 1. FULL ROUTE NETWORK (60+ DIRECT LEGS LINKING ALL 18 BASES)
-# -----------------------------------------------------------------------------
 
-ROUTES_RAW = [
-    # KSFB Base Trunks & Spokes
-    ("KSFB", "KBGR", 185), ("KSFB", "KIWA", 270), ("KSFB", "KMSY", 120), ("KSFB", "TJBQ", 175),
-    ("KSFB", "KRIC", 110), ("KSFB", "KEYW", 75),  ("KSFB", "KGRR", 130), ("KSFB", "KSWF", 140),
-    ("KSFB", "KBLI", 310), ("KSFB", "PAFA", 410), ("KSFB", "KOMA", 155), ("KSFB", "KPVU", 250),
-    
-    # KBGR Base Trunks & Spokes
-    ("KBGR", "KSWF", 75),  ("KBGR", "TJBQ", 240), ("KBGR", "KBLI", 310), ("KBGR", "KRIC", 95),
-    ("KBGR", "PAFA", 380), ("KBGR", "KIWA", 290), ("KBGR", "KGRR", 115), ("KBGR", "KMSY", 210),
-    
-    # KIWA Base Trunks & Spokes
-    ("KIWA", "KBLI", 195), ("KIWA", "PAFA", 330), ("KIWA", "KPVU", 85),  ("KIWA", "KMSY", 180),
-    ("KIWA", "KOMA", 140), ("KIWA", "KSFB", 270), ("KIWA", "KRIC", 240), ("KIWA", "KGRR", 210),
-    
-    # KBLI Base Trunks & Spokes
-    ("KBLI", "PAFA", 210), ("KBLI", "KPVU", 115), ("KBLI", "EGKK", 560), ("KBLI", "KBGR", 310),
-    ("KBLI", "RJAA", 520), ("KBLI", "RKSI", 550), ("KBLI", "KOMA", 190), ("KBLI", "KSFB", 310),
-    
-    # PAFA Base Trunks & Spokes
-    ("PAFA", "PANC", 55),  ("PAFA", "PAYA", 80),  ("PAFA", "RJAA", 430), ("PAFA", "RKSI", 460),
-    ("PAFA", "KIWA", 330), ("PAFA", "EGKK", 580), ("PAFA", "KBLI", 210), ("PAFA", "KSFB", 410),
-    
-    # KMSY Base Trunks & Spokes
-    ("KMSY", "KOMA", 135), ("KMSY", "KRIC", 100), ("KMSY", "KSFB", 120), ("KMSY", "PAFA", 390),
-    ("KMSY", "TJBQ", 190), ("KMSY", "KIWA", 180), ("KMSY", "KBGR", 210),
-    
-    # Feeders & Connectors
-    ("KSWF", "KGRR", 105), ("KSWF", "KRIC", 80),  ("KPVU", "KBLI", 115), ("KPVU", "KIWA", 85),
-    ("PANC", "PAYA", 45),  ("TJBQ", "KSFB", 175), ("KEYW", "KSFB", 75),  ("KOMA", "KGRR", 90),
-    ("KRIC", "KSWF", 80),  ("KGRR", "KOMA", 90)
+# ==========================================
+# 2. ROUTE NETWORK DATASET GENERATION
+# ==========================================
+
+routes_data = [
+    # --- Inter-Base Trunk Network (100-299) ---
+    (100, "KBGR", "KSFB", 185, "Daily"),
+    (102, "KIWA", "KBLI", 195, "Daily"),
+    (104, "TJBQ", "KSFB", 175, "Daily"),
+    (106, "PAFA", "KBLI", 210, "Daily"),
+    (108, "KBGR", "TJBQ", 240, "Mon,Wed,Fri,Sun"),
+    (110, "KIWA", "PAFA", 330, "Mon,Tue,Thu,Sat"),
+    (200, "KSFB", "KRIC", 110, "Daily"),
+    (202, "KIWA", "KPVU", 85, "Daily"),
+    (204, "KGRR", "KSWF", 105, "Mon,Wed,Fri,Sun"),
+    (206, "KMSY", "KOMA", 135, "Tue,Thu,Sat,Sun"),
+    (208, "KSFB", "KMSY", 120, "Daily"),
+    (210, "KBLI", "KPVU", 115, "Mon,Wed,Fri"),
+
+    # --- Hub 1: KBGR Spokes (300-319) ---
+    (300, "KBGR", "KBOS", 55, "Daily"),
+    (302, "KBGR", "KPWM", 40, "Daily"),
+    (304, "KBGR", "KPVD", 65, "Daily"),
+    (306, "KBGR", "KBTV", 60, "Mon,Wed,Fri"),
+    (308, "KBGR", "KACK", 50, "Tue,Thu,Sat,Sun"),
+    (310, "KBGR", "KMVY", 50, "Fri,Sat,Sun"),
+    (312, "KBGR", "KBDL", 70, "Daily"),
+    (314, "KBGR", "KSYR", 80, "Mon,Wed,Fri"),
+    (316, "KBGR", "KROC", 90, "Tue,Thu,Sat"),
+    (318, "KBGR", "KPBG", 60, "Mon,Fri"),
+
+    # --- Hub 2: KSFB Spokes (400-419) ---
+    (400, "KSFB", "KEYW", 70, "Daily"),
+    (402, "KSFB", "KPNS", 75, "Daily"),
+    (404, "KSFB", "KTLH", 55, "Daily"),
+    (406, "KSFB", "KCHS", 65, "Daily"),
+    (408, "KSFB", "KSAV", 60, "Mon,Wed,Fri,Sun"),
+    (410, "KSFB", "KBHM", 90, "Tue,Thu,Sat"),
+    (412, "KSFB", "KGSP", 80, "Mon,Wed,Fri"),
+    (414, "KSFB", "KMYR", 70, "Daily"),
+    (416, "KSFB", "KAGS", 75, "Tue,Thu,Sat"),
+    (418, "KSFB", "KCAE", 70, "Mon,Wed,Fri,Sun"),
+
+    # --- Hub 3: TJBQ Spokes (500-519) ---
+    (500, "TJBQ", "TJSJ", 35, "Daily"),
+    (502, "TJBQ", "TIST", 50, "Daily"),
+    (504, "TJBQ", "TISX", 55, "Daily"),
+    (506, "TJBQ", "TJPS", 30, "Daily"),
+    (508, "TJBQ", "TJIG", 35, "Daily"),
+    (510, "TJBQ", "TNCM", 75, "Mon,Wed,Fri,Sun"),
+    (512, "TJBQ", "MDPC", 45, "Daily"),
+    (514, "TJBQ", "MDSD", 50, "Daily"),
+    (516, "TJBQ", "MBPV", 80, "Tue,Thu,Sat"),
+    (518, "TJBQ", "MYNN", 110, "Mon,Fri"),
+
+    # --- Hub 4: KIWA Spokes (600-619) ---
+    (600, "KIWA", "KLAS", 60, "Daily"),
+    (602, "KIWA", "KSAN", 65, "Daily"),
+    (604, "KIWA", "KPSP", 55, "Daily"),
+    (606, "KIWA", "KTUS", 40, "Daily"),
+    (608, "KIWA", "KFLG", 40, "Daily"),
+    (610, "KIWA", "KABQ", 70, "Daily"),
+    (612, "KIWA", "KSLC", 95, "Daily"),
+    (614, "KIWA", "KRNO", 100, "Mon,Wed,Fri,Sun"),
+    (616, "KIWA", "KFAT", 85, "Tue,Thu,Sat"),
+    (618, "KIWA", "KOAK", 115, "Daily"),
+
+    # --- Hub 5: KBLI Spokes (700-719) ---
+    (700, "KBLI", "KGEG", 60, "Daily"),
+    (702, "KBLI", "KYKM", 50, "Mon,Wed,Fri"),
+    (704, "KBLI", "KPSC", 55, "Daily"),
+    (706, "KBLI", "KEAT", 45, "Tue,Thu,Sat"),
+    (708, "KBLI", "KALW", 60, "Mon,Fri"),
+    (710, "KBLI", "KRDM", 75, "Daily"),
+    (712, "KBLI", "KEUG", 70, "Daily"),
+    (714, "KBLI", "KMFR", 85, "Mon,Wed,Fri,Sun"),
+    (716, "KBLI", "KOTH", 80, "Tue,Thu,Sat"),
+    (718, "KBLI", "KLWS", 70, "Mon,Wed,Fri"),
+
+    # --- Hub 6: PAFA Spokes (900-919) ---
+    (900, "PAFA", "PANC", 55, "Daily"),
+    (902, "PAFA", "PAJN", 85, "Daily"),
+    (904, "PAFA", "PAKT", 115, "Mon,Wed,Fri,Sun"),
+    (906, "PAFA", "PASI", 100, "Tue,Thu,Sat"),
+    (908, "PAFA", "PABR", 80, "Daily"),
+    (910, "PAFA", "PAOT", 75, "Mon,Wed,Fri"),
+    (912, "PAFA", "PAOM", 80, "Daily"),
+    (914, "PAFA", "PABE", 70, "Mon,Wed,Fri,Sun"),
+    (916, "PAFA", "PACV", 65, "Tue,Thu,Sat"),
+    (918, "PAFA", "PAPG", 95, "Mon,Fri"),
+
+    # --- Focus Cities (1000-1519) ---
+    (1000, "KSWF", "KALB", 40, "Daily"), (1002, "KSWF", "KSYR", 50, "Daily"),
+    (1004, "KSWF", "KROC", 60, "Mon,Wed,Fri"), (1006, "KSWF", "KBUF", 70, "Daily"),
+    (1008, "KSWF", "KBTV", 50, "Tue,Thu,Sat"), (1010, "KSWF", "KMHT", 45, "Daily"),
+    (1012, "KSWF", "KPVD", 45, "Daily"), (1014, "KSWF", "KORF", 80, "Mon,Wed,Fri,Sun"),
+    (1016, "KSWF", "KABE", 35, "Daily"), (1018, "KSWF", "KAVP", 35, "Tue,Thu,Sat"),
+
+    (1100, "KRIC", "KROA", 45, "Daily"), (1102, "KRIC", "KCHO", 35, "Daily"),
+    (1104, "KRIC", "KLYH", 40, "Mon,Wed,Fri"), (1106, "KRIC", "KILM", 55, "Daily"),
+    (1108, "KRIC", "KEWN", 50, "Tue,Thu,Sat"), (1110, "KRIC", "KOAJ", 50, "Mon,Wed,Fri"),
+    (1112, "KRIC", "KTRI", 65, "Daily"), (1114, "KRIC", "KCHS", 70, "Daily"),
+    (1116, "KRIC", "KAVL", 75, "Tue,Thu,Sat,Sun"), (1118, "KRIC", "KSBY", 40, "Mon,Fri"),
+
+    (1200, "KMSY", "KBTR", 35, "Daily"), (1202, "KMSY", "KLFT", 40, "Daily"),
+    (1204, "KMSY", "KLCH", 50, "Mon,Wed,Fri"), (1206, "KMSY", "KMOB", 45, "Daily"),
+    (1208, "KMSY", "KGPT", 35, "Daily"), (1210, "KMSY", "KHSV", 75, "Tue,Thu,Sat"),
+    (1212, "KMSY", "KJAN", 55, "Daily"), (1214, "KMSY", "KSHV", 70, "Mon,Wed,Fri,Sun"),
+    (1216, "KMSY", "KLIT", 75, "Daily"), (1218, "KMSY", "KPNS", 50, "Daily"),
+
+    (1300, "KGRR", "KTVC", 45, "Daily"), (1302, "KGRR", "KMQT", 65, "Mon,Wed,Fri"),
+    (1304, "KGRR", "KPLN", 55, "Tue,Thu,Sat"), (1306, "KGRR", "KAZO", 30, "Daily"),
+    (1308, "KGRR", "KLAN", 30, "Daily"), (1310, "KGRR", "KFNT", 35, "Daily"),
+    (1312, "KGRR", "KMSN", 50, "Mon,Wed,Fri,Sun"), (1314, "KGRR", "KGRB", 45, "Daily"),
+    (1316, "KGRR", "KATW", 45, "Tue,Thu,Sat"), (1318, "KGRR", "KSBN", 35, "Daily"),
+
+    (1400, "KOMA", "KLNK", 30, "Daily"), (1402, "KOMA", "KGRI", 45, "Daily"),
+    (1404, "KOMA", "KEAR", 50, "Mon,Wed,Fri"), (1406, "KOMA", "KLBF", 60, "Tue,Thu,Sat"),
+    (1408, "KOMA", "KBFF", 85, "Mon,Fri"), (1410, "KOMA", "KSUX", 35, "Daily"),
+    (1412, "KOMA", "KFSD", 50, "Daily"), (1414, "KOMA", "KDSM", 40, "Daily"),
+    (1416, "KOMA", "KCID", 50, "Mon,Wed,Fri,Sun"), (1418, "KOMA", "KRST", 55, "Tue,Thu,Sat"),
+
+    (1500, "KPVU", "KCDC", 50, "Daily"), (1502, "KPVU", "KSGU", 55, "Daily"),
+    (1504, "KPVU", "KEKO", 60, "Mon,Wed,Fri"), (1506, "KPVU", "KPIH", 45, "Daily"),
+    (1508, "KPVU", "KIDA", 55, "Daily"), (1510, "KPVU", "KTWF", 50, "Tue,Thu,Sat"),
+    (1512, "KPVU", "KBOI", 70, "Daily"), (1514, "KPVU", "KJAC", 65, "Mon,Wed,Fri,Sun"),
+    (1516, "KPVU", "KWYS", 60, "Fri,Sat,Sun"), (1518, "KPVU", "KBZN", 75, "Daily"),
+
+    # --- International Routes (800-871) ---
+    (800, "KBGR", "CYHZ", 75, "Daily"), (802, "KBGR", "CYUL", 70, "Daily"),
+    (804, "KBGR", "CYYT", 130, "Mon,Wed,Fri"), (806, "KBGR", "TXKF", 145, "Tue,Thu,Sat,Sun"),
+    (808, "KBGR", "EINN", 360, "Mon,Wed,Fri,Sun"),
+    (810, "KSFB", "MYNN", 75, "Daily"), (812, "KSFB", "MKJS", 115, "Daily"),
+    (814, "KSFB", "MBPV", 125, "Tue,Thu,Sat"), (816, "KSFB", "MROC", 210, "Mon,Wed,Fri,Sun"),
+    (818, "KSFB", "MPTO", 230, "Tue,Thu,Sat"),
+    (820, "TJBQ", "MDPC", 45, "Daily"), (822, "TJBQ", "TNCM", 75, "Daily"),
+    (824, "TJBQ", "SKBO", 210, "Mon,Wed,Fri"), (826, "TJBQ", "TAPA", 95, "Tue,Thu,Sat"),
+    (828, "TJBQ", "MYNN", 110, "Mon,Fri"),
+    (830, "KIWA", "MMSD", 105, "Daily"), (832, "KIWA", "MMPR", 140, "Daily"),
+    (834, "KIWA", "MMME", 120, "Mon,Wed,Fri,Sun"), (836, "KIWA", "MMGL", 150, "Tue,Thu,Sat"),
+    (838, "KIWA", "MMMX", 195, "Daily"),
+    (840, "KBLI", "CYVR", 35, "Daily"), (842, "KBLI", "CYYJ", 30, "Daily"),
+    (844, "KBLI", "CYYC", 90, "Daily"), (846, "KBLI", "CYEG", 110, "Mon,Wed,Fri,Sun"),
+    (848, "KBLI", "MMSD", 260, "Tue,Thu,Sat"),
+    (850, "PAFA", "CYXY", 85, "Mon,Wed,Fri"), (852, "PAFA", "CYZF", 120, "Tue,Thu,Sat"),
+    (854, "PAFA", "CYEG", 210, "Mon,Wed,Fri,Sun"), (856, "PAFA", "RJAA", 430, "Wed,Fri,Sun"),
+    (858, "PAFA", "RKSI", 460, "Tue,Thu,Sat"),
+    (860, "KBGR", "EGSS", 390, "Daily"), (862, "KBGR", "LFOB", 410, "Mon,Wed,Fri,Sun"),
+    (864, "KBGR", "LIME", 450, "Tue,Thu,Sat"), (866, "KBGR", "EICK", 370, "Mon,Wed,Fri"),
+    (868, "KBGR", "LEGE", 440, "Tue,Thu,Sat,Sun"), (870, "KBGR", "EDJA", 430, "Mon,Thu,Sat")
 ]
 
-# Generate Bidirectional Catalog
-ROUTES_DATA = []
-flt_num = 100
-for orig, dest, dur in ROUTES_RAW:
-    ROUTES_DATA.append((flt_num, orig, dest, dur, "Daily"))
-    ROUTES_DATA.append((flt_num + 1, dest, orig, dur, "Daily"))
-    flt_num += 2
-
-DEP_WAVES = ["06:00", "10:30", "15:00", "19:30"]
-
-AIRCRAFT_FLEET = {
-    "A319": {"model": "Airbus A319", "seats": 150, "rows": 25, "tails": ["N800SB", "N801SB", "N802SB"]},
-    "A320": {"model": "Airbus A320", "seats": 180, "rows": 30, "tails": ["N804SB", "N805SB", "N806SB"]},
-    "A321": {"model": "Airbus A321", "seats": 220, "rows": 37, "tails": ["N808SB", "N809SB", "N810SB"]}
-}
-
-# -----------------------------------------------------------------------------
-# 2. HELPER FUNCTIONS
-# -----------------------------------------------------------------------------
-
-def format_duration(minutes: int) -> str:
-    h, m = divmod(minutes, 60)
-    if h == 0: return f"{m}m"
-    if m == 0: return f"{h}h"
-    return f"{h}h {m}m"
-
-def get_row_list(total_rows: int) -> list:
-    """Generates aircraft row numbers skipping Row 13."""
-    rows = []
-    curr = 1
-    while len(rows) < total_rows:
-        if curr != 13:
-            rows.append(curr)
-        curr += 1
-    return rows
-
-def calculate_leg_price(duration_mins: int, dest: str) -> int:
-    is_intl = dest in ["RJAA", "RKSI", "EGKK", "TJBQ"]
-    rate = 0.70 if is_intl else 0.48
-    return round(45.0 + (duration_mins * rate))
-
-def calculate_itinerary_price(itin: list) -> int:
-    total = sum(calculate_leg_price(leg["Duration"], leg["Destination"]) for leg in itin)
-    if len(itin) > 1:
-        total *= 0.85
-    return round(total)
-
-def assign_aircraft(flight_num: str, duration_mins: int) -> dict:
-    rng = random.Random(hash(flight_num))
-    ac_key = "A321" if duration_mins >= 240 else ("A320" if duration_mins >= 120 else rng.choice(["A319", "A320"]))
-    spec = AIRCRAFT_FLEET[ac_key]
-    return {
-        "type": ac_key,
-        "model": spec["model"],
-        "tail": rng.choice(spec["tails"]),
-        "seats": spec["seats"],
-        "rows": spec["rows"]
-    }
-
 @st.cache_data
-def get_flight_catalog():
-    catalog = []
-    for num, orig, dest, dur, freq in ROUTES_DATA:
-        for wave in DEP_WAVES:
-            flt_id = f"SB{num}-{wave.replace(':', '')}"
-            dep_time = datetime.strptime(wave, "%H:%M")
-            arr_time = dep_time + timedelta(minutes=dur)
-            catalog.append({
-                "FlightNum": f"SB{num}",
-                "FlightID": flt_id,
-                "Origin": orig,
-                "Destination": dest,
-                "Duration": dur,
-                "DepTime": dep_time,
-                "ArrTime": arr_time,
-                "DepStr": wave,
-                "ArrStr": arr_time.strftime("%H:%M"),
-                "Frequency": freq,
-                "Aircraft": assign_aircraft(flt_id, dur)
-            })
-    return catalog
-
-def search_flights_unconstrained(origin, destination):
-    """Unconstrained search: returns all direct and multi-leg connections sorted by duration."""
-    catalog = get_flight_catalog()
-    results, queue = [], []
-    
-    for flight in catalog:
-        if flight["Origin"] == origin:
-            queue.append((flight["Destination"], flight["ArrTime"], [flight]))
-            
-    while queue:
-        curr_apt, curr_time, path = queue.pop(0)
-        if curr_apt == destination:
-            results.append(path)
-            if len(results) >= 25: break
-            continue
-        if len(path) >= 3:
-            continue
-            
-        for flight in catalog:
-            if flight["Origin"] == curr_apt:
-                layover_mins = (flight["DepTime"] - curr_time).total_seconds() / 60.0
-                if layover_mins < 0:
-                    layover_mins += 1440
-                layover_hrs = layover_mins / 60.0
-                if 0.5 <= layover_hrs <= 24.0:
-                    queue.append((flight["Destination"], flight["ArrTime"], path + [flight]))
-                    
-    results.sort(key=lambda p: sum(l["Duration"] for l in p))
-    return results
-
-@st.cache_data
-def generate_occupied_seats(flight_num: str, total_seats: int, total_rows: int):
-    rng = random.Random(hash(flight_num) + 42)
-    num_occupied = rng.randint(int(total_seats * 0.40), int(total_seats * 0.65))
-    rows = get_row_list(total_rows)
-    all_seats = []
-    for r in rows:
-        for letter in ['A', 'B', 'C', 'D', 'E', 'F']:
-            all_seats.append(f"{r}{letter}")
-            if len(all_seats) == total_seats: break
-        if len(all_seats) == total_seats: break
-    return set(rng.sample(all_seats, num_occupied)), rows, all_seats
-
-def get_seat_amenities(seat_code: str):
-    row = int(seat_code[:-1])
-    letter = seat_code[-1]
-    pos_map = {'A': 'Window (Left)', 'B': 'Middle (Left)', 'C': 'Aisle (Left)', 'D': 'Aisle (Right)', 'E': 'Middle (Right)', 'F': 'Window (Right)'}
-    is_exit = row in [12, 14]
-    return {
-        'seat': seat_code,
-        'position': pos_map.get(letter, 'Standard Seat'),
-        'legroom': 'Extra Legroom Exit Row (34" Pitch)' if is_exit else 'Standard Economy (30" Pitch)',
-        'recline': 'Full Recline' if is_exit else 'Standard Recline (3")',
-        'power': 'Shared In-Seat USB & Power Outlet',
-        'wifi': 'High-Speed Skybus In-Flight Wi-Fi'
-    }
-
-# -----------------------------------------------------------------------------
-# 3. SESSION STATE MANAGEMENT
-# -----------------------------------------------------------------------------
-if "page" not in st.session_state:
-    st.session_state.page = "search"
-if "selected_itinerary" not in st.session_state:
-    st.session_state.selected_itinerary = None
-if "selected_seats" not in st.session_state:
-    st.session_state.selected_seats = {}
-if "pnr" not in st.session_state:
-    st.session_state.pnr = None
-if "active_bp_index" not in st.session_state:
-    st.session_state.active_bp_index = 0
-if "show_boarding_pass" not in st.session_state:
-    st.session_state.show_boarding_pass = False
-
-PASSENGER_NAME = "John Bowman"
-
-# -----------------------------------------------------------------------------
-# VIEW 1: FLIGHT SEARCH & SELECTION
-# -----------------------------------------------------------------------------
-if st.session_state.page == "search":
-    st.title("🍊 Skybus - Search Flights")
-    st.caption("Connecting 18 bases, feeders, and international hubs worldwide.")
-    
-    catalog = get_flight_catalog()
-    all_airports = sorted(list(set([f["Origin"] for f in catalog] + [f["Destination"] for f in catalog])))
-    
-    col_a, col_b = st.columns(2)
-    with col_a:
-        origin = st.selectbox("From (Origin)", options=all_airports, index=all_airports.index("KSFB") if "KSFB" in all_airports else 0)
-    with col_b:
-        dest_options = [a for a in all_airports if a != origin]
-        destination = st.selectbox("To (Destination)", options=dest_options, index=dest_options.index("KBGR") if "KBGR" in dest_options else 0)
+def load_schedule_list():
+    outbound_time = datetime.strptime("08:00", "%H:%M")
+    flights = []
+    for flt_out, orig, dest, duration, days in routes_data:
+        flt_in = flt_out + 1
+        dep_out_str = outbound_time.strftime("%H:%M")
+        arr_out_time = outbound_time + timedelta(minutes=duration)
+        arr_out_str = arr_out_time.strftime("%H:%M")
         
-    st.divider()
-    
-    itineraries = search_flights_unconstrained(origin, destination)
-    st.markdown(f"**Found {len(itineraries)} flight option(s) for `{origin}` ➔ `{destination}`**")
-    
-    if not itineraries:
-        st.warning("No connections available for this airport pair.")
+        flights.append({
+            "Flight_Number": flt_out, "Origin": orig, "Destination": dest,
+            "Days_Of_Week": days, "Departure_Time": dep_out_str,
+            "Arrival_Time": arr_out_str, "Duration_Mins": duration
+        })
+        
+        inbound_dep_time = arr_out_time + timedelta(minutes=60)
+        dep_in_str = inbound_dep_time.strftime("%H:%M")
+        arr_in_time = inbound_dep_time + timedelta(minutes=duration)
+        arr_in_str = arr_in_time.strftime("%H:%M")
+        
+        flights.append({
+            "Flight_Number": flt_in, "Origin": dest, "Destination": orig,
+            "Days_Of_Week": days, "Departure_Time": dep_in_str,
+            "Arrival_Time": arr_in_str, "Duration_Mins": duration
+        })
+    return flights
+
+
+# ==========================================
+# 3. ITINERARY SEARCH ENGINE (BFS)
+# ==========================================
+
+class FlightSearchEngine:
+    def __init__(self, flights_data):
+        self.flights = flights_data
+
+    @staticmethod
+    def parse_time(time_str):
+        return datetime.strptime(time_str, "%H:%M")
+
+    def search_itinerary(self, origin, destination, max_connections=2):
+        origin = origin.upper()
+        destination = destination.upper()
+        
+        queue = deque()
+        valid_itineraries = []
+
+        for flight in self.flights:
+            if flight["Origin"] == origin:
+                queue.append([flight])
+
+        while queue:
+            path = queue.popleft()
+            current_leg = path[-1]
+            current_dest = current_leg["Destination"]
+            connections_used = len(path) - 1
+
+            if current_dest == destination:
+                valid_itineraries.append(path)
+                continue
+
+            # Connection check
+            if max_connections is None or connections_used < max_connections:
+                last_arr_time = self.parse_time(current_leg["Arrival_Time"])
+                
+                for next_flight in self.flights:
+                    if next_flight["Origin"] == current_dest:
+                        visited_airports = {f["Origin"] for f in path}
+                        if next_flight["Destination"] in visited_airports:
+                            continue
+                            
+                        next_dep_time = self.parse_time(next_flight["Departure_Time"])
+                        layover_mins = (next_dep_time - last_arr_time).total_seconds() / 60
+                        
+                        if 45 <= layover_mins <= 360:
+                            queue.append(path + [next_flight])
+
+        return valid_itineraries
+
+
+# ==========================================
+# 4. STREAMLIT UI IMPLEMENTATION
+# ==========================================
+
+# Header Banner
+st.markdown("""
+<div class="skybus-header">
+    <h1>✈️ SKYBUS AIRLINES</h1>
+    <p style="margin: 5px 0 0 0; font-weight: 500;">Flight Operations & Mobile Boarding System</p>
+</div>
+""", unsafe_allow_html=True)
+
+# Passenger Profile & Wi-Fi Details
+col_pass, col_wifi = st.columns(2)
+with col_pass:
+    st.markdown("""
+    <div class="info-card">
+        <div style="font-size: 11px; color: #888; font-weight: bold; text-transform: uppercase;">Passenger Profile</div>
+        <div style="font-size: 18px; font-weight: bold; color: #111;">👤 John Bowman</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col_wifi:
+    st.markdown("""
+    <div class="info-card">
+        <div style="font-size: 11px; color: #888; font-weight: bold; text-transform: uppercase;">In-Flight Wi-Fi Status</div>
+        <div style="font-size: 18px; font-weight: bold; color: #FF5722;">📶 High-Speed SkyFly (Active)</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# Load engine
+flights_data = load_schedule_list()
+engine = FlightSearchEngine(flights_data)
+
+# Extract unique airport codes for dropdowns
+all_airports = sorted(list(set([f["Origin"] for f in flights_data] + [f["Destination"] for f in flights_data])))
+
+st.subheader("🔍 Search Flight Itineraries")
+
+# Search Controls
+s_col1, s_col2, s_col3 = st.columns(3)
+
+with s_col1:
+    origin_input = st.selectbox("Origin Airport", options=all_airports, index=all_airports.index("KBGR") if "KBGR" in all_airports else 0)
+
+with s_col2:
+    dest_input = st.selectbox("Destination Airport", options=all_airports, index=all_airports.index("KSFB") if "KSFB" in all_airports else 1)
+
+with s_col3:
+    conn_option = st.selectbox(
+        "Maximum Connections Allowed",
+        options=["0 (Nonstop Only)", "1 Connection", "2 Connections", "3 Connections", "4 Connections", "Unlimited"]
+    )
+
+# Map connection selection
+if "0" in conn_option:
+    max_conn_val = 0
+elif "1" in conn_option:
+    max_conn_val = 1
+elif "2" in conn_option:
+    max_conn_val = 2
+elif "3" in conn_option:
+    max_conn_val = 3
+elif "4" in conn_option:
+    max_conn_val = 4
+else:
+    max_conn_val = None
+
+# Perform Search
+if st.button("Find Routes"):
+    if origin_input == dest_input:
+        st.warning("Origin and Destination airports must be different.")
     else:
-        for idx, itin in enumerate(itineraries):
-            total_price = calculate_itinerary_price(itin)
-            total_mins = sum(leg["Duration"] for leg in itin)
-            formatted_dur = format_duration(total_mins)
-            stops_label = "Non-stop" if len(itin) == 1 else f"{len(itin)-1} Stop(s)"
-            
-            with st.container(border=True):
-                c_main, c_buy = st.columns([3, 1])
-                with c_main:
-                    st.markdown(f"### {itin[0]['DepStr']} → {itin[-1]['ArrStr']}")
-                    st.caption(f"**Route:** {' ➔ '.join([l['Origin'] for l in itin] + [itin[-1]['Destination']])}")
-                    st.markdown(f"⏱️ **Total Flight Duration:** {formatted_dur} ({stops_label}) | 🛩️ **Aircraft:** {itin[0]['Aircraft']['model']}")
-                with c_buy:
-                    st.markdown(f"### ${total_price} USD")
-                    if st.button("Select Flight", key=f"select_itin_{idx}", type="primary", use_container_width=True):
-                        st.session_state.selected_itinerary = {
-                            "legs": itin,
-                            "price": total_price,
-                            "total_mins": total_mins,
-                            "formatted_dur": formatted_dur
-                        }
-                        st.session_state.selected_seats = {}
-                        st.session_state.page = "seat_selection"
-                        st.rerun()
+        results = engine.search_itinerary(origin_input, dest_input, max_connections=max_conn_val)
+        st.session_state["search_results"] = results
+        st.session_state["origin_search"] = origin_input
+        st.session_state["dest_search"] = dest_input
 
-# -----------------------------------------------------------------------------
-# VIEW 2: CLICKABLE SEAT SELECTION MAP (NO DROPDOWN)
-# -----------------------------------------------------------------------------
-elif st.session_state.page == "seat_selection":
-    itin_data = st.session_state.selected_itinerary
-    legs = itin_data["legs"]
-    
-    if st.button("⬅️ Back to Search"):
-        st.session_state.page = "search"
-        st.rerun()
-        
-    st.title("💺 Skybus Seat Selection")
-    st.info(f"Passenger: **{PASSENGER_NAME}** | Trip: **{legs[0]['Origin']} ➔ {legs[-1]['Destination']}** | Fare: **${itin_data['price']} USD**")
-    
-    all_legs_selected = True
-    
-    for idx, leg in enumerate(legs):
-        flt_id = leg["FlightID"]
-        ac = leg["Aircraft"]
-        occupied, row_list, all_seats = generate_occupied_seats(flt_id, ac["seats"], ac["rows"])
-        current_seat = st.session_state.selected_seats.get(flt_id)
-        
-        if not current_seat:
-            all_legs_selected = False
+# Display Results
+if "search_results" in st.session_state:
+    results = st.session_state["search_results"]
+    orig = st.session_state["origin_search"]
+    dest = st.session_state["dest_search"]
+
+    st.markdown(f"### Results for **{orig} ➔ {dest}** ({len(results)} option(s) found)")
+
+    if not results:
+        st.info("No matching itineraries found within the selected connection parameters.")
+    else:
+        for idx, option in enumerate(results, 1):
+            num_stops = len(option) - 1
+            stops_label = "Nonstop" if num_stops == 0 else f"{num_stops} Stop(s)"
             
-        st.markdown(f"### Leg {idx+1}: {leg['Origin']} ➔ {leg['Destination']} ({leg['FlightNum']})")
-        st.caption(f"Aircraft: **{ac['model']}** (`{ac['tail']}`) | Duration: **{format_duration(leg['Duration'])}** (3x3 Layout, No Row 13)")
-        
-        col_map, col_details = st.columns([1.6, 1])
-        
-        with col_map:
-            st.markdown("**Click an available seat (⬜) on the seat map:**")
-            st.caption("🔴 Occupied &nbsp;&nbsp; 🟩 Selected &nbsp;&nbsp; ⬜ Available")
-            
-            with st.container(border=True, height=360):
-                for r in row_list:
-                    c1, c2, c3, c_aisle, c4, c5, c6 = st.columns([1, 1, 1, 0.6, 1, 1, 1])
-                    cols = [c1, c2, c3, c4, c5, c6]
-                    for letter, col in zip(['A', 'B', 'C', 'D', 'E', 'F'], cols):
-                        code = f"{r}{letter}"
-                        is_occ = code in occupied
-                        is_sel = code == current_seat
-                        label = "🔴" if is_occ else (f"🟩{code}" if is_sel else f"⬜{code}")
-                        
-                        if col.button(label, key=f"seat_btn_{flt_id}_{code}", disabled=is_occ):
-                            st.session_state.selected_seats[flt_id] = code
-                            st.rerun()
-                            
-                    c_aisle.markdown(f"<p style='text-align: center; color: gray; font-size: 11px;'>{r}</p>", unsafe_allow_html=True)
+            with st.expander(f"Option {idx}: {orig} to {dest} — [{stops_label}]", expanded=(idx == 1)):
+                for leg_idx, leg in enumerate(option, 1):
+                    st.write(f"**Leg {leg_idx}:** Flight **Skybus #{leg['Flight_Number']}** | "
+                             f"`{leg['Origin']}` ({leg['Departure_Time']}) ➔ `{leg['Destination']}` ({leg['Arrival_Time']}) | "
+                             f"Duration: {leg['Duration_Mins']} mins | Days: *{leg['Days_Of_Week']}*")
                     
-        with col_details:
-            st.markdown("#### Selected Seat & Amenities")
-            if current_seat:
-                amenities = get_seat_amenities(current_seat)
-                with st.container(border=True):
-                    st.markdown(f"### Seat {amenities['seat']}")
-                    st.write(f"📍 **Position:** {amenities['position']}")
-                    st.write(f"📐 **Legroom:** {amenities['legroom']}")
-                    st.write(f"💺 **Recline:** {amenities['recline']}")
-                    st.write(f"⚡ **Power:** {amenities['power']}")
-                    st.write(f"📶 **Connectivity:** {amenities['wifi']}")
-            else:
-                st.warning("Click a seat on the map above to select it.")
-                
-        st.divider()
-        
-    if st.button("Confirm Seats and Flights", type="primary", use_container_width=True, disabled=not all_legs_selected):
-        st.session_state.pnr = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
-        st.session_state.page = "confirmation"
-        st.session_state.show_boarding_pass = False
-        st.session_state.active_bp_index = 0
-        st.rerun()
+                    # Show layover time if applicable
+                    if leg_idx < len(option):
+                        arr = engine.parse_time(leg['Arrival_Time'])
+                        nxt_dep = engine.parse_time(option[leg_idx]['Departure_Time'])
+                        layover = int((nxt_dep - arr).total_seconds() / 60)
+                        st.info(f"⏳ Layover in `{leg['Destination']}`: **{layover} minutes**")
 
-# -----------------------------------------------------------------------------
-# VIEW 3: BOOKING CONFIRMATION & FULL-SCREEN MOBILE BOARDING PASS
-# -----------------------------------------------------------------------------
-elif st.session_state.page == "confirmation":
-    itin_data = st.session_state.selected_itinerary
-    legs = itin_data["legs"]
-    pnr = st.session_state.pnr
-    
-    st.balloons()
-    st.title("🎉 Skybus Booking Confirmed!")
-    st.success(f"Passenger: **{PASSENGER_NAME}** | Booking Reference (PNR): **{pnr}**")
-    
-    c_summary, c_actions = st.columns([2, 1])
-    
-    with c_summary:
-        with st.container(border=True):
-            st.markdown("### Itinerary Summary")
-            st.write(f"**Passenger Name:** {PASSENGER_NAME}")
-            st.write(f"**Route:** {legs[0]['Origin']} ➔ {legs[-1]['Destination']}")
-            st.write(f"**Total Fare Paid:** ${itin_data['price']} USD")
-            
-            st.markdown("---")
-            for idx, leg in enumerate(legs):
-                flt_id = leg["FlightID"]
-                seat = st.session_state.selected_seats.get(flt_id, "12A")
-                st.write(f"**Leg {idx+1}:** {leg['FlightNum']} (`{leg['Origin']}` ➔ `{leg['Destination']}`) | Dep: **{leg['DepStr']}** | Arr: **{leg['ArrStr']}** | Seat: **{seat}**")
+                # Mobile Boarding Pass Trigger
+                if st.button(f"🎫 Issue Boarding Pass for Option {idx}", key=f"bp_btn_{idx}"):
+                    st.session_state["active_bp"] = option
 
-    with c_actions:
-        with st.container(border=True):
-            st.markdown("### Passports & Boarding")
-            if st.button("📱 Open Mobile Boarding Pass", type="primary", use_container_width=True):
-                st.session_state.show_boarding_pass = not st.session_state.show_boarding_pass
-                st.rerun()
-                
-            if st.button("🔄 Book Another Flight", use_container_width=True):
-                st.session_state.page = "search"
-                st.session_state.selected_itinerary = None
-                st.session_state.selected_seats = {}
-                st.rerun()
+# ==========================================
+# 5. EDGE-TO-EDGE MOBILE BOARDING PASS
+# ==========================================
 
-    # -----------------------------------------------------------------------------
-    # FULL-SCREEN MOBILE PHONE BOARDING PASS
-    # -----------------------------------------------------------------------------
-    if st.session_state.show_boarding_pass:
-        st.divider()
-        st.subheader("📱 Smartphone Mobile Boarding Pass")
-        
-        # Navigation controls for multi-leg itineraries
-        if len(legs) > 1:
-            c_prev, c_label, c_next = st.columns([1, 2, 1])
-            with c_prev:
-                if st.button("◀️ Previous Leg", disabled=st.session_state.active_bp_index == 0):
-                    st.session_state.active_bp_index -= 1
-                    st.rerun()
-            with c_label:
-                st.markdown(f"<p style='text-align: center; font-weight: bold;'>Leg {st.session_state.active_bp_index + 1} of {len(legs)}</p>", unsafe_allow_html=True)
-            with c_next:
-                if st.button("Next Leg ▶️", disabled=st.session_state.active_bp_index == len(legs) - 1):
-                    st.session_state.active_bp_index += 1
-                    st.rerun()
+if "active_bp" in st.session_state:
+    bp_option = st.session_state["active_bp"]
+    st.markdown("---")
+    st.subheader("📲 Mobile Boarding Pass")
 
-        active_leg = legs[st.session_state.active_bp_index]
-        active_seat = st.session_state.selected_seats.get(active_leg["FlightID"], "12A")
-        
-        # Render Full Phone UI Frame
-        st.markdown(f"""
-            <div class="phone-container">
-                <div class="phone-screen">
-                    <div>
-                        <!-- Phone Status Bar -->
-                        <div class="phone-status-bar">
-                            <span>9:41</span>
-                            <span>5G 📶 🔋 100%</span>
-                        </div>
-                        
-                        <!-- Header -->
-                        <div style="display: flex; justify-content: space-between; align-items: center; color: white; margin-bottom: 8px;">
-                            <span style="font-weight: 800; font-size: 20px; letter-spacing: 1px;">SKYBUS</span>
-                            <span style="background: rgba(255,255,255,0.25); padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: bold;">PASSENGER PASS</span>
-                        </div>
-                        
-                        <!-- Main Flight Card -->
-                        <div class="phone-card">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <div>
-                                    <div style="font-size: 32px; font-weight: 900; color: #FF5500;">{active_leg['Origin']}</div>
-                                    <div style="font-size: 11px; color: #64748B; font-weight: bold;">ORIGIN</div>
-                                </div>
-                                <div style="font-size: 22px;">✈️</div>
-                                <div style="text-align: right;">
-                                    <div style="font-size: 32px; font-weight: 900; color: #FF5500;">{active_leg['Destination']}</div>
-                                    <div style="font-size: 11px; color: #64748B; font-weight: bold;">DESTINATION</div>
-                                </div>
-                            </div>
-                            
-                            <hr style="border: 0; border-top: 1px solid #E2E8F0; margin: 14px 0;">
-                            
-                            <div style="margin-bottom: 12px;">
-                                <div style="font-size: 10px; color: #64748B; font-weight: bold;">PASSENGER</div>
-                                <div style="font-size: 16px; font-weight: bold; color: #0F172A;">{PASSENGER_NAME}</div>
-                            </div>
-                            
-                            <div style="display: flex; justify-content: space-between; font-size: 12px;">
-                                <div>
-                                    <div style="font-size: 10px; color: #64748B;">FLIGHT</div>
-                                    <div style="font-weight: bold; font-size: 14px; color: #0F172A;">{active_leg['FlightNum']}</div>
-                                </div>
-                                <div>
-                                    <div style="font-size: 10px; color: #64748B;">GATE</div>
-                                    <div style="font-weight: bold; font-size: 14px; color: #0F172A;">B{random.randint(1, 15)}</div>
-                                </div>
-                                <div>
-                                    <div style="font-size: 10px; color: #64748B;">BOARDING</div>
-                                    <div style="font-weight: bold; font-size: 14px; color: #0F172A;">{active_leg['DepStr']}</div>
-                                </div>
-                                <div>
-                                    <div style="font-size: 10px; color: #64748B;">SEAT</div>
-                                    <div style="font-weight: bold; font-size: 15px; color: #FF5500;">{active_seat}</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Tear-off Stub & Barcode -->
-                        <div class="phone-stub">
-                            <div style="font-size: 11px; color: #64748B; margin-bottom: 6px;">BOOKING REF: <b style="color: #0F172A;">{pnr}</b></div>
-                            <div class="barcode-text">||| | ||||| ||| || ||||</div>
-                            <div style="font-size: 9px; color: #94A3B8; margin-top: 4px;">SCAN AT TSA & GATE READER</div>
-                        </div>
-                    </div>
-                    
-                    <!-- Phone Home Indicator Bar -->
-                    <div class="home-indicator"></div>
+    # If multi-leg, allow leg switching
+    selected_leg_idx = 0
+    if len(bp_option) > 1:
+        leg_titles = [f"Leg {i+1}: {leg['Origin']} -> {leg['Destination']}" for i, leg in enumerate(bp_option)]
+        selected_leg_idx = st.radio("Select Flight Leg:", range(len(leg_titles)), format_func=lambda x: leg_titles[x], horizontal=True)
+
+    leg_data = bp_option[selected_leg_idx]
+
+    # Render Boarding Pass UI Card
+    st.markdown(f"""
+    <div class="boarding-pass">
+        <div class="bp-header">
+            <div>
+                <span style="font-size: 20px; font-weight: 800; letter-spacing: 1px;">SKYBUS</span>
+                <span style="font-size: 12px; margin-left: 8px; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 12px;">BOARDING PASS</span>
+            </div>
+            <div style="font-weight: bold; font-size: 14px;">Flight {leg_data['Flight_Number']}</div>
+        </div>
+        <div class="bp-body">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px;">
+                <div>
+                    <div class="bp-field">Passenger</div>
+                    <div class="bp-value">John Bowman</div>
+                </div>
+                <div style="text-align: right;">
+                    <div class="bp-field">In-Flight Wi-Fi</div>
+                    <div class="bp-value" style="color: #FF5722;">High-Speed SkyFly</div>
                 </div>
             </div>
-        """, unsafe_allow_html=True)
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div>
+                    <div style="font-size: 28px; font-weight: 900; color: #111;">{leg_data['Origin']}</div>
+                    <div class="bp-field">Departs {leg_data['Departure_Time']}</div>
+                </div>
+                <div style="font-size: 22px; color: #FF5722;">✈️</div>
+                <div style="text-align: right;">
+                    <div style="font-size: 28px; font-weight: 900; color: #111;">{leg_data['Destination']}</div>
+                    <div class="bp-field">Arrives {leg_data['Arrival_Time']}</div>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; background: #F8F9FA; padding: 12px; border-radius: 8px;">
+                <div>
+                    <div class="bp-field">Gate</div>
+                    <div class="bp-value">B12</div>
+                </div>
+                <div>
+                    <div class="bp-field">Zone</div>
+                    <div class="bp-value">Zone 1</div>
+                </div>
+                <div>
+                    <div class="bp-field">Seat</div>
+                    <div class="bp-value">14A</div>
+                </div>
+                <div>
+                    <div class="bp-field">Days</div>
+                    <div class="bp-value">{leg_data['Days_Of_Week']}</div>
+                </div>
+            </div>
+
+            <div class="barcode">
+                ||| | ||||| ||| |||| || ||||| ||||| ||| ||||||| | ||||
+                <br>
+                <span style="font-size: 10px; color: #666; font-family: sans-serif;">SKYB-{leg_data['Flight_Number']}-BOWMAN-JOHN</span>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
