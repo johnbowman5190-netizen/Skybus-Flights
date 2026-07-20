@@ -86,7 +86,7 @@ routes_raw = [
     (146, "KIWA", "KMSY", "Daily"),
     (148, "KIWA", "KPVU", "Daily"),
     (150, "KIWA", "KRIC", "Daily"),
-    (152, "KIWA", "KSWF", "Daily")
+    (152, "KIWA", "KSWF", "Daily"),
     (154, "TJBQ", "KRIC", "Daily"),
     (156, "TJBQ", "KSFB", "Daily"),
     (158, "TJBQ", "KSWF", "Mon,Wed,Fri,Sun"),
