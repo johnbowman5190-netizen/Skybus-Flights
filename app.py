@@ -119,29 +119,34 @@ ROUTES_DATA = [
     (868, "KBGR", "LEGE", 440, "Tue,Thu,Sat,Sun"), (870, "KBGR", "EDJA", 430, "Mon,Thu,Sat")
 ]
 
-# Build Full Flight Catalog
+# 4 Departure Waves to spread flights out across the day
+DEP_WAVES = ["06:00", "10:30", "15:00", "19:30"]
+
+# Build Multi-Wave Flight Catalog
 @st.cache_data
 def get_flight_catalog():
     catalog = []
-    base_dep = datetime.strptime("08:00", "%H:%M")
-    
     for flt_out, orig, dest, duration, days in ROUTES_DATA:
-        # Outbound
-        arr_out = base_dep + timedelta(minutes=duration)
-        catalog.append({
-            "Flight": flt_out, "Origin": orig, "Destination": dest,
-            "Dep": base_dep.strftime("%H:%M"), "Arr": arr_out.strftime("%H:%M"),
-            "Duration": duration, "Days": days
-        })
-        
-        # Inbound
-        in_dep = arr_out + timedelta(minutes=60)
-        in_arr = in_dep + timedelta(minutes=duration)
-        catalog.append({
-            "Flight": flt_out + 1, "Origin": dest, "Destination": orig,
-            "Dep": in_dep.strftime("%H:%M"), "Arr": in_arr.strftime("%H:%M"),
-            "Duration": duration, "Days": days
-        })
+        for wave_idx, dep_str in enumerate(DEP_WAVES):
+            base_dep = datetime.strptime(dep_str, "%H:%M")
+            flt_num_out = flt_out * 10 + wave_idx * 2
+            
+            # Outbound Leg
+            arr_out = base_dep + timedelta(minutes=duration)
+            catalog.append({
+                "Flight": flt_num_out, "Origin": orig, "Destination": dest,
+                "Dep": base_dep.strftime("%H:%M"), "Arr": arr_out.strftime("%H:%M"),
+                "Duration": duration, "Days": days
+            })
+            
+            # Inbound Leg (60 min turnaround)
+            in_dep = arr_out + timedelta(minutes=60)
+            in_arr = in_dep + timedelta(minutes=duration)
+            catalog.append({
+                "Flight": flt_num_out + 1, "Origin": dest, "Destination": orig,
+                "Dep": in_dep.strftime("%H:%M"), "Arr": in_arr.strftime("%H:%M"),
+                "Duration": duration, "Days": days
+            })
     return catalog
 
 flights = get_flight_catalog()
@@ -150,9 +155,10 @@ all_airports = sorted(list(set([f["Origin"] for f in flights] + [f["Destination"
 # ==========================================
 # 2. SEARCH ENGINE ALGORITHM
 # ==========================================
-def search_flights(origin, destination, max_connections):
+def search_flights(origin, destination, max_connections, max_layover_hours=5):
     queue = deque()
     valid_itineraries = []
+    max_layover_mins = max_layover_hours * 60
 
     for f in flights:
         if f["Origin"] == origin:
@@ -180,7 +186,8 @@ def search_flights(origin, destination, max_connections):
                     if layover < 0:
                         layover += 1440
                         
-                    if 45 <= layover <= 1440:
+                    # Strict layover window (minimum 45 mins, max set by user)
+                    if 45 <= layover <= max_layover_mins:
                         queue.append(path + [next_f])
 
     return valid_itineraries
@@ -193,25 +200,29 @@ st.caption("Book routes across your custom Hub & Spoke Network")
 
 col1, col2 = st.columns(2)
 with col1:
-    origin = st.selectbox("From (Origin)", all_airports, index=0)
+    origin = st.selectbox("From (Origin)", all_airports, index=all_airports.index("KSFB") if "KSFB" in all_airports else 0)
 with col2:
-    destination = st.selectbox("To (Destination)", all_airports, index=1)
+    destination = st.selectbox("To (Destination)", all_airports, index=all_airports.index("RJAA") if "RJAA" in all_airports else 1)
 
-max_stops = st.select_slider("Max Connections Allowed", options=[0, 1, 2, 3, 4], value=2)
+c1, c2 = st.columns(2)
+with c1:
+    max_stops = st.select_slider("Max Connections", options=[0, 1, 2, 3, 4], value=2)
+with c2:
+    max_layover = st.slider("Max Layover (Hours)", min_value=1, max_value=8, value=5)
 
 if st.button("🔍 Search Flights", type="primary", use_container_width=True):
     if origin == destination:
         st.warning("Origin and Destination must be different.")
     else:
-        results = search_flights(origin, destination, max_stops)
+        results = search_flights(origin, destination, max_stops, max_layover)
         
         st.markdown(f"### Results for **{origin}** ➔ **{destination}**")
         st.write(f"Found **{len(results)}** itinerary option(s)")
 
         if not results:
-            st.error("No valid flights found within connection limits.")
+            st.error("No valid flights found within connection limits and layover time.")
         else:
-            for idx, itin in enumerate(results, 1):
+            for idx, itin in enumerate(results[:20], 1):
                 stops = len(itin) - 1
                 stop_label = "Nonstop" if stops == 0 else f"{stops} Connection(s)"
                 
@@ -227,6 +238,6 @@ if st.button("🔍 Search Flights", type="primary", use_container_width=True):
                             layover = int((nxt_dep - arr).total_seconds() / 60)
                             if layover < 0:
                                 layover += 1440
-                            st.info(f"⏱️ **{layover} min layover** in {leg['Destination']}")
+                            st.info(f"⏱️ **{layover // 60}h {layover % 60}m layover** in {leg['Destination']}")
                     
                     st.button(f"Select Option {idx}", key=f"select_{idx}")
