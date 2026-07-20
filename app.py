@@ -1,8 +1,9 @@
+import textwrap
 from collections import deque
 import streamlit as st
 
 # ==========================================
-# 1. PAGE CONFIG & SKYBUS BRANDING
+# 1. PAGE CONFIG & BRANDING
 # ==========================================
 st.set_page_config(
     page_title="Skybus Route & Boarding System",
@@ -10,10 +11,9 @@ st.set_page_config(
     layout="wide"
 )
 
-# Skybus #FF5722 Orange Custom CSS
-st.markdown("""
+# Skybus #FF5722 Orange Custom CSS (Dedent applied to prevent Markdown block rendering)
+css_styles = textwrap.dedent("""
 <style>
-    /* Header Styling */
     .skybus-header {
         background-color: #FF5722;
         color: white;
@@ -22,14 +22,11 @@ st.markdown("""
         margin-bottom: 20px;
         box-shadow: 0 4px 12px rgba(255, 87, 34, 0.25);
     }
-    
     .skybus-header h1 {
         margin: 0;
         font-weight: 800;
         font-size: 28px;
     }
-    
-    /* Info Card */
     .info-card {
         background: #FFFFFF;
         border-left: 5px solid #FF5722;
@@ -38,8 +35,6 @@ st.markdown("""
         box-shadow: 0 2px 6px rgba(0,0,0,0.06);
         margin-bottom: 15px;
     }
-    
-    /* Mobile Boarding Pass */
     .boarding-pass-card {
         max-width: 450px;
         margin: 10px auto;
@@ -50,7 +45,6 @@ st.markdown("""
         box-shadow: 0 6px 18px rgba(0,0,0,0.12);
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
-    
     .bp-header {
         background-color: #FF5722;
         color: white;
@@ -59,12 +53,10 @@ st.markdown("""
         justify-content: space-between;
         align-items: center;
     }
-    
     .bp-body {
         padding: 20px;
         color: #222;
     }
-    
     .bp-field {
         font-size: 11px;
         color: #777;
@@ -72,13 +64,11 @@ st.markdown("""
         font-weight: 700;
         margin-bottom: 2px;
     }
-    
     .bp-value {
         font-size: 15px;
         font-weight: 700;
         color: #111;
     }
-    
     .barcode {
         font-family: 'Courier New', Courier, monospace;
         background: #f8f9fa;
@@ -92,21 +82,33 @@ st.markdown("""
         font-size: 14px;
     }
 </style>
-""", unsafe_allow_html=True)
+""")
+st.markdown(css_styles, unsafe_allow_html=True)
 
 
 # ==========================================
-# 2. COMPLETE NETWORK DATASET (OUT & RETURN)
+# 2. COMPLETE & FULLY CONNECTED NETWORK DATASET
 # ==========================================
 
 routes_raw = [
-    # Inter-Base Trunk
-    (100, "KBGR", "KSFB", "Daily"), (102, "KIWA", "KBLI", "Daily"),
-    (104, "TJBQ", "KSFB", "Daily"), (106, "PAFA", "KBLI", "Daily"),
-    (108, "KBGR", "TJBQ", "Mon,Wed,Fri,Sun"), (110, "KIWA", "PAFA", "Mon,Tue,Thu,Sat"),
-    (200, "KSFB", "KRIC", "Daily"), (202, "KIWA", "KPVU", "Daily"),
-    (204, "KGRR", "KSWF", "Mon,Wed,Fri,Sun"), (206, "KMSY", "KOMA", "Tue,Thu,Sat,Sun"),
-    (208, "KSFB", "KMSY", "Daily"), (210, "KBLI", "KPVU", "Mon,Wed,Fri"),
+    # --- Inter-Base Transcontinental & Trunk Bridges (Connecting East & West) ---
+    (100, "KBGR", "KSFB", "Daily"),
+    (102, "KIWA", "KBLI", "Daily"),
+    (104, "TJBQ", "KSFB", "Daily"),
+    (106, "PAFA", "KBLI", "Daily"),
+    (108, "KBGR", "TJBQ", "Mon,Wed,Fri,Sun"),
+    (110, "KIWA", "PAFA", "Mon,Tue,Thu,Sat"),
+    (112, "KSFB", "KIWA", "Daily"),              # Transcon Bridge: Sanford <-> Phoenix/Mesa
+    (114, "KBGR", "KBLI", "Daily"),              # Transcon Bridge: Bangor <-> Bellingham
+    (116, "KMSY", "KIWA", "Daily"),              # Transcon Bridge: New Orleans <-> Phoenix
+    (118, "KOMA", "KPVU", "Daily"),              # Transcon Bridge: Omaha <-> Provo
+    (120, "KSWF", "KIWA", "Daily"),              # Transcon Bridge: Stewart <-> Phoenix
+    (200, "KSFB", "KRIC", "Daily"),
+    (202, "KIWA", "KPVU", "Daily"),
+    (204, "KGRR", "KSWF", "Mon,Wed,Fri,Sun"),
+    (206, "KMSY", "KOMA", "Tue,Thu,Sat,Sun"),
+    (208, "KSFB", "KMSY", "Daily"),
+    (210, "KBLI", "KPVU", "Mon,Wed,Fri"),
 
     # Hub 1: KBGR Spokes
     (300, "KBGR", "KBOS", "Daily"), (302, "KBGR", "KPWM", "Daily"),
@@ -215,23 +217,22 @@ routes_raw = [
 def get_full_network():
     network = []
     for flt, orig, dest, days in routes_raw:
-        # Outbound flight
+        # Outbound leg
         network.append({"Flight": flt, "Origin": orig, "Destination": dest, "Days": days})
-        # Inbound return flight (+1)
+        # Inbound return leg (+1)
         network.append({"Flight": flt + 1, "Origin": dest, "Destination": orig, "Days": days})
     return network
 
 
 # ==========================================
-# 3. ROUTE FINDER ENGINE (BFS GRAPH SEARCH)
+# 3. ROUTE FINDER ENGINE (UNCONSTRAINED BFS)
 # ==========================================
 
-def find_routes(network, origin, destination, max_connections=2):
+def find_routes(network, origin, destination, max_connections=10):
     origin = origin.upper()
     destination = destination.upper()
     
     queue = deque()
-    # Initialize queue with direct outbound legs from origin
     for leg in network:
         if leg["Origin"] == origin:
             queue.append([leg])
@@ -243,16 +244,16 @@ def find_routes(network, origin, destination, max_connections=2):
         current_node = path[-1]["Destination"]
         connections = len(path) - 1
         
-        # Target reached
         if current_node == destination:
             valid_paths.append(path)
+            # Limit returned choices to top 15 shortest paths for UI responsiveness
+            if len(valid_paths) >= 15:
+                break
             continue
             
-        # Stop expanding if connection depth limit reached
         if max_connections is not None and connections >= max_connections:
             continue
             
-        # Avoid cycles by checking visited airports in path
         visited_airports = {leg["Origin"] for leg in path}
         visited_airports.add(current_node)
         
@@ -264,60 +265,61 @@ def find_routes(network, origin, destination, max_connections=2):
 
 
 # ==========================================
-# 4. STREAMLIT APP UI
+# 4. APP UI & NAVIGATION
 # ==========================================
 
-# Brand Header
-st.markdown("""
+header_html = textwrap.dedent("""
 <div class="skybus-header">
     <h1>✈️ SKYBUS AIRLINES</h1>
     <p style="margin:4px 0 0 0; opacity: 0.9;">Network Route Search & Mobile Boarding System</p>
 </div>
-""", unsafe_allow_html=True)
+""")
+st.markdown(header_html, unsafe_allow_html=True)
 
 # Passenger Profile & Wi-Fi Details
 p_col1, p_col2 = st.columns(2)
 with p_col1:
-    st.markdown("""
+    st.markdown(textwrap.dedent("""
     <div class="info-card">
         <div style="font-size: 11px; color: #888; font-weight: bold; text-transform: uppercase;">Passenger</div>
         <div style="font-size: 18px; font-weight: bold; color: #111;">👤 John Bowman</div>
     </div>
-    """, unsafe_allow_html=True)
+    """), unsafe_allow_html=True)
 with p_col2:
-    st.markdown("""
+    st.markdown(textwrap.dedent("""
     <div class="info-card">
         <div style="font-size: 11px; color: #888; font-weight: bold; text-transform: uppercase;">In-Flight Wi-Fi</div>
         <div style="font-size: 18px; font-weight: bold; color: #FF5722;">📶 High-Speed SkyFly</div>
     </div>
-    """, unsafe_allow_html=True)
+    """), unsafe_allow_html=True)
 
 network = get_full_network()
 all_airports = sorted(list(set([f["Origin"] for f in network])))
 
-st.subheader("🔍 Search Route Network")
+st.subheader("🔍 Search Any Route on Network Map")
 
 col1, col2, col3 = st.columns(3)
 with col1:
-    orig_select = st.selectbox("Origin Airport", options=all_airports, index=all_airports.index("KBGR") if "KBGR" in all_airports else 0)
+    orig_select = st.selectbox("Origin Airport", options=all_airports, index=all_airports.index("KRIC") if "KRIC" in all_airports else 0)
 with col2:
-    dest_select = st.selectbox("Destination Airport", options=all_airports, index=all_airports.index("EGSS") if "EGSS" in all_airports else 1)
+    dest_select = st.selectbox("Destination Airport", options=all_airports, index=all_airports.index("PANC") if "PANC" in all_airports else 1)
 with col3:
-    max_conn_str = st.selectbox("Max Connections", options=["0 (Nonstop Only)", "1 Connection", "2 Connections", "3 Connections", "Unlimited"])
+    max_conn_str = st.selectbox("Max Connections Allowed", options=["Unlimited / Up to 10", "1 Connection", "2 Connections", "3 Connections", "4 Connections", "5 Connections"], index=0)
 
-# Connection count mapping
-if "0" in max_conn_str:
-    max_conn = 0
-elif "1" in max_conn_str:
+if "1 " in max_conn_str:
     max_conn = 1
-elif "2" in max_conn_str:
+elif "2 " in max_conn_str:
     max_conn = 2
-elif "3" in max_conn_str:
+elif "3 " in max_conn_str:
     max_conn = 3
+elif "4 " in max_conn_str:
+    max_conn = 4
+elif "5 " in max_conn_str:
+    max_conn = 5
 else:
-    max_conn = None
+    max_conn = 10
 
-if st.button("Search Routes", type="primary"):
+if st.button("Search Route Options", type="primary"):
     if orig_select == dest_select:
         st.warning("Please choose two different airports.")
     else:
@@ -325,10 +327,9 @@ if st.button("Search Routes", type="primary"):
         st.session_state["search_results"] = routes_found
         st.session_state["search_orig"] = orig_select
         st.session_state["search_dest"] = dest_select
-        st.session_state.pop("selected_itinerary", None)  # Reset selected boarding pass
 
 # ==========================================
-# 5. SEARCH RESULTS & ROUTE DISPLAY
+# 5. SEARCH RESULTS
 # ==========================================
 
 if "search_results" in st.session_state:
@@ -340,9 +341,8 @@ if "search_results" in st.session_state:
     st.markdown(f"### Possible Routes for **{orig} ➔ {dest}** ({len(results)} option(s) found)")
 
     if not results:
-        st.info(f"No paths found connecting {orig} to {dest} within the selected max connection limit.")
+        st.info(f"No routes found connecting {orig} to {dest} within {max_conn} connections.")
     else:
-        # Selection radio for choosing an itinerary cleanly without UI glitches
         itinerary_labels = []
         for i, path in enumerate(results):
             stops = len(path) - 1
@@ -350,20 +350,23 @@ if "search_results" in st.session_state:
             leg_chain = " ➔ ".join([f"{leg['Origin']}" for leg in path] + [path[-1]["Destination"]])
             itinerary_labels.append(f"Option {i+1} [{stop_str}]: {leg_chain}")
 
-        selected_option_idx = st.radio("Choose a route option to view details & issue mobile pass:", range(len(itinerary_labels)), format_func=lambda x: itinerary_labels[x])
+        selected_option_idx = st.radio(
+            "Select an option to view leg details and issue boarding pass:",
+            range(len(itinerary_labels)),
+            format_func=lambda x: itinerary_labels[x]
+        )
 
         selected_path = results[selected_option_idx]
 
-        # Display sequence of legs
         st.markdown(f"#### 📋 Leg Breakdown for Option {selected_option_idx + 1}")
         for idx, leg in enumerate(selected_path, 1):
-            st.write(f"**Leg {idx}:** Skybus Flight **#{leg['Flight']}** | `{leg['Origin']}` ➔ `{leg['Destination']}` | Days: *{leg['Days']}*")
+            st.write(f"**Leg {idx}:** Flight **#{leg['Flight']}** | `{leg['Origin']}` ➔ `{leg['Destination']}` | Operating Days: *{leg['Days']}*")
 
         st.session_state["selected_itinerary"] = selected_path
 
 
 # ==========================================
-# 6. FIXED RELIABLE MOBILE BOARDING PASS
+# 6. MOBILE BOARDING PASS (DEDENT HTML FIXED)
 # ==========================================
 
 if "selected_itinerary" in st.session_state:
@@ -372,16 +375,14 @@ if "selected_itinerary" in st.session_state:
 
     path = st.session_state["selected_itinerary"]
     
-    # If itinerary has multiple legs, allow switching between them
     selected_leg_index = 0
     if len(path) > 1:
-        leg_names = [f"Leg {i+1}: {leg['Origin']} -> {leg['Destination']} (Flight #{leg['Flight']})" for i, leg in enumerate(path)]
-        selected_leg_index = st.selectbox("Select Leg for Boarding Pass View:", range(len(leg_names)), format_func=lambda x: leg_names[x])
+        leg_names = [f"Leg {i+1}: {leg['Origin']} ➔ {leg['Destination']} (Flight #{leg['Flight']})" for i, leg in enumerate(path)]
+        selected_leg_index = st.selectbox("Select Flight Leg for Pass:", range(len(leg_names)), format_func=lambda x: leg_names[x])
 
     active_leg = path[selected_leg_index]
 
-    # Render Mobile Boarding Pass Card
-    st.markdown(f"""
+    bp_html = textwrap.dedent(f"""
     <div class="boarding-pass-card">
         <div class="bp-header">
             <div>
@@ -428,7 +429,7 @@ if "selected_itinerary" in st.session_state:
                     <div class="bp-value">14A</div>
                 </div>
                 <div>
-                    <div class="bp-field">Operating Days</div>
+                    <div class="bp-field">Days</div>
                     <div class="bp-value">{active_leg['Days']}</div>
                 </div>
             </div>
@@ -440,4 +441,5 @@ if "selected_itinerary" in st.session_state:
             </div>
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """)
+    st.markdown(bp_html, unsafe_allow_html=True)
