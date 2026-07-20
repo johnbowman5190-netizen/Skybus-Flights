@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from collections import deque
 
 # Page Configuration for Mobile
-st.set_page_config(page_title="SkyLink Airways Booking", page_icon="✈️", layout="centered")
+st.set_page_config(page_title="Skybus Flight Search", page_icon="✈️", layout="centered")
 
 # ==========================================
 # 1. ROUTE NETWORK DATA
@@ -166,11 +166,19 @@ def search_flights(origin, destination, max_connections):
             last_arr = datetime.strptime(last_leg["Arr"], "%H:%M")
             for next_f in flights:
                 if next_f["Origin"] == curr_dest:
+                    # Avoid returning to an airport already visited in this path
                     if next_f["Destination"] in {f["Origin"] for f in path}:
                         continue
+                    
                     next_dep = datetime.strptime(next_f["Dep"], "%H:%M")
                     layover = (next_dep - last_arr).total_seconds() / 60
-                    if 45 <= layover <= 360:
+                    
+                    # Account for overnight / next-day flight connections
+                    if layover < 0:
+                        layover += 1440  # Adds 24 hours in minutes
+                        
+                    # Flexible layover window: min 45 mins, max 24 hours
+                    if 45 <= layover <= 1440:
                         queue.append(path + [next_f])
 
     return valid_itineraries
@@ -178,7 +186,7 @@ def search_flights(origin, destination, max_connections):
 # ==========================================
 # 3. STREAMLIT MOBILE UI
 # ==========================================
-st.title("✈️ SkyLink Flight Search")
+st.title("✈️ Skybus Flight Search")
 st.caption("Book routes across your custom Hub & Spoke Network")
 
 col1, col2 = st.columns(2)
@@ -187,7 +195,7 @@ with col1:
 with col2:
     destination = st.selectbox("To (Destination)", all_airports, index=1)
 
-max_stops = st.select_slider("Max Connections Allowed", options=[0, 1, 2], value=1)
+max_stops = st.select_slider("Max Connections Allowed", options=[0, 1, 2, 3, 4], value=2)
 
 if st.button("🔍 Search Flights", type="primary", use_container_width=True):
     if origin == destination:
@@ -203,7 +211,7 @@ if st.button("🔍 Search Flights", type="primary", use_container_width=True):
         else:
             for idx, itin in enumerate(results, 1):
                 stops = len(itin) - 1
-                stop_label = "Nonstop" if stops == 0 else f"{stops} Stop(s)"
+                stop_label = "Nonstop" if stops == 0 else f"{stops} Connection(s)"
                 
                 with st.expander(f"Option {idx}: {stop_label} ({itin[0]['Dep']} ➔ {itin[-1]['Arr']})", expanded=(idx==1)):
                     for leg_i, leg in enumerate(itin, 1):
@@ -215,6 +223,8 @@ if st.button("🔍 Search Flights", type="primary", use_container_width=True):
                             arr = datetime.strptime(leg['Arr'], "%H:%M")
                             nxt_dep = datetime.strptime(itin[leg_i]['Dep'], "%H:%M")
                             layover = int((nxt_dep - arr).total_seconds() / 60)
+                            if layover < 0:
+                                layover += 1440
                             st.info(f"⏱️ **{layover} min layover** in {leg['Destination']}")
                     
                     st.button(f"Select Option {idx}", key=f"select_{idx}")
