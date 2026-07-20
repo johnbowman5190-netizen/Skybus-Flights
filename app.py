@@ -97,10 +97,10 @@ routes_raw = [
     (168, "KSFB", "KMSY", "Daily"),
     (170, "KSFB", "KPVU", "Daily"),
     (172, "KSFB", "KRIC", "Daily"),
-    (174, "KSFB", "KSWF", "Daily")
+    (174, "KSFB", "KSWF", "Daily"),
     (176, "KOMA", "KPVU", "Daily"),
     (178, "KOMA", "KRIC", "Daily"),
-    (180, "KOMA", "KSWF", "Mon,Wed,Fri,Sun")
+    (180, "KOMA", "KSWF", "Mon,Wed,Fri,Sun"),
     (182, "KOMA", "KMSY", "Daily"),
     (184, "KOMA", "KGRR", "Daily"),
     (186, "KGRR", "KMSY", "Daily"),
