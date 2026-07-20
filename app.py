@@ -13,6 +13,11 @@ ROUTES_DATA = [
     (100, "KBGR", "KSFB", 185, "Daily"), (102, "KIWA", "KBLI", 195, "Daily"),
     (104, "TJBQ", "KSFB", 175, "Daily"), (106, "PAFA", "KBLI", 210, "Daily"),
     (108, "KBGR", "TJBQ", 240, "Mon,Wed,Fri,Sun"), (110, "KIWA", "PAFA", 330, "Mon,Tue,Thu,Sat"),
+    
+    # Transcontinental Coast-to-Coast Bridges
+    (112, "KSFB", "KIWA", 270, "Daily"), (114, "KBGR", "KBLI", 310, "Daily"),
+    (116, "KMSY", "KIWA", 180, "Daily"),
+
     (200, "KSFB", "KRIC", 110, "Daily"), (202, "KIWA", "KPVU", 85, "Daily"),
     (204, "KGRR", "KSWF", 105, "Mon,Wed,Fri,Sun"), (206, "KMSY", "KOMA", 135, "Tue,Thu,Sat,Sun"),
     (208, "KSFB", "KMSY", 120, "Daily"), (210, "KBLI", "KPVU", 115, "Mon,Wed,Fri"),
@@ -166,18 +171,15 @@ def search_flights(origin, destination, max_connections):
             last_arr = datetime.strptime(last_leg["Arr"], "%H:%M")
             for next_f in flights:
                 if next_f["Origin"] == curr_dest:
-                    # Avoid returning to an airport already visited in this path
                     if next_f["Destination"] in {f["Origin"] for f in path}:
                         continue
                     
                     next_dep = datetime.strptime(next_f["Dep"], "%H:%M")
                     layover = (next_dep - last_arr).total_seconds() / 60
                     
-                    # Account for overnight / next-day flight connections
                     if layover < 0:
-                        layover += 1440  # Adds 24 hours in minutes
+                        layover += 1440
                         
-                    # Flexible layover window: min 45 mins, max 24 hours
                     if 45 <= layover <= 1440:
                         queue.append(path + [next_f])
 
