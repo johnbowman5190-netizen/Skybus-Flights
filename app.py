@@ -228,9 +228,76 @@ def get_full_network():
 # 3. DIVERSIFIED ROUTE FINDER ENGINE
 # ==========================================
 
+import math
 
 # ==========================================
-# 3. DIVERSIFIED ROUTE FINDER ENGINE
+# AIRPORT GEOGRAPHIC COORDINATES (LAT, LON)
+# ==========================================
+
+AIRPORT_COORDS = {
+    # Main Hubs
+    "PAFA": (64.815, -147.856), "KBLI": (48.792, -122.538),
+    "KIWA": (33.308, -111.655), "KPVU": (40.219, -111.723),
+    "KOMA": (41.303, -95.894),  "KMSY": (29.993, -90.258),
+    "KGRR": (42.881, -85.523),  "KSWF": (41.504, -74.105),
+    "KBGR": (44.807, -68.828),  "KRIC": (37.505, -77.319),
+    "KSFB": (28.778, -81.236),  "TJBQ": (18.495, -67.129),
+    # Regional Spokes
+    "PAJN": (58.355, -134.576), "PAKT": (55.355, -131.714),
+    "PANC": (61.174, -149.996), "PABR": (71.285, -156.766),
+    "KBOI": (43.564, -116.223), "KGEG": (47.620, -117.534),
+    "KSGU": (37.036, -113.510), "KLAS": (36.084, -115.152),
+    "KJAC": (43.607, -110.738), "KELP": (31.807, -106.378),
+    "KSAT": (29.534, -98.470),  "KSAN": (32.733, -117.190),
+    "KSGF": (37.245, -93.388),  "KLIT": (34.729, -92.224),
+    "KPNS": (30.473, -87.187),  "KMLI": (41.448, -90.507),
+    "KFSD": (43.582, -96.728),  "KPIT": (40.491, -80.233),
+    "KCAK": (40.916, -81.442),  "KTVC": (44.741, -85.582),
+    "KABE": (40.652, -75.440),  "KMDT": (40.193, -76.763),
+    "KPWM": (43.646, -70.309),  "KPVD": (41.724, -71.428),
+    "KBOS": (42.365, -71.009),  "KCHS": (32.898, -80.040),
+    "KILM": (34.271, -77.903),  "KROA": (37.325, -79.975),
+    "KEYW": (24.555, -81.759),  "MDPC": (18.567, -68.363),
+    "MBPV": (21.774, -72.266),  "TJSJ": (18.439, -66.002),
+    "TJPS": (18.008, -66.563),  "TIST": (18.337, -64.973),
+    "TISX": (17.702, -64.798),  "TNCM": (18.041, -63.109),
+    "TKPK": (17.311, -62.718),  "TFFR": (16.265, -61.531),
+    "TFFF": (14.591, -61.003),  "TQPF": (18.205, -63.055),
+    "TAPA": (17.137, -61.793)
+}
+
+def haversine_miles(coord1, coord2):
+    """Calculates distance between two lat/lon points in miles."""
+    if not coord1 or not coord2:
+        return 0
+    lat1, lon1 = coord1
+    lat2, lon2 = coord2
+    R = 3958.8  # Earth radius in miles
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+    a = (math.sin(dlat / 2) ** 2 + 
+         math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon / 2) ** 2)
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    return R * c
+
+def calculate_route_score(path):
+    """Calculates total route mileage + minor layover penalty."""
+    total_miles = 0
+    for leg in path:
+        c1 = AIRPORT_COORDS.get(leg["Origin"])
+        c2 = AIRPORT_COORDS.get(leg["Destination"])
+        if c1 and c2:
+            total_miles += haversine_miles(c1, c2)
+        else:
+            total_miles += 800  # Fallback estimate if airport coordinates are unlisted
+            
+    # Add a 150-mile penalty per layover connection to prefer efficient transfers
+    layover_penalty = (len(path) - 1) * 150
+    return total_miles + layover_penalty
+
+
+# ==========================================
+# 3. GEOGRAPHICALLY OPTIMIZED ROUTE ENGINE
 # ==========================================
 
 def find_routes(network, origin, destination, max_connections=10, max_display=30):
@@ -252,7 +319,6 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
 
         if current_node == destination:
             valid_paths.append(path)
-            # Increase candidate pool search depth so more complex/spoke routes are found
             if len(valid_paths) >= 500:
                 break
             continue
@@ -273,10 +339,12 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
     if not valid_paths:
         return []
 
-    # Sort paths by shortest leg count first
-    valid_paths.sort(key=lambda p: len(p))
+    # ----------------------------------------------------
+    # GEOGRAPHIC SORTING: Sort by physical mileage + layovers
+    # ----------------------------------------------------
+    valid_paths.sort(key=lambda p: calculate_route_score(p))
 
-    # Diversify connecting hubs for multi-stop routes
+    # Diversify initial hubs while maintaining geographic order
     paths_by_first_hub = {}
     for path in valid_paths:
         first_hub = path[0]["Destination"]
@@ -289,24 +357,20 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
 
     for hub, paths in paths_by_first_hub.items():
         best_path = paths[0]
-        sig = tuple(
-            (leg["Flight"], leg["Origin"], leg["Destination"])
-            for leg in best_path
-        )
+        sig = tuple((leg["Flight"], leg["Origin"], leg["Destination"]) for leg in best_path)
         diverse_paths.append(best_path)
         added_signatures.add(sig)
 
     for path in valid_paths:
         if len(diverse_paths) >= max_display:
             break
-        sig = tuple(
-            (leg["Flight"], leg["Origin"], leg["Destination"]) for leg in path
-        )
+        sig = tuple((leg["Flight"], leg["Origin"], leg["Destination"]) for leg in path)
         if sig not in added_signatures:
             diverse_paths.append(path)
             added_signatures.add(sig)
 
-    diverse_paths.sort(key=lambda p: len(p))
+    # Final sort ensures shortest, most direct geographic routes are listed FIRST
+    diverse_paths.sort(key=lambda p: calculate_route_score(p))
     return diverse_paths[:max_display]
 
 
