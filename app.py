@@ -1,7 +1,6 @@
 from collections import deque
 from datetime import datetime
 import random
-import textwrap
 import streamlit as st
 import streamlit.components.v1 as components
 
@@ -14,7 +13,6 @@ st.set_page_config(
     layout="wide",
 )
 
-# Skybus Custom Header CSS
 header_css = """
 <style>
     .skybus-header {
@@ -39,7 +37,6 @@ header_css = """
 st.markdown(header_css, unsafe_allow_html=True)
 
 
-# Dynamic Random Generators (Seeded per flight leg for consistency during navigation)
 def get_random_seat(flight_num):
     random.seed(int(flight_num) + 42)
     row = random.randint(1, 32)
@@ -55,229 +52,158 @@ def get_random_gate(flight_num):
 
 
 # ==========================================
-# 2. FULL NETWORK DATASET
+# 2. UPDATED FULL NETWORK DATASET
 # ==========================================
 
 routes_raw = [
-    # Inter-Base Transcontinental Bridges
-    (100, "KBGR", "KBLI", "Daily"),
-    (102, "KBGR", "KIWA", "Daily"),
-    (104, "KBGR", "TJBQ", "Daily"),
-    (106, "KBGR", "KSFB", "Daily"),
-    (108, "KBGR", "KOMA", "Mon,Wed,Fri,Sun"),
-    (110, "KBGR", "KGRR", "Mon,Tue,Thu,Sat"),
-    (112, "KBGR", "KMSY", "Daily"),
-    (114, "KBGR", "KPVU", "Daily"),
-    (116, "KBGR", "KRIC", "Daily"),
-    (118, "KBGR", "KSWF", "Daily"),
-    (120, "KBLI", "PAFA", "Daily"),
-    (122, "KBLI", "KIWA", "Daily"),
-    (124, "KBLI", "KSFB", "Mon,Wed,Fri,Sun"),
-    (126, "KBLI", "KOMA", "Daily"),
-    (128, "KBLI", "KGRR", "Daily"),
-    (130, "KBLI", "KRIC", "Mon,Wed,Fri,Sun"),
-    (132, "KBLI", "KPVU", "Daily"),
-    (134, "KBLI", "KSWF", "Mon,Wed,Fri,Sun"),
-    (136, "KBLI", "KMSY", "Tue,Thu,Sat,Sun"),
-    (138, "KIWA", "PAFA", "Daily"),
-    (140, "KIWA", "KSFB", "Daily"),
-    (142, "KIWA", "KOMA", "Mon,Wed,Fri,Sun"),
-    (144, "KIWA", "KGRR", "Mon,Tue,Thu,Sat"),
-    (146, "KIWA", "KMSY", "Daily"),
-    (148, "KIWA", "KPVU", "Daily"),
-    (150, "KIWA", "KRIC", "Daily"),
-    (152, "KIWA", "KSWF", "Daily"),
-    (154, "TJBQ", "KRIC", "Daily"),
-    (156, "TJBQ", "KSFB", "Daily"),
-    (158, "TJBQ", "KSWF", "Mon,Wed,Fri,Sun"),
-    (160, "TJBQ", "KGRR", "Mon,Tue,Thu,Sat"),
-    (162, "TJBQ", "KMSY", "Daily"),
-    (164, "KSFB", "KOMA", "Mon,Wed,Fri,Sun"),
-    (166, "KSFB", "KGRR", "Mon,Tue,Thu,Sat"),
-    (168, "KSFB", "KMSY", "Daily"),
-    (170, "KSFB", "KPVU", "Daily"),
-    (172, "KSFB", "KRIC", "Daily"),
-    (174, "KSFB", "KSWF", "Daily"),
-    (176, "KOMA", "KPVU", "Daily"),
-    (178, "KOMA", "KRIC", "Daily"),
-    (180, "KOMA", "KSWF", "Mon,Wed,Fri,Sun"),
-    (182, "KOMA", "KMSY", "Daily"),
-    (184, "KOMA", "KGRR", "Daily"),
-    (186, "KGRR", "KMSY", "Daily"),
-    (188, "KGRR", "KPVU", "Daily"),
-    (190, "KGRR", "KRIC", "Daily"),
-    (192, "KGRR", "KSWF", "Daily"),
-    (194, "KMSY", "KPVU", "Daily"),
-    (196, "KMSY", "KRIC", "Daily"),
-    (198, "KMSY", "KSWF", "Daily"),
-    (200, "KPVU", "PAFA", "Mon,Wed,Fri,Sun"),
-    (202, "KPVU", "KRIC", "Daily"),
-    (204, "KPVU", "KSWF", "Mon,Wed,Fri,Sun"),
-    (206, "KRIC", "KSWF", "Daily"),
-    # Hub 1: KBGR Spokes
-    (300, "KBGR", "KBOS", "Daily"),
-    (302, "KBGR", "KPWM", "Daily"),
-    (304, "KBGR", "KPVD", "Daily"),
-    (306, "KBGR", "KBTV", "Mon,Wed,Fri"),
-    (308, "KBGR", "KACK", "Tue,Thu,Sat,Sun"),
-    (310, "KBGR", "KMVY", "Fri,Sat,Sun"),
-    (312, "KBGR", "KBDL", "Daily"),
-    (314, "KBGR", "KSYR", "Mon,Wed,Fri"),
-    (316, "KBGR", "KROC", "Tue,Thu,Sat"),
-    (318, "KBGR", "KPBG", "Mon,Fri"),
-    # Hub 2: KSFB Spokes
-    (400, "KSFB", "KEYW", "Daily"),
-    (402, "KSFB", "KPNS", "Daily"),
-    (404, "KSFB", "KTLH", "Daily"),
-    (406, "KSFB", "KCHS", "Daily"),
-    (408, "KSFB", "KSAV", "Mon,Wed,Fri,Sun"),
-    (410, "KSFB", "KBHM", "Tue,Thu,Sat"),
-    (412, "KSFB", "KGSP", "Mon,Wed,Fri"),
-    (414, "KSFB", "KMYR", "Daily"),
-    (416, "KSFB", "KAGS", "Tue,Thu,Sat"),
-    (418, "KSFB", "KCAE", "Mon,Wed,Fri,Sun"),
-    # Hub 3: TJBQ Spokes
-    (500, "TJBQ", "TJSJ", "Daily"),
-    (502, "TJBQ", "TIST", "Daily"),
-    (504, "TJBQ", "TISX", "Daily"),
-    (506, "TJBQ", "TJPS", "Daily"),
-    (508, "TJBQ", "TJIG", "Daily"),
-    (510, "TJBQ", "TNCM", "Mon,Wed,Fri,Sun"),
-    (512, "TJBQ", "MDPC", "Daily"),
-    (514, "TJBQ", "MDSD", "Daily"),
-    (516, "TJBQ", "MBPV", "Tue,Thu,Sat"),
-    (518, "TJBQ", "MYNN", "Mon,Fri"),
-    # Hub 4: KIWA Spokes
-    (600, "KIWA", "KLAS", "Daily"),
-    (602, "KIWA", "KSAN", "Daily"),
-    (604, "KIWA", "KPSP", "Daily"),
-    (606, "KIWA", "KTUS", "Daily"),
-    (608, "KIWA", "KFLG", "Daily"),
-    (610, "KIWA", "KABQ", "Daily"),
-    (612, "KIWA", "KSLC", "Daily"),
-    (614, "KIWA", "KRNO", "Mon,Wed,Fri,Sun"),
-    (616, "KIWA", "KFAT", "Tue,Thu,Sat"),
-    (618, "KIWA", "KOAK", "Daily"),
-    # Hub 5: KBLI Spokes
-    (700, "KBLI", "KGEG", "Daily"),
-    (702, "KBLI", "KYKM", "Mon,Wed,Fri"),
-    (704, "KBLI", "KPSC", "Daily"),
-    (706, "KBLI", "KEAT", "Tue,Thu,Sat"),
-    (708, "KBLI", "KALW", "Mon,Fri"),
-    (710, "KBLI", "KRDM", "Daily"),
-    (712, "KBLI", "KEUG", "Daily"),
-    (714, "KBLI", "KMFR", "Mon,Wed,Fri,Sun"),
-    (716, "KBLI", "KOTH", "Tue,Thu,Sat"),
-    (718, "KBLI", "KLWS", "Mon,Wed,Fri"),
-    # Hub 6: PAFA Spokes
-    (900, "PAFA", "PANC", "Daily"),
-    (902, "PAFA", "PAJN", "Daily"),
-    (904, "PAFA", "PAKT", "Mon,Wed,Fri,Sun"),
-    (906, "PAFA", "PASI", "Tue,Thu,Sat"),
-    (908, "PAFA", "PABR", "Daily"),
-    (910, "PAFA", "PAOT", "Mon,Wed,Fri"),
-    (912, "PAFA", "PAOM", "Daily"),
-    (914, "PAFA", "PABE", "Mon,Wed,Fri,Sun"),
-    (916, "PAFA", "PACV", "Tue,Thu,Sat"),
-    (918, "PAFA", "PAPG", "Mon,Fri"),
-    # Focus Cities
-    (1000, "KSWF", "KALB", "Daily"),
-    (1002, "KSWF", "KSYR", "Daily"),
-    (1004, "KSWF", "KROC", "Mon,Wed,Fri"),
-    (1006, "KSWF", "KBUF", "Daily"),
-    (1008, "KSWF", "KBTV", "Tue,Thu,Sat"),
-    (1010, "KSWF", "KMHT", "Daily"),
-    (1012, "KSWF", "KPVD", "Daily"),
-    (1014, "KSWF", "KORF", "Mon,Wed,Fri,Sun"),
-    (1016, "KSWF", "KABE", "Daily"),
-    (1018, "KSWF", "KAVP", "Tue,Thu,Sat"),
-    (1100, "KRIC", "KROA", "Daily"),
-    (1102, "KRIC", "KCHO", "Daily"),
-    (1104, "KRIC", "KLYH", "Mon,Wed,Fri"),
-    (1106, "KRIC", "KILM", "Daily"),
-    (1108, "KRIC", "KEWN", "Tue,Thu,Sat"),
-    (1110, "KRIC", "KOAJ", "Mon,Wed,Fri"),
-    (1112, "KRIC", "KTRI", "Daily"),
-    (1114, "KRIC", "KCHS", "Daily"),
-    (1116, "KRIC", "KAVL", "Tue,Thu,Sat,Sun"),
-    (1118, "KRIC", "KSBY", "Mon,Fri"),
-    (1200, "KMSY", "KBTR", "Daily"),
-    (1202, "KMSY", "KLFT", "Daily"),
-    (1204, "KMSY", "KLCH", "Mon,Wed,Fri"),
-    (1206, "KMSY", "KMOB", "Daily"),
-    (1208, "KMSY", "KGPT", "Daily"),
-    (1210, "KMSY", "KHSV", "Tue,Thu,Sat"),
-    (1212, "KMSY", "KJAN", "Daily"),
-    (1214, "KMSY", "KSHV", "Mon,Wed,Fri,Sun"),
-    (1216, "KMSY", "KLIT", "Daily"),
-    (1218, "KMSY", "KPNS", "Daily"),
-    (1300, "KGRR", "KTVC", "Daily"),
-    (1302, "KGRR", "KMQT", "Mon,Wed,Fri"),
-    (1304, "KGRR", "KPLN", "Tue,Thu,Sat"),
-    (1306, "KGRR", "KAZO", "Daily"),
-    (1308, "KGRR", "KLAN", "Daily"),
-    (1310, "KGRR", "KFNT", "Daily"),
-    (1312, "KGRR", "KMSN", "Mon,Wed,Fri,Sun"),
-    (1314, "KGRR", "KGRB", "Daily"),
-    (1316, "KGRR", "KATW", "Tue,Thu,Sat"),
-    (1318, "KGRR", "KSBN", "Daily"),
-    (1400, "KOMA", "KLNK", "Daily"),
-    (1402, "KOMA", "KGRI", "Daily"),
-    (1404, "KOMA", "KEAR", "Mon,Wed,Fri"),
-    (1406, "KOMA", "KLBF", "Tue,Thu,Sat"),
-    (1408, "KOMA", "KBFF", "Mon,Fri"),
-    (1410, "KOMA", "KSUX", "Daily"),
-    (1412, "KOMA", "KFSD", "Daily"),
-    (1414, "KOMA", "KDSM", "Daily"),
-    (1416, "KOMA", "KCID", "Mon,Wed,Fri,Sun"),
-    (1418, "KOMA", "KRST", "Tue,Thu,Sat"),
-    (1500, "KPVU", "KCDC", "Daily"),
-    (1502, "KPVU", "KSGU", "Daily"),
-    (1504, "KPVU", "KEKO", "Mon,Wed,Fri"),
-    (1506, "KPVU", "KPIH", "Daily"),
-    (1508, "KPVU", "KIDA", "Daily"),
-    (1510, "KPVU", "KTWF", "Tue,Thu,Sat"),
-    (1512, "KPVU", "KBOI", "Daily"),
-    (1514, "KPVU", "KJAC", "Mon,Wed,Fri,Sun"),
-    (1516, "KPVU", "KWYS", "Fri,Sat,Sun"),
-    (1518, "KPVU", "KBZN", "Daily"),
-    # International
-    (800, "KBGR", "CYHZ", "Daily"),
-    (802, "KBGR", "CYUL", "Daily"),
-    (804, "KBGR", "CYYT", "Mon,Wed,Fri"),
-    (806, "KBGR", "TXKF", "Tue,Thu,Sat,Sun"),
-    (808, "KBGR", "EINN", "Mon,Wed,Fri,Sun"),
-    (810, "KSFB", "MYNN", "Daily"),
-    (812, "KSFB", "MKJS", "Daily"),
-    (814, "KSFB", "MBPV", "Tue,Thu,Sat"),
-    (816, "KSFB", "MROC", "Mon,Wed,Fri,Sun"),
-    (818, "KSFB", "MPTO", "Tue,Thu,Sat"),
-    (820, "TJBQ", "MDPC", "Daily"),
-    (822, "TJBQ", "TNCM", "Daily"),
-    (824, "TJBQ", "SKBO", "Mon,Wed,Fri"),
-    (826, "TJBQ", "TAPA", "Tue,Thu,Sat"),
-    (828, "TJBQ", "MYNN", "Mon,Fri"),
-    (830, "KIWA", "MMSD", "Daily"),
-    (832, "KIWA", "MMPR", "Daily"),
-    (834, "KIWA", "MMME", "Mon,Wed,Fri,Sun"),
-    (836, "KIWA", "MMGL", "Tue,Thu,Sat"),
-    (838, "KIWA", "MMMX", "Daily"),
-    (840, "KBLI", "CYVR", "Daily"),
-    (842, "KBLI", "CYYJ", "Daily"),
-    (844, "KBLI", "CYYC", "Daily"),
-    (846, "KBLI", "CYEG", "Mon,Wed,Fri,Sun"),
-    (848, "KBLI", "MMSD", "Tue,Thu,Sat"),
-    (850, "PAFA", "CYXY", "Mon,Wed,Fri"),
-    (852, "PAFA", "CYZF", "Tue,Thu,Sat"),
-    (854, "PAFA", "CYEG", "Mon,Wed,Fri,Sun"),
-    (856, "PAFA", "RJAA", "Wed,Fri,Sun"),
-    (858, "PAFA", "RKSI", "Tue,Thu,Sat"),
-    (860, "KBGR", "EGSS", "Daily"),
-    (862, "KBGR", "LFOB", "Mon,Wed,Fri,Sun"),
-    (864, "KBGR", "LIME", "Tue,Thu,Sat"),
-    (866, "KBGR", "EICK", "Mon,Wed,Fri"),
-    (868, "KBGR", "LEGE", "Tue,Thu,Sat,Sun"),
-    (870, "KBGR", "EDJA", "Mon,Thu,Sat"),
+    # ----------------------------------------------------
+    # I. INTER-HUB DIRECT EXPRESS ROUTES (SX 100 - SX 231)
+    # Full Mesh Network Across All 12 Hubs
+    # ----------------------------------------------------
+    (100, "PAFA", "KBLI", "Daily"),  # SX 100 / SX 101
+    (102, "PAFA", "KIWA", "Daily"),  # SX 102 / SX 103
+    (104, "PAFA", "KPVU", "Daily"),  # SX 104 / SX 105
+    (106, "PAFA", "KOMA", "Daily"),  # SX 106 / SX 107
+    (108, "PAFA", "KMSY", "Daily"),  # SX 108 / SX 109
+    (110, "PAFA", "KGRR", "Daily"),  # SX 110 / SX 111
+    (112, "PAFA", "KSWF", "Daily"),  # SX 112 / SX 113
+    (114, "PAFA", "KBGR", "Daily"),  # SX 114 / SX 115
+    (116, "PAFA", "KRIC", "Daily"),  # SX 116 / SX 117
+    (118, "PAFA", "KSFB", "Daily"),  # SX 118 / SX 119
+    (120, "PAFA", "TJBQ", "Daily"),  # SX 120 / SX 121
+    (122, "KBLI", "KIWA", "Daily"),  # SX 122 / SX 123
+    (124, "KBLI", "KPVU", "Daily"),  # SX 124 / SX 125
+    (126, "KBLI", "KOMA", "Daily"),  # SX 126 / SX 127
+    (128, "KBLI", "KMSY", "Daily"),  # SX 128 / SX 129
+    (130, "KBLI", "KGRR", "Daily"),  # SX 130 / SX 131
+    (132, "KBLI", "KSWF", "Daily"),  # SX 132 / SX 133
+    (134, "KBLI", "KBGR", "Daily"),  # SX 134 / SX 135
+    (136, "KBLI", "KRIC", "Daily"),  # SX 136 / SX 137
+    (138, "KBLI", "KSFB", "Daily"),  # SX 138 / SX 139
+    (140, "KBLI", "TJBQ", "Daily"),  # SX 140 / SX 141
+    (142, "KIWA", "KPVU", "Daily"),  # SX 142 / SX 143
+    (144, "KIWA", "KOMA", "Daily"),  # SX 144 / SX 145
+    (146, "KIWA", "KMSY", "Daily"),  # SX 146 / SX 147
+    (148, "KIWA", "KGRR", "Daily"),  # SX 148 / SX 149
+    (150, "KIWA", "KSWF", "Daily"),  # SX 150 / SX 151
+    (152, "KIWA", "KBGR", "Daily"),  # SX 152 / SX 153
+    (154, "KIWA", "KRIC", "Daily"),  # SX 154 / SX 155
+    (156, "KIWA", "KSFB", "Daily"),  # SX 156 / SX 157
+    (158, "KIWA", "TJBQ", "Daily"),  # SX 158 / SX 159
+    (160, "KPVU", "KOMA", "Daily"),  # SX 160 / SX 161
+    (162, "KPVU", "KMSY", "Daily"),  # SX 162 / SX 163
+    (164, "KPVU", "KGRR", "Daily"),  # SX 164 / SX 165
+    (166, "KPVU", "KSWF", "Daily"),  # SX 166 / SX 167
+    (168, "KPVU", "KBGR", "Daily"),  # SX 168 / SX 169
+    (170, "KPVU", "KRIC", "Daily"),  # SX 170 / SX 171
+    (172, "KPVU", "KSFB", "Daily"),  # SX 172 / SX 173
+    (174, "KPVU", "TJBQ", "Daily"),  # SX 174 / SX 175
+    (176, "KOMA", "KMSY", "Daily"),  # SX 176 / SX 177
+    (178, "KOMA", "KGRR", "Daily"),  # SX 178 / SX 179
+    (180, "KOMA", "KSWF", "Daily"),  # SX 180 / SX 181
+    (182, "KOMA", "KBGR", "Daily"),  # SX 182 / SX 183
+    (184, "KOMA", "KRIC", "Daily"),  # SX 184 / SX 185
+    (186, "KOMA", "KSFB", "Daily"),  # SX 186 / SX 187
+    (188, "KOMA", "TJBQ", "Daily"),  # SX 188 / SX 189
+    (190, "KMSY", "KGRR", "Daily"),  # SX 190 / SX 191
+    (192, "KMSY", "KSWF", "Daily"),  # SX 192 / SX 193
+    (194, "KMSY", "KBGR", "Daily"),  # SX 194 / SX 195
+    (196, "KMSY", "KRIC", "Daily"),  # SX 196 / SX 197
+    (198, "KMSY", "KSFB", "Daily"),  # SX 198 / SX 199
+    (200, "KMSY", "TJBQ", "Daily"),  # SX 200 / SX 201
+    (202, "KGRR", "KSWF", "Daily"),  # SX 202 / SX 203
+    (204, "KGRR", "KBGR", "Daily"),  # SX 204 / SX 205
+    (206, "KGRR", "KRIC", "Daily"),  # SX 206 / SX 207
+    (208, "KGRR", "KSFB", "Daily"),  # SX 208 / SX 209
+    (210, "KGRR", "TJBQ", "Daily"),  # SX 210 / SX 211
+    (212, "KSWF", "KBGR", "Daily"),  # SX 212 / SX 213
+    (214, "KSWF", "KRIC", "Daily"),  # SX 214 / SX 215
+    (216, "KSWF", "KSFB", "Daily"),  # SX 216 / SX 217
+    (218, "KSWF", "TJBQ", "Daily"),  # SX 218 / SX 219
+    (220, "KBGR", "KRIC", "Daily"),  # SX 220 / SX 221
+    (222, "KBGR", "KSFB", "Daily"),  # SX 222 / SX 223
+    (224, "KBGR", "TJBQ", "Daily"),  # SX 224 / SX 225
+    (226, "KRIC", "KSFB", "Daily"),  # SX 226 / SX 227
+    (228, "KRIC", "TJBQ", "Daily"),  # SX 228 / SX 229
+    (230, "KSFB", "TJBQ", "Daily"),  # SX 230 / SX 231
+    # ----------------------------------------------------
+    # II. GEOGRAPHIC BRIDGE CONNECTORS & REGIONAL SPOKES
+    # ----------------------------------------------------
+    # PAFA Bridge Spokes
+    (300, "PAFA", "PAJN", "Daily"),
+    (302, "PAFA", "PAKT", "Daily"),
+    (304, "PAFA", "PANC", "Daily"),
+    (306, "PAFA", "PABR", "Daily"),
+    # KBLI Bridge Spokes
+    (320, "KBLI", "PAJN", "Daily"),
+    (322, "KBLI", "PAKT", "Daily"),
+    (324, "KBLI", "KBOI", "Daily"),
+    (326, "KBLI", "KGEG", "Daily"),
+    # KPVU Bridge Spokes
+    (340, "KPVU", "KBOI", "Daily"),
+    (342, "KPVU", "KSGU", "Daily"),
+    (344, "KPVU", "KLAS", "Daily"),
+    (346, "KPVU", "KJAC", "Daily"),
+    # KIWA Bridge Spokes
+    (360, "KIWA", "KSGU", "Daily"),
+    (362, "KIWA", "KLAS", "Daily"),
+    (364, "KIWA", "KELP", "Daily"),
+    (366, "KIWA", "KSAT", "Daily"),
+    (368, "KIWA", "KSAN", "Daily"),
+    # KMSY Bridge Spokes
+    (380, "KMSY", "KELP", "Daily"),
+    (382, "KMSY", "KSAT", "Daily"),
+    (384, "KMSY", "KSGF", "Daily"),
+    (386, "KMSY", "KLIT", "Daily"),
+    (388, "KMSY", "KPNS", "Daily"),
+    # KOMA Bridge Spokes
+    (400, "KOMA", "KMLI", "Daily"),
+    (402, "KOMA", "KSGF", "Daily"),
+    (404, "KOMA", "KLIT", "Daily"),
+    (406, "KOMA", "KFSD", "Daily"),
+    # KGRR Bridge Spokes
+    (420, "KGRR", "KMLI", "Daily"),
+    (422, "KGRR", "KPNS", "Daily"),
+    (424, "KGRR", "KPIT", "Daily"),
+    (426, "KGRR", "KCAK", "Daily"),
+    (428, "KGRR", "KTVC", "Daily"),
+    # KSWF Bridge Spokes
+    (440, "KSWF", "KABE", "Daily"),
+    (442, "KSWF", "KMDT", "Daily"),
+    (444, "KSWF", "KPWM", "Daily"),
+    (446, "KSWF", "KCAK", "Daily"),
+    (448, "KSWF", "KPVD", "Daily"),
+    # KBGR Bridge Spokes
+    (460, "KBGR", "KPWM", "Daily"),
+    (462, "KBGR", "KBOS", "Daily"),
+    (464, "KBGR", "KPVD", "Daily"),
+    # KRIC Bridge Spokes
+    (480, "KRIC", "KCHS", "Daily"),
+    (482, "KRIC", "KILM", "Daily"),
+    (484, "KRIC", "KABE", "Daily"),
+    (486, "KRIC", "KMDT", "Daily"),
+    (488, "KRIC", "KPIT", "Daily"),
+    (490, "KRIC", "KROA", "Daily"),
+    # KSFB Bridge Spokes
+    (500, "KSFB", "KCHS", "Daily"),
+    (502, "KSFB", "KILM", "Daily"),
+    (504, "KSFB", "KPNS", "Daily"),
+    (506, "KSFB", "KEYW", "Daily"),
+    (508, "KSFB", "MDPC", "Daily"),
+    (510, "KSFB", "MBPV", "Daily"),
+    # ----------------------------------------------------
+    # III. TJBQ CARIBBEAN REGIONAL SPOKES (SX 850 - SX 869)
+    # ----------------------------------------------------
+    (850, "TJBQ", "TJSJ", "Daily"),  # San Juan, PR
+    (852, "TJBQ", "TJPS", "Daily"),  # Ponce, PR
+    (854, "TJBQ", "TIST", "Daily"),  # St. Thomas, USVI
+    (856, "TJBQ", "TISX", "Daily"),  # St. Croix, USVI
+    (858, "TJBQ", "TNCM", "Daily"),  # St. Maarten
+    (860, "TJBQ", "TKPK", "Daily"),  # St. Kitts
+    (862, "TJBQ", "TFFR", "Daily"),  # Guadeloupe
+    (864, "TJBQ", "TFFF", "Daily"),  # Martinique
+    (866, "TJBQ", "TQPF", "Daily"),  # Anguilla
+    (868, "TJBQ", "TAPA", "Daily"),  # Antigua
 ]
 
 
@@ -285,28 +211,38 @@ routes_raw = [
 def get_full_network():
     network = []
     for flt, orig, dest, days in routes_raw:
-        network.append(
-            {"Flight": flt, "Origin": orig, "Destination": dest, "Days": days}
-        )
+        orig_clean = str(orig).strip().upper()
+        dest_clean = str(dest).strip().upper()
+
+        # Outbound Leg
         network.append(
             {
-                "Flight": flt + 1,
-                "Origin": dest,
-                "Destination": orig,
-                "Days": days,
+                "Flight": int(flt),
+                "Origin": orig_clean,
+                "Destination": dest_clean,
+                "Days": str(days),
+            }
+        )
+        # Inbound Return Leg (Auto-generated)
+        network.append(
+            {
+                "Flight": int(flt) + 1,
+                "Origin": dest_clean,
+                "Destination": orig_clean,
+                "Days": str(days),
             }
         )
     return network
 
 
 # ==========================================
-# 3. ROUTE FINDER ENGINE
+# 3. DIVERSIFIED ROUTE FINDER ENGINE
 # ==========================================
 
 
 def find_routes(network, origin, destination, max_connections=10):
-    origin = origin.upper()
-    destination = destination.upper()
+    origin = origin.strip().upper()
+    destination = destination.strip().upper()
 
     queue = deque()
     for leg in network:
@@ -323,8 +259,7 @@ def find_routes(network, origin, destination, max_connections=10):
 
         if current_node == destination:
             valid_paths.append(path)
-            # Allow search to collect options across all hubs rather than stopping at 15 immediately
-            if len(valid_paths) >= 100:
+            if len(valid_paths) >= 300:
                 break
             continue
 
@@ -341,11 +276,44 @@ def find_routes(network, origin, destination, max_connections=10):
             ):
                 queue.append(path + [nxt])
 
-    # Sort routes by shortest number of legs first
+    if not valid_paths:
+        return []
+
+    # Sort paths by shortest leg count first
     valid_paths.sort(key=lambda p: len(p))
-    
-    # Return top 15 shortest & most direct options
-    return valid_paths[:15]
+
+    # Diversify connecting hubs for multi-stop routes
+    paths_by_first_hub = {}
+    for path in valid_paths:
+        first_hub = path[0]["Destination"]
+        if first_hub not in paths_by_first_hub:
+            paths_by_first_hub[first_hub] = []
+        paths_by_first_hub[first_hub].append(path)
+
+    diverse_paths = []
+    added_signatures = set()
+
+    for hub, paths in paths_by_first_hub.items():
+        best_path = paths[0]
+        sig = tuple(
+            (leg["Flight"], leg["Origin"], leg["Destination"])
+            for leg in best_path
+        )
+        diverse_paths.append(best_path)
+        added_signatures.add(sig)
+
+    for path in valid_paths:
+        if len(diverse_paths) >= 15:
+            break
+        sig = tuple(
+            (leg["Flight"], leg["Origin"], leg["Destination"]) for leg in path
+        )
+        if sig not in added_signatures:
+            diverse_paths.append(path)
+            added_signatures.add(sig)
+
+    diverse_paths.sort(key=lambda p: len(p))
+    return diverse_paths[:15]
 
 
 # ==========================================
@@ -480,7 +448,7 @@ if "search_results" in st.session_state:
         )
         for idx, leg in enumerate(selected_path, 1):
             st.write(
-                f"**Leg {idx}:** Flight **#{leg['Flight']}** | `{leg['Origin']}` ➔ `{leg['Destination']}` | Operating Days: *{leg['Days']}*"
+                f"**Leg {idx}:** Flight **SX #{leg['Flight']}** | `{leg['Origin']}` ➔ `{leg['Destination']}` | Operating Days: *{leg['Days']}*"
             )
 
         st.session_state["selected_itinerary"] = selected_path
@@ -499,7 +467,7 @@ if "selected_itinerary" in st.session_state:
     selected_leg_index = 0
     if len(path) > 1:
         leg_names = [
-            f"Leg {i+1}: {leg['Origin']} ➔ {leg['Destination']} (Flight #{leg['Flight']})"
+            f"Leg {i+1}: {leg['Origin']} ➔ {leg['Destination']} (Flight SX #{leg['Flight']})"
             for i, leg in enumerate(path)
         ]
         selected_leg_index = st.selectbox(
@@ -578,7 +546,7 @@ if "selected_itinerary" in st.session_state:
                     <span style="font-size: 18px; font-weight: 800; letter-spacing: 1px;">SKYBUS</span>
                     <span style="font-size: 10px; margin-left: 6px; background: rgba(255,255,255,0.25); padding: 3px 7px; border-radius: 10px;">MOBILE PASS</span>
                 </div>
-                <div style="font-weight: bold; font-size: 14px;">Flight #{active_leg['Flight']}</div>
+                <div style="font-weight: bold; font-size: 14px;">SX #{active_leg['Flight']}</div>
             </div>
             <div class="bp-body">
                 <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px;">
