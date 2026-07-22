@@ -1,3 +1,4 @@
+import random
 from collections import deque
 from datetime import datetime
 import random
@@ -382,53 +383,67 @@ st.markdown(
     """
 <div class="skybus-header">
     <h1>✈️ SKYBUS AIRLINES</h1>
-    <p style="margin:4px 0 0 0; opacity: 0.9;">Network Route Search & Mobile Boarding System</p>
+    <p style="margin:4px 0 0 0; opacity: 0.9;">Flight Booking & Mobile Boarding System</p>
 </div>
 """,
     unsafe_allow_html=True,
 )
 
-p_col1, p_col2 = st.columns(2)
-with p_col1:
-    st.markdown(
-        """
+st.markdown(
+    """
     <div class="info-card">
         <div style="font-size: 11px; color: #888; font-weight: bold; text-transform: uppercase;">Passenger</div>
         <div style="font-size: 18px; font-weight: bold; color: #111;">👤 John Bowman</div>
     </div>
     """,
-        unsafe_allow_html=True,
-    )
-
-with p_col2:
-    st.markdown(
-        """
-    <div class="info-card">
-        <div style="font-size: 11px; color: #888; font-weight: bold; text-transform: uppercase;">In-Flight Wi-Fi</div>
-        <div style="font-size: 18px; font-weight: bold; color: #FF5722;">📶 High-Speed SkyFly</div>
-    </div>
-    """,
-        unsafe_allow_html=True,
-    )
+    unsafe_allow_html=True,
+)
 
 network = get_full_network()
 all_airports = sorted(list(set([f["Origin"] for f in network])))
 
+# ==========================================
+# SEARCH CONTROLS WITH RANDOM DESTINATION
+# ==========================================
+
 st.subheader("🔍 Search Any Route on Network Map")
 
-col1, col2, col3, col4 = st.columns(4)
+# Initialize default destination state if not already set
+if "dest_select" not in st.session_state:
+    st.session_state["dest_select"] = "PAFA" if "PAFA" in all_airports else (all_airports[1] if len(all_airports) > 1 else all_airports[0])
+
+col1, col2, col3, col4 = st.columns([1, 1.3, 1, 1])
+
+# 1. Origin Selection
 with col1:
     orig_select = st.selectbox(
         "Origin Airport",
         options=all_airports,
         index=all_airports.index("KRIC") if "KRIC" in all_airports else 0,
+        key="orig_select"
     )
+
+# 2. Destination Selection + Random Button
 with col2:
-    dest_select = st.selectbox(
-        "Destination Airport",
-        options=all_airports,
-        index=all_airports.index("PAFA") if "PAFA" in all_airports else 1,
-    )
+    st.markdown("<label style='font-size: 14px; font-weight: 500;'>Destination Airport</label>", unsafe_allow_html=True)
+    d_col1, d_col2 = st.columns([2.2, 1])
+    
+    with d_col1:
+        dest_select = st.selectbox(
+            "Destination Airport",
+            options=all_airports,
+            key="dest_select",
+            label_visibility="collapsed"
+        )
+        
+    with d_col2:
+        if st.button("🎲 Random", help="Pick a random destination from the network"):
+            available = [a for a in all_airports if a != orig_select]
+            if available:
+                st.session_state["dest_select"] = random.choice(available)
+                st.rerun()
+
+# 3. Connection Filters
 with col3:
     max_conn_str = st.selectbox(
         "Max Connections Allowed",
@@ -441,13 +456,16 @@ with col3:
         ],
         index=0,
     )
+
+# 4. Display Limits
 with col4:
     max_display_count = st.selectbox(
         "Max Options to Show",
         options=[15, 25, 35, 50, 75],
-        index=2,  # Default to 35
+        index=2,  # Default 35
     )
 
+# Connection filter parsing logic
 if "1 " in max_conn_str:
     max_conn = 1
 elif "2 " in max_conn_str:
@@ -459,6 +477,7 @@ elif "4 " in max_conn_str:
 else:
     max_conn = 10
 
+# Search Action Button
 if st.button("Search Route Options", type="primary"):
     if orig_select == dest_select:
         st.warning("Please choose two different airports.")
