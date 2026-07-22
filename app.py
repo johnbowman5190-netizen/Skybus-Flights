@@ -168,81 +168,288 @@ routes_raw = [
     # ----------------------------------------------------
     # II. GEOGRAPHIC BRIDGE CONNECTORS & REGIONAL SPOKES
     # ----------------------------------------------------
-    # PAFA Bridge Spokes
-    (300, "PAFA", "PAJN", "Daily"),
-    (302, "PAFA", "PAKT", "Daily"),
-    (304, "PAFA", "PANC", "Daily"),
-    (306, "PAFA", "PABR", "Daily"),
-    # KBLI Bridge Spokes
-    (320, "KBLI", "PAJN", "Daily"),
-    (322, "KBLI", "PAKT", "Daily"),
-    (324, "KBLI", "KBOI", "Daily"),
-    (326, "KBLI", "KGEG", "Daily"),
-    # KPVU Bridge Spokes
-    (340, "KPVU", "KBOI", "Daily"),
-    (342, "KPVU", "KSGU", "Daily"),
-    (344, "KPVU", "KLAS", "Daily"),
-    (346, "KPVU", "KJAC", "Daily"),
-    # KIWA Bridge Spokes
-    (360, "KIWA", "KSGU", "Daily"),
-    (362, "KIWA", "KLAS", "Daily"),
-    (364, "KIWA", "KELP", "Daily"),
-    (366, "KIWA", "KSAT", "Daily"),
-    (368, "KIWA", "KSAN", "Daily"),
-    # KMSY Bridge Spokes
-    (380, "KMSY", "KELP", "Daily"),
-    (382, "KMSY", "KSAT", "Daily"),
-    (384, "KMSY", "KSGF", "Daily"),
-    (386, "KMSY", "KLIT", "Daily"),
-    (388, "KMSY", "KPNS", "Daily"),
-    # KOMA Bridge Spokes
-    (400, "KOMA", "KMLI", "Daily"),
-    (402, "KOMA", "KSGF", "Daily"),
-    (404, "KOMA", "KLIT", "Daily"),
-    (406, "KOMA", "KFSD", "Daily"),
-    # KGRR Bridge Spokes
-    (420, "KGRR", "KMLI", "Daily"),
-    (422, "KGRR", "KPNS", "Daily"),
-    (424, "KGRR", "KPIT", "Daily"),
-    (426, "KGRR", "KCAK", "Daily"),
-    (428, "KGRR", "KTVC", "Daily"),
-    # KSWF Bridge Spokes
-    (440, "KSWF", "KABE", "Daily"),
-    (442, "KSWF", "KMDT", "Daily"),
-    (444, "KSWF", "KPWM", "Daily"),
-    (446, "KSWF", "KCAK", "Daily"),
-    (448, "KSWF", "KPVD", "Daily"),
-    # KBGR Bridge Spokes
-    (460, "KBGR", "KPWM", "Daily"),
-    (462, "KBGR", "KBOS", "Daily"),
-    (464, "KBGR", "KPVD", "Daily"),
-    # KRIC Bridge Spokes
-    (480, "KRIC", "KCHS", "Daily"),
-    (482, "KRIC", "KILM", "Daily"),
-    (484, "KRIC", "KABE", "Daily"),
-    (486, "KRIC", "KMDT", "Daily"),
-    (488, "KRIC", "KPIT", "Daily"),
-    (490, "KRIC", "KROA", "Daily"),
-    # KSFB Bridge Spokes
-    (500, "KSFB", "KCHS", "Daily"),
-    (502, "KSFB", "KILM", "Daily"),
-    (504, "KSFB", "KPNS", "Daily"),
-    (506, "KSFB", "KEYW", "Daily"),
-    (508, "KSFB", "MDPC", "Daily"),
-    (510, "KSFB", "MBPV", "Daily"),
+# ----------------------------------------------------
+# ----------------------------------------------------
+    # PAFA Bridge Spokes (1300 Block - Alaska Hub - 15 Spokes)
     # ----------------------------------------------------
-    # III. TJBQ CARIBBEAN REGIONAL SPOKES (SX 850 - SX 869)
+    (1300, "PAFA", "PAJN", "Daily"),  # Juneau, AK (Shared w/ KBLI)
+    (1302, "PAFA", "PAKT", "Daily"),  # Ketchikan, AK (Shared w/ KBLI)
+    (1304, "PAFA", "PABR", "Daily"),  # Utqiaġvik (Barrow), AK
+    (1306, "PAFA", "PAOT", "Daily"),  # Kotzebue, AK
+    (1308, "PAFA", "PASC", "Daily"),  # Deadhorse / Prudhoe Bay, AK
+    (1310, "PAFA", "PADQ", "Daily"),  # Kodiak, AK
+    (1312, "PAFA", "PAOM", "Daily"),  # Nome, AK
+    (1314, "PAFA", "PABT", "Daily"),  # Bettles, AK
+    (1316, "PAFA", "PAPG", "Daily"),  # Petersburg, AK
+    (1318, "PAFA", "PASI", "Daily"),  # Sitka, AK
+    (1320, "PAFA", "PAYA", "Daily"),  # Yakutat, AK
+    (1322, "PAFA", "PAVD", "Daily"),  # Valdez, AK
+    (1324, "PAFA", "PAEN", "Daily"), # Kenai, AK
+    (1326, "PAFA", "PAKW", "Daily"),  # Wrangell, AK
+    (1328, "PAFA", "PAHO", "Daily"),  # Homer, AK
+    (1330, "PAFA", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
+    (1332, "PAFA", "OGG",  "Daily"),  # Kahului, HI (Maui)
+
     # ----------------------------------------------------
-    (850, "TJBQ", "TJSJ", "Daily"),  # San Juan, PR
-    (852, "TJBQ", "TJPS", "Daily"),  # Ponce, PR
-    (854, "TJBQ", "TIST", "Daily"),  # St. Thomas, USVI
-    (856, "TJBQ", "TISX", "Daily"),  # St. Croix, USVI
-    (858, "TJBQ", "TNCM", "Daily"),  # St. Maarten
-    (860, "TJBQ", "TKPK", "Daily"),  # St. Kitts
-    (862, "TJBQ", "TFFR", "Daily"),  # Guadeloupe
-    (864, "TJBQ", "TFFF", "Daily"),  # Martinique
-    (866, "TJBQ", "TQPF", "Daily"),  # Anguilla
-    (868, "TJBQ", "TAPA", "Daily"),  # Antigua
+    # KPVU Bridge Spokes (1400 Block - Intermountain West Hub - 15 Spokes)
+    # ----------------------------------------------------
+    (1400, "KPVU", "KBOI", "Daily"),  # Boise, ID (Shared w/ KBLI)
+    (1402, "KPVU", "KSGU", "Daily"),  # St. George, UT (Shared w/ KIWA)
+    (1404, "KPVU", "KIFP", "Daily"),  # Bullhead City / Laughlin, AZ (Shared w/ KIWA)
+    (1406, "KPVU", "KJAC", "Daily"),  # Jackson Hole, WY
+    (1408, "KPVU", "KGEG", "Daily"),  # Spokane, WA (Shared w/ KBLI)
+    (1410, "KPVU", "KEUG", "Daily"),  # Eugene, OR (Shared w/ KBLI)
+    (1412, "KPVU", "KFLG", "Daily"),  # Flagstaff, AZ (Shared w/ KIWA)
+    (1414, "KPVU", "KCPR", "Daily"),  # Casper, WY
+    (1416, "KPVU", "KGJT", "Daily"),  # Grand Junction, CO
+    (1418, "KPVU", "KIDA", "Daily"),  # Idaho Falls, ID
+    (1420, "KPVU", "KBZN", "Daily"),  # Bozeman, MT
+    (1422, "KPVU", "KMSO", "Daily"),  # Missoula, MT
+    (1424, "KPVU", "KTWF", "Daily"),  # Twin Falls, ID (Shared w/ KBLI)
+    (1426, "KPVU", "KPIH", "Daily"),  # Pocatello, ID
+    (1428, "KPVU", "KRNO", "Daily"),  # Reno / Tahoe, NV
+    (1430, "KPVU", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
+    (1432, "KPVU", "OGG",  "Daily"),  # Kahului, HI (Maui)
+
+    # ----------------------------------------------------
+    # KIWA Bridge Spokes (300 Block - Southwest Hub - 15 Spokes)
+    # ----------------------------------------------------
+    (300, "KIWA", "KSGU", "Daily"),  # St. George, UT (Shared w/ KPVU)
+    (302, "KIWA", "KIFP", "Daily"),  # Bullhead City / Laughlin, AZ (Shared w/ KPVU)
+    (304, "KIWA", "KELP", "Daily"),  # El Paso, TX (Shared w/ KMSY)
+    (306, "KIWA", "KCLD", "Daily"),  # Carlsbad / San Diego North, CA
+    (308, "KIWA", "KFLG", "Daily"),  # Flagstaff, AZ (Shared w/ KPVU)
+    (310, "KIWA", "KMAF", "Daily"),  # Midland / Odessa, TX (Shared w/ KMSY)
+    (312, "KIWA", "KABQ", "Daily"),  # Albuquerque, NM
+    (314, "KIWA", "KTUS", "Daily"),  # Tucson, AZ
+    (316, "KIWA", "KPSP", "Daily"),  # Palm Springs, CA
+    (318, "KIWA", "KROW", "Daily"),  # Roswell, NM
+    (320, "KIWA", "KPRC", "Daily"),  # Prescott, AZ
+    (322, "KIWA", "KDRO", "Daily"),  # Durango, CO
+    (324, "KIWA", "KEKO", "Daily"),  # Elko, NV
+    (326, "KIWA", "KSBP", "Daily"),  # San Luis Obispo, CA
+    (328, "KIWA", "KFLT", "Daily"),  # Flagstaff / Sedona, AZ
+    (330,  "KIWA", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
+    (332,  "KIWA", "OGG",  "Daily"),  # Kahului, HI (Maui)
+    (334,  "KIWA", "KOA",  "Daily"),  # Kona, HI (Big Island)
+
+    # ----------------------------------------------------
+    # KBLI Bridge Spokes (400 Block - Pacific Northwest Hub - 15 Spokes)
+    # ----------------------------------------------------
+    (400, "KBLI", "PAJN", "Daily"),  # Juneau, AK (Shared w/ PAFA)
+    (402, "KBLI", "PAKT", "Daily"),  # Ketchikan, AK (Shared w/ PAFA)
+    (404, "KBLI", "KBOI", "Daily"),  # Boise, ID (Shared w/ KPVU)
+    (406, "KBLI", "KGEG", "Daily"),  # Spokane, WA (Shared w/ KPVU)
+    (408, "KBLI", "KEUG", "Daily"),  # Eugene, OR (Shared w/ KPVU)
+    (410, "KBLI", "KYKM", "Daily"),  # Yakima, WA
+    (412, "KBLI", "KPSC", "Daily"),  # Pasco / Tri-Cities, WA
+    (414, "KBLI", "KMFR", "Daily"),  # Rogue Valley / Medford, OR
+    (416, "KBLI", "KRDM", "Daily"),  # Bend / Redmond, OR
+    (418, "KBLI", "KOTH", "Daily"),  # North Bend / Coos Bay, OR
+    (420, "KBLI", "KALW", "Daily"),  # Walla Walla, WA
+    (422, "KBLI", "KEAT", "Daily"),  # Wenatchee, WA
+    (424, "KBLI", "KLWS", "Daily"),  # Lewiston, ID
+    (426, "KBLI", "KTWF", "Daily"),  # Twin Falls, ID (Shared w/ KPVU)
+    (428, "KBLI", "KCLM", "Daily"),  # Port Angeles, WA
+    (430,  "KBLI", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
+    (432,  "KBLI", "OGG",  "Daily"),  # Kahului, HI (Maui)
+    (434,  "KBLI", "KOA",  "Daily"),  # Kona, HI (Big Island)
+    (436,  "KBLI", "LIH",  "Daily"),  # Lihue, HI (Kauai)
+
+    # ----------------------------------------------------
+    # KMSY Bridge Spokes (500 Block - Gulf Coast Hub - 15 Spokes)
+    # ----------------------------------------------------
+    (500, "KMSY", "KELP", "Daily"),  # El Paso, TX (Shared w/ KIWA)
+    (502, "KMSY", "KSGF", "Daily"),  # Springfield, MO (Shared w/ KOMA)
+    (504, "KMSY", "KLIT", "Daily"),  # Little Rock, AR (Shared w/ KOMA)
+    (506, "KMSY", "KPNS", "Daily"),  # Pensacola, FL (Shared w/ KSFB & KGRR)
+    (508, "KMSY", "KMOB", "Daily"),  # Mobile, AL (Shared w/ KSFB)
+    (510, "KMSY", "KVPS", "Daily"),  # Eglin / Destin, FL (Shared w/ KSFB)
+    (512, "KMSY", "KMAF", "Daily"),  # Midland / Odessa, TX (Shared w/ KIWA)
+    (514, "KMSY", "KBTR", "Daily"),  # Baton Rouge, LA
+    (516, "KMSY", "KGPT", "Daily"),  # Gulfport / Biloxi, MS (Shared w/ KSFB)
+    (518, "KMSY", "KLFT", "Daily"),  # Lafayette, LA
+    (520, "KMSY", "KMLU", "Daily"),  # Monroe, LA
+    (522, "KMSY", "KHBG", "Daily"),  # Hattiesburg, MS
+    (524, "KMSY", "KAEX", "Daily"),  # Alexandria, LA
+    (526, "KMSY", "KLCH", "Daily"),  # Lake Charles, LA
+    (528, "KMSY", "KTYR", "Daily"),  # Tyler, TX
+
+    # ----------------------------------------------------
+    # KOMA Bridge Spokes (600 Block - Midwest Hub - 15 Spokes)
+    # ----------------------------------------------------
+    (600, "KOMA", "KMLI", "Daily"),  # Moline / Quad Cities, IL (Shared w/ KGRR)
+    (602, "KOMA", "KSGF", "Daily"),  # Springfield, MO (Shared w/ KMSY)
+    (604, "KOMA", "KLIT", "Daily"),  # Little Rock, AR (Shared w/ KMSY)
+    (606, "KOMA", "KFSD", "Daily"),  # Sioux Falls, SD
+    (608, "KOMA", "KCID", "Daily"),  # Cedar Rapids, IA (Shared w/ KGRR)
+    (610, "KOMA", "KPIA", "Daily"),  # Peoria, IL (Shared w/ KGRR)
+    (612, "KOMA", "KDSM", "Daily"),  # Des Moines, IA
+    (614, "KOMA", "KLNK", "Daily"),  # Lincoln, NE
+    (616, "KOMA", "KICT", "Daily"),  # Wichita, KS
+    (618, "KOMA", "KBIS", "Daily"),  # Bismarck, ND
+    (620, "KOMA", "KFAR", "Daily"),  # Fargo, ND
+    (622, "KOMA", "KGRI", "Daily"),  # Grand Island, NE
+    (624, "KOMA", "KSUX", "Daily"),  # Sioux City, IA
+    (626, "KOMA", "KCOU", "Daily"),  # Columbia, MO
+    (628, "KOMA", "KALO", "Daily"),  # Waterloo, IA
+
+    # ----------------------------------------------------
+    # KGRR Bridge Spokes (700 Block - Great Lakes Hub - 15 Spokes)
+    # ----------------------------------------------------
+    (700, "KGRR", "KMLI", "Daily"),  # Moline / Quad Cities, IL (Shared w/ KOMA)
+    (702, "KGRR", "KPNS", "Daily"),  # Pensacola, FL (Shared w/ KSFB & KMSY)
+    (704, "KGRR", "KPIT", "Daily"),  # Pittsburgh, PA (Shared w/ KRIC)
+    (706, "KGRR", "KCAK", "Daily"),  # Akron / Canton, OH (Shared w/ KRIC & KSWF)
+    (708, "KGRR", "KTVC", "Daily"),  # Traverse City, MI
+    (710, "KGRR", "KHTS", "Daily"),  # Huntington, WV (Shared w/ KRIC)
+    (712, "KGRR", "KCID", "Daily"),  # Cedar Rapids, IA (Shared w/ KOMA)
+    (714, "KGRR", "KPIA", "Daily"),  # Peoria, IL (Shared w/ KOMA)
+    (716, "KGRR", "KSBN", "Daily"),  # South Bend, IN
+    (718, "KGRR", "KMKE", "Daily"),  # Milwaukee, WI
+    (720, "KGRR", "KFWA", "Daily"),  # Fort Wayne, IN
+    (722, "KGRR", "KLAN", "Daily"),  # Lansing, MI
+    (724, "KGRR", "KAZO", "Daily"),  # Kalamazoo, MI
+    (726, "KGRR", "KFNT", "Daily"),  # Flint, MI
+    (728, "KGRR", "KTOL", "Daily"),  # Toledo, OH
+
+    # ----------------------------------------------------
+    # International Flights (800 Block - Skybus Network)
+    # ----------------------------------------------------
+    (800, "TJBQ", "TNCM", "Daily"),  # St. Maarten
+    (802, "TJBQ", "TKPK", "Daily"),  # St. Kitts
+    (804, "TJBQ", "TFFR", "Daily"),  # Guadeloupe
+    (806, "TJBQ", "TFFF", "Daily"),  # Martinique
+    (808, "TJBQ", "TAPA", "Daily"),  # Antigua
+    (810, "TJBQ", "TNCA", "Daily"),  # Aruba
+    (812, "TJBQ", "TNCB", "Daily"),  # Bonaire
+    (814, "TJBQ", "TNCC", "Daily"),  # Curaçao
+    (816, "TJBQ", "TLPL", "Daily"),  # St. Lucia
+    (818, "TJBQ", "TBPB", "Daily"),  # Barbados
+    (820, "TJBQ", "TVSA", "Daily"),  # St. Vincent
+    (822, "TJBQ", "MDPC", "Daily"),  # Punta Cana, Dominican Republic
+    (824, "KSFB", "MDPC", "Daily"),  # Punta Cana, Dominican Republic
+    (826, "KSFB", "MBPV", "Daily"),  # Providenciales, Turks & Caicos
+    (828, "KSFB", "MKJS", "Daily"),  # Montego Bay, Jamaica
+    (830, "KSFB", "MYNN", "Daily"),  # Nassau, Bahamas
+    (832, "KSFB", "MROC", "Daily"),  # San José, Costa Rica
+    (834, "PAFA", "CYXY", "Daily"),  # Whitehorse, YT, Canada
+    (836, "PAFA", "CYVR", "Daily"),  # Vancouver, BC, Canada
+    (838, "KBLI", "CYYJ", "Daily"),  # Victoria, BC, Canada
+    (840, "KBLI", "CYYC", "Daily"),  # Calgary, AB, Canada
+    (842, "KBLI", "MMSD", "Daily"),  # Los Cabos, Mexico
+    (844, "KIWA", "MMSD", "Daily"),  # Los Cabos, Mexico
+    (846, "KIWA", "MMPR", "Daily"),  # Puerto Vallarta, Mexico
+    (848, "KIWA", "MMMZ", "Daily"),  # Mazatlán, Mexico
+    (850, "KIWA", "MMGL", "Daily"),  # Guadalajara, Mexico
+    (852, "KMSY", "MMUN", "Daily"),  # Cancún, Mexico
+    (854, "KMSY", "MMCZ", "Daily"),  # Cozumel, Mexico
+    (856, "KMSY", "MZBZ", "Daily"),  # Belize City, Belize
+    (858, "KGRR", "CYHM", "Daily"),  # Hamilton / Toronto South, ON, Canada
+    (860, "KGRR", "CYUL", "Daily"),  # Montréal, QC, Canada
+    (862, "KGRR", "MMUN", "Daily"),  # Cancún, Mexico
+    (864, "KBGR", "CYHZ", "Daily"),  # Halifax, NS, Canada
+    (866, "KBGR", "BIKF", "Daily"),  # Reykjavik / Keflavik, Iceland
+    (868, "KBGR", "EINN", "Daily"),  # Shannon, Ireland
+    (870, "KSWF", "CYUL", "Daily"),  # Montréal, QC, Canada
+    (872, "KSWF", "BIKF", "Daily"),  # Reykjavik / Keflavik, Iceland
+    (874, "KSWF", "EINN", "Daily"),  # Shannon, Ireland
+    (876, "KSWF", "EIDW", "Daily"),  # Dublin, Ireland
+    (878, "KBGR", "EIDW", "Daily"),  # Dublin, Ireland
+    (880, "KMSY", "MGGT", "Daily"),  # Guatemala City, Guatemala
+    (882, "KIWA", "MRLB", "Daily"),  # Liberia / Guanacaste, Costa Rica
+    (884, "KBLI", "MMPR", "Daily"),  # Puerto Vallarta, Mexico
+    (886, "KGRR", "MDPC", "Daily"),  # Punta Cana, Dominican Republic
+    (888, "KSFB", "SKCG", "Daily"),  # Cartagena, Colombia
+    (890, "PAFA", "CYEG", "Daily"),  # Edmonton, AB, Canada
+    
+    # ----------------------------------------------------
+    # TJBQ Caribbean Regional Spokes (1500 Block - Caribbean Hub)
+    # ----------------------------------------------------
+    (1500, "TJBQ", "TJPS", "Daily"),  # Ponce, PR
+    (1502, "TJBQ", "TIST", "Daily"),  # St. Thomas, USVI
+    (1504, "TJBQ", "TISX", "Daily"),  # St. Croix, USVI
+    (1506, "TJBQ", "TJSJ", "Daily"),  # San Juan, PR
+    (1508, "TJBQ", "KMYR", "Daily"),  # Myrtle Beach, SC (Shared w/ KSFB)
+    (1510, "TJBQ", "KILM", "Daily"),  # Wilmington, NC (Shared w/ KRIC)
+    (1512, "TJBQ", "KPVD", "Daily"),  # Providence, RI (Shared w/ KBGR)
+    (1514, "TJBQ", "KABE", "Daily"),  # Allentown / Lehigh Valley, PA (Shared w/ KSWF)
+    (1516, "TJBQ", "KPIT", "Daily"),  # Pittsburgh, PA (Shared w/ KGRR)
+    (1518, "TJBQ", "KPNS", "Daily"),  # Pensacola, FL (Shared w/ KMSY)
+
+    # ----------------------------------------------------
+    # KSWF Bridge Spokes (900 Block - Northeast / Hudson Valley Hub - 15 Spokes)
+    # ----------------------------------------------------
+    (900, "KSWF", "KABE", "Daily"),  # Allentown, PA (Shared w/ KRIC)
+    (902, "KSWF", "KMDT", "Daily"),  # Harrisburg, PA (Shared w/ KRIC)
+    (904, "KSWF", "KPWM", "Daily"),  # Portland, ME (Shared w/ KBGR)
+    (906, "KSWF", "KCAK", "Daily"),  # Akron / Canton, OH (Shared w/ KGRR)
+    (908, "KSWF", "KPVD", "Daily"),  # Providence, RI (Shared w/ KBGR)
+    (910, "KSWF", "KCRW", "Daily"),  # Charleston, WV (Shared w/ KRIC)
+    (912, "KSWF", "KBTV", "Daily"),  # Burlington, VT (Shared w/ KBGR)
+    (914, "KSWF", "KORH", "Daily"),  # Worcester, MA (Shared w/ KBGR)
+    (916, "KSWF", "KSYR", "Daily"),  # Syracuse, NY
+    (918, "KSWF", "KBGM", "Daily"),  # Binghamton, NY
+    (920, "KSWF", "KITH", "Daily"),  # Ithaca, NY
+    (922, "KSWF", "KART", "Daily"),  # Watertown, NY
+    (924, "KSWF", "KAVP", "Daily"),  # Wilkes-Barre / Scranton, PA
+    (926, "KSWF", "KELM", "Daily"),  # Elmira / Corning, NY
+    (928, "KSWF", "KHVN", "Daily"),  # New Haven, CT (Shared w/ KBGR)
+
+    # ----------------------------------------------------
+    # KBGR Bridge Spokes (1000 Block - Northern New England Hub - 15 Spokes)
+    # ----------------------------------------------------
+    (1000, "KBGR", "KPWM", "Daily"), # Portland, ME (Shared w/ KSWF)
+    (1002, "KBGR", "KMHT", "Daily"), # Manchester, NH
+    (1004, "KBGR", "KPVD", "Daily"), # Providence, RI (Shared w/ KSWF)
+    (1006, "KBGR", "KBTV", "Daily"), # Burlington, VT (Shared w/ KSWF)
+    (1008, "KBGR", "KACK", "Daily"), # Nantucket, MA
+    (1010, "KBGR", "KMVY", "Daily"), # Martha's Vineyard, MA
+    (1012, "KBGR", "KPQB", "Daily"), # Presque Isle, ME
+    (1014, "KBGR", "KORH", "Daily"), # Worcester, MA (Shared w/ KSWF)
+    (1016, "KBGR", "KHVN", "Daily"), # New Haven, CT (Shared w/ KSWF)
+    (1018, "KBGR", "KRKD", "Daily"), # Rockland, ME
+    (1020, "KBGR", "KBHB", "Daily"), # Bar Harbor, ME
+    (1022, "KBGR", "KLEB", "Daily"), # Lebanon, NH
+    (1024, "KBGR", "KPBG", "Daily"), # Plattsburgh, NY
+    (1026, "KBGR", "KSLK", "Daily"), # Saranac Lake, NY
+    (1028, "KBGR", "KFMH", "Daily"), # Falmouth / Cape Cod, MA
+
+    # ----------------------------------------------------
+    # KRIC Bridge Spokes (1100 Block - Mid-Atlantic Hub - 15 Spokes)
+    # ----------------------------------------------------
+    (1100, "KRIC", "KCHS", "Daily"), # Charleston, SC (Shared w/ KSFB)
+    (1102, "KRIC", "KILM", "Daily"), # Wilmington, NC (Shared w/ KSFB)
+    (1104, "KRIC", "KABE", "Daily"), # Allentown, PA (Shared w/ KSWF)
+    (1106, "KRIC", "KMDT", "Daily"), # Harrisburg, PA (Shared w/ KSWF)
+    (1108, "KRIC", "KPIT", "Daily"), # Pittsburgh, PA (Shared w/ KGRR)
+    (1110, "KRIC", "KROA", "Daily"), # Roanoke, VA
+    (1112, "KRIC", "KHTS", "Daily"), # Huntington, WV (Shared w/ KGRR)
+    (1114, "KRIC", "KCRW", "Daily"), # Charleston, WV (Shared w/ KSWF)
+    (1116, "KRIC", "KSAV", "Daily"), # Savannah, GA (Shared w/ KSFB)
+    (1118, "KRIC", "KAVL", "Daily"), # Asheville, NC
+    (1120, "KRIC", "KTRI", "Daily"), # Tri-Cities / Bristol, TN
+    (1122, "KRIC", "KEWN", "Daily"), # New Bern, NC
+    (1124, "KRIC", "KFAY", "Daily"), # Fayetteville, NC
+    (1126, "KRIC", "KPHF", "Daily"), # Newport News / Williamsburg, VA
+    (1128, "KRIC", "KLYH", "Daily"), # Lynchburg, VA
+
+    # ----------------------------------------------------
+    # KSFB Bridge Spokes (1200 Block - Florida / Southeast Hub - 15 Spokes)
+    # ----------------------------------------------------
+    (1200, "KSFB", "KCHS", "Daily"), # Charleston, SC (Shared w/ KRIC)
+    (1202, "KSFB", "KILM", "Daily"), # Wilmington, NC (Shared w/ KRIC)
+    (1204, "KSFB", "KPNS", "Daily"), # Pensacola, FL (Shared w/ KMSY & KGRR)
+    (1206, "KSFB", "KEYW", "Daily"), # Key West, FL
+    (1208, "KSFB", "KSAV", "Daily"), # Savannah, GA (Shared w/ KRIC)
+    (1210, "KSFB", "KMOB", "Daily"), # Mobile, AL (Shared w/ KMSY)
+    (1212, "KSFB", "KVPS", "Daily"), # Eglin / Destin, FL (Shared w/ KMSY)
+    (1214, "KSFB", "KTLH", "Daily"), # Tallahassee, FL
+    (1216, "KSFB", "KMYR", "Daily"), # Myrtle Beach, SC
+    (1218, "KSFB", "KGPT", "Daily"), # Gulfport / Biloxi, MS (Shared w/ KMSY)
+    (1220, "KSFB", "KBQK", "Daily"), # Brunswick, GA
+    (1222, "KSFB", "KGNV", "Daily"), # Gainesville, FL
+    (1224, "KSFB", "KVRB", "Daily"), # Vero Beach, FL
 ]
 
 
@@ -280,40 +487,242 @@ def get_full_network():
 
 import math
 
-# ==========================================
-# AIRPORT GEOGRAPHIC COORDINATES (LAT, LON)
-# ==========================================
-
 AIRPORT_COORDS = {
-    # Main Hubs
-    "PAFA": (64.815, -147.856), "KBLI": (48.792, -122.538),
-    "KIWA": (33.308, -111.655), "KPVU": (40.219, -111.723),
-    "KOMA": (41.303, -95.894),  "KMSY": (29.993, -90.258),
-    "KGRR": (42.881, -85.523),  "KSWF": (41.504, -74.105),
-    "KBGR": (44.807, -68.828),  "KRIC": (37.505, -77.319),
-    "KSFB": (28.778, -81.236),  "TJBQ": (18.495, -67.129),
-    # Regional Spokes
-    "PAJN": (58.355, -134.576), "PAKT": (55.355, -131.714),
-    "PANC": (61.174, -149.996), "PABR": (71.285, -156.766),
-    "KBOI": (43.564, -116.223), "KGEG": (47.620, -117.534),
-    "KSGU": (37.036, -113.510), "KLAS": (36.084, -115.152),
-    "KJAC": (43.607, -110.738), "KELP": (31.807, -106.378),
-    "KSAT": (29.534, -98.470),  "KSAN": (32.733, -117.190),
-    "KSGF": (37.245, -93.388),  "KLIT": (34.729, -92.224),
-    "KPNS": (30.473, -87.187),  "KMLI": (41.448, -90.507),
-    "KFSD": (43.582, -96.728),  "KPIT": (40.491, -80.233),
-    "KCAK": (40.916, -81.442),  "KTVC": (44.741, -85.582),
-    "KABE": (40.652, -75.440),  "KMDT": (40.193, -76.763),
-    "KPWM": (43.646, -70.309),  "KPVD": (41.724, -71.428),
-    "KBOS": (42.365, -71.009),  "KCHS": (32.898, -80.040),
-    "KILM": (34.271, -77.903),  "KROA": (37.325, -79.975),
-    "KEYW": (24.555, -81.759),  "MDPC": (18.567, -68.363),
-    "MBPV": (21.774, -72.266),  "TJSJ": (18.439, -66.002),
-    "TJPS": (18.008, -66.563),  "TIST": (18.337, -64.973),
-    "TISX": (17.702, -64.798),  "TNCM": (18.041, -63.109),
-    "TKPK": (17.311, -62.718),  "TFFR": (16.265, -61.531),
-    "TFFF": (14.591, -61.003),  "TQPF": (18.205, -63.055),
-    "TAPA": (17.137, -61.793)
+# ==============================================================================
+# AIRPORT COORDINATES MAP (Latitude, Longitude)
+# Contains all 185 unique airports across your route network blocks.
+# Format: "ICAO/IATA": (latitude, longitude)
+# ==============================================================================
+
+AIRPORT_COORDINATES = {
+    # --------------------------------------------------------------------------
+    # HUB AIRPORTS
+    # --------------------------------------------------------------------------
+    "PAFA": (64.8151, -147.8564),  # Fairbanks International, AK
+    "KPVU": (40.2192, -111.7233),  # Provo Municipal, UT
+    "KIWA": (33.3078, -111.6550),  # Phoenix-Mesa Gateway, AZ
+    "KBLI": (48.7927, -122.5375),  # Bellingham International, WA
+    "KMSY": (29.9934, -90.2580),   # Louis Armstrong New Orleans Intl, LA
+    "KOMA": (41.3025, -95.8942),   # Eppley Airfield (Omaha), NE
+    "KGRR": (42.8808, -85.5228),   # Gerald R. Ford Intl (Grand Rapids), MI
+    "TJBQ": (18.4949, -67.1294),   # Rafael Hernández Intl (Aguadilla), PR
+    "KSWF": (41.5041, -74.1048),   # New York Stewart Intl, NY
+    "KBGR": (44.8074, -68.8281),   # Bangor International, ME
+    "KRIC": (37.5052, -77.3197),   # Richmond International, VA
+    "KSFB": (28.7776, -81.2375),   # Orlando Sanford Intl, FL
+
+    # --------------------------------------------------------------------------
+    # ALASKA SPOKES (PAFA Block)
+    # --------------------------------------------------------------------------
+    "PAJN": (58.3594, -134.5762),  # Juneau International, AK
+    "PAKT": (55.3556, -131.7137),  # Ketchikan International, AK
+    "PABR": (71.2854, -156.7660),  # Utqiaġvik (Barrow / Wiley Post-Will Rogers), AK
+    "PAOT": (66.8847, -162.5986),  # Ralph Wien Memorial (Kotzebue), AK
+    "PASC": (70.1947, -148.4652),  # Deadhorse / Prudhoe Bay, AK
+    "PADQ": (57.7499, -152.4939),  # Kodiak Airport, AK
+    "PAOM": (64.5122, -165.4453),  # Nome Airport, AK
+    "PABT": (66.9182, -151.5292),  # Bettles Airport, AK
+    "PAPG": (56.8017, -132.9453),  # Petersburg James A. Johnson, AK
+    "PASI": (57.0471, -135.3616),  # Sitka Rocky Gutierrez, AK
+    "PAYA": (59.5033, -139.6602),  # Yakutat Airport, AK
+    "PAVD": (61.1339, -146.2483),  # Valdez Airport, AK
+    "PAEN": (60.5731, -151.2450),  # Kenai Municipal, AK
+    "PAKW": (56.4843, -132.3698),  # Wrangell Airport, AK
+    "PAHO": (59.6456, -151.4766),  # Homer Airport, AK
+
+    # --------------------------------------------------------------------------
+    # HAWAII SPOKES
+    # --------------------------------------------------------------------------
+    "PHNL": (21.3187, -157.9224),  # Daniel K. Inouye Intl (Honolulu), HI
+    "OGG":  (20.8986, -156.4305),  # Kahului Airport (Maui), HI
+    "KOA":  (19.7388, -155.9874),  # Ellison Onizuka Kona Intl, HI
+    "LIH":  (21.9760, -159.3390),  # Lihue Airport (Kauai), HI
+
+    # --------------------------------------------------------------------------
+    # INTERMOUNTAIN & PACIFIC NORTHWEST SPOKES (KPVU & KBLI Blocks)
+    # --------------------------------------------------------------------------
+    "KBOI": (43.5644, -116.2228),  # Boise Air Terminal, ID
+    "KSGU": (37.0364, -113.5103),  # St. George Regional, UT
+    "KIFP": (35.1561, -114.5595),  # Laughlin/Bullhead International, AZ
+    "KJAC": (43.6073, -110.7377),  # Jackson Hole Airport, WY
+    "KGEG": (47.6199, -117.5338),  # Spokane International, WA
+    "KEUG": (44.1238, -123.2186),  # Eugene Airport (Mahlon Sweet Field), OR
+    "KFLG": (35.1384, -111.6713),  # Flagstaff Pulliam, AZ
+    "KCPR": (42.9080, -106.4644),  # Casper/Natrona County Intl, WY
+    "KGJT": (39.1224, -108.5267),  # Grand Junction Regional, CO
+    "KIDA": (43.5146, -112.0702),  # Idaho Falls Regional, ID
+    "KBZN": (45.7775, -111.1530),  # Bozeman Yellowstone Intl, MT
+    "KMSO": (46.9163, -114.0917),  # Missoula Montana Airport, MT
+    "KTWF": (42.4818, -114.4877),  # Magic Valley Regional (Twin Falls), ID
+    "KPIH": (42.9113, -112.5959),  # Pocatello Regional, ID
+    "KRNO": (39.4991, -119.7681),  # Reno/Tahoe International, NV
+    "KYKM": (46.5682, -120.5441),  # Yakima Air Terminal, WA
+    "KPSC": (46.2647, -119.1190),  # Tri-Cities Airport (Pasco), WA
+    "KMFR": (42.3742, -122.8735),  # Rogue Valley Intl-Medford, OR
+    "KRDM": (44.2541, -121.1500),  # Roberts Field (Redmond/Bend), OR
+    "KOTH": (43.4171, -124.2460),  # Southwest Oregon Regional (North Bend), OR
+    "KALW": (46.0944, -118.2881),  # Walla Walla Regional, WA
+    "KEAT": (47.3999, -120.2068),  # Pangborn Memorial (Wenatchee), WA
+    "KLWS": (46.3745, -117.0156),  # Lewiston-Nez Perce County, ID
+    "KCLM": (48.1202, -123.4997),  # William R. Fairchild (Port Angeles), WA
+
+    # --------------------------------------------------------------------------
+    # SOUTHWEST SPOKES (KIWA Block)
+    # --------------------------------------------------------------------------
+    "KELP": (31.8066, -106.3778),  # El Paso International, TX
+    "KCLD": (33.1272, -117.2787),  # McClellan-Palomar (Carlsbad), CA
+    "KMAF": (31.9425, -102.2019),  # Midland International, TX
+    "KABQ": (35.0402, -106.6091),  # Albuquerque International Sunport, NM
+    "KTUS": (32.1161, -110.9410),  # Tucson International, AZ
+    "KPSP": (33.8297, -116.5067),  # Palm Springs International, CA
+    "KROW": (33.3015, -104.5306),  # Roswell Air Center, NM
+    "KPRC": (34.6544, -112.4196),  # Prescott Regional (Ernest A. Love Field), AZ
+    "KDRO": (37.1515, -107.7538),  # Durango-La Plata County, CO
+    "KEKO": (40.8249, -115.7917),  # Elko Regional, NV
+    "KSBP": (35.2371, -120.6424),  # San Luis Obispo County Regional, CA
+    "KFLT": (34.8486, -111.7886),  # Sedona / Flagstaff Region, AZ
+
+    # --------------------------------------------------------------------------
+    # GULF COAST & MIDWEST SPOKES (KMSY & KOMA Blocks)
+    # --------------------------------------------------------------------------
+    "KSGF": (37.2457, -93.3886),   # Springfield-Branson National, MO
+    "KLIT": (34.7294, -92.2243),   # Bill and Hillary Clinton National (Little Rock), AR
+    "KPNS": (30.4734, -87.1866),   # Pensacola International, FL
+    "KMOB": (30.6914, -88.2428),   # Mobile Regional, AL
+    "KVPS": (30.4832, -86.5254),   # Destin-Fort Walton Beach / Eglin AFB, FL
+    "KBTR": (30.5332, -91.1496),   # Baton Rouge Metropolitan, LA
+    "KGPT": (30.4073, -89.0701),   # Gulfport-Biloxi International, MS
+    "KLFT": (30.2053, -91.9876),   # Lafayette Regional, LA
+    "KMLU": (32.5109, -92.0376),   # Monroe Regional, LA
+    "KHBG": (31.2829, -89.2530),   # Hattiesburg-Laurel Regional, MS
+    "KAEX": (31.3274, -92.5498),   # Alexandria International, LA
+    "KLCH": (30.1261, -93.2233),   # Lake Charles Regional, LA
+    "KTYR": (32.3541, -95.4024),   # Tyler Pounds Regional, TX
+    "KMLI": (41.4485, -90.5075),   # Quad Cities International (Moline), IL
+    "KFSD": (43.5820, -96.7418),   # Sioux Falls Regional, SD
+    "KCID": (41.8847, -91.7108),   # The Eastern Iowa Airport (Cedar Rapids), IA
+    "KPIA": (40.6642, -89.6933),   # General Wayne A. Downing Peoria Intl, IL
+    "KDSM": (41.5340, -93.6631),   # Des Moines International, IA
+    "KLNK": (40.8510, -96.7592),   # Lincoln Airport, NE
+    "KICT": (37.6499, -97.4331),   # Wichita Dwight D. Eisenhower National, KS
+    "KBIS": (46.7727, -100.7460),  # Bismarck Municipal, ND
+    "KFAR": (46.9197, -96.8157),   # Hector International (Fargo), ND
+    "KGRI": (40.9675, -98.3096),   # Central Nebraska Regional (Grand Island), NE
+    "KSUX": (42.4026, -96.3844),   # Sioux Gateway Airport, IA
+    "KCOU": (38.8181, -92.2196),   # Columbia Regional, MO
+    "KALO": (42.5571, -92.4003),   # Waterloo Regional, IA
+
+    # --------------------------------------------------------------------------
+    # GREAT LAKES SPOKES (KGRR Block)
+    # --------------------------------------------------------------------------
+    "KPIT": (40.4915, -80.2329),   # Pittsburgh International, PA
+    "KCAK": (40.9161, -81.4422),   # Akron-Canton Airport, OH
+    "KTVC": (44.7414, -85.5822),   # Cherry Capital Airport (Traverse City), MI
+    "KHTS": (38.3667, -82.5580),   # Tri-State Airport (Huntington), WV
+    "KSBN": (41.7086, -86.3173),   # South Bend International, IN
+    "KMKE": (42.9472, -87.8966),   # Milwaukee Mitchell International, WI
+    "KFWA": (40.9785, -85.1951),   # Fort Wayne International, IN
+    "KLAN": (42.7787, -84.5874),   # Capital Region Intl (Lansing), MI
+    "KAZO": (42.2349, -85.5521),   # Kalamazoo/Battle Creek Intl, MI
+    "KFNT": (42.9654, -83.7436),   # Bishop International (Flint), MI
+    "KTOL": (41.5868, -83.8078),   # Toledo Express Airport, OH
+
+    # --------------------------------------------------------------------------
+    # NORTHEAST & NORTHERN NEW ENGLAND SPOKES (KSWF & KBGR Blocks)
+    # --------------------------------------------------------------------------
+    "KABE": (40.6521, -75.4408),   # Lehigh Valley International (Allentown), PA
+    "KMDT": (40.1935, -76.7634),   # Harrisburg International, PA
+    "KPWM": (43.6462, -70.3088),   # Portland International Jetport, ME
+    "KPVD": (41.7240, -71.4282),   # Rhode Island T.F. Green Intl (Providence), RI
+    "KCRW": (38.3731, -81.5932),   # West Virginia International Yeager (Charleston), WV
+    "KBTV": (44.4730, -73.1533),   # Patrick Leahy Burlington International, VT
+    "KORH": (42.2673, -71.8757),   # Worcester Regional, MA
+    "KSYR": (43.1112, -76.1063),   # Syracuse Hancock International, NY
+    "KBGM": (42.2086, -75.9797),   # Greater Binghamton Airport, NY
+    "KITH": (42.4913, -76.4585),   # Tompkins Cortland Community (Ithaca), NY
+    "KART": (44.0022, -75.7217),   # Watertown International, NY
+    "KAVP": (41.3385, -75.7234),   # Wilkes-Barre/Scranton International, PA
+    "KELM": (42.1599, -76.8914),   # Elmira/Corning Regional, NY
+    "KHVN": (41.2638, -72.8868),   # Tweed-New Haven Airport, CT
+    "KMHT": (42.9326, -71.4357),   # Manchester-Boston Regional, NH
+    "KACK": (41.2531, -70.0602),   # Nantucket Memorial, MA
+    "KMVY": (41.3931, -70.6143),   # Martha's Vineyard Airport, MA
+    "KPQB": (46.6889, -68.0448),   # Presque Isle International, ME
+    "KRKD": (44.0601, -69.0992),   # Knox County Regional (Rockland), ME
+    "KBHB": (44.4498, -68.3616),   # Hancock County-Bar Harbor, ME
+    "KLEB": (43.6261, -72.3042),   # Lebanon Municipal, NH
+    "KPBG": (44.6509, -73.4681),   # Plattsburgh International, NY
+    "KSLK": (44.3853, -74.2062),   # Adirondack Regional (Saranac Lake), NY
+    "KFMH": (41.6585, -70.5215),   # Cape Cod Coast Guard Air Station / Falmouth, MA
+
+    # --------------------------------------------------------------------------
+    # MID-ATLANTIC & SOUTHEAST SPOKES (KRIC & KSFB Blocks)
+    # --------------------------------------------------------------------------
+    "KCHS": (32.8986, -80.0405),   # Charleston International, SC
+    "KILM": (34.2706, -77.9026),   # Wilmington International, NC
+    "KROA": (37.3255, -79.9754),   # Roanoke-Blacksburg Regional, VA
+    "KSAV": (32.1276, -81.2021),   # Savannah/Hilton Head International, GA
+    "KAVL": (35.4362, -82.5418),   # Asheville Regional, NC
+    "KTRI": (36.4752, -82.4074),   # Tri-Cities Airport (Blountville), TN
+    "KEWN": (35.0730, -77.0429),   # Coastal Carolina Regional (New Bern), NC
+    "KFAY": (34.9912, -78.8803),   # Fayetteville Regional, NC
+    "KPHF": (37.1319, -76.4930),   # Newport News/Williamsburg Intl, VA
+    "KLYH": (37.3267, -79.2004),   # Lynchburg Regional, VA
+    "KEYW": (24.5557, -81.7596),   # Key West International, FL
+    "KTLH": (30.3965, -84.3503),   # Tallahassee International, FL
+    "KMYR": (33.6797, -78.9283),   # Myrtle Beach International, SC
+    "KBQK": (31.2590, -81.4663),   # Brunswick Golden Isles, GA
+    "KGNV": (29.6901, -82.2718),   # Gainesville Regional, FL
+    "KVRB": (27.6556, -80.4179),   # Vero Beach Regional, FL
+
+    # --------------------------------------------------------------------------
+    # CARIBBEAN SPOKES (TJBQ Regional Block)
+    # --------------------------------------------------------------------------
+    "TJPS": (18.0083, -66.5630),   # Mercedita Airport (Ponce), PR
+    "TIST": (18.3373, -64.9734),   # Cyril E. King Airport (St. Thomas), USVI
+    "TISX": (17.7019, -64.7986),   # Henry E. Rohlsen Airport (St. Croix), USVI
+    "TJSJ": (18.4394, -66.0018),   # Luis Muñoz Marín Intl (San Juan), PR
+
+    # --------------------------------------------------------------------------
+    # INTERNATIONAL ROUTES (Skybus / 800 Block)
+    # --------------------------------------------------------------------------
+    "TNCM": (18.0410, -63.1089),   # Princess Juliana Intl, St. Maarten
+    "TKPK": (17.3112, -62.7187),   # Robert L. Bradshaw Intl, St. Kitts
+    "TFFR": (16.2653, -61.5318),   # Pointe-à-Pitre International, Guadeloupe
+    "TFFF": (14.5910, -61.0032),   # Martinique Aimé Césaire Intl, Martinique
+    "TAPA": (17.1367, -61.7927),   # V.C. Bird International, Antigua
+    "TNCA": (12.5014, -70.0152),   # Queen Beatrix International, Aruba
+    "TNCB": (12.1310, -68.2685),   # Flamingo International, Bonaire
+    "TNCC": (12.1889, -68.9598),   # Curaçao International, Curaçao
+    "TLPL": (13.7332, -60.9526),   # Hewanorra International, St. Lucia
+    "TBPB": (13.0746, -59.4925),   # Grantley Adams International, Barbados
+    "TVSA": (13.1569, -61.1481),   # Argyle International, St. Vincent
+    "MDPC": (18.5674, -68.3634),   # Punta Cana International, Dominican Republic
+    "MBPV": (21.7736, -72.2659),   # Providenciales Intl, Turks & Caicos
+    "MKJS": (18.5037, -77.9134),   # Sangster International (Montego Bay), Jamaica
+    "MYNN": (25.0390, -77.4662),   # Lynden Pindling International (Nassau), Bahamas
+    "MROC": (9.9939,  -84.2088),   # Juan Santamaría Intl (San José), Costa Rica
+    "CYXY": (60.7095, -135.0673),  # Erik Nielsen Whitehorse Intl, YT, Canada
+    "CYVR": (49.1967, -123.1815),  # Vancouver International, BC, Canada
+    "CYYJ": (48.6469, -123.4258),  # Victoria International, BC, Canada
+    "CYYC": (51.1139, -114.0203),  # Calgary International, AB, Canada
+    "CYEG": (53.3097, -113.5797),  # Edmonton International, AB, Canada
+    "CYHM": (43.1736, -79.9350),   # John C. Munro Hamilton Intl, ON, Canada
+    "CYUL": (45.4706, -73.7408),   # Montréal-Trudeau International, QC, Canada
+    "CYHZ": (44.8808, -63.5086),   # Halifax Stanfield International, NS, Canada
+    "MMSD": (23.1518, -109.7210),  # Los Cabos International, Mexico
+    "MMPR": (20.6801, -105.2541),  # Lic. Gustavo Díaz Ordaz Intl (Puerto Vallarta), Mexico
+    "MMMZ": (23.1614, -106.3712),  # General Rafael Buelna Intl (Mazatlán), Mexico
+    "MMGL": (20.5218, -103.3112),  # Miguel Hidalgo y Costilla Intl (Guadalajara), Mexico
+    "MMUN": (21.0365, -86.8771),   # Cancún International, Mexico
+    "MMCZ": (20.5224, -86.9255),   # Cozumel International, Mexico
+    "MZBZ": (17.5391, -88.3082),   # Philip S. W. Goldson Intl (Belize City), Belize
+    "MGGT": (14.5833, -90.5275),   # La Aurora International (Guatemala City), Guatemala
+    "MRLB": (10.5933, -85.5444),   # Daniel Oduber Quirós Intl (Liberia), Costa Rica
+    "SKCG": (10.4424, -75.5130),   # Rafael Núñez Intl (Cartagena), Colombia
+    "BIKF": (63.9850, -22.6056),   # Keflavík International, Iceland
+    "EINN": (52.7020, -8.9248),    # Shannon Airport, Ireland
+    "EIDW": (53.4213, -6.2701),    # Dublin Airport, Ireland
 }
 
 def haversine_miles(coord1, coord2):
