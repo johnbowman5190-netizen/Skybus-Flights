@@ -49,12 +49,20 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# 2. Single Passenger Card Below Banner
+# 2. Passenger Info & Rewards Card Below Banner
 st.markdown(
     """
     <div class="info-card">
-        <div style="font-size: 11px; color: #888; font-weight: bold; text-transform: uppercase;">Passenger</div>
-        <div style="font-size: 18px; font-weight: bold; color: #111;">👤 John Bowman</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div>
+                <div style="font-size: 11px; color: #888; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Passenger</div>
+                <div style="font-size: 18px; font-weight: bold; color: #111;">👤 John Bowman</div>
+            </div>
+            <div>
+                <div style="font-size: 11px; color: #888; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Monarch Miles Rewards #</div>
+                <div style="font-size: 16px; font-weight: bold; color: #F28425;">👑 6827165938</div>
+            </div>
+        </div>
     </div>
     """,
     unsafe_allow_html=True,
