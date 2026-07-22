@@ -403,27 +403,34 @@ network = get_full_network()
 all_airports = sorted(list(set([f["Origin"] for f in network])))
 
 # ==========================================
-# SEARCH CONTROLS WITH RANDOM DESTINATION
+# SEARCH CONTROLS WITH SAFE RANDOM CALLBACK
 # ==========================================
 
 st.subheader("🔍 Search Any Route on Network Map")
 
-# Initialize default destination state if not already set
-if "dest_select" not in st.session_state:
-    st.session_state["dest_select"] = "PAFA" if "PAFA" in all_airports else (all_airports[1] if len(all_airports) > 1 else all_airports[0])
+# 1. State Initialization
+if "dest_select_val" not in st.session_state:
+    st.session_state["dest_select_val"] = "PAFA" if "PAFA" in all_airports else (all_airports[1] if len(all_airports) > 1 else all_airports[0])
+
+# 2. Callback function executed BEFORE UI reruns
+def set_random_destination():
+    current_orig = st.session_state.get("orig_select_val", all_airports[0])
+    available = [a for a in all_airports if a != current_orig]
+    if available:
+        st.session_state["dest_select_val"] = random.choice(available)
 
 col1, col2, col3, col4 = st.columns([1, 1.3, 1, 1])
 
-# 1. Origin Selection
+# Origin Dropdown
 with col1:
     orig_select = st.selectbox(
         "Origin Airport",
         options=all_airports,
         index=all_airports.index("KRIC") if "KRIC" in all_airports else 0,
-        key="orig_select"
+        key="orig_select_val"
     )
 
-# 2. Destination Selection + Random Button
+# Destination Dropdown + Random Button (with Callback)
 with col2:
     st.markdown("<label style='font-size: 14px; font-weight: 500;'>Destination Airport</label>", unsafe_allow_html=True)
     d_col1, d_col2 = st.columns([2.2, 1])
@@ -432,18 +439,18 @@ with col2:
         dest_select = st.selectbox(
             "Destination Airport",
             options=all_airports,
-            key="dest_select",
+            key="dest_select_val",
             label_visibility="collapsed"
         )
         
     with d_col2:
-        if st.button("🎲 Random", help="Pick a random destination from the network"):
-            available = [a for a in all_airports if a != orig_select]
-            if available:
-                st.session_state["dest_select"] = random.choice(available)
-                st.rerun()
+        st.button(
+            "🎲 Random", 
+            on_click=set_random_destination,
+            help="Pick a random destination from the network"
+        )
 
-# 3. Connection Filters
+# Max Connections Dropdown
 with col3:
     max_conn_str = st.selectbox(
         "Max Connections Allowed",
@@ -457,12 +464,12 @@ with col3:
         index=0,
     )
 
-# 4. Display Limits
+# Max Options Dropdown
 with col4:
     max_display_count = st.selectbox(
         "Max Options to Show",
         options=[15, 25, 35, 50, 75],
-        index=2,  # Default 35
+        index=2,
     )
 
 # Connection filter parsing logic
