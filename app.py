@@ -36,7 +36,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# 🎨 Custom accent color matching the logo (#F28425)
+# Custom accent color matching the logo (#F28425)
 ACCENT_COLOR = "#F28425"
 
 # Styling using your custom accent color
@@ -45,14 +45,14 @@ st.markdown(f"""
 .skybus-banner {{
     background-color: {ACCENT_COLOR};
     width: 100%;
-    padding: 25px 0px;
+    padding: 35px 0px; /* Extra breathing room around the larger logo */
     border-radius: 10px;
     text-align: center;
     margin-bottom: 20px;
     box-shadow: 0 4px 12px rgba(242, 132, 37, 0.25);
 }}
 .skybus-banner img {{
-    max-height: 85px;
+    max-height: 140px; /* 👈 Increase or decrease this number to adjust size */
     width: auto;
 }}
 .info-card {{
