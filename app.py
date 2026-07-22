@@ -3,6 +3,7 @@ import math
 from datetime import datetime
 from collections import deque
 import streamlit as st
+import streamlit.components.v1 as components
 
 # ==========================================
 # 1. PAGE CONFIG & COLOR SETTINGS
