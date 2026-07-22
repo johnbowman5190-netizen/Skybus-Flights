@@ -4,14 +4,17 @@ from collections import deque
 import streamlit as st
 import streamlit.components.v1 as components
 
-# Set page config MUST be the first Streamlit command executed
+# 1. Define the logo URL first so it is available to the entire script
+APP_ICON_URL = "https://raw.githubusercontent.com/johnbowman5190-netizen/Skybus-Flights/main/Skybus%20Logo.png"
+
+# 2. Set page config (Must be the first Streamlit UI command)
 st.set_page_config(
     page_title="Skybus Flights",
-    page_icon="https://raw.githubusercontent.com/johnbowman5190-netizen/Skybus-Flights/main/Skybus%20Logo.png",
+    page_icon=APP_ICON_URL,
     layout="wide"
 )
 
-# Inject Apple Touch Icon tag for iOS full-screen mode
+# 3. Inject Apple Touch Icon tag for iOS
 components.html(
     f"""
     <script>
