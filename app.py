@@ -1151,4 +1151,5 @@ if "selected_itinerary" in st.session_state:
 </html>
 """
 
-st.components.v1.html(card_html, height=460)
+    # ✅ INDENTED: Now inside the 'if' block
+    st.components.v1.html(card_html, height=460)
