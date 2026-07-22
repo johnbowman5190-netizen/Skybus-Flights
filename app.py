@@ -4,7 +4,7 @@ st.set_page_config(
     page_title="Skybus Flights",
     page_icon="https://raw.githubusercontent.com/johnbowman5190-netizen/Skybus-Flights/main/Skybus%20Logo.png",
     layout="wide"
-)import random
+import random
 from collections import deque
 from datetime import datetime
 import random
