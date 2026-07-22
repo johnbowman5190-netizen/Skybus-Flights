@@ -1,18 +1,15 @@
+import random
+import math
+from collections import deque
 import streamlit as st
+import streamlit.components.v1 as components
 
+# Set page config MUST be the first Streamlit command executed
 st.set_page_config(
     page_title="Skybus Flights",
     page_icon="https://raw.githubusercontent.com/johnbowman5190-netizen/Skybus-Flights/main/Skybus%20Logo.png",
     layout="wide"
-import random
-from collections import deque
-from datetime import datetime
-import random
-import streamlit as st
-import streamlit.components.v1 as components
-
-# Skybus Logo Raw URL
-APP_ICON_URL = "https://raw.githubusercontent.com/johnbowman5190-netizen/Skybus-Flights/main/Skybus%20Logo.png"
+)
 
 # Inject Apple Touch Icon tag for iOS full-screen mode
 components.html(
