@@ -28,45 +28,57 @@ components.html(
 )
 
 # ==========================================
-# 1. PAGE CONFIG & BRANDING
+# 1. PAGE CONFIG & HEADER BANNER
 # ==========================================
 st.set_page_config(
     page_title="Skybus Route & Boarding System",
     page_icon="✈️",
-    layout="wide",
+    layout="wide"
 )
 
-# Custom CSS for Passenger Card
-header_css = """
+# Custom Styling (Orange Full-Width Banner + Passenger Card)
+st.markdown("""
 <style>
+.skybus-banner {
+    background-color: #F36E21;
+    width: 100%;
+    padding: 25px 0px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 12px rgba(243, 110, 33, 0.25);
+}
+.skybus-banner img {
+    max-height: 85px;
+    width: auto;
+}
 .info-card {
     background: #FFFFFF;
-    border-left: 5px solid #FF5722;
+    border-left: 5px solid #F36E21;
     padding: 12px 18px;
     border-radius: 6px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 </style>
-"""
-st.markdown(header_css, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
-# 1. Logo at the Top
-st.image(
-    "https://raw.githubusercontent.com/johnbowman5190-netizen/Skybus-Flights/main/Skybus%20Logo.png",
-    width=220,
-)
+# 1. Full-Width Orange Banner with Centered Logo
+st.markdown("""
+<div class="skybus-banner">
+    <img src="https://raw.githubusercontent.com/johnbowman5190-netizen/Skybus-Flights/main/Skybus%20Logo.png" alt="Skybus Logo">
+</div>
+""", unsafe_allow_html=True)
 
-# 2. Subtitle Below Logo
+# 2. Subtitle Below Banner
 st.markdown(
-    "<div style='font-size: 18px; color: #555; font-weight: 600; margin-top: -10px; margin-bottom: 15px;'>"
+    "<div style='font-size: 18px; color: #555; font-weight: 600; text-align: center; margin-bottom: 15px;'>"
     "Flight Booking & Mobile Boarding System"
     "</div>",
     unsafe_allow_html=True,
 )
 
-# 3. Passenger Card Beneath Subtitle
+# 3. Passenger Info Card
 st.markdown(
     """
     <div class="info-card">
