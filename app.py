@@ -5,6 +5,22 @@ import random
 import streamlit as st
 import streamlit.components.v1 as components
 
+# Skybus Logo Raw URL
+APP_ICON_URL = "https://raw.githubusercontent.com/johnbowman5190-netizen/Skybus-Flights/main/Skybus%20Logo.png"
+
+# Inject Apple Touch Icon tag for iOS full-screen mode
+components.html(
+    f"""
+    <script>
+        var link = window.parent.document.createElement('link');
+        link.rel = 'apple-touch-icon';
+        link.href = '{APP_ICON_URL}';
+        window.parent.document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    """,
+    height=0,
+)
+
 # ==========================================
 # 1. PAGE CONFIG & BRANDING
 # ==========================================
