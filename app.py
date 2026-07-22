@@ -59,6 +59,29 @@ header_css = """
 """
 st.markdown(header_css, unsafe_allow_html=True)
 
+# ==========================================
+# HEADER BAR (LOGO + PASSENGER CARD)
+# ==========================================
+h_col1, h_col2 = st.columns([1, 2])
+
+with h_col1:
+    st.image(
+        "https://raw.githubusercontent.com/johnbowman5190-netizen/Skybus-Flights/main/Skybus%20Logo.png",
+        width=180,
+    )
+
+with h_col2:
+    st.markdown(
+        """
+        <div class="info-card">
+            <div style="font-size: 11px; color: #888; font-weight: bold; text-transform: uppercase;">Passenger</div>
+            <div style="font-size: 18px; font-weight: bold; color: #111;">👤 John Bowman</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+st.markdown("---")
 
 def get_random_seat(flight_num):
     random.seed(int(flight_num) + 42)
