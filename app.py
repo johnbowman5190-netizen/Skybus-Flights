@@ -21,14 +21,14 @@ st.markdown(f"""
 .skybus-banner {{
     background-color: {ACCENT_COLOR};
     width: 100%;
-    padding: 15px 0px;
+    padding: 5px 0px;
     border-radius: 10px;
     text-align: center;
     margin-bottom: 20px;
     box-shadow: 0 4px 12px rgba(242, 132, 37, 0.25);
 }}
 .skybus-banner img {{
-    max-height: 200px;
+    max-height: 240px;
     width: auto;
 }}
 .info-card {{
