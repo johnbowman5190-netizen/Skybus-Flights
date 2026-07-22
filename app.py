@@ -452,6 +452,222 @@ routes_raw = [
     (1224, "KSFB", "KVRB", "Daily"), # Vero Beach, FL
 ]
 
+AIRPORT_NAMES = {
+    # Hubs
+    "PAFA": "Fairbanks, AK",
+    "KBLI": "Bellingham, WA",
+    "KIWA": "Phoenix / Mesa, AZ",
+    "KPVU": "Provo, UT",
+    "KOMA": "Omaha, NE",
+    "KMSY": "New Orleans, LA",
+    "KGRR": "Grand Rapids, MI",
+    "KSWF": "Newburgh / Stewart, NY",
+    "KBGR": "Bangor, ME",
+    "KRIC": "Richmond, VA",
+    "KSFB": "Orlando / Sanford, FL",
+    "TJBQ": "Aguadilla, PR",
+
+    # Alaska Spokes
+    "PAJN": "Juneau, AK",
+    "PAKT": "Ketchikan, AK",
+    "PABR": "Utqiaġvik (Barrow), AK",
+    "PAOT": "Kotzebue, AK",
+    "PASC": "Deadhorse / Prudhoe Bay, AK",
+    "PADQ": "Kodiak, AK",
+    "PAOM": "Nome, AK",
+    "PABT": "Bettles, AK",
+    "PAPG": "Petersburg, AK",
+    "PASI": "Sitka, AK",
+    "PAYA": "Yakutat, AK",
+    "PAVD": "Valdez, AK",
+    "PAEN": "Kenai, AK",
+    "PAKW": "Wrangell, AK",
+    "PAHO": "Homer, AK",
+    "PHNL": "Honolulu, HI",
+    "OGG":  "Kahului, HI (Maui)",
+    "PHOG": "Kahului, HI (Maui)",
+    "PHKO": "Kona, HI",
+    "PHLI": "Lihue, HI",
+
+    # Intermountain West Spokes
+    "KBOI": "Boise, ID",
+    "KSGU": "St. George, UT",
+    "KIFP": "Bullhead City / Laughlin, AZ",
+    "KJAC": "Jackson Hole, WY",
+    "KGEG": "Spokane, WA",
+    "KEUG": "Eugene, OR",
+    "KFLG": "Flagstaff, AZ",
+    "KCPR": "Casper, WY",
+    "KGJT": "Grand Junction, CO",
+    "KIDA": "Idaho Falls, ID",
+    "KBZN": "Bozeman, MT",
+    "KMSO": "Missoula, MT",
+    "KTWF": "Twin Falls, ID",
+    "KPIH": "Pocatello, ID",
+    "KRNO": "Reno / Tahoe, NV",
+
+    # Southwest Spokes
+    "KELP": "El Paso, TX",
+    "KCLD": "Carlsbad / San Diego North, CA",
+    "KMAF": "Midland / Odessa, TX",
+    "KABQ": "Albuquerque, NM",
+    "KTUS": "Tucson, AZ",
+    "KPSP": "Palm Springs, CA",
+    "KROW": "Roswell, NM",
+    "KPRC": "Prescott, AZ",
+    "KDRO": "Durango, CO",
+    "KEKO": "Elko, NV",
+    "KSBP": "San Luis Obispo, CA",
+    "KFLT": "Flagstaff / Sedona, AZ",
+
+    # Pacific Northwest Spokes
+    "KYKM": "Yakima, WA",
+    "KPSC": "Pasco / Tri-Cities, WA",
+    "KMFR": "Medford / Rogue Valley, OR",
+    "KRDM": "Bend / Redmond, OR",
+    "KOTH": "North Bend / Coos Bay, OR",
+    "KALW": "Walla Walla, WA",
+    "KEAT": "Wenatchee, WA",
+    "KLWS": "Lewiston, ID",
+    "KCLM": "Port Angeles, WA",
+
+    # Gulf Coast Spokes
+    "KSGF": "Springfield, MO",
+    "KLIT": "Little Rock, AR",
+    "KPNS": "Pensacola, FL",
+    "KMOB": "Mobile, AL",
+    "KVPS": "Eglin / Destin, FL",
+    "KBTR": "Baton Rouge, LA",
+    "KGPT": "Gulfport / Biloxi, MS",
+    "KLFT": "Lafayette, LA",
+    "KMLU": "Monroe, LA",
+    "KHBG": "Hattiesburg, MS",
+    "KAEX": "Alexandria, LA",
+    "KLCH": "Lake Charles, LA",
+    "KTYR": "Tyler, TX",
+
+    # Midwest Spokes
+    "KMLI": "Moline / Quad Cities, IL",
+    "KFSD": "Sioux Falls, SD",
+    "KCID": "Cedar Rapids, IA",
+    "KPIA": "Peoria, IL",
+    "KDSM": "Des Moines, IA",
+    "KLNK": "Lincoln, NE",
+    "KICT": "Wichita, KS",
+    "KBIS": "Bismarck, ND",
+    "KFAR": "Fargo, ND",
+    "KGRI": "Grand Island, NE",
+    "KSUX": "Sioux City, IA",
+    "KCOU": "Columbia, MO",
+    "KALO": "Waterloo, IA",
+
+    # Great Lakes Spokes
+    "KPIT": "Pittsburgh, PA",
+    "KCAK": "Akron / Canton, OH",
+    "KTVC": "Traverse City, MI",
+    "KHTS": "Huntington, WV",
+    "KSBN": "South Bend, IN",
+    "KMKE": "Milwaukee, WI",
+    "KFWA": "Fort Wayne, IN",
+    "KLAN": "Lansing, MI",
+    "KAZO": "Kalamazoo, MI",
+    "KFNT": "Flint, MI",
+    "KTOL": "Toledo, OH",
+
+    # Northeast / Hudson Valley Spokes
+    "KABE": "Allentown / Lehigh Valley, PA",
+    "KMDT": "Harrisburg, PA",
+    "KPWM": "Portland, ME",
+    "KCRW": "Charleston, WV",
+    "KBTV": "Burlington, VT",
+    "KORH": "Worcester, MA",
+    "KSYR": "Syracuse, NY",
+    "KBGM": "Binghamton, NY",
+    "KITH": "Ithaca, NY",
+    "KART": "Watertown, NY",
+    "KAVP": "Wilkes-Barre / Scranton, PA",
+    "KELM": "Elmira / Corning, NY",
+    "KHVN": "New Haven, CT",
+
+    # Northern New England Spokes
+    "KMHT": "Manchester, NH",
+    "KPVD": "Providence, RI",
+    "KACK": "Nantucket, MA",
+    "KMVY": "Martha's Vineyard, MA",
+    "KPQB": "Presque Isle, ME",
+    "KRKD": "Rockland, ME",
+    "KBHB": "Bar Harbor, ME",
+    "KLEB": "Lebanon, NH",
+    "KPBG": "Plattsburgh, NY",
+    "KSLK": "Saranac Lake, NY",
+    "KFMH": "Falmouth / Cape Cod, MA",
+
+    # Mid-Atlantic Spokes
+    "KCHS": "Charleston, SC",
+    "KILM": "Wilmington, NC",
+    "KROA": "Roanoke, VA",
+    "KSAV": "Savannah, GA",
+    "KAVL": "Asheville, NC",
+    "KTRI": "Tri-Cities / Bristol, TN",
+    "KEWN": "New Bern, NC",
+    "KFAY": "Fayetteville, NC",
+    "KPHF": "Newport News / Williamsburg, VA",
+    "KLYH": "Lynchburg, VA",
+
+    # Florida Spokes
+    "KEYW": "Key West, FL",
+    "KTLH": "Tallahassee, FL",
+    "KMYR": "Myrtle Beach, SC",
+    "KBQK": "Brunswick, GA",
+    "KGNV": "Gainesville, FL",
+    "KVRB": "Vero Beach, FL",
+
+    # Caribbean Spokes
+    "TJPS": "Ponce, PR",
+    "TIST": "St. Thomas, USVI",
+    "TISX": "St. Croix, USVI",
+    "TJSJ": "San Juan, PR",
+
+    # International
+    "TNCM": "St. Maarten",
+    "TKPK": "St. Kitts",
+    "TFFR": "Guadeloupe",
+    "TFFF": "Martinique",
+    "TAPA": "Antigua",
+    "TNCA": "Aruba",
+    "TNCB": "Bonaire",
+    "TNCC": "Curaçao",
+    "TLPL": "St. Lucia",
+    "TBPB": "Barbados",
+    "TVSA": "St. Vincent",
+    "MDPC": "Punta Cana, Dominican Republic",
+    "MBPV": "Providenciales, Turks & Caicos",
+    "MKJS": "Montego Bay, Jamaica",
+    "MYNN": "Nassau, Bahamas",
+    "MROC": "San José, Costa Rica",
+    "CYXY": "Whitehorse, YT, Canada",
+    "CYVR": "Vancouver, BC, Canada",
+    "CYYJ": "Victoria, BC, Canada",
+    "CYYC": "Calgary, AB, Canada",
+    "MMSD": "Los Cabos, Mexico",
+    "MMPR": "Puerto Vallarta, Mexico",
+    "MMMZ": "Mazatlán, Mexico",
+    "MMGL": "Guadalajara, Mexico",
+    "MMUN": "Cancún, Mexico",
+    "MMCZ": "Cozumel, Mexico",
+    "MZBZ": "Belize City, Belize",
+    "CYHM": "Hamilton / Toronto South, ON, Canada",
+    "CYUL": "Montréal, QC, Canada",
+    "CYHZ": "Halifax, NS, Canada",
+    "BIKF": "Reykjavik / Keflavik, Iceland",
+    "EINN": "Shannon, Ireland",
+    "EIDW": "Dublin, Ireland",
+    "MGGT": "Guatemala City, Guatemala",
+    "MRLB": "Liberia / Guanacaste, Costa Rica",
+    "SKCG": "Cartagena, Colombia",
+    "CYEG": "Edmonton, AB, Canada",
+}
+
 
 @st.cache_data
 def get_full_network():
@@ -864,7 +1080,8 @@ with col1:
         "Origin Airport",
         options=all_airports,
         index=all_airports.index("KRIC") if "KRIC" in all_airports else 0,
-        key="orig_select_val"
+        key="orig_select_val",
+        format_func=lambda code: f"{code} - {AIRPORT_NAMES.get(code, 'Unknown Airport')}"
     )
 
 # Destination Dropdown + Random Button (with Callback)
@@ -877,7 +1094,8 @@ with col2:
             "Destination Airport",
             options=all_airports,
             key="dest_select_val",
-            label_visibility="collapsed"
+            label_visibility="collapsed",
+            format_func=lambda code: f"{code} - {AIRPORT_NAMES.get(code, 'Unknown Airport')}"
         )
         
     with d_col2:
