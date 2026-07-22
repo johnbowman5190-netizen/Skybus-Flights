@@ -2,30 +2,6 @@ import random
 import math
 from collections import deque
 import streamlit as st
-import streamlit.components.v1 as components
-
-# 1. Define the logo URL first so it is available to the entire script
-APP_ICON_URL = "https://raw.githubusercontent.com/johnbowman5190-netizen/Skybus-Flights/main/Skybus%20Logo.png"
-
-# 2. Set page config (Must be the first Streamlit UI command)
-st.set_page_config(
-    page_title="Skybus Flights",
-    page_icon=APP_ICON_URL,
-    layout="wide"
-)
-
-# 3. Inject Apple Touch Icon tag for iOS
-components.html(
-    f"""
-    <script>
-        var link = window.parent.document.createElement('link');
-        link.rel = 'apple-touch-icon';
-        link.href = '{APP_ICON_URL}';
-        window.parent.document.getElementsByTagName('head')[0].appendChild(link);
-    </script>
-    """,
-    height=0,
-)
 
 # ==========================================
 # 1. PAGE CONFIG & COLOR SETTINGS
@@ -45,14 +21,14 @@ st.markdown(f"""
 .skybus-banner {{
     background-color: {ACCENT_COLOR};
     width: 100%;
-    padding: 15px 0px; /* Extra breathing room around the larger logo */
+    padding: 15px 0px;
     border-radius: 10px;
     text-align: center;
     margin-bottom: 20px;
     box-shadow: 0 4px 12px rgba(242, 132, 37, 0.25);
 }}
 .skybus-banner img {{
-    max-height: 200px; /* 👈 Increase or decrease this number to adjust size */
+    max-height: 200px;
     width: auto;
 }}
 .info-card {{
@@ -85,6 +61,19 @@ st.markdown(
 )
 
 st.markdown("---")
+
+def get_random_seat(flight_num):
+    random.seed(int(flight_num) + 42)
+    row = random.randint(1, 32)
+    letter = random.choice(["A", "B", "C", "D", "E", "F"])
+    return f"{row}{letter}"
+
+
+def get_random_gate(flight_num):
+    random.seed(int(flight_num) + 99)
+    concourse = random.choice(["A", "B", "C", "D"])
+    gate_num = random.randint(1, 25)
+    return f"{concourse}{gate_num}"
 
 def get_random_seat(flight_num):
     random.seed(int(flight_num) + 42)
@@ -426,26 +415,6 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
 # ==========================================
 # 4. APP UI
 # ==========================================
-
-st.markdown(
-    """
-<div class="skybus-header">
-    <h1>✈️ SKYBUS AIRLINES</h1>
-    <p style="margin:4px 0 0 0; opacity: 0.9;">Flight Booking & Mobile Boarding System</p>
-</div>
-""",
-    unsafe_allow_html=True,
-)
-
-st.markdown(
-    """
-    <div class="info-card">
-        <div style="font-size: 11px; color: #888; font-weight: bold; text-transform: uppercase;">Passenger</div>
-        <div style="font-size: 18px; font-weight: bold; color: #111;">👤 John Bowman</div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
 
 network = get_full_network()
 all_airports = sorted(list(set([f["Origin"] for f in network])))
