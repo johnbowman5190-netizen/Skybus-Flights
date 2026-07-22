@@ -57,64 +57,64 @@ def get_random_gate(flight_num):
 
 routes_raw = [
     # ----------------------------------------------------
-    # I. INTER-HUB DIRECT EXPRESS ROUTES (SX 100 - SX 231)
+    # I. INTER-HUB DIRECT EXPRESS ROUTES (SX 100 - SX 208)
     # Full Mesh Network Across All 12 Hubs
     # ----------------------------------------------------
     (100, "PAFA", "KBLI", "Daily"),  # SX 100 / SX 101
     (102, "PAFA", "KIWA", "Daily"),  # SX 102 / SX 103
     (104, "PAFA", "KPVU", "Daily"),  # SX 104 / SX 105
-    (106, "PAFA", "KBGR", "Daily"),  # SX 114 / SX 115
-    (108, "KBLI", "KIWA", "Daily"),  # SX 122 / SX 123
-    (110, "KBLI", "KPVU", "Daily"),  # SX 124 / SX 125
-    (112, "KBLI", "KOMA", "Daily"),  # SX 126 / SX 127
-    (114, "KBLI", "KMSY", "Daily"),  # SX 128 / SX 129
-    (116, "KBLI", "KGRR", "Daily"),  # SX 130 / SX 131
-    (118, "KBLI", "KSWF", "Daily"),  # SX 132 / SX 133
-    (120, "KBLI", "KBGR", "Daily"),  # SX 134 / SX 135
-    (122, "KBLI", "KRIC", "Daily"),  # SX 136 / SX 137
-    (124, "KBLI", "KSFB", "Daily"),  # SX 138 / SX 139
-    (126, "KIWA", "KPVU", "Daily"),  # SX 142 / SX 143
-    (128, "KIWA", "KOMA", "Daily"),  # SX 144 / SX 145
-    (130, "KIWA", "KMSY", "Daily"),  # SX 146 / SX 147
-    (132, "KIWA", "KGRR", "Daily"),  # SX 148 / SX 149
-    (134, "KIWA", "KSWF", "Daily"),  # SX 150 / SX 151
-    (136, "KIWA", "KBGR", "Daily"),  # SX 152 / SX 153
-    (138, "KIWA", "KRIC", "Daily"),  # SX 154 / SX 155
-    (140, "KIWA", "KSFB", "Daily"),  # SX 156 / SX 157
-    (142, "KPVU", "KOMA", "Daily"),  # SX 160 / SX 161
-    (144, "KPVU", "KMSY", "Daily"),  # SX 162 / SX 163
-    (146, "KPVU", "KGRR", "Daily"),  # SX 164 / SX 165
-    (148, "KPVU", "KSWF", "Daily"),  # SX 166 / SX 167
-    (150, "KPVU", "KBGR", "Daily"),  # SX 168 / SX 169
-    (152, "KPVU", "KRIC", "Daily"),  # SX 170 / SX 171
-    (154, "KPVU", "KSFB", "Daily"),  # SX 172 / SX 173
-    (156, "KOMA", "KMSY", "Daily"),  # SX 176 / SX 177
-    (158, "KOMA", "KGRR", "Daily"),  # SX 178 / SX 179
-    (160, "KOMA", "KSWF", "Daily"),  # SX 180 / SX 181
-    (162, "KOMA", "KBGR", "Daily"),  # SX 182 / SX 183
-    (164, "KOMA", "KRIC", "Daily"),  # SX 184 / SX 185
-    (166, "KOMA", "KSFB", "Daily"),  # SX 186 / SX 187
-    (168, "KMSY", "KGRR", "Daily"),  # SX 190 / SX 191
-    (170, "KMSY", "KSWF", "Daily"),  # SX 192 / SX 193
-    (172, "KMSY", "KBGR", "Daily"),  # SX 194 / SX 195
-    (174, "KMSY", "KRIC", "Daily"),  # SX 196 / SX 197
-    (176, "KMSY", "KSFB", "Daily"),  # SX 198 / SX 199
-    (178, "KMSY", "TJBQ", "Daily"),  # SX 200 / SX 201
-    (180, "KGRR", "KSWF", "Daily"),  # SX 202 / SX 203
-    (182, "KGRR", "KBGR", "Daily"),  # SX 204 / SX 205
-    (184, "KGRR", "KRIC", "Daily"),  # SX 206 / SX 207
-    (186, "KGRR", "KSFB", "Daily"),  # SX 208 / SX 209
-    (188, "KGRR", "TJBQ", "Daily"),  # SX 210 / SX 211
-    (190, "KSWF", "KBGR", "Daily"),  # SX 212 / SX 213
-    (192, "KSWF", "KRIC", "Daily"),  # SX 214 / SX 215
-    (194, "KSWF", "KSFB", "Daily"),  # SX 216 / SX 217
-    (196, "KSWF", "TJBQ", "Daily"),  # SX 218 / SX 219
-    (198, "KBGR", "KRIC", "Daily"),  # SX 220 / SX 221
-    (200, "KBGR", "KSFB", "Daily"),  # SX 222 / SX 223
-    (202, "KBGR", "TJBQ", "Daily"),  # SX 224 / SX 225
-    (204, "KRIC", "KSFB", "Daily"),  # SX 226 / SX 227
-    (206, "KRIC", "TJBQ", "Daily"),  # SX 228 / SX 229
-    (208, "KSFB", "TJBQ", "Daily"),  # SX 230 / SX 231
+    (106, "PAFA", "KBGR", "Daily"),  # SX 106 / SX 107
+    (108, "KBLI", "KIWA", "Daily"),  # SX 108 / SX 109
+    (110, "KBLI", "KPVU", "Daily"),  # SX 110 / SX 111
+    (112, "KBLI", "KOMA", "Daily"),  # SX 112 / SX 113
+    (114, "KBLI", "KMSY", "Daily"),  # SX 114 / SX 115
+    (116, "KBLI", "KGRR", "Daily"),  # SX 116 / SX 117
+    (118, "KBLI", "KSWF", "Daily"),  # SX 118 / SX 119
+    (120, "KBLI", "KBGR", "Daily"),  # SX 120 / SX 121
+    (122, "KBLI", "KRIC", "Daily"),  # SX 122 / SX 123
+    (124, "KBLI", "KSFB", "Daily"),  # SX 124 / SX 125
+    (126, "KIWA", "KPVU", "Daily"),  # SX 126 / SX 127
+    (128, "KIWA", "KOMA", "Daily"),  # SX 128 / SX 129
+    (130, "KIWA", "KMSY", "Daily"),  # SX 130 / SX 131
+    (132, "KIWA", "KGRR", "Daily"),  # SX 132 / SX 133
+    (134, "KIWA", "KSWF", "Daily"),  # SX 134 / SX 135
+    (136, "KIWA", "KBGR", "Daily"),  # SX 136 / SX 137
+    (138, "KIWA", "KRIC", "Daily"),  # SX 138 / SX 139
+    (140, "KIWA", "KSFB", "Daily"),  # SX 140 / SX 141
+    (142, "KPVU", "KOMA", "Daily"),  # SX 142 / SX 143
+    (144, "KPVU", "KMSY", "Daily"),  # SX 144 / SX 145
+    (146, "KPVU", "KGRR", "Daily"),  # SX 146 / SX 147
+    (148, "KPVU", "KSWF", "Daily"),  # SX 148 / SX 149
+    (150, "KPVU", "KBGR", "Daily"),  # SX 150 / SX 151
+    (152, "KPVU", "KRIC", "Daily"),  # SX 152 / SX 153
+    (154, "KPVU", "KSFB", "Daily"),  # SX 154 / SX 155
+    (156, "KOMA", "KMSY", "Daily"),  # SX 156 / SX 157
+    (158, "KOMA", "KGRR", "Daily"),  # SX 158 / SX 159
+    (160, "KOMA", "KSWF", "Daily"),  # SX 160 / SX 161
+    (162, "KOMA", "KBGR", "Daily"),  # SX 162 / SX 163
+    (164, "KOMA", "KRIC", "Daily"),  # SX 164 / SX 165
+    (166, "KOMA", "KSFB", "Daily"),  # SX 166 / SX 167
+    (168, "KMSY", "KGRR", "Daily"),  # SX 168 / SX 169
+    (170, "KMSY", "KSWF", "Daily"),  # SX 170 / SX 171
+    (172, "KMSY", "KBGR", "Daily"),  # SX 172 / SX 173
+    (174, "KMSY", "KRIC", "Daily"),  # SX 174 / SX 175
+    (176, "KMSY", "KSFB", "Daily"),  # SX 176 / SX 177
+    (178, "KMSY", "TJBQ", "Daily"),  # SX 178 / SX 179
+    (180, "KGRR", "KSWF", "Daily"),  # SX 180 / SX 181
+    (182, "KGRR", "KBGR", "Daily"),  # SX 182 / SX 183
+    (184, "KGRR", "KRIC", "Daily"),  # SX 184 / SX 185
+    (186, "KGRR", "KSFB", "Daily"),  # SX 186 / SX 187
+    (188, "KGRR", "TJBQ", "Daily"),  # SX 188 / SX 189
+    (190, "KSWF", "KBGR", "Daily"),  # SX 190 / SX 191
+    (192, "KSWF", "KRIC", "Daily"),  # SX 192 / SX 193
+    (194, "KSWF", "KSFB", "Daily"),  # SX 194 / SX 195
+    (196, "KSWF", "TJBQ", "Daily"),  # SX 196 / SX 197
+    (198, "KBGR", "KRIC", "Daily"),  # SX 198 / SX 199
+    (200, "KBGR", "KSFB", "Daily"),  # SX 200 / SX 201
+    (202, "KBGR", "TJBQ", "Daily"),  # SX 202 / SX 203
+    (204, "KRIC", "KSFB", "Daily"),  # SX 204 / SX 205
+    (206, "KRIC", "TJBQ", "Daily"),  # SX 206 / SX 207
+    (208, "KSFB", "TJBQ", "Daily"),  # SX 208 / SX 209
     # ----------------------------------------------------
     # II. GEOGRAPHIC BRIDGE CONNECTORS & REGIONAL SPOKES
     # ----------------------------------------------------
@@ -229,7 +229,11 @@ def get_full_network():
 # ==========================================
 
 
-def find_routes(network, origin, destination, max_connections=10):
+# ==========================================
+# 3. DIVERSIFIED ROUTE FINDER ENGINE
+# ==========================================
+
+def find_routes(network, origin, destination, max_connections=10, max_display=30):
     origin = origin.strip().upper()
     destination = destination.strip().upper()
 
@@ -248,7 +252,8 @@ def find_routes(network, origin, destination, max_connections=10):
 
         if current_node == destination:
             valid_paths.append(path)
-            if len(valid_paths) >= 300:
+            # Increase candidate pool search depth so more complex/spoke routes are found
+            if len(valid_paths) >= 500:
                 break
             continue
 
@@ -292,7 +297,7 @@ def find_routes(network, origin, destination, max_connections=10):
         added_signatures.add(sig)
 
     for path in valid_paths:
-        if len(diverse_paths) >= 15:
+        if len(diverse_paths) >= max_display:
             break
         sig = tuple(
             (leg["Flight"], leg["Origin"], leg["Destination"]) for leg in path
@@ -302,7 +307,7 @@ def find_routes(network, origin, destination, max_connections=10):
             added_signatures.add(sig)
 
     diverse_paths.sort(key=lambda p: len(p))
-    return diverse_paths[:15]
+    return diverse_paths[:max_display]
 
 
 # ==========================================
@@ -347,7 +352,7 @@ all_airports = sorted(list(set([f["Origin"] for f in network])))
 
 st.subheader("🔍 Search Any Route on Network Map")
 
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 with col1:
     orig_select = st.selectbox(
         "Origin Airport",
@@ -358,7 +363,7 @@ with col2:
     dest_select = st.selectbox(
         "Destination Airport",
         options=all_airports,
-        index=all_airports.index("PANC") if "PANC" in all_airports else 1,
+        index=all_airports.index("PAFA") if "PAFA" in all_airports else 1,
     )
 with col3:
     max_conn_str = st.selectbox(
@@ -371,6 +376,12 @@ with col3:
             "4 Connections",
         ],
         index=0,
+    )
+with col4:
+    max_display_count = st.selectbox(
+        "Max Options to Show",
+        options=[15, 25, 35, 50, 75],
+        index=2,  # Default to 35
     )
 
 if "1 " in max_conn_str:
@@ -389,7 +400,11 @@ if st.button("Search Route Options", type="primary"):
         st.warning("Please choose two different airports.")
     else:
         routes_found = find_routes(
-            network, orig_select, dest_select, max_connections=max_conn
+            network,
+            orig_select,
+            dest_select,
+            max_connections=max_conn,
+            max_display=max_display_count,
         )
         st.session_state["search_results"] = routes_found
         st.session_state["search_orig"] = orig_select
