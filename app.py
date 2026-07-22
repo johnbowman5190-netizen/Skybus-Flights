@@ -36,50 +36,46 @@ st.set_page_config(
     layout="wide",
 )
 
+# Custom CSS for Passenger Card
 header_css = """
 <style>
-    .skybus-header {
-        background-color: #FF5722;
-        color: white;
-        padding: 20px 25px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 12px rgba(255, 87, 34, 0.25);
-    }
-    .skybus-header h1 { margin: 0; font-weight: 800; font-size: 28px; }
-    .info-card {
-        background: #FFFFFF;
-        border-left: 5px solid #FF5722;
-        padding: 12px 18px;
-        border-radius: 6px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-        margin-bottom: 15px;
-    }
+.info-card {
+    background: #FFFFFF;
+    border-left: 5px solid #FF5722;
+    padding: 12px 18px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
 </style>
 """
 st.markdown(header_css, unsafe_allow_html=True)
 
-# ==========================================
-# HEADER BAR (LOGO + PASSENGER CARD)
-# ==========================================
-h_col1, h_col2 = st.columns([1, 2])
+# 1. Logo at the Top
+st.image(
+    "https://raw.githubusercontent.com/johnbowman5190-netizen/Skybus-Flights/main/Skybus%20Logo.png",
+    width=220,
+)
 
-with h_col1:
-    st.image(
-        "https://raw.githubusercontent.com/johnbowman5190-netizen/Skybus-Flights/main/Skybus%20Logo.png",
-        width=180,
-    )
+# 2. Subtitle Below Logo
+st.markdown(
+    "<div style='font-size: 18px; color: #555; font-weight: 600; margin-top: -10px; margin-bottom: 15px;'>"
+    "Flight Booking & Mobile Boarding System"
+    "</div>",
+    unsafe_allow_html=True,
+)
 
-with h_col2:
-    st.markdown(
-        """
-        <div class="info-card">
-            <div style="font-size: 11px; color: #888; font-weight: bold; text-transform: uppercase;">Passenger</div>
-            <div style="font-size: 18px; font-weight: bold; color: #111;">👤 John Bowman</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+# 3. Passenger Card Beneath Subtitle
+st.markdown(
+    """
+    <div class="info-card">
+        <div style="font-size: 11px; color: #888; font-weight: bold; text-transform: uppercase;">Passenger</div>
+        <div style="font-size: 18px; font-weight: bold; color: #111;">👤 John Bowman</div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 st.markdown("---")
 
