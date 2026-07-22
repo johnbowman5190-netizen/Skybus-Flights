@@ -74,7 +74,9 @@ st.markdown("---")
 
 def get_random_seat(flight_num):
     random.seed(int(flight_num) + 42)
-    row = random.randint(1, 32)
+    # Exclude row 13 for realism
+    valid_rows = [r for r in range(1, 33) if r != 13]
+    row = random.choice(valid_rows)
     letter = random.choice(["A", "B", "C", "D", "E", "F"])
     return f"{row}{letter}"
 
@@ -603,124 +605,142 @@ if "selected_itinerary" in st.session_state:
     today_date = datetime.now().strftime("%d %b %Y").upper()
 
     card_html = f"""
-    <!DOCTYPE html>
-    <html>
-    <head>
-    <style>
-        body {{
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: transparent;
-            margin: 0;
-            padding: 10px;
-        }}
-        .boarding-pass-card {{
-            max-width: 420px;
-            margin: 0 auto;
-            background: #ffffff;
-            border: 2px solid #FF5722;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-        }}
-        .bp-header {{
-            background-color: #FF5722;
-            color: white;
-            padding: 14px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }}
-        .bp-body {{
-            padding: 18px;
-            color: #222;
-        }}
-        .bp-field {{
-            font-size: 11px;
-            color: #777;
-            text-transform: uppercase;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }}
-        .bp-value {{
-            font-size: 15px;
-            font-weight: 700;
-            color: #111;
-        }}
-        .barcode {{
-            font-family: 'Courier New', Courier, monospace;
-            background: #f8f9fa;
-            letter-spacing: 4px;
-            padding: 10px;
-            text-align: center;
-            border-radius: 6px;
-            font-weight: bold;
-            margin-top: 15px;
-            border: 1px dashed #ccc;
-            font-size: 12px;
-        }}
-    </style>
-    </head>
-    <body>
-        <div class="boarding-pass-card">
-            <div class="bp-header">
-                <div>
-                    <span style="font-size: 18px; font-weight: 800; letter-spacing: 1px;">SKYBUS</span>
-                    <span style="font-size: 10px; margin-left: 6px; background: rgba(255,255,255,0.25); padding: 3px 7px; border-radius: 10px;">MOBILE PASS</span>
-                </div>
-                <div style="font-weight: bold; font-size: 14px;">SX #{active_leg['Flight']}</div>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    body {{
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background-color: transparent;
+        margin: 0;
+        padding: 10px;
+    }}
+    .boarding-pass-card {{
+        max-width: 420px;
+        margin: 0 auto;
+        background: #ffffff;
+        border: 2px solid #F28425;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }}
+    .bp-header {{
+        background-color: #F28425;
+        color: white;
+        padding: 14px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }}
+    .bp-body {{
+        padding: 18px;
+        color: #222;
+    }}
+    .bp-field {{
+        font-size: 11px;
+        color: #777;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 2px;
+    }}
+    .bp-value {{
+        font-size: 15px;
+        font-weight: 700;
+        color: #111;
+    }}
+    .barcode {{
+        font-family: 'Courier New', Courier, monospace;
+        background: #f8f9fa;
+        letter-spacing: 4px;
+        padding: 10px;
+        text-align: center;
+        border-radius: 6px;
+        font-weight: bold;
+        margin-top: 15px;
+        border: 1px dashed #ccc;
+        font-size: 12px;
+    }}
+</style>
+</head>
+<body>
+    <div class="boarding-pass-card">
+        <div class="bp-header">
+            <div>
+                <span style="font-size: 18px; font-weight: 800; letter-spacing: 1px;">SKYBUS</span>
+                <span style="font-size: 10px; margin-left: 6px; background: rgba(255,255,255,0.25); padding: 3px 7px; border-radius: 10px;">MOBILE PASS</span>
             </div>
-            <div class="bp-body">
-                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px;">
-                    <div>
-                        <div class="bp-field">Passenger Name</div>
-                        <div class="bp-value">John Bowman</div>
-                    </div>
-                    <div style="text-align: right;">
-                        <div class="bp-field">Wi-Fi Access</div>
-                        <div class="bp-value" style="color: #FF5722;">High-Speed SkyFly</div>
-                    </div>
+            <div style="font-weight: bold; font-size: 14px;">SX #{active_leg['Flight']}</div>
+        </div>
+        <div class="bp-body">
+            <!-- PASSENGER & WI-FI -->
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px;">
+                <div>
+                    <div class="bp-field">Passenger Name</div>
+                    <div class="bp-value">John Bowman</div>
+                    <div style="font-size: 11px; color: #F28425; font-weight: 700; margin-top: 3px;">👑 Rewards #: 6827165938</div>
                 </div>
-                
-                <div style="display: flex; justify-content: space-between; align-items: center; margin: 12px 0;">
-                    <div>
-                        <div style="font-size: 30px; font-weight: 900; color: #111;">{active_leg['Origin']}</div>
-                        <div class="bp-field">Departure</div>
-                    </div>
-                    <div style="font-size: 22px; color: #FF5722;">✈️</div>
-                    <div style="text-align: right;">
-                        <div style="font-size: 30px; font-weight: 900; color: #111;">{active_leg['Destination']}</div>
-                        <div class="bp-field">Arrival</div>
-                    </div>
+                <div style="text-align: right;">
+                    <div class="bp-field">Wi-Fi Access</div>
+                    <div class="bp-value" style="color: #F28425;">High-Speed SkyFly</div>
                 </div>
+            </div>
+            
+            <!-- ROUTE -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin: 12px 0;">
+                <div>
+                    <div style="font-size: 30px; font-weight: 900; color: #111;">{active_leg['Origin']}</div>
+                    <div class="bp-field">Departure</div>
+                </div>
+                <div style="font-size: 22px; color: #F28425;">✈️</div>
+                <div style="text-align: right;">
+                    <div style="font-size: 30px; font-weight: 900; color: #111;">{active_leg['Destination']}</div>
+                    <div class="bp-field">Arrival</div>
+                </div>
+            </div>
 
-                <div style="display: flex; justify-content: space-between; background: #F8F9FA; padding: 10px; border-radius: 8px; text-align: center;">
-                    <div>
-                        <div class="bp-field">Date</div>
-                        <div class="bp-value">{today_date}</div>
-                    </div>
-                    <div>
-                        <div class="bp-field">Gate</div>
-                        <div class="bp-value">{assigned_gate}</div>
-                    </div>
-                    <div>
-                        <div class="bp-field">Zone</div>
-                        <div class="bp-value">Zone 1</div>
-                    </div>
-                    <div>
-                        <div class="bp-field">Seat</div>
-                        <div class="bp-value" style="color: #FF5722;">{assigned_seat}</div>
-                    </div>
+            <!-- FLIGHT GRID -->
+            <div style="display: flex; justify-content: space-between; background: #F8F9FA; padding: 10px; border-radius: 8px; text-align: center;">
+                <div>
+                    <div class="bp-field">Date</div>
+                    <div class="bp-value">{today_date}</div>
                 </div>
+                <div>
+                    <div class="bp-field">Gate</div>
+                    <div class="bp-value">{assigned_gate}</div>
+                </div>
+                <div>
+                    <div class="bp-field">Zone</div>
+                    <div class="bp-value">Zone 1</div>
+                </div>
+                <div>
+                    <div class="bp-field">Seat</div>
+                    <div class="bp-value" style="color: #F28425;">{assigned_seat}</div>
+                </div>
+            </div>
 
-                <div class="barcode">
-                    ||| | ||||| ||| |||| || ||||| ||||| ||| ||||||| | ||||
-                    <br>
-                    <span style="font-size: 10px; color: #777; font-family: sans-serif; letter-spacing: normal;">SKYB-{active_leg['Flight']}-JOHN-BOWMAN</span>
+            <!-- BAGGAGE ALLOWANCE -->
+            <div style="display: flex; justify-content: space-between; background: #F8F9FA; padding: 10px; border-radius: 8px; text-align: center; margin-top: 10px;">
+                <div style="flex: 1;">
+                    <div class="bp-field">Checked Bags</div>
+                    <div class="bp-value" style="font-size: 13px;">🧳 1 Checked</div>
                 </div>
+                <div style="border-left: 1px solid #ddd;"></div>
+                <div style="flex: 1;">
+                    <div class="bp-field">Carry-On</div>
+                    <div class="bp-value" style="font-size: 13px;">🎒 1 Carry-on</div>
+                </div>
+            </div>
+
+            <!-- BARCODE -->
+            <div class="barcode">
+                ||| | ||||| ||| |||| || ||||| ||||| ||| ||||||| | ||||
+                <br>
+                <span style="font-size: 10px; color: #777; font-family: sans-serif; letter-spacing: normal;">SKYB-{active_leg['Flight']}-JOHN-BOWMAN</span>
             </div>
         </div>
-    </body>
-    </html>
-    """
+    </div>
+</body>
+</html>
+"""
 
-    components.html(card_html, height=390)
+components.html(card_html, height=460)
