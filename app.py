@@ -45,7 +45,7 @@ st.markdown(f"""
 # 1. Full-Width Banner with Centered Logo
 st.markdown("""
 <div class="skybus-banner">
-    <img src="https://raw.githubusercontent.com/johnbowman5190-netizen/Skybus-Flights/main/Skybus%20Logo.png" alt="Skybus Logo">
+    <img src="https://raw.githubusercontent.com/johnbowman5190-netizen/Skybus-Flights/main/Untitled%20drawing.png" alt="Skybus Logo">
 </div>
 """, unsafe_allow_html=True)
 
