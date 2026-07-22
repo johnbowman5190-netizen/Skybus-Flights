@@ -209,7 +209,7 @@ routes_raw = [
     (1426, "KPVU", "KPIH", "Daily"),  # Pocatello, ID
     (1428, "KPVU", "KRNO", "Daily"),  # Reno / Tahoe, NV
     (1430, "KPVU", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
-    (1432, "KPVU", "OGG",  "Daily"),  # Kahului, HI (Maui)
+    (1432, "KPVU", "PHOG",  "Daily"),  # Kahului, HI (Maui)
 
     # ----------------------------------------------------
     # KIWA Bridge Spokes (300 Block - Southwest Hub - 15 Spokes)
@@ -230,8 +230,8 @@ routes_raw = [
     (326, "KIWA", "KSBP", "Daily"),  # San Luis Obispo, CA
     (328, "KIWA", "KFLT", "Daily"),  # Flagstaff / Sedona, AZ
     (330,  "KIWA", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
-    (332,  "KIWA", "OGG",  "Daily"),  # Kahului, HI (Maui)
-    (334,  "KIWA", "KOA",  "Daily"),  # Kona, HI (Big Island)
+    (332,  "KIWA", "PHOG",  "Daily"),  # Kahului, HI (Maui)
+    (334,  "KIWA", "PHKO",  "Daily"),  # Kona, HI (Big Island)
 
     # ----------------------------------------------------
     # KBLI Bridge Spokes (400 Block - Pacific Northwest Hub - 15 Spokes)
@@ -252,9 +252,9 @@ routes_raw = [
     (426, "KBLI", "KTWF", "Daily"),  # Twin Falls, ID (Shared w/ KPVU)
     (428, "KBLI", "KCLM", "Daily"),  # Port Angeles, WA
     (430,  "KBLI", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
-    (432,  "KBLI", "OGG",  "Daily"),  # Kahului, HI (Maui)
-    (434,  "KBLI", "KOA",  "Daily"),  # Kona, HI (Big Island)
-    (436,  "KBLI", "LIH",  "Daily"),  # Lihue, HI (Kauai)
+    (432,  "KBLI", "PHOG",  "Daily"),  # Kahului, HI (Maui)
+    (434,  "KBLI", "PHKO",  "Daily"),  # Kona, HI (Big Island)
+    (436,  "KBLI", "PHLI",  "Daily"),  # Lihue, HI (Kauai)
 
     # ----------------------------------------------------
     # KMSY Bridge Spokes (500 Block - Gulf Coast Hub - 15 Spokes)
