@@ -28,7 +28,7 @@ components.html(
 )
 
 # ==========================================
-# 1. PAGE CONFIG & HEADER BANNER
+# 1. PAGE CONFIG & COLOR SETTINGS
 # ==========================================
 st.set_page_config(
     page_title="Skybus Route & Boarding System",
@@ -36,49 +36,44 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom Styling (Orange Full-Width Banner + Passenger Card)
-st.markdown("""
+# 🎨 Custom accent color matching the logo (#F28425)
+ACCENT_COLOR = "#F28425"
+
+# Styling using your custom accent color
+st.markdown(f"""
 <style>
-.skybus-banner {
-    background-color: #F36E21;
+.skybus-banner {{
+    background-color: {ACCENT_COLOR};
     width: 100%;
     padding: 25px 0px;
     border-radius: 10px;
     text-align: center;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 12px rgba(243, 110, 33, 0.25);
-}
-.skybus-banner img {
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(242, 132, 37, 0.25);
+}}
+.skybus-banner img {{
     max-height: 85px;
     width: auto;
-}
-.info-card {
+}}
+.info-card {{
     background: #FFFFFF;
-    border-left: 5px solid #F36E21;
+    border-left: 5px solid {ACCENT_COLOR};
     padding: 12px 18px;
     border-radius: 6px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.06);
     margin-bottom: 20px;
-}
+}}
 </style>
 """, unsafe_allow_html=True)
 
-# 1. Full-Width Orange Banner with Centered Logo
+# 1. Full-Width Banner with Centered Logo
 st.markdown("""
 <div class="skybus-banner">
     <img src="https://raw.githubusercontent.com/johnbowman5190-netizen/Skybus-Flights/main/Skybus%20Logo.png" alt="Skybus Logo">
 </div>
 """, unsafe_allow_html=True)
 
-# 2. Subtitle Below Banner
-st.markdown(
-    "<div style='font-size: 18px; color: #555; font-weight: 600; text-align: center; margin-bottom: 15px;'>"
-    "Flight Booking & Mobile Boarding System"
-    "</div>",
-    unsafe_allow_html=True,
-)
-
-# 3. Passenger Info Card
+# 2. Single Passenger Card Below Banner
 st.markdown(
     """
     <div class="info-card">
