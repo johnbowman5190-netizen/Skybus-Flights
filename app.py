@@ -487,7 +487,6 @@ def get_full_network():
 
 import math
 
-AIRPORT_COORDS = {
 # ==============================================================================
 # AIRPORT COORDINATES MAP (Latitude, Longitude)
 # Contains all 185 unique airports across your route network blocks.
