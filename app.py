@@ -1042,18 +1042,15 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
     for leg in adj_map[origin]:
         queue.append([leg])
 
-    valid_paths = []
-    max_search_depth = max_connections if max_connections is not None else 10
+    # Group valid paths by how many connections (layovers) they have
+    paths_by_conn = defaultdict(list)
+    MAX_PER_CONN_LEVEL = 40  # Save up to 40 paths for EACH connection level (1, 2, 3, 4, 5+ connections)
 
-    # ====================================================
-    # MEMORY SAFETY CAPS (Prevents Streamlit RAM Crashes)
-    # ====================================================
- 
-    MAX_QUEUE_SIZE = 12000       # Maximum items stored in RAM
-    MAX_TOTAL_VALID_PATHS = 300  # Total paths needed to fulfill up to 75 display options
+    max_search_depth = max_connections if max_connections is not None else 10
+    MAX_QUEUE_SIZE = 15000
 
     while queue:
-        # If queue memory spikes too high, trim down older branches
+        # Safety RAM cap
         if len(queue) > MAX_QUEUE_SIZE:
             for _ in range(3000):
                 queue.popleft()
@@ -1062,11 +1059,10 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
         current_node = path[-1]["Destination"]
         connections = len(path) - 1
 
-        # Found valid route
+        # Found valid route to destination
         if current_node == destination:
-            valid_paths.append(path)
-            if len(valid_paths) >= MAX_TOTAL_VALID_PATHS:
-                break
+            if len(paths_by_conn[connections]) < MAX_PER_CONN_LEVEL:
+                paths_by_conn[connections].append(path)
             continue
 
         if connections >= max_search_depth:
@@ -1080,34 +1076,38 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
             if nxt["Destination"] not in visited_airports:
                 queue.append(path + [nxt])
 
-    if not valid_paths:
+    # Combine paths across all connection levels
+    all_valid_paths = []
+    for conn_level in sorted(paths_by_conn.keys()):
+        # Sort paths within each connection level by geographic score
+        sorted_level = sorted(paths_by_conn[conn_level], key=lambda p: calculate_route_score(p))
+        all_valid_paths.extend(sorted_level)
+
+    if not all_valid_paths:
         return []
 
     # ----------------------------------------------------
-    # GEOGRAPHIC SORTING & DIVERSIFICATION
+    # DIVERSIFICATION Across Initial Hops & Connection Depths
     # ----------------------------------------------------
-  
-    valid_paths.sort(key=lambda p: calculate_route_score(p))
-
-    paths_by_first_hub = {}
-    for path in valid_paths:
-        first_hub = path[0]["Destination"]
-        if first_hub not in paths_by_first_hub:
-            paths_by_first_hub[first_hub] = []
-        paths_by_first_hub[first_hub].append(path)
+    paths_by_first_hop = {}
+    for path in all_valid_paths:
+        first_hop = path[0]["Destination"]
+        if first_hop not in paths_by_first_hop:
+            paths_by_first_hop[first_hop] = []
+        paths_by_first_hop[first_hop].append(path)
 
     diverse_paths = []
     added_signatures = set()
 
-    # Grab best route per distinct hub first
-    for hub, paths in paths_by_first_hub.items():
+    # 1. Grab top route from each distinct initial hop (e.g. KMSY, KHTS, KPVU, etc.)
+    for hub, paths in paths_by_first_hop.items():
         best_path = paths[0]
         sig = tuple((leg["Flight"], leg["Origin"], leg["Destination"]) for leg in best_path)
         diverse_paths.append(best_path)
         added_signatures.add(sig)
 
-    # Fill remaining slots up to max_display
-    for path in valid_paths:
+    # 2. Fill remainder across different connection lengths up to max_display
+    for path in all_valid_paths:
         if len(diverse_paths) >= max_display:
             break
         sig = tuple((leg["Flight"], leg["Origin"], leg["Destination"]) for leg in path)
@@ -1115,7 +1115,7 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
             diverse_paths.append(path)
             added_signatures.add(sig)
 
-    # Final sort ensures shortest physical routes appear first
+    # Final sort ensures shortest, most direct physical routes appear first
     diverse_paths.sort(key=lambda p: calculate_route_score(p))
     return diverse_paths[:max_display]
 
