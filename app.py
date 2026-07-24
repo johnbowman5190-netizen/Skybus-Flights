@@ -1042,82 +1042,88 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
     for leg in adj_map[origin]:
         queue.append([leg])
 
-    # Group valid paths by how many connections (layovers) they have
-    paths_by_conn = defaultdict(list)
-    MAX_PER_CONN_LEVEL = 40  # Save up to 40 paths for EACH connection level (1, 2, 3, 4, 5+ connections)
+    # 2. BUCKET PATHS BY (first_hop_destination, connection_count)
+    # This prevents major hubs from hogging all search candidate slots
+    paths_by_hop_and_conn = defaultdict(list)
+    MAX_PER_HOP_CONN = 15  # Up to 15 paths per unique starting hop and depth
 
     max_search_depth = max_connections if max_connections is not None else 10
-    MAX_QUEUE_SIZE = 15000
 
     while queue:
-        # Safety RAM cap
-        if len(queue) > MAX_QUEUE_SIZE:
-            for _ in range(3000):
-                queue.popleft()
+        # Memory safety guardrail
+        if len(queue) > 35000:
+            break
 
         path = queue.popleft()
         current_node = path[-1]["Destination"]
         connections = len(path) - 1
+        first_hop = path[0]["Destination"]
 
-        # Found valid route to destination
+        # Found destination
         if current_node == destination:
-            if len(paths_by_conn[connections]) < MAX_PER_CONN_LEVEL:
-                paths_by_conn[connections].append(path)
+            if len(paths_by_hop_and_conn[(first_hop, connections)]) < MAX_PER_HOP_CONN:
+                paths_by_hop_and_conn[(first_hop, connections)].append(path)
             continue
 
         if connections >= max_search_depth:
             continue
 
+        # If this specific starting hop already has enough paths at this connection level, skip expanding it
+        if len(paths_by_hop_and_conn[(first_hop, connections)]) >= MAX_PER_HOP_CONN:
+            continue
+
         visited_airports = {leg["Origin"] for leg in path}
         visited_airports.add(current_node)
 
-        # Extend path
         for nxt in adj_map.get(current_node, []):
             if nxt["Destination"] not in visited_airports:
                 queue.append(path + [nxt])
 
-    # Combine paths across all connection levels
-    all_valid_paths = []
-    for conn_level in sorted(paths_by_conn.keys()):
-        # Sort paths within each connection level by geographic score
-        sorted_level = sorted(paths_by_conn[conn_level], key=lambda p: calculate_route_score(p))
-        all_valid_paths.extend(sorted_level)
+    # 3. GROUP PATHS BY FIRST HOP
+    paths_by_first_hop = defaultdict(list)
+    for (first_hop, conn), paths in paths_by_hop_and_conn.items():
+        paths_by_first_hop[first_hop].extend(paths)
 
-    if not all_valid_paths:
+    if not paths_by_first_hop:
         return []
 
-    # ----------------------------------------------------
-    # DIVERSIFICATION Across Initial Hops & Connection Depths
-    # ----------------------------------------------------
-    paths_by_first_hop = {}
-    for path in all_valid_paths:
-        first_hop = path[0]["Destination"]
-        if first_hop not in paths_by_first_hop:
-            paths_by_first_hop[first_hop] = []
-        paths_by_first_hop[first_hop].append(path)
+    # Sort paths within each starting hop group by quality score
+    for hub in paths_by_first_hop:
+        paths_by_first_hop[hub].sort(key=lambda p: calculate_route_score(p))
 
+    # Helper function to measure length of first leg
+    def first_leg_distance(hub_code):
+        c1 = AIRPORT_COORDS.get(origin)
+        c2 = AIRPORT_COORDS.get(hub_code)
+        if c1 and c2:
+            return haversine_miles(c1, c2)
+        return 9999
+
+    # Sort starting hops so shorter initial legs (regional spokes) come first!
+    sorted_first_hops = sorted(paths_by_first_hop.keys(), key=first_leg_distance)
+
+    # 4. ROUND-ROBIN SELECTION ACROSS DISTINCT FIRST HOPS
     diverse_paths = []
     added_signatures = set()
 
-    # 1. Grab top route from each distinct initial hop (e.g. KMSY, KHTS, KPVU, etc.)
-    for hub, paths in paths_by_first_hop.items():
-        best_path = paths[0]
-        sig = tuple((leg["Flight"], leg["Origin"], leg["Destination"]) for leg in best_path)
-        diverse_paths.append(best_path)
-        added_signatures.add(sig)
+    max_depth_per_hop = max(len(p_list) for p_list in paths_by_first_hop.values())
 
-    # 2. Fill remainder across different connection lengths up to max_display
-    for path in all_valid_paths:
+    # Cycle round-robin through sorted starting hops to interleave short and long initial legs
+    for i in range(max_depth_per_hop):
+        for hop in sorted_first_hops:
+            p_list = paths_by_first_hop[hop]
+            if i < len(p_list):
+                path = p_list[i]
+                sig = tuple((leg["Flight"], leg["Origin"], leg["Destination"]) for leg in path)
+                if sig not in added_signatures:
+                    diverse_paths.append(path)
+                    added_signatures.add(sig)
+                    if len(diverse_paths) >= max_display:
+                        break
         if len(diverse_paths) >= max_display:
             break
-        sig = tuple((leg["Flight"], leg["Origin"], leg["Destination"]) for leg in path)
-        if sig not in added_signatures:
-            diverse_paths.append(path)
-            added_signatures.add(sig)
 
-    # Final sort ensures shortest, most direct physical routes appear first
-    diverse_paths.sort(key=lambda p: calculate_route_score(p))
-    return diverse_paths[:max_display]
+    return diverse_paths
 
 # ==========================================
 # 4. APP UI
