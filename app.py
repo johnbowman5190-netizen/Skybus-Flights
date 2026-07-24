@@ -910,14 +910,16 @@ AIRPORT_COORDS = {
     "PAEN": (60.5731, -151.2450),  # Kenai Municipal, AK
     "PAKW": (56.4843, -132.3698),  # Wrangell Airport, AK
     "PAHO": (59.6456, -151.4766),  # Homer Airport, AK
+    "PADL": (59.0454, -158.5033), # Dillingham Airport, AK
+    "PAKN": (58.6768, -156.6492), # King Salmon Airport, AK
 
     # --------------------------------------------------------------------------
     # HAWAII SPOKES
     # --------------------------------------------------------------------------
     "PHNL": (21.3187, -157.9224),  # Daniel K. Inouye Intl (Honolulu), HI
-    "OGG":  (20.8986, -156.4305),  # Kahului Airport (Maui), HI
-    "KOA":  (19.7388, -155.9874),  # Ellison Onizuka Kona Intl, HI
-    "LIH":  (21.9760, -159.3390),  # Lihue Airport (Kauai), HI
+    "PHOG":  (20.8986, -156.4305),  # Kahului Airport (Maui), HI
+    "PHKO":  (19.7388, -155.9874),  # Ellison Onizuka Kona Intl, HI
+    "PHLI":  (21.9760, -159.3390),  # Lihue Airport (Kauai), HI
 
     # --------------------------------------------------------------------------
     # INTERMOUNTAIN & PACIFIC NORTHWEST SPOKES (KPVU & KBLI Blocks)
@@ -946,6 +948,8 @@ AIRPORT_COORDS = {
     "KEAT": (47.3999, -120.2068),  # Pangborn Memorial (Wenatchee), WA
     "KLWS": (46.3745, -117.0156),  # Lewiston-Nez Perce County, ID
     "KCLM": (48.1202, -123.4997),  # William R. Fairchild (Port Angeles), WA
+    "KCDC": (37.7009, -113.0988), # Cedar City Regional Airport, UT
+    "KVEL": (40.4409, -109.5099), # Vernal Regional Airport, UT
 
     # --------------------------------------------------------------------------
     # SOUTHWEST SPOKES (KIWA Block)
@@ -962,6 +966,9 @@ AIRPORT_COORDS = {
     "KEKO": (40.8249, -115.7917),  # Elko Regional, NV
     "KSBP": (35.2371, -120.6424),  # San Luis Obispo County Regional, CA
     "KFLT": (34.8486, -111.7886),  # Sedona / Flagstaff Region, AZ
+    "KBFL": (35.4336, -119.0567), # Meadows Field Airport (Bakersfield), CA
+    "KFAT": (36.7762, -119.7181), # Fresno Yosemite International Airport, CA
+    "KSBA": (34.4262, -119.8403), # Santa Barbara Municipal Airport, CA
 
     # --------------------------------------------------------------------------
     # GULF COAST & MIDWEST SPOKES (KMSY & KOMA Blocks)
@@ -992,6 +999,13 @@ AIRPORT_COORDS = {
     "KSUX": (42.4026, -96.3844),   # Sioux Gateway Airport, IA
     "KCOU": (38.8181, -92.2196),   # Columbia Regional, MO
     "KALO": (42.5571, -92.4003),   # Waterloo Regional, IA
+    "KMGM": (32.3006, -86.3940),  # Montgomery Regional Airport, AL
+    "KBHM": (33.5629, -86.7535),  # Birmingham-Shuttlesworth International Airport, AL
+    "KBMI": (40.4771, -88.9159),  # Central Illinois Regional Airport (Bloomington), IL
+    "KDBQ": (42.4020, -90.7095),  # Dubuque Regional Airport, IA
+    "KCRP": (27.7704, -97.5012),  # Corpus Christi International Airport, TX
+    "KSHV": (32.4466, -93.8256),  # Shreveport Regional Airport, LA
+    "KBPT": (29.9508, -94.0207),  # Jack Brooks Regional Airport (Beaumont), TX
 
     # --------------------------------------------------------------------------
     # GREAT LAKES SPOKES (KGRR Block)
@@ -1007,6 +1021,11 @@ AIRPORT_COORDS = {
     "KAZO": (42.2349, -85.5521),   # Kalamazoo/Battle Creek Intl, MI
     "KFNT": (42.9654, -83.7436),   # Bishop International (Flint), MI
     "KTOL": (41.5868, -83.8078),   # Toledo Express Airport, OH
+    "KMQT": (46.3536, -87.3953),  # Sawyer International Airport (Marquette), MI
+    "KPLN": (45.5708, -84.7967),  # Pellston Regional Airport, MI
+    "KERI": (42.0820, -80.1762),  # Erie International Airport, PA
+    "KRST": (43.9083, -92.4980),  # Rochester International Airport, MN
+    "KDLH": (46.8421, -92.1936),  # Duluth International Airport, MN
 
     # --------------------------------------------------------------------------
     # NORTHEAST & NORTHERN NEW ENGLAND SPOKES (KSWF & KBGR Blocks)
@@ -1035,6 +1054,8 @@ AIRPORT_COORDS = {
     "KPBG": (44.6509, -73.4681),   # Plattsburgh International, NY
     "KSLK": (44.3853, -74.2062),   # Adirondack Regional (Saranac Lake), NY
     "KFMH": (41.6585, -70.5215),   # Cape Cod Coast Guard Air Station / Falmouth, MA
+    "KIPT": (41.2419, -76.9211),  # Williamsport Regional Airport, PA
+    "KALB": (42.7483, -73.8017),  # Albany International Airport, NY
 
     # --------------------------------------------------------------------------
     # MID-ATLANTIC & SOUTHEAST SPOKES (KRIC & KSFB Blocks)
@@ -1055,6 +1076,14 @@ AIRPORT_COORDS = {
     "KBQK": (31.2590, -81.4663),   # Brunswick Golden Isles, GA
     "KGNV": (29.6901, -82.2718),   # Gainesville Regional, FL
     "KVRB": (27.6556, -80.4179),   # Vero Beach Regional, FL
+    "KCHO": (38.1386, -78.4529),  # Charlottesville-Albemarle Airport, VA
+    "KMLB": (28.1028, -80.6453),  # Melbourne Orlando International Airport, FL
+    "KECP": (30.3571, -85.7956),  # Northwest Florida Beaches International Airport, FL
+    "KGSO": (36.0978, -79.9373),  # Piedmont Triad International Airport (Greensboro), NC
+    "KJQF": (35.3878, -80.7092),  # Concord-Padgett Regional Airport, NC
+    "KPGV": (35.6353, -77.3853),  # Pitt-Greenville Airport, NC
+    "KPGD": (26.9163, -82.0006),  # Punta Gorda Airport, FL
+    "KTYS": (35.8110, -83.9940),  # McGhee Tyson Airport (Knoxville), TN
 
     # --------------------------------------------------------------------------
     # CARIBBEAN SPOKES (TJBQ Regional Block)
