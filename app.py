@@ -1030,7 +1030,7 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
     if origin == destination:
         return []
 
-    # 1. PRE-BUILD ADJACENCY MAP (Significantly speeds up search)
+    # 1. PRE-BUILD ADJACENCY MAP
     adj_map = defaultdict(list)
     for leg in network:
         adj_map[leg["Origin"]].append(leg)
@@ -1045,33 +1045,37 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
     valid_paths = []
     max_search_depth = max_connections if max_connections is not None else 10
 
-    # Track path counts per connection depth so short routes don't crowd out deep routes
-    paths_at_depth = defaultdict(int)
-    MAX_PATHS_PER_DEPTH = 150  
+    # ====================================================
+    # MEMORY SAFETY CAPS (Prevents Streamlit RAM Crashes)
+    # ====================================================
+ 
+    MAX_QUEUE_SIZE = 12000       # Maximum items stored in RAM
+    MAX_TOTAL_VALID_PATHS = 300  # Total paths needed to fulfill up to 75 display options
 
     while queue:
+        # If queue memory spikes too high, trim down older branches
+        if len(queue) > MAX_QUEUE_SIZE:
+            for _ in range(3000):
+                queue.popleft()
+
         path = queue.popleft()
         current_node = path[-1]["Destination"]
         connections = len(path) - 1
 
-        # Found a valid destination
+        # Found valid route
         if current_node == destination:
             valid_paths.append(path)
-            paths_at_depth[connections] += 1
+            if len(valid_paths) >= MAX_TOTAL_VALID_PATHS:
+                break
             continue
 
-        # Stop extending if max connections reached
         if connections >= max_search_depth:
-            continue
-
-        # Prevent low-depth paths from choking out deep multi-hop paths
-        if paths_at_depth[connections] >= MAX_PATHS_PER_DEPTH:
             continue
 
         visited_airports = {leg["Origin"] for leg in path}
         visited_airports.add(current_node)
 
-        # Fast lookup using adjacency map
+        # Extend path
         for nxt in adj_map.get(current_node, []):
             if nxt["Destination"] not in visited_airports:
                 queue.append(path + [nxt])
@@ -1080,12 +1084,11 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
         return []
 
     # ----------------------------------------------------
-    # GEOGRAPHIC SORTING: Sort by physical mileage + layovers
+    # GEOGRAPHIC SORTING & DIVERSIFICATION
     # ----------------------------------------------------
-    
+  
     valid_paths.sort(key=lambda p: calculate_route_score(p))
 
-    # Diversify initial hubs while maintaining geographic order
     paths_by_first_hub = {}
     for path in valid_paths:
         first_hub = path[0]["Destination"]
@@ -1103,7 +1106,7 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
         diverse_paths.append(best_path)
         added_signatures.add(sig)
 
-    # Fill the rest with the shortest overall paths (including deep multi-hops)
+    # Fill remaining slots up to max_display
     for path in valid_paths:
         if len(diverse_paths) >= max_display:
             break
@@ -1112,7 +1115,7 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
             diverse_paths.append(path)
             added_signatures.add(sig)
 
-    # Final sort ensures shortest geographic distance appears first
+    # Final sort ensures shortest physical routes appear first
     diverse_paths.sort(key=lambda p: calculate_route_score(p))
     return diverse_paths[:max_display]
 
