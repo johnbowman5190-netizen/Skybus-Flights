@@ -217,7 +217,7 @@ routes_raw = [
     (1442, "KPVU", "KOTH", "Daily"),  # North Bend / Coos Bay, OR
     (1444, "KPVU", "KALW", "Daily"),  # Walla Walla, WA
     (1446, "KPVU", "KEAT", "Daily"),  # Wenatchee, WA
-    (1448, "KPVU",  KLWS", "Daily"),  # Lewiston, ID
+    (1448, "KPVU", "KLWS", "Daily"),  # Lewiston, ID
 
     # ----------------------------------------------------
     # KIWA Bridge Spokes (300 Block - Southwest Hub - 15 Spokes)
