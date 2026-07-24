@@ -1107,9 +1107,14 @@ if "dest_select_val" not in st.session_state:
 # 2. Callback function executed BEFORE UI reruns
 def set_random_destination():
     current_orig = st.session_state.get("orig_select_val", all_airports[0])
-    available = [a for a in all_airports if a != current_orig]
+    current_dest = st.session_state.get("dest_select_val", None)
+    
+    # Exclude both origin AND current destination so every click changes the selection
+    available = [a for a in all_airports if a != current_orig and a != current_dest]
+    
     if available:
-        st.session_state["dest_select_val"] = random.choice(available)
+        # SystemRandom uses OS entropy, preventing random.seed() calls elsewhere from hijacking selection
+        st.session_state["dest_select_val"] = random.SystemRandom().choice(available)
 
 col1, col2, col3, col4 = st.columns([1, 1.3, 1, 1])
 
