@@ -1,7 +1,7 @@
 import random
-import math
 from datetime import datetime
-from collections import deque
+from collections import deque, defaultdict
+import math
 import streamlit as st
 import streamlit.components.v1 as components
 
@@ -1027,36 +1027,53 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
     origin = origin.strip().upper()
     destination = destination.strip().upper()
 
-    queue = deque()
+    if origin == destination:
+        return []
+
+    # 1. PRE-BUILD ADJACENCY MAP (Significantly speeds up search)
+    adj_map = defaultdict(list)
     for leg in network:
-        if leg["Origin"] == origin:
-            queue.append([leg])
+        adj_map[leg["Origin"]].append(leg)
+
+    if origin not in adj_map:
+        return []
+
+    queue = deque()
+    for leg in adj_map[origin]:
+        queue.append([leg])
 
     valid_paths = []
     max_search_depth = max_connections if max_connections is not None else 10
+
+    # Track path counts per connection depth so short routes don't crowd out deep routes
+    paths_at_depth = defaultdict(int)
+    MAX_PATHS_PER_DEPTH = 150  
 
     while queue:
         path = queue.popleft()
         current_node = path[-1]["Destination"]
         connections = len(path) - 1
 
+        # Found a valid destination
         if current_node == destination:
             valid_paths.append(path)
-            if len(valid_paths) >= 500:
-                break
+            paths_at_depth[connections] += 1
             continue
 
+        # Stop extending if max connections reached
         if connections >= max_search_depth:
+            continue
+
+        # Prevent low-depth paths from choking out deep multi-hop paths
+        if paths_at_depth[connections] >= MAX_PATHS_PER_DEPTH:
             continue
 
         visited_airports = {leg["Origin"] for leg in path}
         visited_airports.add(current_node)
 
-        for nxt in network:
-            if (
-                nxt["Origin"] == current_node
-                and nxt["Destination"] not in visited_airports
-            ):
+        # Fast lookup using adjacency map
+        for nxt in adj_map.get(current_node, []):
+            if nxt["Destination"] not in visited_airports:
                 queue.append(path + [nxt])
 
     if not valid_paths:
@@ -1065,6 +1082,7 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
     # ----------------------------------------------------
     # GEOGRAPHIC SORTING: Sort by physical mileage + layovers
     # ----------------------------------------------------
+    
     valid_paths.sort(key=lambda p: calculate_route_score(p))
 
     # Diversify initial hubs while maintaining geographic order
@@ -1078,12 +1096,14 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
     diverse_paths = []
     added_signatures = set()
 
+    # Grab best route per distinct hub first
     for hub, paths in paths_by_first_hub.items():
         best_path = paths[0]
         sig = tuple((leg["Flight"], leg["Origin"], leg["Destination"]) for leg in best_path)
         diverse_paths.append(best_path)
         added_signatures.add(sig)
 
+    # Fill the rest with the shortest overall paths (including deep multi-hops)
     for path in valid_paths:
         if len(diverse_paths) >= max_display:
             break
@@ -1092,10 +1112,9 @@ def find_routes(network, origin, destination, max_connections=10, max_display=30
             diverse_paths.append(path)
             added_signatures.add(sig)
 
-    # Final sort ensures shortest, most direct geographic routes are listed FIRST
+    # Final sort ensures shortest geographic distance appears first
     diverse_paths.sort(key=lambda p: calculate_route_score(p))
     return diverse_paths[:max_display]
-
 
 # ==========================================
 # 4. APP UI
