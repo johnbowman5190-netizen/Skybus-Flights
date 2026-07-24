@@ -188,8 +188,8 @@ routes_raw = [
     (1326, "PAFA", "PAKW", "Daily"),  # Wrangell, AK
     (1328, "PAFA", "PAHO", "Daily"),  # Homer, AK
     (1330, "PAFA", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
-    (1332, "PAFA", "PHOG",  "Daily"),  # Kahului, HI (Maui)
-    (1334, "PAFA", "PHKO",  "Daily"),  # Kona, HI (Big Island)
+    (1332, "PAFA", "PHOG", "Daily"),  # Kahului, HI (Maui)
+    (1334, "PAFA", "PHKO", "Daily"),  # Kona, HI (Big Island)
     # ----------------------------------------------------
     # KPVU Bridge Spokes (1400 Block - Intermountain West Hub - 15 Spokes)
     # ----------------------------------------------------
@@ -210,14 +210,14 @@ routes_raw = [
     (1428, "KPVU", "KRNO", "Daily"),  # Reno / Tahoe, NV
     (1430, "KPVU", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
     (1432, "KPVU", "PHOG", "Daily"),  # Kahului, HI (Maui)
-    (1434, "KPVU",  "KYKM", "Daily"),  # Yakima, WA
-    (1436, "KPVU",  "KPSC", "Daily"),  # Pasco / Tri-Cities, WA
-    (1438, "KPVU",  "KMFR", "Daily"),  # Rogue Valley / Medford, OR
-    (1440, "KPVU",  "KRDM", "Daily"),  # Bend / Redmond, OR
-    (1442, "KPVU",  "KOTH", "Daily"),  # North Bend / Coos Bay, OR
-    (1444, "KPVU",  "KALW", "Daily"),  # Walla Walla, WA
-    (1446, "KPVU",  "KEAT", "Daily"),  # Wenatchee, WA
-    (1448, "KPVU",  "KLWS", "Daily"),  # Lewiston, ID
+    (1434, "KPVU", "KYKM", "Daily"),  # Yakima, WA
+    (1436, "KPVU", "KPSC", "Daily"),  # Pasco / Tri-Cities, WA
+    (1438, "KPVU", "KMFR", "Daily"),  # Rogue Valley / Medford, OR
+    (1440, "KPVU", "KRDM", "Daily"),  # Bend / Redmond, OR
+    (1442, "KPVU", "KOTH", "Daily"),  # North Bend / Coos Bay, OR
+    (1444, "KPVU", "KALW", "Daily"),  # Walla Walla, WA
+    (1446, "KPVU", "KEAT", "Daily"),  # Wenatchee, WA
+    (1448, "KPVU",  KLWS", "Daily"),  # Lewiston, ID
 
     # ----------------------------------------------------
     # KIWA Bridge Spokes (300 Block - Southwest Hub - 15 Spokes)
@@ -259,16 +259,16 @@ routes_raw = [
     (426, "KBLI", "KTWF", "Daily"),  # Twin Falls, ID (Shared w/ KPVU)
     (428, "KBLI", "KCLM", "Daily"),  # Port Angeles, WA
     (430, "KBLI", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
-    (432, "KBLI", "PHOG",  "Daily"),  # Kahului, HI (Maui)
-    (434, "KBLI", "PHKO",  "Daily"),  # Kona, HI (Big Island)
-    (436, "KBLI", "PHLI",  "Daily"),  # Lihue, HI (Kauai)
+    (432, "KBLI", "PHOG", "Daily"),  # Kahului, HI (Maui)
+    (434, "KBLI", "PHKO", "Daily"),  # Kona, HI (Big Island)
+    (436, "KBLI", "PHLI", "Daily"),  # Lihue, HI (Kauai)
     (438, "KBLI", "KJAC", "Daily"),  # Jackson Hole, WY
     (440, "KBLI", "KCPR", "Daily"),  # Casper, WY
     (442, "KBLI", "KIDA", "Daily"),  # Idaho Falls, ID
     (444, "KBLI", "KBZN", "Daily"),  # Bozeman,     
     (446, "KBLI", "KMSO", "Daily"),  # Missoula,     
     (448, "KBLI", "KPIH", "Daily"),  # Pocatello, ID
-    (450, "KBLI",  "KRNO", "Daily"),  # Reno / Tahoe, NV
+    (450, "KBLI", "KRNO", "Daily"),  # Reno / Tahoe, NV
     
     # ----------------------------------------------------
     # KMSY Bridge Spokes (500 Block - Gulf Coast Hub - 15 Spokes)
@@ -431,10 +431,10 @@ routes_raw = [
     (930, "KSWF", "KMHT", "Daily"),  # Manchester, NH
     (932, "KSWF", "KACK", "Daily"),  # Nantucket, MA
     (934, "KSWF", "KMVY", "Daily"),  # Martha's Vineyard, MA
-    (936, "KSWF", "KLEB",  "Daily"),  # Lebanon, NH
-    (938, "KSWF", "KPBG",  "Daily"),  # Plattsburgh, NY
-    (940, "KSWF", "KSLK",  "Daily"),  # Saranac Lake, NY
-    (942, "KSWF", "KFMH",  "Daily"),  # Falmouth / Cape Cod, MA
+    (936, "KSWF", "KLEB", "Daily"),  # Lebanon, NH
+    (938, "KSWF", "KPBG", "Daily"),  # Plattsburgh, NY
+    (940, "KSWF", "KSLK", "Daily"),  # Saranac Lake, NY
+    (942, "KSWF", "KFMH", "Daily"),  # Falmouth / Cape Cod, MA
 
     # ----------------------------------------------------
     # KBGR Bridge Spokes (1000 Block - Northern New England Hub - 15 Spokes)
@@ -495,12 +495,12 @@ routes_raw = [
     (1220, "KSFB", "KBQK", "Daily"), # Brunswick, GA
     (1222, "KSFB", "KGNV", "Daily"), # Gainesville, FL
     (1224, "KSFB", "KVRB", "Daily"), # Vero Beach, FL
-    (1226, "KSFB",  "KAVL", "Daily"), # Asheville, NC
-    (1228, "KSFB",  "KTRI", "Daily"), # Tri-Cities / Bristol, TN
-    (1230, "KSFB",  "KEWN", "Daily"), # New Bern, NC
-    (1232, "KSFB",  "KFAY", "Daily"), # Fayetteville, NC
-    (1234, "KSFB",  "KPHF", "Daily"), # Newport News / Williamsburg, VA
-    (1236, "KSFB",  "KLYH", "Daily"), # Lynchburg, VA
+    (1226, "KSFB", "KAVL", "Daily"), # Asheville, NC
+    (1228, "KSFB", "KTRI", "Daily"), # Tri-Cities / Bristol, TN
+    (1230, "KSFB", "KEWN", "Daily"), # New Bern, NC
+    (1232, "KSFB", "KFAY", "Daily"), # Fayetteville, NC
+    (1234, "KSFB", "KPHF", "Daily"), # Newport News / Williamsburg, VA
+    (1236, "KSFB", "KLYH", "Daily"), # Lynchburg, VA
 ]
 
 AIRPORT_NAMES = {
