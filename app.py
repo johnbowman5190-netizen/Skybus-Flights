@@ -184,12 +184,12 @@ routes_raw = [
     (1318, "PAFA", "PASI", "Daily"),  # Sitka, AK
     (1320, "PAFA", "PAYA", "Daily"),  # Yakutat, AK
     (1322, "PAFA", "PAVD", "Daily"),  # Valdez, AK
-    (1324, "PAFA", "PAEN", "Daily"), # Kenai, AK
+    (1324, "PAFA", "PAEN", "Daily"),  # Kenai, AK
     (1326, "PAFA", "PAKW", "Daily"),  # Wrangell, AK
     (1328, "PAFA", "PAHO", "Daily"),  # Homer, AK
     (1330, "PAFA", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
-    (1332, "PAFA", "OGG",  "Daily"),  # Kahului, HI (Maui)
-
+    (1332, "PAFA", "PHOG",  "Daily"),  # Kahului, HI (Maui)
+    (1334, "PAFA", "PHKO",  "Daily"),  # Kona, HI (Big Island)
     # ----------------------------------------------------
     # KPVU Bridge Spokes (1400 Block - Intermountain West Hub - 15 Spokes)
     # ----------------------------------------------------
@@ -209,7 +209,15 @@ routes_raw = [
     (1426, "KPVU", "KPIH", "Daily"),  # Pocatello, ID
     (1428, "KPVU", "KRNO", "Daily"),  # Reno / Tahoe, NV
     (1430, "KPVU", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
-    (1432, "KPVU", "PHOG",  "Daily"),  # Kahului, HI (Maui)
+    (1432, "KPVU", "PHOG", "Daily"),  # Kahului, HI (Maui)
+    (1434, "KPVU",  "KYKM", "Daily"),  # Yakima, WA
+    (1436, "KPVU",  "KPSC", "Daily"),  # Pasco / Tri-Cities, WA
+    (1438, "KPVU",  "KMFR", "Daily"),  # Rogue Valley / Medford, OR
+    (1440, "KPVU",  "KRDM", "Daily"),  # Bend / Redmond, OR
+    (1442, "KPVU",  "KOTH", "Daily"),  # North Bend / Coos Bay, OR
+    (1444, "KPVU",  "KALW", "Daily"),  # Walla Walla, WA
+    (1446, "KPVU",  "KEAT", "Daily"),  # Wenatchee, WA
+    (1448, "KPVU",  "KLWS", "Daily"),  # Lewiston, ID
 
     # ----------------------------------------------------
     # KIWA Bridge Spokes (300 Block - Southwest Hub - 15 Spokes)
@@ -228,10 +236,9 @@ routes_raw = [
     (322, "KIWA", "KDRO", "Daily"),  # Durango, CO
     (324, "KIWA", "KEKO", "Daily"),  # Elko, NV
     (326, "KIWA", "KSBP", "Daily"),  # San Luis Obispo, CA
-    (328, "KIWA", "KFLT", "Daily"),  # Flagstaff / Sedona, AZ
-    (330,  "KIWA", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
-    (332,  "KIWA", "PHOG",  "Daily"),  # Kahului, HI (Maui)
-    (334,  "KIWA", "PHKO",  "Daily"),  # Kona, HI (Big Island)
+    (330, "KIWA", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
+    (332, "KIWA", "PHOG", "Daily"),  # Kahului, HI (Maui)
+    (334, "KIWA", "PHKO", "Daily"),  # Kona, HI (Big Island)
 
     # ----------------------------------------------------
     # KBLI Bridge Spokes (400 Block - Pacific Northwest Hub - 15 Spokes)
@@ -251,11 +258,18 @@ routes_raw = [
     (424, "KBLI", "KLWS", "Daily"),  # Lewiston, ID
     (426, "KBLI", "KTWF", "Daily"),  # Twin Falls, ID (Shared w/ KPVU)
     (428, "KBLI", "KCLM", "Daily"),  # Port Angeles, WA
-    (430,  "KBLI", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
-    (432,  "KBLI", "PHOG",  "Daily"),  # Kahului, HI (Maui)
-    (434,  "KBLI", "PHKO",  "Daily"),  # Kona, HI (Big Island)
-    (436,  "KBLI", "PHLI",  "Daily"),  # Lihue, HI (Kauai)
-
+    (430, "KBLI", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
+    (432, "KBLI", "PHOG",  "Daily"),  # Kahului, HI (Maui)
+    (434, "KBLI", "PHKO",  "Daily"),  # Kona, HI (Big Island)
+    (436, "KBLI", "PHLI",  "Daily"),  # Lihue, HI (Kauai)
+    (438, "KBLI", "KJAC", "Daily"),  # Jackson Hole, WY
+    (440, "KBLI", "KCPR", "Daily"),  # Casper, WY
+    (442, "KBLI", "KIDA", "Daily"),  # Idaho Falls, ID
+    (444, "KBLI", "KBZN", "Daily"),  # Bozeman,     
+    (446, "KBLI", "KMSO", "Daily"),  # Missoula,     
+    (448, "KBLI", "KPIH", "Daily"),  # Pocatello, ID
+    (450, "KBLI",  "KRNO", "Daily"),  # Reno / Tahoe, NV
+    
     # ----------------------------------------------------
     # KMSY Bridge Spokes (500 Block - Gulf Coast Hub - 15 Spokes)
     # ----------------------------------------------------
@@ -274,6 +288,8 @@ routes_raw = [
     (524, "KMSY", "KAEX", "Daily"),  # Alexandria, LA
     (526, "KMSY", "KLCH", "Daily"),  # Lake Charles, LA
     (528, "KMSY", "KTYR", "Daily"),  # Tyler, TX
+    (530, "KMSY", "KAVL", "Daily"),  # Asheville, NC
+    (532, "KMSY", "KTRI", "Daily"),  # Tri-Cities / Bristol, TN
 
     # ----------------------------------------------------
     # KOMA Bridge Spokes (600 Block - Midwest Hub - 15 Spokes)
@@ -293,7 +309,24 @@ routes_raw = [
     (624, "KOMA", "KSUX", "Daily"),  # Sioux City, IA
     (626, "KOMA", "KCOU", "Daily"),  # Columbia, MO
     (628, "KOMA", "KALO", "Daily"),  # Waterloo, IA
-
+    (630, "KOMA", "KELP", "Daily"),  # El Paso, TX (Shared w/ KMSY)
+    (632, "KOMA", "KMAF", "Daily"),  # Midland / Odessa, TX (Shared w/ KMSY)
+    (634, "KOMA", "KABQ", "Daily"),  # Albuquerque, NM
+    (636, "KOMA", "KTUS", "Daily"),  # Tucson, AZ
+    (638, "KOMA", "KROW", "Daily"),  # Roswell, NM
+    (640, "KOMA", "KPRC", "Daily"),  # Prescott, AZ
+    (642, "KOMA", "KDRO", "Daily"),  # Durango, CO
+    (644, "KOMA", "KMAF", "Daily"),  # Midland / Odessa, TX (Shared w/ KIWA)
+    (646, "KOMA", "KBTR", "Daily"),  # Baton Rouge, LA
+    (648, "KOMA", "KGPT", "Daily"),  # Gulfport / Biloxi, MS (Shared w/ KSFB)
+    (650, "KOMA", "KLFT", "Daily"),  # Lafayette, LA
+    (652, "KOMA", "KMLU", "Daily"),  # Monroe, LA
+    (654, "KOMA", "KHBG", "Daily"),  # Hattiesburg, MS
+    (656, "KOMA", "KAEX", "Daily"),  # Alexandria, LA
+    (658, "KOMA", "KLCH", "Daily"),  # Lake Charles, LA
+    (660, "KOMA", "KTYR", "Daily"),  # Tyler, TX
+    (662, "KOMA", "KMKE", "Daily"),  # Milwaukee, WI
+    
     # ----------------------------------------------------
     # KGRR Bridge Spokes (700 Block - Great Lakes Hub - 15 Spokes)
     # ----------------------------------------------------
@@ -395,6 +428,13 @@ routes_raw = [
     (924, "KSWF", "KAVP", "Daily"),  # Wilkes-Barre / Scranton, PA
     (926, "KSWF", "KELM", "Daily"),  # Elmira / Corning, NY
     (928, "KSWF", "KHVN", "Daily"),  # New Haven, CT (Shared w/ KBGR)
+    (930, "KSWF", "KMHT", "Daily"),  # Manchester, NH
+    (932, "KSWF", "KACK", "Daily"),  # Nantucket, MA
+    (934, "KSWF", "KMVY", "Daily"),  # Martha's Vineyard, MA
+    (936, "KSWF", "KLEB",  "Daily"),  # Lebanon, NH
+    (938, "KSWF", "KPBG",  "Daily"),  # Plattsburgh, NY
+    (940, "KSWF", "KSLK",  "Daily"),  # Saranac Lake, NY
+    (942, "KSWF", "KFMH",  "Daily"),  # Falmouth / Cape Cod, MA
 
     # ----------------------------------------------------
     # KBGR Bridge Spokes (1000 Block - Northern New England Hub - 15 Spokes)
@@ -433,6 +473,11 @@ routes_raw = [
     (1124, "KRIC", "KFAY", "Daily"), # Fayetteville, NC
     (1126, "KRIC", "KPHF", "Daily"), # Newport News / Williamsburg, VA
     (1128, "KRIC", "KLYH", "Daily"), # Lynchburg, VA
+    (1130, "KRIC", "KSBN", "Daily"), # South Bend, IN
+    (1132, "KRIC", "KFWA", "Daily"), # Fort Wayne, IN
+    (1134, "KRIC", "KTOL", "Daily"), # Toledo, OH
+    (1136, "KRIC", "KBQK", "Daily"), # Brunswick, GA
+    (1138, "KRIC", "KMYR", "Daily"), # Myrtle Beach, SC
 
     # ----------------------------------------------------
     # KSFB Bridge Spokes (1200 Block - Florida / Southeast Hub - 15 Spokes)
@@ -450,6 +495,12 @@ routes_raw = [
     (1220, "KSFB", "KBQK", "Daily"), # Brunswick, GA
     (1222, "KSFB", "KGNV", "Daily"), # Gainesville, FL
     (1224, "KSFB", "KVRB", "Daily"), # Vero Beach, FL
+    (1226, "KSFB",  "KAVL", "Daily"), # Asheville, NC
+    (1228, "KSFB",  "KTRI", "Daily"), # Tri-Cities / Bristol, TN
+    (1230, "KSFB",  "KEWN", "Daily"), # New Bern, NC
+    (1232, "KSFB",  "KFAY", "Daily"), # Fayetteville, NC
+    (1234, "KSFB",  "KPHF", "Daily"), # Newport News / Williamsburg, VA
+    (1236, "KSFB",  "KLYH", "Daily"), # Lynchburg, VA
 ]
 
 AIRPORT_NAMES = {
@@ -484,7 +535,6 @@ AIRPORT_NAMES = {
     "PAKW": "Wrangell, AK",
     "PAHO": "Homer, AK",
     "PHNL": "Honolulu, HI",
-    "OGG":  "Kahului, HI (Maui)",
     "PHOG": "Kahului, HI (Maui)",
     "PHKO": "Kona, HI",
     "PHLI": "Lihue, HI",
@@ -518,7 +568,6 @@ AIRPORT_NAMES = {
     "KDRO": "Durango, CO",
     "KEKO": "Elko, NV",
     "KSBP": "San Luis Obispo, CA",
-    "KFLT": "Flagstaff / Sedona, AZ",
 
     # Pacific Northwest Spokes
     "KYKM": "Yakima, WA",
