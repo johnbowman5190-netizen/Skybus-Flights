@@ -511,7 +511,7 @@ routes_raw = [
     (1024, "KBGR", "KPBG", "Mon, Wed, Fri"),  # Plattsburgh, NY
     (1026, "KBGR", "KSLK", "Mon, Fri"),  # Saranac Lake, NY
     (1028, "KBGR", "KFMH", "Thu, Sun"),  # Falmouth / Cape Cod, MA
-    (1030, "KBGR", "KALB", "Mon, Wed, Fri"),  Albany, NY
+    (1030, "KBGR", "KALB", "Mon, Wed, Fri"),  # Albany, NY
     (1032, "KBGR", "KSYR", "Daily"),  # Syracuse, NY
     (1034, "KBGR", "KERI", "Mon, Wed, Fri"),  # Erie, PA
     (1036, "KBGR", "KMQT", "Tue, Thu, Sat"),  # Marquette, MI
