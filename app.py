@@ -544,7 +544,7 @@ routes_raw = [
     (1142, "KRIC", "KIPT", "Thu, Sun"),  # Williamsport, PA
     (1144, "KRIC", "KMLB", "Mon, Wed, Fri"), # Melbourne, FL
     (1146, "KRIC", "KECP", "Tue, Thu, Sat"),  # Panama City Beach, FL
-    (1148, "KRIC", "KALB", "Mon, Wed, Fri"),  Albany, NY
+    (1148, "KRIC", "KALB", "Mon, Wed, Fri"),  # Albany, NY
     (1150, "KRIC", "KERI", "Mon, Wed, Fri"),  # Erie, PA
     (1152, "KRIC", "KGSO", "Tue, Thu, Sat"),  # Greensboro, NC
     (1154, "KRIC", "KJQF", "Tue, Thu, Sat"),  # Concord / Charlotte, NC
