@@ -230,6 +230,7 @@ routes_raw = [
     (1462, "KPVU", "KBFL", "Tue, Thu, Sat"),  # Bakersfield, CA
     (1464, "KPVU", "KRDD", "Mon, Wed, Fri"),  # Redding, CA
     (1466, "KPVU", "KPSP", "Mon, Wed, Fri, Sun"),  # Palm Springs, CA
+    (1468, "KPVU", "PHLI", "Mon, Fri"),  # Lihue, HI (Kauai)
 
     # ----------------------------------------------------
     # KIWA Bridge Spokes (300 Block - Southwest Hub)
