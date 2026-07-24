@@ -229,6 +229,7 @@ routes_raw = [
     (1460, "KPVU", "KFAT", "Mon, Fri"),  # Fresno, CA
     (1462, "KPVU", "KBFL", "Tue, Thu, Sat"),  # Bakersfield, CA
     (1464, "KPVU", "KRDD", "Mon, Wed, Fri"),  # Redding, CA
+    (1466, "KPVU", "KPSP", "Mon, Wed, Fri, Sun"),  # Palm Springs, CA
 
     # ----------------------------------------------------
     # KIWA Bridge Spokes (300 Block - Southwest Hub)
@@ -292,6 +293,7 @@ routes_raw = [
     (458, "KBLI", "KGTF", "Mon, Fri"),  # Great Falls, MT
     (460, "KBLI", "KMRY", "Mon, Wed, Fri"),  # Monterey, CA
     (462, "KBLI", "PAGS", "Tue, Thu, Sat"),  # Gustavus, AK
+    (464, "KBLI", "KPSP", "Mon, Wed, Fri, Sun"),  # Palm Springs, CA
     
     # ----------------------------------------------------
     # KMSY Bridge Spokes (500 Block - Gulf Coast Hub)
