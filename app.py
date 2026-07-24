@@ -1182,18 +1182,20 @@ with col2:
             help="Pick a random destination from the network"
         )
 
-# Max Connections Dropdown
+# Connections Allowed Dropdown
 with col3:
-    max_conn_str = st.selectbox(
-        "Max Connections Allowed",
+    conn_str = st.selectbox(
+        "Connections Allowed",
         options=[
-            "Unlimited / Up to 10",
+            "Nonstop",
             "1 Connection",
             "2 Connections",
             "3 Connections",
             "4 Connections",
+            "5 Connections",
+            "6 Connections",
         ],
-        index=0,
+        index=2,
     )
 
 # Max Options Dropdown
@@ -1201,20 +1203,20 @@ with col4:
     max_display_count = st.selectbox(
         "Max Options to Show",
         options=[15, 25, 35, 50, 75],
-        index=2,
+        index=4, # Defaults to 75
     )
 
-# Connection filter parsing logic
-if "1 " in max_conn_str:
-    max_conn = 1
-elif "2 " in max_conn_str:
-    max_conn = 2
-elif "3 " in max_conn_str:
-    max_conn = 3
-elif "4 " in max_conn_str:
-    max_conn = 4
-else:
-    max_conn = 10
+# Map dropdown string to exact connection count integer
+conn_map = {
+    "Nonstop": 0,
+    "1 Connection": 1,
+    "2 Connections": 2,
+    "3 Connections": 3,
+    "4 Connections": 4,
+    "5 Connections": 5,
+    "6 Connections": 6,
+}
+exact_conn = conn_map[conn_str]
 
 # Search Action Button
 if st.button("Search Route Options", type="primary"):
@@ -1225,12 +1227,13 @@ if st.button("Search Route Options", type="primary"):
             network,
             orig_select,
             dest_select,
-            max_connections=max_conn,
+            exact_connections=exact_conn,
             max_display=max_display_count,
         )
         st.session_state["search_results"] = routes_found
         st.session_state["search_orig"] = orig_select
         st.session_state["search_dest"] = dest_select
+        st.session_state["search_conn_str"] = conn_str
 
 # ==========================================
 # 5. SEARCH RESULTS
@@ -1240,6 +1243,7 @@ if "search_results" in st.session_state:
     results = st.session_state["search_results"]
     orig = st.session_state["search_orig"]
     dest = st.session_state["search_dest"]
+    selected_conn_str = st.session_state.get("search_conn_str", conn_str)
 
     st.markdown("---")
     st.markdown(
@@ -1248,7 +1252,7 @@ if "search_results" in st.session_state:
 
     if not results:
         st.info(
-            f"No routes found connecting {orig} to {dest} within {max_conn} connections."
+            f"No routes found connecting {orig} to {dest} with **{selected_conn_str}**."
         )
     else:
         itinerary_labels = []
