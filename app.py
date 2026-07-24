@@ -170,10 +170,10 @@ routes_raw = [
     # ----------------------------------------------------
 # ----------------------------------------------------
 # ----------------------------------------------------
-    # PAFA Bridge Spokes (1300 Block - Alaska Hub - 15 Spokes)
+    # PAFA Bridge Spokes (1300 Block - Alaska Hub)
     # ----------------------------------------------------
-    (1300, "PAFA", "PAJN", "Daily"),  # Juneau, AK (Shared w/ KBLI)
-    (1302, "PAFA", "PAKT", "Daily"),  # Ketchikan, AK (Shared w/ KBLI)
+    (1300, "PAFA", "PAJN", "Daily"),  # Juneau, AK
+    (1302, "PAFA", "PAKT", "Daily"),  # Ketchikan, AK
     (1304, "PAFA", "PABR", "Daily"),  # Utqiaġvik (Barrow), AK
     (1306, "PAFA", "PAOT", "Daily"),  # Kotzebue, AK
     (1308, "PAFA", "PASC", "Daily"),  # Deadhorse / Prudhoe Bay, AK
@@ -191,21 +191,21 @@ routes_raw = [
     (1332, "PAFA", "PHOG", "Daily"),  # Kahului, HI (Maui)
     (1334, "PAFA", "PHKO", "Daily"),  # Kona, HI (Big Island)
     # ----------------------------------------------------
-    # KPVU Bridge Spokes (1400 Block - Intermountain West Hub - 15 Spokes)
+    # KPVU Bridge Spokes (1400 Block - Intermountain West Hub)
     # ----------------------------------------------------
-    (1400, "KPVU", "KBOI", "Daily"),  # Boise, ID (Shared w/ KBLI)
-    (1402, "KPVU", "KSGU", "Daily"),  # St. George, UT (Shared w/ KIWA)
-    (1404, "KPVU", "KIFP", "Daily"),  # Bullhead City / Laughlin, AZ (Shared w/ KIWA)
+    (1400, "KPVU", "KBOI", "Daily"),  # Boise, ID
+    (1402, "KPVU", "KSGU", "Daily"),  # St. George, UT
+    (1404, "KPVU", "KIFP", "Daily"),  # Bullhead City / Laughlin, AZ
     (1406, "KPVU", "KJAC", "Daily"),  # Jackson Hole, WY
-    (1408, "KPVU", "KGEG", "Daily"),  # Spokane, WA (Shared w/ KBLI)
-    (1410, "KPVU", "KEUG", "Daily"),  # Eugene, OR (Shared w/ KBLI)
-    (1412, "KPVU", "KFLG", "Daily"),  # Flagstaff, AZ (Shared w/ KIWA)
+    (1408, "KPVU", "KGEG", "Daily"),  # Spokane, WA
+    (1410, "KPVU", "KEUG", "Daily"),  # Eugene, OR 
+    (1412, "KPVU", "KFLG", "Daily"),  # Flagstaff, AZ
     (1414, "KPVU", "KCPR", "Daily"),  # Casper, WY
     (1416, "KPVU", "KGJT", "Daily"),  # Grand Junction, CO
     (1418, "KPVU", "KIDA", "Daily"),  # Idaho Falls, ID
     (1420, "KPVU", "KBZN", "Daily"),  # Bozeman, MT
     (1422, "KPVU", "KMSO", "Daily"),  # Missoula, MT
-    (1424, "KPVU", "KTWF", "Daily"),  # Twin Falls, ID (Shared w/ KBLI)
+    (1424, "KPVU", "KTWF", "Daily"),  # Twin Falls, ID
     (1426, "KPVU", "KPIH", "Daily"),  # Pocatello, ID
     (1428, "KPVU", "KRNO", "Daily"),  # Reno / Tahoe, NV
     (1430, "KPVU", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
@@ -220,14 +220,14 @@ routes_raw = [
     (1448, "KPVU", "KLWS", "Daily"),  # Lewiston, ID
 
     # ----------------------------------------------------
-    # KIWA Bridge Spokes (300 Block - Southwest Hub - 15 Spokes)
+    # KIWA Bridge Spokes (300 Block - Southwest Hub)
     # ----------------------------------------------------
-    (300, "KIWA", "KSGU", "Daily"),  # St. George, UT (Shared w/ KPVU)
-    (302, "KIWA", "KIFP", "Daily"),  # Bullhead City / Laughlin, AZ (Shared w/ KPVU)
-    (304, "KIWA", "KELP", "Daily"),  # El Paso, TX (Shared w/ KMSY)
+    (300, "KIWA", "KSGU", "Daily"),  # St. George, UT
+    (302, "KIWA", "KIFP", "Daily"),  # Bullhead City / Laughlin, AZ
+    (304, "KIWA", "KELP", "Daily"),  # El Paso, TX
     (306, "KIWA", "KCLD", "Daily"),  # Carlsbad / San Diego North, CA
-    (308, "KIWA", "KFLG", "Daily"),  # Flagstaff, AZ (Shared w/ KPVU)
-    (310, "KIWA", "KMAF", "Daily"),  # Midland / Odessa, TX (Shared w/ KMSY)
+    (308, "KIWA", "KFLG", "Daily"),  # Flagstaff, AZ
+    (310, "KIWA", "KMAF", "Daily"),  # Midland / Odessa, TX
     (312, "KIWA", "KABQ", "Daily"),  # Albuquerque, NM
     (314, "KIWA", "KTUS", "Daily"),  # Tucson, AZ
     (316, "KIWA", "KPSP", "Daily"),  # Palm Springs, CA
@@ -241,13 +241,13 @@ routes_raw = [
     (334, "KIWA", "PHKO", "Daily"),  # Kona, HI (Big Island)
 
     # ----------------------------------------------------
-    # KBLI Bridge Spokes (400 Block - Pacific Northwest Hub - 15 Spokes)
+    # KBLI Bridge Spokes (400 Block - Pacific Northwest Hub)
     # ----------------------------------------------------
-    (400, "KBLI", "PAJN", "Daily"),  # Juneau, AK (Shared w/ PAFA)
-    (402, "KBLI", "PAKT", "Daily"),  # Ketchikan, AK (Shared w/ PAFA)
-    (404, "KBLI", "KBOI", "Daily"),  # Boise, ID (Shared w/ KPVU)
-    (406, "KBLI", "KGEG", "Daily"),  # Spokane, WA (Shared w/ KPVU)
-    (408, "KBLI", "KEUG", "Daily"),  # Eugene, OR (Shared w/ KPVU)
+    (400, "KBLI", "PAJN", "Daily"),  # Juneau, AK
+    (402, "KBLI", "PAKT", "Daily"),  # Ketchikan, AK
+    (404, "KBLI", "KBOI", "Daily"),  # Boise, ID
+    (406, "KBLI", "KGEG", "Daily"),  # Spokane, WA
+    (408, "KBLI", "KEUG", "Daily"),  # Eugene, OR
     (410, "KBLI", "KYKM", "Daily"),  # Yakima, WA
     (412, "KBLI", "KPSC", "Daily"),  # Pasco / Tri-Cities, WA
     (414, "KBLI", "KMFR", "Daily"),  # Rogue Valley / Medford, OR
@@ -256,7 +256,7 @@ routes_raw = [
     (420, "KBLI", "KALW", "Daily"),  # Walla Walla, WA
     (422, "KBLI", "KEAT", "Daily"),  # Wenatchee, WA
     (424, "KBLI", "KLWS", "Daily"),  # Lewiston, ID
-    (426, "KBLI", "KTWF", "Daily"),  # Twin Falls, ID (Shared w/ KPVU)
+    (426, "KBLI", "KTWF", "Daily"),  # Twin Falls, ID
     (428, "KBLI", "KCLM", "Daily"),  # Port Angeles, WA
     (430, "KBLI", "PHNL", "Daily"),  # Honolulu, HI (Oahu)
     (432, "KBLI", "PHOG", "Daily"),  # Kahului, HI (Maui)
@@ -271,17 +271,17 @@ routes_raw = [
     (450, "KBLI", "KRNO", "Daily"),  # Reno / Tahoe, NV
     
     # ----------------------------------------------------
-    # KMSY Bridge Spokes (500 Block - Gulf Coast Hub - 15 Spokes)
+    # KMSY Bridge Spokes (500 Block - Gulf Coast Hub)
     # ----------------------------------------------------
-    (500, "KMSY", "KELP", "Daily"),  # El Paso, TX (Shared w/ KIWA)
-    (502, "KMSY", "KSGF", "Daily"),  # Springfield, MO (Shared w/ KOMA)
-    (504, "KMSY", "KLIT", "Daily"),  # Little Rock, AR (Shared w/ KOMA)
-    (506, "KMSY", "KPNS", "Daily"),  # Pensacola, FL (Shared w/ KSFB & KGRR)
-    (508, "KMSY", "KMOB", "Daily"),  # Mobile, AL (Shared w/ KSFB)
-    (510, "KMSY", "KVPS", "Daily"),  # Eglin / Destin, FL (Shared w/ KSFB)
-    (512, "KMSY", "KMAF", "Daily"),  # Midland / Odessa, TX (Shared w/ KIWA)
+    (500, "KMSY", "KELP", "Daily"),  # El Paso, TX
+    (502, "KMSY", "KSGF", "Daily"),  # Springfield, MO
+    (504, "KMSY", "KLIT", "Daily"),  # Little Rock, AR
+    (506, "KMSY", "KPNS", "Daily"),  # Pensacola, FL
+    (508, "KMSY", "KMOB", "Daily"),  # Mobile, AL
+    (510, "KMSY", "KVPS", "Daily"),  # Eglin / Destin, FL
+    (512, "KMSY", "KMAF", "Daily"),  # Midland / Odessa, TX
     (514, "KMSY", "KBTR", "Daily"),  # Baton Rouge, LA
-    (516, "KMSY", "KGPT", "Daily"),  # Gulfport / Biloxi, MS (Shared w/ KSFB)
+    (516, "KMSY", "KGPT", "Daily"),  # Gulfport / Biloxi, MS
     (518, "KMSY", "KLFT", "Daily"),  # Lafayette, LA
     (520, "KMSY", "KMLU", "Daily"),  # Monroe, LA
     (522, "KMSY", "KHBG", "Daily"),  # Hattiesburg, MS
@@ -292,14 +292,14 @@ routes_raw = [
     (532, "KMSY", "KTRI", "Daily"),  # Tri-Cities / Bristol, TN
 
     # ----------------------------------------------------
-    # KOMA Bridge Spokes (600 Block - Midwest Hub - 15 Spokes)
+    # KOMA Bridge Spokes (600 Block - Midwest Hub)
     # ----------------------------------------------------
-    (600, "KOMA", "KMLI", "Daily"),  # Moline / Quad Cities, IL (Shared w/ KGRR)
-    (602, "KOMA", "KSGF", "Daily"),  # Springfield, MO (Shared w/ KMSY)
-    (604, "KOMA", "KLIT", "Daily"),  # Little Rock, AR (Shared w/ KMSY)
+    (600, "KOMA", "KMLI", "Daily"),  # Moline / Quad Cities, IL
+    (602, "KOMA", "KSGF", "Daily"),  # Springfield, MO
+    (604, "KOMA", "KLIT", "Daily"),  # Little Rock, AR
     (606, "KOMA", "KFSD", "Daily"),  # Sioux Falls, SD
-    (608, "KOMA", "KCID", "Daily"),  # Cedar Rapids, IA (Shared w/ KGRR)
-    (610, "KOMA", "KPIA", "Daily"),  # Peoria, IL (Shared w/ KGRR)
+    (608, "KOMA", "KCID", "Daily"),  # Cedar Rapids, IA
+    (610, "KOMA", "KPIA", "Daily"),  # Peoria, IL
     (612, "KOMA", "KDSM", "Daily"),  # Des Moines, IA
     (614, "KOMA", "KLNK", "Daily"),  # Lincoln, NE
     (616, "KOMA", "KICT", "Daily"),  # Wichita, KS
@@ -309,16 +309,16 @@ routes_raw = [
     (624, "KOMA", "KSUX", "Daily"),  # Sioux City, IA
     (626, "KOMA", "KCOU", "Daily"),  # Columbia, MO
     (628, "KOMA", "KALO", "Daily"),  # Waterloo, IA
-    (630, "KOMA", "KELP", "Daily"),  # El Paso, TX (Shared w/ KMSY)
-    (632, "KOMA", "KMAF", "Daily"),  # Midland / Odessa, TX (Shared w/ KMSY)
+    (630, "KOMA", "KELP", "Daily"),  # El Paso, TX
+    (632, "KOMA", "KMAF", "Daily"),  # Midland / Odessa, TX
     (634, "KOMA", "KABQ", "Daily"),  # Albuquerque, NM
     (636, "KOMA", "KTUS", "Daily"),  # Tucson, AZ
     (638, "KOMA", "KROW", "Daily"),  # Roswell, NM
     (640, "KOMA", "KPRC", "Daily"),  # Prescott, AZ
     (642, "KOMA", "KDRO", "Daily"),  # Durango, CO
-    (644, "KOMA", "KMAF", "Daily"),  # Midland / Odessa, TX (Shared w/ KIWA)
+    (644, "KOMA", "KMAF", "Daily"),  # Midland / Odessa, TX
     (646, "KOMA", "KBTR", "Daily"),  # Baton Rouge, LA
-    (648, "KOMA", "KGPT", "Daily"),  # Gulfport / Biloxi, MS (Shared w/ KSFB)
+    (648, "KOMA", "KGPT", "Daily"),  # Gulfport / Biloxi, MS
     (650, "KOMA", "KLFT", "Daily"),  # Lafayette, LA
     (652, "KOMA", "KMLU", "Daily"),  # Monroe, LA
     (654, "KOMA", "KHBG", "Daily"),  # Hattiesburg, MS
@@ -328,16 +328,16 @@ routes_raw = [
     (662, "KOMA", "KMKE", "Daily"),  # Milwaukee, WI
     
     # ----------------------------------------------------
-    # KGRR Bridge Spokes (700 Block - Great Lakes Hub - 15 Spokes)
+    # KGRR Bridge Spokes (700 Block - Great Lakes Hub)
     # ----------------------------------------------------
-    (700, "KGRR", "KMLI", "Daily"),  # Moline / Quad Cities, IL (Shared w/ KOMA)
-    (702, "KGRR", "KPNS", "Daily"),  # Pensacola, FL (Shared w/ KSFB & KMSY)
-    (704, "KGRR", "KPIT", "Daily"),  # Pittsburgh, PA (Shared w/ KRIC)
-    (706, "KGRR", "KCAK", "Daily"),  # Akron / Canton, OH (Shared w/ KRIC & KSWF)
+    (700, "KGRR", "KMLI", "Daily"),  # Moline / Quad Cities, IL
+    (702, "KGRR", "KPNS", "Daily"),  # Pensacola, FL
+    (704, "KGRR", "KPIT", "Daily"),  # Pittsburgh, PA
+    (706, "KGRR", "KCAK", "Daily"),  # Akron / Canton, OH
     (708, "KGRR", "KTVC", "Daily"),  # Traverse City, MI
-    (710, "KGRR", "KHTS", "Daily"),  # Huntington, WV (Shared w/ KRIC)
-    (712, "KGRR", "KCID", "Daily"),  # Cedar Rapids, IA (Shared w/ KOMA)
-    (714, "KGRR", "KPIA", "Daily"),  # Peoria, IL (Shared w/ KOMA)
+    (710, "KGRR", "KHTS", "Daily"),  # Huntington, WV
+    (712, "KGRR", "KCID", "Daily"),  # Cedar Rapids, IA
+    (714, "KGRR", "KPIA", "Daily"),  # Peoria, IL
     (716, "KGRR", "KSBN", "Daily"),  # South Bend, IN
     (718, "KGRR", "KMKE", "Daily"),  # Milwaukee, WI
     (720, "KGRR", "KFWA", "Daily"),  # Fort Wayne, IN
@@ -403,31 +403,31 @@ routes_raw = [
     (1502, "TJBQ", "TIST", "Daily"),  # St. Thomas, USVI
     (1504, "TJBQ", "TISX", "Daily"),  # St. Croix, USVI
     (1506, "TJBQ", "TJSJ", "Daily"),  # San Juan, PR
-    (1508, "TJBQ", "KMYR", "Daily"),  # Myrtle Beach, SC (Shared w/ KSFB)
-    (1510, "TJBQ", "KILM", "Daily"),  # Wilmington, NC (Shared w/ KRIC)
-    (1512, "TJBQ", "KPVD", "Daily"),  # Providence, RI (Shared w/ KBGR)
-    (1514, "TJBQ", "KABE", "Daily"),  # Allentown / Lehigh Valley, PA (Shared w/ KSWF)
-    (1516, "TJBQ", "KPIT", "Daily"),  # Pittsburgh, PA (Shared w/ KGRR)
-    (1518, "TJBQ", "KPNS", "Daily"),  # Pensacola, FL (Shared w/ KMSY)
+    (1508, "TJBQ", "KMYR", "Daily"),  # Myrtle Beach, SC
+    (1510, "TJBQ", "KILM", "Daily"),  # Wilmington, NC
+    (1512, "TJBQ", "KPVD", "Daily"),  # Providence, RI
+    (1514, "TJBQ", "KABE", "Daily"),  # Allentown / Lehigh Valley, PA
+    (1516, "TJBQ", "KPIT", "Daily"),  # Pittsburgh, PA
+    (1518, "TJBQ", "KPNS", "Daily"),  # Pensacola, FL
 
     # ----------------------------------------------------
-    # KSWF Bridge Spokes (900 Block - Northeast / Hudson Valley Hub - 15 Spokes)
+    # KSWF Bridge Spokes (900 Block - Northeast / Hudson Valley Hub)
     # ----------------------------------------------------
-    (900, "KSWF", "KABE", "Daily"),  # Allentown, PA (Shared w/ KRIC)
-    (902, "KSWF", "KMDT", "Daily"),  # Harrisburg, PA (Shared w/ KRIC)
-    (904, "KSWF", "KPWM", "Daily"),  # Portland, ME (Shared w/ KBGR)
-    (906, "KSWF", "KCAK", "Daily"),  # Akron / Canton, OH (Shared w/ KGRR)
-    (908, "KSWF", "KPVD", "Daily"),  # Providence, RI (Shared w/ KBGR)
-    (910, "KSWF", "KCRW", "Daily"),  # Charleston, WV (Shared w/ KRIC)
-    (912, "KSWF", "KBTV", "Daily"),  # Burlington, VT (Shared w/ KBGR)
-    (914, "KSWF", "KORH", "Daily"),  # Worcester, MA (Shared w/ KBGR)
+    (900, "KSWF", "KABE", "Daily"),  # Allentown, PA
+    (902, "KSWF", "KMDT", "Daily"),  # Harrisburg, PA
+    (904, "KSWF", "KPWM", "Daily"),  # Portland, ME
+    (906, "KSWF", "KCAK", "Daily"),  # Akron / Canton, OH
+    (908, "KSWF", "KPVD", "Daily"),  # Providence, RI
+    (910, "KSWF", "KCRW", "Daily"),  # Charleston, WV
+    (912, "KSWF", "KBTV", "Daily"),  # Burlington, VT
+    (914, "KSWF", "KORH", "Daily"),  # Worcester, MA
     (916, "KSWF", "KSYR", "Daily"),  # Syracuse, NY
     (918, "KSWF", "KBGM", "Daily"),  # Binghamton, NY
     (920, "KSWF", "KITH", "Daily"),  # Ithaca, NY
     (922, "KSWF", "KART", "Daily"),  # Watertown, NY
     (924, "KSWF", "KAVP", "Daily"),  # Wilkes-Barre / Scranton, PA
     (926, "KSWF", "KELM", "Daily"),  # Elmira / Corning, NY
-    (928, "KSWF", "KHVN", "Daily"),  # New Haven, CT (Shared w/ KBGR)
+    (928, "KSWF", "KHVN", "Daily"),  # New Haven, CT
     (930, "KSWF", "KMHT", "Daily"),  # Manchester, NH
     (932, "KSWF", "KACK", "Daily"),  # Nantucket, MA
     (934, "KSWF", "KMVY", "Daily"),  # Martha's Vineyard, MA
@@ -437,17 +437,17 @@ routes_raw = [
     (942, "KSWF", "KFMH", "Daily"),  # Falmouth / Cape Cod, MA
 
     # ----------------------------------------------------
-    # KBGR Bridge Spokes (1000 Block - Northern New England Hub - 15 Spokes)
+    # KBGR Bridge Spokes (1000 Block - Northern New England Hub)
     # ----------------------------------------------------
-    (1000, "KBGR", "KPWM", "Daily"), # Portland, ME (Shared w/ KSWF)
+    (1000, "KBGR", "KPWM", "Daily"), # Portland, ME
     (1002, "KBGR", "KMHT", "Daily"), # Manchester, NH
-    (1004, "KBGR", "KPVD", "Daily"), # Providence, RI (Shared w/ KSWF)
-    (1006, "KBGR", "KBTV", "Daily"), # Burlington, VT (Shared w/ KSWF)
+    (1004, "KBGR", "KPVD", "Daily"), # Providence, RI
+    (1006, "KBGR", "KBTV", "Daily"), # Burlington, VT
     (1008, "KBGR", "KACK", "Daily"), # Nantucket, MA
     (1010, "KBGR", "KMVY", "Daily"), # Martha's Vineyard, MA
     (1012, "KBGR", "KPQB", "Daily"), # Presque Isle, ME
-    (1014, "KBGR", "KORH", "Daily"), # Worcester, MA (Shared w/ KSWF)
-    (1016, "KBGR", "KHVN", "Daily"), # New Haven, CT (Shared w/ KSWF)
+    (1014, "KBGR", "KORH", "Daily"), # Worcester, MA
+    (1016, "KBGR", "KHVN", "Daily"), # New Haven, CT
     (1018, "KBGR", "KRKD", "Daily"), # Rockland, ME
     (1020, "KBGR", "KBHB", "Daily"), # Bar Harbor, ME
     (1022, "KBGR", "KLEB", "Daily"), # Lebanon, NH
@@ -456,17 +456,17 @@ routes_raw = [
     (1028, "KBGR", "KFMH", "Daily"), # Falmouth / Cape Cod, MA
 
     # ----------------------------------------------------
-    # KRIC Bridge Spokes (1100 Block - Mid-Atlantic Hub - 15 Spokes)
+    # KRIC Bridge Spokes (1100 Block - Mid-Atlantic Hub)
     # ----------------------------------------------------
-    (1100, "KRIC", "KCHS", "Daily"), # Charleston, SC (Shared w/ KSFB)
-    (1102, "KRIC", "KILM", "Daily"), # Wilmington, NC (Shared w/ KSFB)
-    (1104, "KRIC", "KABE", "Daily"), # Allentown, PA (Shared w/ KSWF)
-    (1106, "KRIC", "KMDT", "Daily"), # Harrisburg, PA (Shared w/ KSWF)
-    (1108, "KRIC", "KPIT", "Daily"), # Pittsburgh, PA (Shared w/ KGRR)
+    (1100, "KRIC", "KCHS", "Daily"), # Charleston, SC
+    (1102, "KRIC", "KILM", "Daily"), # Wilmington, NC)
+    (1104, "KRIC", "KABE", "Daily"), # Allentown, PA
+    (1106, "KRIC", "KMDT", "Daily"), # Harrisburg, PA
+    (1108, "KRIC", "KPIT", "Daily"), # Pittsburgh, PA
     (1110, "KRIC", "KROA", "Daily"), # Roanoke, VA
-    (1112, "KRIC", "KHTS", "Daily"), # Huntington, WV (Shared w/ KGRR)
-    (1114, "KRIC", "KCRW", "Daily"), # Charleston, WV (Shared w/ KSWF)
-    (1116, "KRIC", "KSAV", "Daily"), # Savannah, GA (Shared w/ KSFB)
+    (1112, "KRIC", "KHTS", "Daily"), # Huntington, WV
+    (1114, "KRIC", "KCRW", "Daily"), # Charleston, WV
+    (1116, "KRIC", "KSAV", "Daily"), # Savannah, GA
     (1118, "KRIC", "KAVL", "Daily"), # Asheville, NC
     (1120, "KRIC", "KTRI", "Daily"), # Tri-Cities / Bristol, TN
     (1122, "KRIC", "KEWN", "Daily"), # New Bern, NC
@@ -480,18 +480,18 @@ routes_raw = [
     (1138, "KRIC", "KMYR", "Daily"), # Myrtle Beach, SC
 
     # ----------------------------------------------------
-    # KSFB Bridge Spokes (1200 Block - Florida / Southeast Hub - 15 Spokes)
+    # KSFB Bridge Spokes (1200 Block - Florida / Southeast Hub)
     # ----------------------------------------------------
-    (1200, "KSFB", "KCHS", "Daily"), # Charleston, SC (Shared w/ KRIC)
-    (1202, "KSFB", "KILM", "Daily"), # Wilmington, NC (Shared w/ KRIC)
-    (1204, "KSFB", "KPNS", "Daily"), # Pensacola, FL (Shared w/ KMSY & KGRR)
+    (1200, "KSFB", "KCHS", "Daily"), # Charleston, SC
+    (1202, "KSFB", "KILM", "Daily"), # Wilmington, NC
+    (1204, "KSFB", "KPNS", "Daily"), # Pensacola, FL
     (1206, "KSFB", "KEYW", "Daily"), # Key West, FL
-    (1208, "KSFB", "KSAV", "Daily"), # Savannah, GA (Shared w/ KRIC)
-    (1210, "KSFB", "KMOB", "Daily"), # Mobile, AL (Shared w/ KMSY)
-    (1212, "KSFB", "KVPS", "Daily"), # Eglin / Destin, FL (Shared w/ KMSY)
+    (1208, "KSFB", "KSAV", "Daily"), # Savannah, GA
+    (1210, "KSFB", "KMOB", "Daily"), # Mobile, AL
+    (1212, "KSFB", "KVPS", "Daily"), # Eglin / Destin, FL
     (1214, "KSFB", "KTLH", "Daily"), # Tallahassee, FL
     (1216, "KSFB", "KMYR", "Daily"), # Myrtle Beach, SC
-    (1218, "KSFB", "KGPT", "Daily"), # Gulfport / Biloxi, MS (Shared w/ KMSY)
+    (1218, "KSFB", "KGPT", "Daily"), # Gulfport / Biloxi, MS
     (1220, "KSFB", "KBQK", "Daily"), # Brunswick, GA
     (1222, "KSFB", "KGNV", "Daily"), # Gainesville, FL
     (1224, "KSFB", "KVRB", "Daily"), # Vero Beach, FL
@@ -1023,6 +1023,31 @@ def calculate_route_score(path):
 # 3. GEOGRAPHICALLY OPTIMIZED ROUTE ENGINE
 # ==========================================
 
+from datetime import datetime
+
+def leg_operates_today(days_str):
+    """
+    Checks if a flight leg operates today based on standard codes:
+    'Daily', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
+    """
+    if not days_str:
+        return True
+
+    days_clean = str(days_str).strip()
+
+    # 1. 'Daily' always operates
+    if "daily" in days_clean.lower():
+        return True
+
+    # 2. Get today's 3-letter day abbreviation (e.g., 'Mon', 'Wed', 'Fri')
+    today_code = datetime.now().strftime("%a")
+
+    # 3. Check if today's code is listed in the days string
+    if today_code.lower() in days_clean.lower():
+        return True
+
+    return False
+
 def find_routes(network, origin, destination, exact_connections=None, max_connections=10, max_display=75):
     origin = origin.strip().upper()
     destination = destination.strip().upper()
@@ -1030,9 +1055,14 @@ def find_routes(network, origin, destination, exact_connections=None, max_connec
     if origin == destination:
         return []
 
-    # 1. PRE-BUILD ADJACENCY MAP
+    # =========================================================
+    # REAL-TIME DAY FILTER: Keep only flights operating TODAY
+    # =========================================================
+    active_network = [leg for leg in network if leg_operates_today(leg.get("Days", "Daily"))]
+
+    # 1. PRE-BUILD ADJACENCY MAP (Using active flights only)
     adj_map = defaultdict(list)
-    for leg in network:
+    for leg in active_network:
         adj_map[leg["Origin"]].append(leg)
 
     if origin not in adj_map:
@@ -1053,7 +1083,6 @@ def find_routes(network, origin, destination, exact_connections=None, max_connec
         if len(valid_paths) >= max_display * 2:
             break
 
-        # DFS stack for the exact leg count: stores (current_path, visited_airports_set)
         stack = []
         for leg in adj_map[origin]:
             stack.append(([leg], {origin, leg["Destination"]}))
