@@ -445,6 +445,8 @@ routes_raw = [
     (886, "KGRR", "MDPC", "Thu, Sun"),  # Punta Cana, Dominican Republic
     (888, "KSFB", "SKCG", "Mon, Fri"),  # Cartagena, Colombia
     (890, "PAFA", "CYEG", "Tue, Thu, Sat"),  # Edmonton, AB, Canada
+    (892, "KMSY", "MMBT", "Mon, Wed, Fri"),  # Bahias de Huatulco, Mexico
+    (894, "KIWA", "MMBT", "Mon, Wed, Fri"),  # Bahias de Huatulco, Mexico
     
     # ----------------------------------------------------
     # TJBQ Caribbean Regional Spokes (1500 Block - Caribbean Hub)
