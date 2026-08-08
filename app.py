@@ -258,6 +258,13 @@ routes_raw = [
     (342, "KIWA", "KBFL", "Mon, Wed, Fri"),  # Bakersfield, CA
     (344, "KIWA", "KCDC", "Thu, Sun"),  # Cedar City, UT
     (346, "KIWA", "KACV", "Tue, Thu, Sat"),  # Arcata / Eureka, CA
+    (348, "KIWA", "KACT", "Tue, Thu, Sat"),      # Waco
+    (350, "KIWA", "KSJT", "Mon, Wed, Fri, Sun"),  # San Angelo
+    (352, "KIWA", "KVCT", "Daily"),              # Victoria
+    (354, "KIWA", "KABI", "Tue, Thu, Sat"),      # Abilene
+    (356, "KIWA", "KAMA", "Daily"),              # Amarillo
+    (358, "KIWA", "KLBB", "Mon, Wed, Fri, Sun"),  # Lubbock
+
 
     # ----------------------------------------------------
     # KBLI Bridge Spokes (400 Block - Pacific Northwest Hub)
@@ -339,6 +346,32 @@ routes_raw = [
     (574, "KMSY", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka
     (576, "KMSY", "KSTJ", "Tue, Thu, Sat"),      # St. Joseph
     (578, "KMSY", "KBLV", "Daily"),              # Belleville / St. Louis area
+    (580, "KMSY", "KTRI", "Tue, Thu, Sat"),      # Tri-Cities
+    (582, "KMSY", "KBLF", "Mon, Wed, Fri, Sun"),  # Bluefield
+    (584, "KMSY", "KCHA", "Daily"),              # Chattanooga
+    (586, "KMSY", "KLAW", "Tue, Thu, Sat"),      # Lawton
+    (588, "KMSY", "KTUL", "Daily"),              # Tulsa
+    (590, "KMSY", "KFSM", "Mon, Wed, Fri, Sun"),  # Fort Smith
+    (592, "KMSY", "KXNA", "Daily"),              # Northwest Arkansas
+    (594, "KMSY", "KTUP", "Tue, Thu, Sat"),      # Tupelo
+    (596, "KMSY", "KMEI", "Mon, Wed, Fri, Sun"),  # Meridian
+    (598, "KMSY", "KHSV", "Daily"),              # Huntsville
+    (1500, "KMSY", "KPIB", "Tue, Thu, Sat"),      # Hattiesburg / Laurel
+    (1502, "KMSY", "KGTR", "Mon, Wed, Fri, Sun"),  # Columbus / Starkville
+    (1504, "KMSY", "KHEZ", "Tue, Thu, Sat"),      # Natchez
+    (1506, "KMSY", "KMOB", "Daily"),              # Mobile
+    (1508, "KMSY", "KJKA", "Mon, Wed, Fri, Sun"),  # Gulf Shores
+    (1510, "KMSY", "KCSG", "Tue, Thu, Sat"),      # Columbus
+    (1512, "KMSY", "KMCN", "Mon, Wed, Fri, Sun"),  # Macon
+    (1514, "KMSY", "KBWG", "Daily"),              # Bowling Green
+    (1516, "KMSY", "KGSP", "Mon, Wed, Fri, Sun"),  # Greenville / Spartanburg
+    (1518, "KMSY", "KACT", "Tue, Thu, Sat"),      # Waco
+    (1520, "KMSY", "KSJT", "Mon, Wed, Fri, Sun"),  # San Angelo
+    (1522, "KMSY", "KVCT", "Daily"),              # Victoria
+    (1524, "KMSY", "KABI", "Tue, Thu, Sat"),      # Abilene
+    (1526, "KMSY", "KAMA", "Daily"),              # Amarillo
+    (1528, "KMSY", "KLBB", "Mon, Wed, Fri, Sun"),  # Lubbock
+
 
     # ----------------------------------------------------
     # KOMA Bridge Spokes (600 Block - Midwest Hub)
@@ -667,6 +700,18 @@ routes_raw = [
     (1170, "KRIC", "KCVG", "Daily"),  # Cincinnati, OH
     (1172, "KRIC", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
     (1174, "KRIC", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
+    (1176, "KRIC", "KTUP", "Tue, Thu, Sat"),      # Tupelo
+    (1178, "KRIC", "KMEI", "Mon, Wed, Fri, Sun"),  # Meridian
+    (1180, "KRIC", "KHSV", "Daily"),              # Huntsville
+    (1182, "KRIC", "KPIB", "Tue, Thu, Sat"),      # Hattiesburg / Laurel
+    (1184, "KRIC", "KGTR", "Mon, Wed, Fri, Sun"),  # Columbus / Starkville
+    (1186, "KRIC", "KHEZ", "Tue, Thu, Sat"),      # Natchez
+    (1188, "KRIC", "KMOB", "Daily"),              # Mobile
+    (1190, "KRIC", "KJKA", "Mon, Wed, Fri, Sun"),  # Gulf Shores
+    (1192, "KRIC", "KCSG", "Tue, Thu, Sat"),      # Columbus
+    (1194, "KRIC", "KMCN", "Mon, Wed, Fri, Sun"),  # Macon
+    (1196, "KRIC", "KBWG", "Daily"),              # Bowling Green
+    (1198, "KRIC", "KGSP", "Mon, Wed, Fri, Sun"),  # Greenville / Spartanburg
 
     # ----------------------------------------------------
     # KSFB Bridge Spokes (1200 Block - Florida / Southeast Hub)
@@ -705,6 +750,19 @@ routes_raw = [
     (1262, "KSFB", "KCVG", "Daily"),  # Cincinnati, OH
     (1264, "KSFB", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
     (1266, "KSFB", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
+    (1268, "KSFB", "KTUP", "Tue, Thu, Sat"),      # Tupelo
+    (1270, "KSFB", "KMEI", "Mon, Wed, Fri, Sun"),  # Meridian
+    (1272, "KSFB", "KHSV", "Daily"),              # Huntsville
+    (1274, "KSFB", "KPIB", "Tue, Thu, Sat"),      # Hattiesburg / Laurel
+    (1276, "KSFB", "KGTR", "Mon, Wed, Fri, Sun"),  # Columbus / Starkville
+    (1278, "KSFB", "KHEZ", "Tue, Thu, Sat"),      # Natchez
+    (1280, "KSFB", "KMOB", "Daily"),              # Mobile
+    (1282, "KSFB", "KJKA", "Mon, Wed, Fri, Sun"),  # Gulf Shores
+    (1284, "KSFB", "KCSG", "Tue, Thu, Sat"),      # Columbus
+    (1286, "KSFB", "KMCN", "Mon, Wed, Fri, Sun"),  # Macon
+    (1288, "KSFB", "KBWG", "Daily"),              # Bowling Green
+    (1290, "KSFB", "KGSP", "Mon, Wed, Fri, Sun"),  # Greenville / Spartanburg
+
 ]
 
 AIRPORT_NAMES = {
