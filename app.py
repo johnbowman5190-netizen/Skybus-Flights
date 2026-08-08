@@ -577,6 +577,64 @@ routes_raw = [
     (1802, "KGRR", "EGPK", "Wed, Sat"),   # Glasgow Prestwick, Scotland (Summer Seasonal)
     (1804, "KGRR", "MROC", "Mon, Thu, Sat"),   # San José, Costa Rica
     (1806, "KGRR", "TNCA", "Wed, Sun"),   # Oranjestad, Aruba
+    (1810, "KGRR", "LFPG", "Mon, Wed, Fri, Sun"),  # Paris Charles de Gaulle
+    (1812, "KGRR", "EGLL", "Daily"),              # London Heathrow
+    (1814, "KGRR", "EDDF", "Tue, Thu, Sat"),      # Frankfurt
+    (1816, "KGRR", "EHAM", "Daily"),              # Amsterdam
+    (1818, "KGRR", "LEMD", "Mon, Wed, Fri, Sun"),  # Madrid
+    (1820, "KGRR", "LIRF", "Tue, Thu, Sat"),      # Rome Fiumicino
+    (1822, "KGRR", "LPPT", "Mon, Wed, Fri, Sun"),  # Lisbon
+    (1824, "KGRR", "LEBL", "Daily"),              # Barcelona
+    (1826, "KGRR", "SKBO", "Tue, Thu, Sat"),      # Bogota
+    (1828, "KGRR", "SPIM", "Mon, Wed, Fri, Sun"),  # Lima
+    (1830, "KRIC", "EGCC", "Mon, Wed, Fri, Sun"),  # Manchester
+    (1832, "KRIC", "LOWW", "Tue, Thu, Sat"),      # Vienna
+    (1834, "KRIC", "EKCH", "Mon, Wed, Fri, Sun"),  # Copenhagen
+    (1836, "KRIC", "SEQM", "Tue, Thu, Sat"),      # Quito
+    (1838, "KRIC", "SAEZ", "Mon, Wed, Fri, Sun"),  # Buenos Aires Ezeiza
+    (1840, "KBGR", "EDDM", "Tue, Thu, Sat"),      # Munich
+    (1842, "KBGR", "LSZH", "Mon, Wed, Fri, Sun"),  # Zurich
+    (1844, "KBGR", "ENGM", "Tue, Thu, Sat"),      # Oslo
+    (1846, "KBGR", "ESSA", "Mon, Wed, Fri, Sun"),  # Stockholm Arlanda
+    (1848, "KBGR", "MPTO", "Tue, Thu, Sat"),      # Panama City (Tocumen)
+    (1850, "KSWF", "EFHK", "Mon, Wed, Fri, Sun"),  # Helsinki
+    (1852, "KSWF", "LGAV", "Tue, Thu, Sat"),      # Athens
+    (1854, "KSWF", "EBBR", "Mon, Wed, Fri, Sun"),  # Brussels
+    (1856, "KSWF", "LROP", "Tue, Thu, Sat"),      # Bucharest
+    (1858, "KIWA", "MMVR", "Mon, Wed, Fri, Sun"),  # Veracruz
+    (1860, "KIWA", "MMHO", "Tue, Thu, Sat"),      # Hermosillo
+    (1862, "KIWA", "MMPB", "Mon, Wed, Fri, Sun"),  # Puebla
+    (1864, "KIWA", "MNMG", "Tue, Thu, Sat"),      # Managua
+    (1866, "KIWA", "MPPA", "Mon, Wed, Fri, Sun"),  # Howard / Panama Pacifico
+    (1868, "KIWA", "SKCL", "Tue, Thu, Sat"),      # Cali
+    (1870, "KIWA", "SPQU", "Mon, Wed, Fri, Sun"),  # Arequipa
+    (1872, "KIWA", "SCEL", "Tue, Thu, Sat"),      # Santiago
+    (1874, "KBLI", "CYQB", "Mon, Wed, Fri, Sun"),  # Quebec City
+    (1876, "KBLI", "CYHZ", "Tue, Thu, Sat"),      # Halifax
+    (1878, "KBLI", "MMGL", "Mon, Wed, Fri, Sun"),  # Guadalajara
+    (1880, "KBLI", "RKPK", "Tue, Thu, Sat"),      # Busan
+    (1882, "KBLI", "RPLC", "Mon, Wed, Fri, Sun"),  # Clark
+    (1884, "PAFA", "CYWG", "Tue, Thu, Sat"),      # Winnipeg
+    (1886, "PAFA", "CYUL", "Mon, Wed, Fri, Sun"),  # Montreal
+    (1888, "PAFA", "MMTJ", "Tue, Thu, Sat"),      # Tijuana
+    (1890, "PAFA", "ROAH", "Mon, Wed, Fri, Sun"),  # Naha
+    (1892, "PAFA", "RORS", "Tue, Thu, Sat"),      # Shimojishima
+    (1894, "KMSY", "MUHA", "Mon, Wed, Fri, Sun"),  # Havana
+    (1896, "KMSY", "MKJP", "Tue, Thu, Sat"),      # Kingston
+    (1898, "KMSY", "MYSM", "Mon, Wed, Fri, Sun"),  # San Salvador, Bahamas
+    (2800, "KMSY", "TJSJ", "Tue, Thu, Sat"),      # San Juan
+    (2802, "KMSY", "TIST", "Mon, Wed, Fri, Sun"),  # St. Thomas
+    (2804, "KMSY", "TNCC", "Mon, Wed, Fri, Sun"),  # Curacao
+    (2806, "KMSY", "SYCJ", "Tue, Thu, Sat"),      # Georgetown
+    (2808, "KMSY", "SMJP", "Mon, Wed, Fri, Sun"),  # Paramaribo
+    (2810, "KSFB", "MKJS", "Tue, Thu, Sat"),      # Montego Bay
+    (2812, "KSFB", "MYNN", "Mon, Wed, Fri, Sun"),  # Nassau
+    (2814, "KSFB", "MUVR", "Tue, Thu, Sat"),      # Varadero
+    (2816, "KSFB", "MWCR", "Mon, Wed, Fri, Sun"),  # Grand Cayman
+    (2818, "KSFB", "TLPL", "Tue, Thu, Sat"),      # St. Lucia
+    (2820, "KSFB", "TBPB", "Mon, Wed, Fri, Sun"),  # Bridgetown
+    (2822, "KSFB", "SKRG", "Tue, Thu, Sat"),      # Medellin
+    (2824, "KSFB", "SPJC", "Mon, Wed, Fri, Sun"),  # Lima
 
 
     
@@ -1130,6 +1188,65 @@ AIRPORT_NAMES = {
     "MMBT": "Huatulco, Mexico",
     "LPPD": "Ponta Delgada (Azores), Portugal,
     "EGPK": "Glasgow, Scotland",
+    "LFPG": "Paris Charles de Gaulle, France",
+    "EGLL": "London Heathrow, United Kingdom",
+    "EDDF": "Frankfurt, Germany",
+    "EHAM": "Amsterdam, Netherlands",
+    "LEMD": "Madrid, Spain",
+    "LIRF": "Rome Fiumicino, Italy",
+    "LPPT": "Lisbon, Portugal",
+    "LEBL": "Barcelona, Spain",
+    "SKBO": "Bogota, Colombia",
+    "SPIM": "Lima, Peru",
+    "EGCC": "Manchester, United Kingdom",
+    "LOWW": "Vienna, Austria",
+    "EKCH": "Copenhagen, Denmark",
+    "SEQM": "Quito, Ecuador",
+    "SAEZ": "Buenos Aires Ezeiza, Argentina",
+    "EDDM": "Munich, Germany",
+    "LSZH": "Zurich, Switzerland",
+    "ENGM": "Oslo, Norway",
+    "ESSA": "Stockholm Arlanda, Sweden",
+    "EFHK": "Helsinki, Finland",
+    "LGAV": "Athens, Greece",
+    "EBBR": "Brussels, Belgium",
+    "LROP": "Bucharest, Romania",
+    "MMVR": "Veracruz, Mexico",
+    "MMHO": "Hermosillo, Mexico",
+    "MMPB": "Puebla, Mexico",
+    "MNMG": "Managua, Nicaragua",
+    "MPPA": "Howard / Panama Pacifico, Panama",
+    "SKCL": "Cali, Colombia",
+    "SPQU": "Arequipa, Peru",
+    "SCEL": "Santiago, Chile",
+    "CYQB": "Quebec City, Canada",
+    "CYHZ": "Halifax, Canada",
+    "MMGL": "Guadalajara, Mexico",
+    "RKPK": "Busan, South Korea",
+    "RPLC": "Clark, Philippines",
+    "CYWG": "Winnipeg, Canada",
+    "CYUL": "Montreal, Canada",
+    "MMTJ": "Tijuana, Mexico",
+    "ROAH": "Naha, Japan",
+    "RORS": "Shimojishima, Japan",
+    "MUHA": "Havana, Cuba",
+    "MKJP": "Kingston, Jamaica",
+    "MYSM": "San Salvador, Bahamas",
+    "TJSJ": "San Juan, Puerto Rico",
+    "TIST": "St. Thomas, USVI",
+    "TNCA": "Aruba",
+    "TNCC": "Curacao",
+    "SYCJ": "Georgetown, Guyana",
+    "SMJP": "Paramaribo, Suriname",
+    "MKJS": "Montego Bay, Jamaica",
+    "MYNN": "Nassau, Bahamas",
+    "MUVR": "Varadero, Cuba",
+    "MWCR": "Grand Cayman, Cayman Islands",
+    "TLPL": "St. Lucia",
+    "TBPB": "Bridgetown, Barbados",
+    "SKRG": "Medellin, Colombia",
+    "SPJC": "Lima, Peru",
+
 }
 
 
@@ -1515,6 +1632,65 @@ AIRPORT_COORDS = {
     "MMBT": (15.7753, -96.2625),   # Huatulco, Mexico
     "LPPD": (37.7412, -25.6979),    # Ponta Delgada (Azores), Portugal
     "EGPK": (55.5094, -4.5867),     # Glasgow Prestwick, Scotland
+    "LFPG": (49.0097, 2.5479),    # Paris Charles de Gaulle, France
+    "EGLL": (51.4700, -0.4543),   # London Heathrow, United Kingdom
+    "EDDF": (50.0379, 8.5622),    # Frankfurt, Germany
+    "EHAM": (52.3105, 4.7683),    # Amsterdam, Netherlands
+    "LEMD": (40.4936, -3.5668),   # Madrid, Spain
+    "LIRF": (41.8003, 12.2389),   # Rome Fiumicino, Italy
+    "LPPT": (38.7813, -9.1359),   # Lisbon, Portugal
+    "LEBL": (41.2974, 2.0833),    # Barcelona, Spain
+    "SKBO": (4.7016, -74.1469),   # Bogota, Colombia
+    "SPIM": (-12.0219, -77.1143), # Lima, Peru
+    "EGCC": (53.3537, -2.2750),   # Manchester, United Kingdom
+    "LOWW": (48.1103, 16.5697),   # Vienna, Austria
+    "EKCH": (55.6180, 12.6508),   # Copenhagen, Denmark
+    "SEQM": (-0.1292, -78.3575),  # Quito, Ecuador
+    "SAEZ": (-34.8222, -58.5358), # Buenos Aires Ezeiza, Argentina
+    "EDDM": (48.3538, 11.7861),   # Munich, Germany
+    "LSZH": (47.4647, 8.5492),    # Zurich, Switzerland
+    "ENGM": (60.1939, 11.1004),   # Oslo, Norway
+    "ESSA": (59.6519, 17.9186),   # Stockholm Arlanda, Sweden
+    "EFHK": (60.3172, 24.9633),   # Helsinki, Finland
+    "LGAV": (37.9364, 23.9445),   # Athens, Greece
+    "EBBR": (50.9014, 4.4844),    # Brussels, Belgium
+    "LROP": (44.5722, 26.1022),   # Bucharest, Romania
+    "MMVR": (19.1458, -96.1897),  # Veracruz, Mexico
+    "MMHO": (29.0958, -111.0478), # Hermosillo, Mexico
+    "MMPB": (19.1583, -98.3711),  # Puebla, Mexico
+    "MNMG": (12.1444, -86.1683),  # Managua, Nicaragua
+    "MPPA": (8.9775, -79.5997),   # Howard / Panama Pacifico, Panama
+    "SKCL": (3.5433, -76.3814),   # Cali, Colombia
+    "SPQU": (-16.3411, -71.5831), # Arequipa, Peru
+    "SCEL": (-33.3930, -70.7858), # Santiago, Chile
+    "CYQB": (46.7911, -71.3933),  # Quebec City, Canada
+    "CYHZ": (44.8808, -63.5086),  # Halifax, Canada
+    "MMGL": (20.5218, -103.3111), # Guadalajara, Mexico
+    "RKPK": (35.1795, 128.9381),  # Busan, South Korea
+    "RPLC": (15.1878, 120.5606),  # Clark, Philippines
+    "CYWG": (49.9100, -97.2397),  # Winnipeg, Canada
+    "CYUL": (45.4706, -73.7403),  # Montreal, Canada
+    "MMTJ": (32.5411, -116.9700), # Tijuana, Mexico
+    "ROAH": (26.1958, 127.6458),  # Naha, Japan
+    "RORS": (24.8267, 125.1458),  # Shimojishima, Japan
+    "MUHA": (22.9892, -82.4092),  # Havana, Cuba
+    "MKJP": (17.9356, -76.7875),  # Kingston, Jamaica
+    "MYSM": (24.0864, -74.5247),  # San Salvador, Bahamas
+    "TJSJ": (18.4394, -66.0018),  # San Juan, Puerto Rico
+    "TIST": (18.3372, -64.9733),  # St. Thomas, USVI
+    "TNCA": (12.5039, -70.0119),  # Aruba
+    "TNCC": (12.1889, -68.9597),  # Curacao
+    "SYCJ": (6.4981, -58.2539),   # Georgetown, Guyana
+    "SMJP": (5.4431, -55.1903),   # Paramaribo, Suriname
+    "MKJS": (18.5036, -77.9131),  # Montego Bay, Jamaica
+    "MYNN": (25.0389, -77.4661),  # Nassau, Bahamas
+    "MUVR": (23.1592, -81.4328),  # Varadero, Cuba
+    "MWCR": (19.2922, -81.3578),  # Grand Cayman, Cayman Islands
+    "TLPL": (13.7333, -60.9850),  # St. Lucia
+    "TBPB": (13.0747, -59.4925),  # Bridgetown, Barbados
+    "SKRG": (6.1645, -75.4233),   # Medellin, Colombia
+    "SPJC": (-12.0219, -77.1143), # Lima, Peru
+
 
 }
 
