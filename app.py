@@ -382,6 +382,35 @@ routes_raw = [
     (694, "KOMA", "KCVG", "Daily"),  # Cincinnati, OH
     (696, "KOMA", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
     (698, "KOMA", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
+    (1600, "KOMA", "KRFD", "Mon, Wed, Fri, Sun"),  # Chicago Rockford
+    (1602, "KOMA", "KGYY", "Tue, Thu, Sat"),      # Gary, IN
+    (1604, "KOMA", "KCWA", "Daily"),              # Central Wisconsin
+    (1606, "KOMA", "KATW", "Daily"),              # Appleton / Fox Cities
+    (1608, "KOMA", "KSTC", "Mon, Wed, Fri, Sun"),  # St. Cloud
+    (1610, "KOMA", "KLSE", "Tue, Thu, Sat"),      # La Crosse
+    (1612, "KOMA", "KIMT", "Mon, Wed, Fri, Sun"),  # Iron Mountain
+    (1614, "KOMA", "KESC", "Daily"),              # Escanaba
+    (1616, "KOMA", "KISQ", "Tue, Thu, Sat"),      # Sault Ste. Marie (Ontario/US border region - or regional)
+    (1618, "KOMA", "KAPN", "Mon, Wed, Fri, Sun"),  # Alpena
+    (1620, "KOMA", "KINL", "Tue, Thu, Sat"),      # International Falls
+    (1622, "KOMA", "KBJI", "Mon, Wed, Fri, Sun"),  # Bemidji
+    (1624, "KOMA", "KMOT", "Daily"),              # Minot
+    (1626, "KOMA", "KDVL", "Tue, Thu, Sat"),      # Devils Lake
+    (1628, "KOMA", "KDIK", "Mon, Wed, Fri, Sun"),  # Dickinson
+    (1630, "KOMA", "KJMS", "Tue, Thu, Sat"),      # Jamestown
+    (1632, "KOMA", "KRAP", "Daily"),              # Rapid City
+    (1634, "KOMA", "KPIR", "Mon, Wed, Fri, Sun"),  # Pierre
+    (1636, "KOMA", "KJVY", "Tue, Thu, Sat"),      # Jeffersonville / Louisville area
+    (1638, "KOMA", "KOWB", "Mon, Wed, Fri, Sun"),  # Owensboro
+    (1640, "KOMA", "KJEF", "Tue, Thu, Sat"),      # Jefferson City
+    (1642, "KOMA", "KSPI", "Mon, Wed, Fri, Sun"),  # Springfield (Illinois)
+    (1644, "KOMA", "KGCK", "Tue, Thu, Sat"),      # Garden City
+    (1646, "KOMA", "KSLN", "Mon, Wed, Fri, Sun"),  # Salina
+    (1648, "KOMA", "KICT", "Daily"),              # Wichita
+    (1650, "KOMA", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka
+    (1652, "KOMA", "KSTJ", "Tue, Thu, Sat"),      # St. Joseph
+    (1654, "KOMA", "KBLV", "Daily"),              # Belleville / St. Louis area
+    
     
     # ----------------------------------------------------
     # KGRR Bridge Spokes (700 Block - Great Lakes Hub)
@@ -418,6 +447,35 @@ routes_raw = [
     (758, "KGRR", "KDLH", "Mon, Wed, Fri, Sun"), # Duluth, MN
     (760, "KGRR", "KCIU", "Daily"),  # Sault Ste. Marie, MI
     (762, "KGRR", "KCMX", "Tue, Thu, Sat"),  # Houghton, MI
+    (764, "KGRR", "KRFD", "Mon, Wed, Fri, Sun"),  # Chicago Rockford
+    (766, "KGRR", "KGYY", "Tue, Thu, Sat"),      # Gary, IN
+    (768, "KGRR", "KCWA", "Daily"),              # Central Wisconsin
+    (770, "KGRR", "KATW", "Daily"),              # Appleton / Fox Cities
+    (772, "KGRR", "KSTC", "Mon, Wed, Fri, Sun"),  # St. Cloud
+    (774, "KGRR", "KLSE", "Tue, Thu, Sat"),      # La Crosse
+    (776, "KGRR", "KIMT", "Mon, Wed, Fri, Sun"),  # Iron Mountain
+    (778, "KGRR", "KESC", "Daily"),              # Escanaba
+    (780, "KGRR", "KISQ", "Tue, Thu, Sat"),      # Manistique, MI
+    (782, "KGRR", "KAPN", "Mon, Wed, Fri, Sun"),  # Alpena
+    (784, "KGRR", "KINL", "Tue, Thu, Sat"),      # International Falls
+    (786, "KGRR", "KBJI", "Mon, Wed, Fri, Sun"),  # Bemidji
+    (788, "KGRR", "KMOT", "Daily"),              # Minot
+    (790, "KGRR", "KDVL", "Tue, Thu, Sat"),      # Devils Lake
+    (792, "KGRR", "KDIK", "Mon, Wed, Fri, Sun"),  # Dickinson
+    (794, "KGRR", "KJMS", "Tue, Thu, Sat"),      # Jamestown
+    (796, "KGRR", "KRAP", "Daily"),              # Rapid City
+    (798, "KGRR", "KPIR", "Mon, Wed, Fri, Sun"),  # Pierre
+    (800, "KGRR", "KJVY", "Tue, Thu, Sat"),      # Jeffersonville / Louisville area
+    (802, "KGRR", "KOWB", "Mon, Wed, Fri, Sun"),  # Owensboro
+    (804, "KGRR", "KJEF", "Tue, Thu, Sat"),      # Jefferson City
+    (806, "KGRR", "KSPI", "Mon, Wed, Fri, Sun"),  # Springfield (Illinois)
+    (808, "KGRR", "KGCK", "Tue, Thu, Sat"),      # Garden City
+    (810, "KGRR", "KSLN", "Mon, Wed, Fri, Sun"),  # Salina
+    (812, "KGRR", "KICT", "Daily"),              # Wichita
+    (814, "KGRR", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka
+    (816, "KGRR", "KSTJ", "Tue, Thu, Sat"),      # St. Joseph
+    (818, "KGRR", "KBLV", "Daily"),              # Belleville / St. Louis area
+
 
 
     # ----------------------------------------------------
