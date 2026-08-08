@@ -324,6 +324,11 @@ routes_raw = [
     (544, "KMSY", "KBHM", "Tue, Thu, Sat"),  # Birmingham, AL
     (546, "KMSY", "KPGD", "Tue, Thu, Sat"),  # Punta Gorda / Ft. Myers, FL
     (548, "KMSY", "KTYS", "Tue, Thu, Sat"),  # Knoxville, TN
+    (550, "KMSY", "KDAY", "Daily"),  # Dayton, OH
+    (552, "KMSY", "KCMH", "Mon, Wed, Fri, Sun"), # Columbus, OH
+    (554, "KMSY", "KCVG", "Daily"),  # Cincinnati, OH
+    (556, "KMSY", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
+    (558, "KMSY", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN(
 
     # ----------------------------------------------------
     # KOMA Bridge Spokes (600 Block - Midwest Hub)
@@ -369,6 +374,14 @@ routes_raw = [
     (678, "KOMA", "KPLN", "Mon, Wed, Fri"),  # Pellston / Mackinac, MI
     (680, "KOMA", "KMGM", "Tue, Thu, Sat"),  # Montgomery, AL
     (682, "KOMA", "KBHM", "Tue, Thu, Sat"),  # Birmingham, AL
+    (684, "KOMA", "KCIU", "Daily"),  # Sault Ste. Marie, MI
+    (686, "KOMA", "KCMX", "Tue, Thu, Sat"),  # Houghton, MI
+    (688, "KOMA", "KGRB", "Daily"),  # Green Bay, WI
+    (690, "KOMA", "KDAY", "Daily"),  # Dayton, OH
+    (692, "KOMA", "KCMH", "Mon, Wed, Fri, Sun"), # Columbus, OH
+    (694, "KOMA", "KCVG", "Daily"),  # Cincinnati, OH
+    (696, "KOMA", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
+    (698, "KOMA", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
     
     # ----------------------------------------------------
     # KGRR Bridge Spokes (700 Block - Great Lakes Hub)
@@ -394,7 +407,18 @@ routes_raw = [
     (736, "KGRR", "KBMI", "Thu, Sun"),  # Bloomington, IL
     (738, "KGRR", "KDBQ", "Mon, Fri"),  # Dubuque, IA
     (740, "KGRR", "KIPT", "Tue, Thu, Sat"),  # Williamsport, PA
-    (742, "KGRR", "KTYS", "Tue, Thu, Sat"),  # Knoxville, TN
+    (742, "KGRR", "KTYS", "Tue, Thu, Sat"),  # Knoxville, 
+    (744, "KGRR", "KGRB", "Daily"),  # Green Bay, WI
+    (746, "KGRR", "KDAY", "Daily"),  # Dayton, OH
+    (748, "KGRR", "KCMH", "Mon, Wed, Fri, Sun"), # Columbus, OH
+    (750, "KGRR", "KCVG", "Daily"),  # Cincinnati, OH
+    (752, "KGRR", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
+    (754, "KGRR", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
+    (756, "KGRR", "KRST", "Thu, Sun"),  # Rochester, MN
+    (758, "KGRR", "KDLH", "Mon, Wed, Fri, Sun"), # Duluth, MN
+    (760, "KGRR", "KCIU", "Daily"),  # Sault Ste. Marie, MI
+    (762, "KGRR", "KCMX", "Tue, Thu, Sat"),  # Houghton, MI
+
 
     # ----------------------------------------------------
     # International Flights (800 Block - Skybus Network)
@@ -521,6 +545,11 @@ routes_raw = [
     (1034, "KBGR", "KERI", "Mon, Wed, Fri"),  # Erie, PA
     (1036, "KBGR", "KMQT", "Tue, Thu, Sat"),  # Marquette, MI
     (1038, "KBGR", "KPLN", "Mon, Wed, Fri"),  # Pellston / Mackinac, MI
+    (1040, "KBGR", "KDAY", "Daily"),  # Dayton, OH
+    (1042, "KBGR", "KCMH", "Mon, Wed, Fri, Sun"), # Columbus, OH
+    (1044, "KBGR", "KCVG", "Daily"),  # Cincinnati, OH
+    (1046, "KBGR", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
+    (1048, "KBGR", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
 
     # ----------------------------------------------------
     # KRIC Bridge Spokes (1100 Block - Mid-Atlantic Hub)
@@ -558,6 +587,11 @@ routes_raw = [
     (1160, "KRIC", "KBHM", "Tue, Thu, Sat"),  # Birmingham, AL
     (1162, "KRIC", "KPGD", "Tue, Thu, Sat"),  # Punta Gorda / Ft. Myers, FL
     (1164, "KRIC", "KTYS", "Tue, Thu, Sat"),  # Knoxville, TN
+    (1166, "KRIC", "KDAY", "Daily"),  # Dayton, OH
+    (1168, "KRIC", "KCMH", "Mon, Wed, Fri, Sun"), # Columbus, OH
+    (1170, "KRIC", "KCVG", "Daily"),  # Cincinnati, OH
+    (1172, "KRIC", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
+    (1174, "KRIC", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
 
     # ----------------------------------------------------
     # KSFB Bridge Spokes (1200 Block - Florida / Southeast Hub)
@@ -591,6 +625,11 @@ routes_raw = [
     (1252, "KSFB", "KBHM", "Tue, Thu, Sat"),  # Birmingham, AL
     (1254, "KSFB", "KPGD", "Tue, Thu, Sat"),  # Punta Gorda / Ft. Myers, FL
     (1256, "KSFB", "KTYS", "Tue, Thu, Sat"),  # Knoxville, TN
+    (1258, "KSFB", "KDAY", "Daily"),  # Dayton, OH
+    (1260, "KSFB", "KCMH", "Mon, Wed, Fri, Sun"), # Columbus, OH
+    (1262, "KSFB", "KCVG", "Daily"),  # Cincinnati, OH
+    (1264, "KSFB", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
+    (1266, "KSFB", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
 ]
 
 AIRPORT_NAMES = {
@@ -736,6 +775,14 @@ AIRPORT_NAMES = {
     "KDBQ": "Dubuque, IA",
     "KRST": "Rochester, MN",
     "KDLH": "Duluth, MN",
+    "KGRB", "Green Bay, WI",
+    "KDAY", "Dayton, OH",
+    "KCMH", "Columbus, OH",
+    "KCVG", "Cincinnati, OH",
+    "KLEX", "Lexington, KY",
+    "KEVV", "Evansville, IN",
+    "KCIU", "Sault Ste. Marie, MI",
+    "KCMX", "Houghton, MI",
 
     # Northeast / Hudson Valley Spokes
     "KABE": "Allentown / Lehigh Valley, PA",
@@ -1028,11 +1075,20 @@ AIRPORT_COORDS = {
     "KAZO": (42.2349, -85.5521),   # Kalamazoo/Battle Creek Intl, MI
     "KFNT": (42.9654, -83.7436),   # Bishop International (Flint), MI
     "KTOL": (41.5868, -83.8078),   # Toledo Express Airport, OH
-    "KMQT": (46.3536, -87.3953),  # Sawyer International Airport (Marquette), MI
-    "KPLN": (45.5708, -84.7967),  # Pellston Regional Airport, MI
-    "KERI": (42.0820, -80.1762),  # Erie International Airport, PA
-    "KRST": (43.9083, -92.4980),  # Rochester International Airport, MN
-    "KDLH": (46.8421, -92.1936),  # Duluth International Airport, MN
+    "KMQT": (46.3536, -87.3953),   # Sawyer International Airport (Marquette), MI
+    "KPLN": (45.5708, -84.7967),   # Pellston Regional Airport, MI
+    "KERI": (42.0820, -80.1762),   # Erie International Airport, PA
+    "KRST": (43.9083, -92.4980),   # Rochester International Airport, MN
+    "KDLH": (46.8421, -92.1936),   # Duluth International Airport, MN
+    "KGRB": (44.4846, -88.1297),    # Green Bay
+    "KDAY": (39.9024, -84.2194),    # Dayton
+    "KCMH": (39.9981, -82.8919),    # Columbus
+    "KCVG": (39.0461, -84.6622),    # Cincinnati
+    "KLEX": (38.0364, -84.6058),    # Lexington
+    "KEVV": (38.0383, -87.5308),    # Evansville
+    "KCIU": (46.2508, -84.4725),    # Sault Ste. Marie
+    "KCMX": (47.1684, -88.4891),    # Houghton
+
 
     # --------------------------------------------------------------------------
     # NORTHEAST & NORTHERN NEW ENGLAND SPOKES (KSWF & KBGR Blocks)
@@ -1140,6 +1196,7 @@ AIRPORT_COORDS = {
     "BIKF": (63.9850, -22.6056),   # Keflavík International, Iceland
     "EINN": (52.7020, -8.9248),    # Shannon Airport, Ireland
     "EIDW": (53.4213, -6.2701),    # Dublin Airport, Ireland
+    "MMBT": (15.7753, -96.2625),    # Huatulco
 }
 
 def haversine_miles(coord1, coord2):
