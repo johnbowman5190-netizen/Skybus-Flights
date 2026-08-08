@@ -1219,6 +1219,32 @@ AIRPORT_COORDS = {
     "KTOP": (39.0706, -95.6258), # Topeka
     "KSTJ": (39.7733, -94.9056), # St. Joseph
     "KBLV": (38.5451, -89.8458), # Belleville / St. Louis area
+    "KTRI": (36.4752, -82.4074),  # Tri-Cities, TN/VA
+    "KBLF": (37.2934, -81.2155),  # Bluefield, WV
+    "KCHA": (35.0353, -85.2038),  # Chattanooga, TN
+    "KLAW": (34.5676, -98.4153),  # Lawton, OK
+    "KTUL": (36.1984, -95.8881),  # Tulsa, OK
+    "KFSM": (35.3364, -94.3687),  # Fort Smith, AR
+    "KXNA": (36.2819, -94.3068),  # Fayetteville / Northwest Arkansas, AR
+    "KTUP": (34.2690, -88.7656),  # Tupelo, MS
+    "KMEI": (32.3432, -88.7554),  # Meridian, MS
+    "KHSV": (34.6404, -86.7756),  # Huntsville, AL
+    "KPIB": (31.4673, -89.3374),  # Hattiesburg / Laurel, MS
+    "KGTR": (33.4547, -88.5912),  # Columbus / Starkville, MS
+    "KHEZ": (31.7915, -91.2991),  # Natchez, MS
+    "KMOB": (30.6914, -88.2428),  # Mobile, AL
+    "KJKA": (30.2882, -87.6713),  # Gulf Shores, AL
+    "KCSG": (32.5163, -84.9388),  # Columbus, GA
+    "KMCN": (32.6939, -83.6431),  # Macon, GA
+    "KBWG": (36.9696, -86.4137),  # Bowling Green, KY
+    "KGSP": (34.8957, -82.2188),  # Greenville / Spartanburg, SC
+    "KACT": (31.6113, -97.2293),  # Waco, TX
+    "KSJT": (31.3564, -100.4963), # San Angelo, TX
+    "KVCT": (28.8475, -96.9774),  # Victoria, TX
+    "KABI": (32.4163, -99.6804),  # Abilene, TX
+    "KAMA": (35.2194, -101.7059), # Amarillo, TX
+    "KLBB": (33.6636, -101.8228), # Lubbock, TX
+
 
 
     # --------------------------------------------------------------------------
