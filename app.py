@@ -328,7 +328,17 @@ routes_raw = [
     (552, "KMSY", "KCMH", "Mon, Wed, Fri, Sun"), # Columbus, OH
     (554, "KMSY", "KCVG", "Daily"),  # Cincinnati, OH
     (556, "KMSY", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
-    (558, "KMSY", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN(
+    (558, "KMSY", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
+    (560, "KMSY", "KJVY", "Tue, Thu, Sat"),      # Jeffersonville / Louisville area
+    (562, "KMSY", "KOWB", "Mon, Wed, Fri, Sun"),  # Owensboro
+    (564, "KMSY", "KJEF", "Tue, Thu, Sat"),      # Jefferson City
+    (566, "KMSY", "KSPI", "Mon, Wed, Fri, Sun"),  # Springfield (Illinois)
+    (568, "KMSY", "KGCK", "Tue, Thu, Sat"),      # Garden City
+    (570, "KMSY", "KSLN", "Mon, Wed, Fri, Sun"),  # Salina
+    (572, "KMSY", "KICT", "Daily"),              # Wichita
+    (574, "KMSY", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka
+    (576, "KMSY", "KSTJ", "Tue, Thu, Sat"),      # St. Joseph
+    (578, "KMSY", "KBLV", "Daily"),              # Belleville / St. Louis area
 
     # ----------------------------------------------------
     # KOMA Bridge Spokes (600 Block - Midwest Hub)
@@ -465,17 +475,16 @@ routes_raw = [
     (794, "KGRR", "KJMS", "Tue, Thu, Sat"),      # Jamestown
     (796, "KGRR", "KRAP", "Daily"),              # Rapid City
     (798, "KGRR", "KPIR", "Mon, Wed, Fri, Sun"),  # Pierre
-    (800, "KGRR", "KJVY", "Tue, Thu, Sat"),      # Jeffersonville / Louisville area
-    (802, "KGRR", "KOWB", "Mon, Wed, Fri, Sun"),  # Owensboro
-    (804, "KGRR", "KJEF", "Tue, Thu, Sat"),      # Jefferson City
-    (806, "KGRR", "KSPI", "Mon, Wed, Fri, Sun"),  # Springfield (Illinois)
-    (808, "KGRR", "KGCK", "Tue, Thu, Sat"),      # Garden City
-    (810, "KGRR", "KSLN", "Mon, Wed, Fri, Sun"),  # Salina
-    (812, "KGRR", "KICT", "Daily"),              # Wichita
-    (814, "KGRR", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka
-    (816, "KGRR", "KSTJ", "Tue, Thu, Sat"),      # St. Joseph
-    (818, "KGRR", "KBLV", "Daily"),              # Belleville / St. Louis area
-
+    (1700, "KGRR", "KJVY", "Tue, Thu, Sat"),      # Jeffersonville / Louisville area
+    (1702, "KGRR", "KOWB", "Mon, Wed, Fri, Sun"),  # Owensboro
+    (1704, "KGRR", "KJEF", "Tue, Thu, Sat"),      # Jefferson City
+    (1706, "KGRR", "KSPI", "Mon, Wed, Fri, Sun"),  # Springfield (Illinois)
+    (1708, "KGRR", "KGCK", "Tue, Thu, Sat"),      # Garden City
+    (1710, "KGRR", "KSLN", "Mon, Wed, Fri, Sun"),  # Salina
+    (1712, "KGRR", "KICT", "Daily"),              # Wichita
+    (1714, "KGRR", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka
+    (1716, "KGRR", "KSTJ", "Tue, Thu, Sat"),      # St. Joseph
+    (1718, "KGRR", "KBLV", "Daily"),              # Belleville / St. Louis area
 
 
     # ----------------------------------------------------
