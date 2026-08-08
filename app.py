@@ -445,8 +445,8 @@ routes_raw = [
     (886, "KGRR", "MDPC", "Thu, Sun"),  # Punta Cana, Dominican Republic
     (888, "KSFB", "SKCG", "Mon, Fri"),  # Cartagena, Colombia
     (890, "PAFA", "CYEG", "Tue, Thu, Sat"),  # Edmonton, AB, Canada
-    (892, "KMSY", "MMBT", "Mon, Wed, Fri"),  # Bahias de Huatulco, Mexico
-    (894, "KIWA", "MMBT", "Mon, Wed, Fri"),  # Bahias de Huatulco, Mexico
+    (892, "KMSY", "MMBT", "Mon, Wed, Fri"),  # Huatulco, Mexico
+    (894, "KIWA", "MMBT", "Mon, Wed, Fri"),  # Huatulco, Mexico
     
     # ----------------------------------------------------
     # TJBQ Caribbean Regional Spokes (1500 Block - Caribbean Hub)
@@ -716,6 +716,7 @@ AIRPORT_NAMES = {
     "KSUX": "Sioux City, IA",
     "KCOU": "Columbia, MO",
     "KALO": "Waterloo, IA",
+    "KTYS": "Knoxville, TN",
 
     # Great Lakes Spokes
     "KPIT": "Pittsburgh, PA",
@@ -838,6 +839,7 @@ AIRPORT_NAMES = {
     "MRLB": "Liberia / Guanacaste, Costa Rica",
     "SKCG": "Cartagena, Colombia",
     "CYEG": "Edmonton, AB, Canada",
+    "MMBT": "Huatulco, Mexico"
 }
 
 
