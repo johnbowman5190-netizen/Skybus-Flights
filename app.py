@@ -1167,7 +1167,7 @@ AIRPORT_COORDS = {
     "KSHV": (32.4466, -93.8256),  # Shreveport Regional Airport, LA
     "KBPT": (29.9508, -94.0207),  # Jack Brooks Regional Airport (Beaumont), TX
     "KRFD": (42.1954, -89.0982),  # Rockford
-    "KGYR": (33.4242, -112.3753), # Goodyear / Phoenix
+    "KGYY": (41.6163, -87.4139), # Gary / Chicago area
     "KCWA": (44.7776, -89.6661), # Central Wisconsin
     "KATW": (44.2575, -88.5192), # Appleton / Fox Cities
     "KSTC": (45.5456, -94.0699), # St. Cloud
