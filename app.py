@@ -1052,6 +1052,24 @@ AIRPORT_NAMES = {
     "KGSO": "Greensboro, NC",
     "KJQF": "Concord / Charlotte, NC",
     "KPGV": "Greenville, NC",
+    "KHGR": "Hagerstown, MD",
+    "KILG": "Wilmington, DE",
+    "KACY": "Atlantic City, NJ",
+    "KPKB": "Parkersburg, WV",
+    "KCKB": "Clarksburg, WV",
+    "KMGW": "Morgantown, WV",
+    "KLWB": "Lewisburg, WV",
+    "KRDU": "Raleigh / Durham, NC",
+    "KFLO": "Florence, SC",
+    "KCAE": "Columbia, SC",
+    "KAGS": "Augusta, GA",
+    "KSGJ": "St. Augustine, FL",
+    "KPIE": "St. Petersburg / Clearwater, FL",
+    "KGNV": "Gainesville, FL",
+    "KSRQ": "Sarasota / Bradenton, FL",
+    "KFLL": "Fort Lauderdale, FL",.
+
+
 
     # Florida Spokes
     "KEYW": "Key West, FL",
@@ -1443,8 +1461,7 @@ AIRPORT_COORDS = {
     "KGNV": (29.6911, -82.2718),  # Gainesville, FL
     "KSRQ": (27.3954, -82.5544),  # Sarasota / Bradenton, FL
     "KFLL": (26.0726, -80.1527),  # Fort Lauderdale, FL
-    "KEYW": (24.5561, -81.7596),  # Key West, FL
-    "KVPS": (30.4832, -86.5254),  # Destin / Eglin AFB, FL
+
 
 
     # --------------------------------------------------------------------------
