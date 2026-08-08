@@ -1064,6 +1064,7 @@ AIRPORT_NAMES = {
     "KECP": "Panama City Beach, FL",
     "KPGD": "Punta Gorda / Ft. Myers, FL",
 
+
     # Caribbean Spokes
     "TJPS": "Ponce, PR",
     "TIST": "St. Thomas, USVI",
@@ -1426,6 +1427,25 @@ AIRPORT_COORDS = {
     "KPGV": (35.6353, -77.3853),  # Pitt-Greenville Airport, NC
     "KPGD": (26.9163, -82.0006),  # Punta Gorda Airport, FL
     "KTYS": (35.8110, -83.9940),  # McGhee Tyson Airport (Knoxville), TN
+    "KHGR": (39.7077, -77.7297),  # Hagerstown, MD
+    "KILG": (39.6787, -75.6065),  # Wilmington, DE
+    "KACY": (39.4572, -74.5772),  # Atlantic City, NJ
+    "KPKB": (39.3453, -81.4423),  # Parkersburg, WV
+    "KCKB": (39.2965, -80.2280),  # Clarksburg, WV
+    "KMGW": (39.6425, -79.9157),  # Morgantown, WV
+    "KLWB": (37.8583, -80.3995),  # Lewisburg, WV
+    "KRDU": (35.8776, -78.7875),  # Raleigh / Durham, NC
+    "KFLO": (34.1874, -79.7153),  # Florence, SC
+    "KCAE": (33.9388, -81.1195),  # Columbia, SC
+    "KAGS": (33.3699, -82.0292),  # Augusta, GA
+    "KSGJ": (29.9593, -81.3397),  # St. Augustine, FL
+    "KPIE": (27.9105, -82.6874),  # St. Petersburg / Clearwater, FL
+    "KGNV": (29.6911, -82.2718),  # Gainesville, FL
+    "KSRQ": (27.3954, -82.5544),  # Sarasota / Bradenton, FL
+    "KFLL": (26.0726, -80.1527),  # Fort Lauderdale, FL
+    "KEYW": (24.5561, -81.7596),  # Key West, FL
+    "KVPS": (30.4832, -86.5254),  # Destin / Eglin AFB, FL
+
 
     # --------------------------------------------------------------------------
     # CARIBBEAN SPOKES (TJBQ Regional Block)
