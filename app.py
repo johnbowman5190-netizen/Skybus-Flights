@@ -1137,6 +1137,35 @@ AIRPORT_COORDS = {
     "KCRP": (27.7704, -97.5012),  # Corpus Christi International Airport, TX
     "KSHV": (32.4466, -93.8256),  # Shreveport Regional Airport, LA
     "KBPT": (29.9508, -94.0207),  # Jack Brooks Regional Airport (Beaumont), TX
+    "KRFD": (42.1954, -89.0982),  # Rockford
+    "KGYR": (33.4242, -112.3753), # Goodyear / Phoenix
+    "KCWA": (44.7776, -89.6661), # Central Wisconsin
+    "KATW": (44.2575, -88.5192), # Appleton / Fox Cities
+    "KSTC": (45.5456, -94.0699), # St. Cloud
+    "KLSE": (43.8794, -91.2567), # La Crosse
+    "KIMT": (45.8184, -88.1143), # Iron Mountain
+    "KESC": (45.7445, -87.0988), # Escanaba
+    "KISQ": (46.4819, -84.4725), # Sault Ste. Marie
+    "KAPN": (45.0781, -83.5603), # Alpena
+    "KINL": (48.5682, -93.4003), # International Falls
+    "KBJI": (47.5098, -94.9333), # Bemidji
+    "KMOT": (48.2575, -101.2803), # Minot
+    "KDVL": (48.1158, -98.9036), # Devils Lake
+    "KDIK": (46.7979, -102.8023), # Dickinson
+    "KJMS": (46.9298, -98.6782), # Jamestown
+    "KRAP": (44.0453, -103.0572), # Rapid City
+    "KPIR": (44.3845, -100.2862), # Pierre
+    "KJVY": (38.2731, -85.7397), # Jeffersonville / Louisville area
+    "KOWB": (37.7408, -87.1656), # Owensboro
+    "KJEF": (38.5962, -92.1578), # Jefferson City
+    "KSPI": (39.8441, -89.6779), # Springfield
+    "KGCK": (37.9275, -100.7244), # Garden City
+    "KSLN": (38.7911, -97.6519), # Salina
+    "KICT": (37.6499, -97.4331), # Wichita
+    "KTOP": (39.0706, -95.6258), # Topeka
+    "KSTJ": (39.7733, -94.9056), # St. Joseph
+    "KBLV": (38.5451, -89.8458), # Belleville / St. Louis area
+
 
     # --------------------------------------------------------------------------
     # GREAT LAKES SPOKES (KGRR Block)
