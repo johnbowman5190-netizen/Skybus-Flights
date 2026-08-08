@@ -471,6 +471,14 @@ routes_raw = [
     (890, "PAFA", "CYEG", "Tue, Thu, Sat"),  # Edmonton, AB, Canada
     (892, "KMSY", "MMBT", "Mon, Wed, Fri"),  # Huatulco, Mexico
     (894, "KIWA", "MMBT", "Mon, Wed, Fri"),  # Huatulco, Mexico
+    (896, "KGRR", "BIKF", "Mon, Wed, Fri"),   # Keflavík / Reykjavik, Iceland
+    (898, "KGRR", "LPPD", "Tue, Thu, Sat"),   # Ponta Delgada (Azores), Portugal
+    (1800, "KGRR", "EINN", "Mon, Thu, Sun"),   # Shannon, Ireland (Summer Seasonal)
+    (1802, "KGRR", "EGPK", "Wed, Sat"),   # Glasgow Prestwick, Scotland (Summer Seasonal)
+    (1804, "KGRR", "MROC", "Mon, Thu, Sat"),   # San José, Costa Rica
+    (1806, "KGRR", "TNCA", "Wed, Sun"),   # Oranjestad, Aruba
+
+
     
     # ----------------------------------------------------
     # TJBQ Caribbean Regional Spokes (1500 Block - Caribbean Hub)
@@ -886,7 +894,9 @@ AIRPORT_NAMES = {
     "MRLB": "Liberia / Guanacaste, Costa Rica",
     "SKCG": "Cartagena, Colombia",
     "CYEG": "Edmonton, AB, Canada",
-    "MMBT": "Huatulco, Mexico"
+    "MMBT": "Huatulco, Mexico",
+    "LPPD": "Ponta Delgada (Azores), Portugal,
+    "EGPK": "Glasgow, Scotland",
 }
 
 
@@ -1196,7 +1206,10 @@ AIRPORT_COORDS = {
     "BIKF": (63.9850, -22.6056),   # Keflavík International, Iceland
     "EINN": (52.7020, -8.9248),    # Shannon Airport, Ireland
     "EIDW": (53.4213, -6.2701),    # Dublin Airport, Ireland
-    "MMBT": (15.7753, -96.2625),    # Huatulco
+    "MMBT": (15.7753, -96.2625),   # Huatulco, Mexico
+    "LPPD": (37.7412, -25.6979),    # Ponta Delgada (Azores), Portugal
+    "EGPK": (55.5094, -4.5867),     # Glasgow Prestwick, Scotland
+
 }
 
 def haversine_miles(coord1, coord2):
