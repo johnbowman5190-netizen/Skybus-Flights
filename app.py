@@ -1005,9 +1005,7 @@ AIRPORT_NAMES = {
     "KRIC": "Richmond, VA",
     "KSFB": "Orlando / Sanford, FL",
     "TJBQ": "Aguadilla, PR",
-}
 
-airports = {
     # Alaska & Hawaii
     "PABE": "Bethel, AK",
     "PABR": "Utqiaġvik (Barrow), AK",
