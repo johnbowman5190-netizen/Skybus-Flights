@@ -169,8 +169,6 @@ routes_raw = [
     # II. GEOGRAPHIC BRIDGE CONNECTORS & REGIONAL SPOKES
     # ----------------------------------------------------
 # ----------------------------------------------------
-# ----------------------------------------------------
-# ----------------------------------------------------
     # PAFA Bridge Spokes (1300 Block - Alaska Hub)
     # ----------------------------------------------------
     (1300, "PAFA", "PAJN", "Daily"),  # Juneau, AK
@@ -200,17 +198,9 @@ routes_raw = [
     (1348, "PAFA", "PADK", "Wed, Sat"),  # Adak, AK
     (1350, "PAFA", "PAGA", "Tue, Thu, Sat"),  # Galena, AK
     (1352, "PAFA", "PAUL", "Mon, Wed, Fri"),  # Unalakleet, AK
-    (1354, "PAFA", "CYXY", "Mon, Wed, Fri, Sun"),  # Whitehorse, YT
-    (1356, "PAFA", "CYVR", "Daily"),  # Vancouver, BC
-    (1358, "PAFA", "CYYJ", "Tue, Thu, Sat"),  # Victoria, BC
-    (1360, "PAFA", "CYEG", "Mon, Wed, Fri"),  # Edmonton, AB
-    (1362, "PAFA", "CYYC", "Daily"),  # Calgary, AB
-    (1364, "PAFA", "CYXS", "Thu, Sun"),  # Prince George, BC
-    (1366, "PAFA", "CYZF", "Tue, Thu, Sat"),  # Yellowknife, NT
-    (1368, "PAFA", "CYEV", "Mon, Fri"),  # Inuvik, NT
-    (1370, "PAFA", "KBZN", "Mon, Wed, Fri"),  # Bozeman, MT
-    (1372, "PAFA", "KMSO", "Tue, Thu, Sat"),  # Missoula, MT
-    (1374, "PAFA", "KBOI", "Daily"),  # Boise, ID
+    (1354, "PAFA", "KBZN", "Mon, Wed, Fri"),  # Bozeman, MT
+    (1356, "PAFA", "KMSO", "Tue, Thu, Sat"),  # Missoula, MT
+    (1358, "PAFA", "KBOI", "Daily"),  # Boise, ID
 
     # ----------------------------------------------------
     # KPVU Bridge Spokes (1400 Block - Intermountain West Hub)
@@ -264,10 +254,7 @@ routes_raw = [
     (1492, "KPVU", "KCYS", "Tue, Thu, Sat"),  # Cheyenne, WY
     (1494, "KPVU", "KCOD", "Mon, Fri"),  # Cody, WY
     (1496, "KPVU", "KSMF", "Daily"),  # Sacramento, CA
-    (1498, "KPVU", "CYYC", "Mon, Wed, Fri, Sun"),  # Calgary, AB
-    (2400, "KPVU", "KPRC", "Mon, Wed, Fri"),  # Prescott, AZ
-    (2402, "KPVU", "CYEG", "Tue, Thu, Sat"),  # Edmonton, AB
-    (2404, "KPVU", "CYZF", "Mon, Fri"),  # Yellowknife, NT
+    (1498, "KPVU", "KPRC", "Mon, Wed, Fri"),  # Prescott, AZ
 
     # ----------------------------------------------------
     # KIWA Bridge Spokes (300 Block - Southwest Hub)
@@ -317,7 +304,6 @@ routes_raw = [
     (386, "KIWA", "KSMF", "Daily"),  # Sacramento, CA
     (388, "KIWA", "KRDD", "Mon, Wed, Fri"),  # Redding, CA
     (390, "KIWA", "KRNO", "Tue, Thu, Sat"),  # Reno, NV
-    (392, "KIWA", "CYYC", "Mon, Fri"),  # Calgary, AB
 
     # ----------------------------------------------------
     # KBLI Bridge Spokes (400 Block - Pacific Northwest Hub)
@@ -711,6 +697,19 @@ routes_raw = [
     (2820, "KSFB", "TBPB", "Mon, Wed, Fri, Sun"),  # Bridgetown
     (2822, "KSFB", "SKRG", "Tue, Thu, Sat"),      # Medellin
     (2824, "KSFB", "SPJC", "Mon, Wed, Fri, Sun"),  # Lima
+    (2826, "PAFA", "CYXY", "Mon, Wed, Fri, Sun"),  # Whitehorse, YT
+    (2828, "PAFA", "CYVR", "Daily"),  # Vancouver, BC
+    (2830, "PAFA", "CYYJ", "Tue, Thu, Sat"),  # Victoria, BC
+    (2832, "PAFA", "CYEG", "Mon, Wed, Fri"),  # Edmonton, AB
+    (2834, "PAFA", "CYYC", "Daily"),  # Calgary, AB
+    (2836, "PAFA", "CYXS", "Thu, Sun"),  # Prince George, BC
+    (2838, "PAFA", "CYZF", "Tue, Thu, Sat"),  # Yellowknife, NT
+    (2840, "PAFA", "CYEV", "Mon, Fri"),  # Inuvik, NT
+    (2842, "KPVU", "CYEG", "Tue, Thu, Sat"),  # Edmonton, AB
+    (2844, "KPVU", "CYZF", "Mon, Fri"),  # Yellowknife, NT
+    (2846, "KPVU", "CYYC", "Mon, Wed, Fri, Sun"),  # Calgary, AB
+    (2848, "KIWA", "CYEG", "Mon, Fri"),  # Edmonton, AB
+
 
 
     
