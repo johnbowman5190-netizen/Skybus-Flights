@@ -341,12 +341,6 @@ routes_raw = [
     (460, "KBLI", "KMRY", "Mon, Wed, Fri"),  # Monterey, CA
     (462, "KBLI", "PAGS", "Tue, Thu, Sat"),  # Gustavus, AK
     (464, "KBLI", "KPSP", "Mon, Wed, Fri, Sun"),  # Palm Springs, CA
-    (466, "KBLI", "CYVR", "Daily"),  # Vancouver, BC
-    (468, "KBLI", "CYYJ", "Mon, Wed, Fri, Sun"),  # Victoria, BC
-    (470, "KBLI", "CYLW", "Tue, Thu, Sat"),  # Kelowna, BC
-    (472, "KBLI", "CYYC", "Daily"),  # Calgary, AB
-    (474, "KBLI", "CYEG", "Mon, Wed, Fri"),  # Edmonton, AB
-    (476, "KBLI", "CYXX", "Thu, Sun"),  # Abbotsford, BC
     (478, "KBLI", "KPDX", "Daily"),  # Portland, OR
     (480, "KBLI", "KLMT", "Mon, Fri"),  # Klamath Falls, OR
     (482, "KBLI", "KSLE", "Tue, Thu, Sat"),  # Salem, OR
@@ -358,8 +352,6 @@ routes_raw = [
     (494, "KBLI", "KSUN", "Mon, Fri"),  # Sun Valley, ID
     (496, "KBLI", "PASI", "Tue, Thu, Sat"),  # Sitka, AK
     (498, "KBLI", "PAYA", "Mon, Fri"),  # Yakutat, AK
-    (1400, "KBLI", "CYXY", "Mon, Wed, Fri, Sun"),  # Whitehorse, YT
-    (1402, "KBLI", "CYXS", "Thu, Sun"),  # Prince George, BC
     (1404, "KBLI", "KFAT", "Mon, Fri"),  # Fresno, CA
     (1406, "KBLI", "KBFL", "Tue, Thu, Sat"),  # Bakersfield, CA
     (1408, "KBLI", "KSBA", "Thu, Sun"),  # Santa Barbara, CA
@@ -709,6 +701,14 @@ routes_raw = [
     (2844, "KPVU", "CYZF", "Mon, Fri"),  # Yellowknife, NT
     (2846, "KPVU", "CYYC", "Mon, Wed, Fri, Sun"),  # Calgary, AB
     (2848, "KIWA", "CYEG", "Mon, Fri"),  # Edmonton, AB
+    (2850, "KBLI", "CYXY", "Mon, Wed, Fri, Sun"),  # Whitehorse, YT
+    (2852, "KBLI", "CYXS", "Thu, Sun"),  # Prince George, BC
+    (2854, "KBLI", "CYVR", "Daily"),  # Vancouver, BC
+    (2856, "KBLI", "CYYJ", "Mon, Wed, Fri, Sun"),  # Victoria, BC
+    (2858, "KBLI", "CYLW", "Tue, Thu, Sat"),  # Kelowna, BC
+    (2860, "KBLI", "CYYC", "Daily"),  # Calgary, AB
+    (2862, "KBLI", "CYEG", "Mon, Wed, Fri"),  # Edmonton, AB
+    (2864, "KBLI", "CYXX", "Thu, Sun"),  # Abbotsford, BC
 
 
 
