@@ -2288,30 +2288,64 @@ if "search_results" in st.session_state:
 # 6. MOBILE BOARDING PASS
 # ==========================================
 
+import math
 import random
 from datetime import datetime
 
-# Skybus Fleet Specifications
+HUBS = {"KRIC", "KSFB", "KSWF", "KBGR", "TJBQ"}
+INTL_AIRPORTS = {"TJBQ", "TIST", "TISX"}
+
+# Skybus Fleet Specifications with Tail Registrations
 FLEET_SPECS = {
-    "A319": {"name": "Airbus A319", "capacity": 144},
-    "A320": {"name": "Airbus A320", "capacity": 180},
-    "A321": {"name": "Airbus A321", "capacity": 220},
+    "A319": {
+        "name": "Airbus A319",
+        "capacity": 150,
+        "registrations": ["N800SB", "N801SB", "N802SB", "N803SB"],
+    },
+    "A320": {
+        "name": "Airbus A320",
+        "capacity": 180,
+        "registrations": ["N804SB", "N805SB", "N806SB", "N807SB"],
+    },
+    "A321": {
+        "name": "Airbus A321",
+        "capacity": 220,
+        "registrations": ["N808SB", "N809SB", "N810SB", "N811SB"],
+    },
 }
 
 
-def get_flight_capacity_and_pax(flight_number):
-    """Deterministically assigns an aircraft type and calculates a realistic passenger load
+def get_flight_capacity_and_pax(leg):
+    """Assigns aircraft model, specific tail number registration, and passenger load factor
 
-    (72% to 98% load factor) based on the flight number and today's date.
+    based on distance, route classification, flight number, and date.
     """
+    flight_num = leg["Flight"]
+    orig = leg["Origin"]
+    dest = leg["Destination"]
+
+    c1 = AIRPORT_COORDS.get(orig)
+    c2 = AIRPORT_COORDS.get(dest)
+    distance = haversine_miles(c1, c2) if (c1 and c2) else 600
+
     today_str = datetime.now().strftime("%Y-%m-%d")
-    seed_value = f"{flight_number}-{today_str}"
+    seed_value = f"{flight_num}-{today_str}"
     rng = random.Random(seed_value)
 
-    ac_type = rng.choice(["A319", "A320", "A321"])
-    spec = FLEET_SPECS[ac_type]
+    is_hub_to_hub = (orig in HUBS) and (dest in HUBS)
+    is_international = (orig in INTL_AIRPORTS) or (dest in INTL_AIRPORTS)
 
+    if is_international or is_hub_to_hub or distance >= 1000:
+        ac_type = rng.choice(["A321", "A321", "A321", "A321", "A320"])
+    elif distance < 450:
+        ac_type = rng.choice(["A319", "A319", "A319", "A320"])
+    else:
+        ac_type = rng.choice(["A320", "A320", "A320", "A319", "A321"])
+
+    spec = FLEET_SPECS[ac_type]
+    tail_number = rng.choice(spec["registrations"])
     capacity = spec["capacity"]
+
     min_pax = int(capacity * 0.72)
     max_pax = int(capacity * 0.98)
     pax_count = rng.randint(min_pax, max_pax)
@@ -2319,6 +2353,7 @@ def get_flight_capacity_and_pax(flight_number):
     return {
         "aircraft_code": ac_type,
         "aircraft_name": spec["name"],
+        "tail_number": tail_number,
         "capacity": capacity,
         "pax_count": pax_count,
         "load_factor": round((pax_count / capacity) * 100, 1),
@@ -2481,8 +2516,8 @@ if "selected_itinerary" in st.session_state:
             <!-- AIRCRAFT & PASSENGER LOAD -->
             <div style="display: flex; justify-content: space-between; background: #F8F9FA; padding: 10px; border-radius: 8px; text-align: center; margin-top: 10px;">
                 <div style="flex: 1;">
-                    <div class="bp-field">Aircraft Type</div>
-                    <div class="bp-value" style="font-size: 13px;">✈️ {flight_info['aircraft_name']}</div>
+                    <div class="bp-field">Aircraft / Reg</div>
+                    <div class="bp-value" style="font-size: 13px;">✈️ {flight_info['aircraft_name']} <span style="font-size: 11px; color: #F28425;">({flight_info['tail_number']})</span></div>
                 </div>
                 <div style="border-left: 1px solid #ddd;"></div>
                 <div style="flex: 1;">
