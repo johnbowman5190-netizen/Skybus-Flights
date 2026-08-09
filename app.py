@@ -1,4 +1,4 @@
-import random
+.import random
 from datetime import datetime
 from collections import deque, defaultdict
 import math
@@ -1486,7 +1486,7 @@ AIRPORT_COORDS = {
     "KRIC": (37.5052, -77.3197),   # Richmond International, VA
     "KSFB": (28.7776, -81.2375),   # Orlando Sanford Intl, FL
 
-    airports = {
+
     # --------------------------------------------------------------------------
     # ALASKA SPOKES
     # --------------------------------------------------------------------------
