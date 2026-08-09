@@ -2284,10 +2284,46 @@ if "search_results" in st.session_state:
 
         st.session_state["selected_itinerary"] = selected_path
 
-
 # ==========================================
 # 6. MOBILE BOARDING PASS
 # ==========================================
+
+import random
+from datetime import datetime
+
+# Skybus Fleet Specifications
+FLEET_SPECS = {
+    "A319": {"name": "Airbus A319", "capacity": 144},
+    "A320": {"name": "Airbus A320", "capacity": 180},
+    "A321": {"name": "Airbus A321", "capacity": 220},
+}
+
+
+def get_flight_capacity_and_pax(flight_number):
+    """Deterministically assigns an aircraft type and calculates a realistic passenger load
+
+    (72% to 98% load factor) based on the flight number and today's date.
+    """
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    seed_value = f"{flight_number}-{today_str}"
+    rng = random.Random(seed_value)
+
+    ac_type = rng.choice(["A319", "A320", "A321"])
+    spec = FLEET_SPECS[ac_type]
+
+    capacity = spec["capacity"]
+    min_pax = int(capacity * 0.72)
+    max_pax = int(capacity * 0.98)
+    pax_count = rng.randint(min_pax, max_pax)
+
+    return {
+        "aircraft_code": ac_type,
+        "aircraft_name": spec["name"],
+        "capacity": capacity,
+        "pax_count": pax_count,
+        "load_factor": round((pax_count / capacity) * 100, 1),
+    }
+
 
 if "selected_itinerary" in st.session_state:
     st.markdown("---")
@@ -2311,6 +2347,9 @@ if "selected_itinerary" in st.session_state:
     assigned_seat = get_random_seat(active_leg["Flight"])
     assigned_gate = get_random_gate(active_leg["Flight"])
     today_date = datetime.now().strftime("%d %b %Y").upper()
+
+    # Calculate aircraft model & passenger load for active leg
+    flight_info = get_flight_capacity_and_pax(active_leg["Flight"])
 
     card_html = f"""
 <!DOCTYPE html>
@@ -2439,6 +2478,19 @@ if "selected_itinerary" in st.session_state:
                 </div>
             </div>
 
+            <!-- AIRCRAFT & PASSENGER LOAD -->
+            <div style="display: flex; justify-content: space-between; background: #F8F9FA; padding: 10px; border-radius: 8px; text-align: center; margin-top: 10px;">
+                <div style="flex: 1;">
+                    <div class="bp-field">Aircraft Type</div>
+                    <div class="bp-value" style="font-size: 13px;">✈️ {flight_info['aircraft_name']}</div>
+                </div>
+                <div style="border-left: 1px solid #ddd;"></div>
+                <div style="flex: 1;">
+                    <div class="bp-field">Est. Flight Load</div>
+                    <div class="bp-value" style="font-size: 13px;">👥 {flight_info['pax_count']} / {flight_info['capacity']} ({flight_info['load_factor']}%)</div>
+                </div>
+            </div>
+
             <!-- BARCODE -->
             <div class="barcode">
                 ||| | ||||| ||| |||| || ||||| ||||| ||| ||||||| | ||||
@@ -2451,5 +2503,4 @@ if "selected_itinerary" in st.session_state:
 </html>
 """
 
-    # ✅ INDENTED: Now inside the 'if' block
-    st.components.v1.html(card_html, height=460)
+    st.components.v1.html(card_html, height=530)
