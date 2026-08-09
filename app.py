@@ -1125,7 +1125,7 @@ AIRPORT_NAMES = {
     "KPIE": "St. Petersburg / Clearwater, FL",
     "KGNV": "Gainesville, FL",
     "KSRQ": "Sarasota / Bradenton, FL",
-    "KFLL": "Fort Lauderdale, FL",.
+    "KFLL": "Fort Lauderdale, FL",
 
 
 
