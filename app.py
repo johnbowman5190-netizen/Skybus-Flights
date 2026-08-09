@@ -1909,6 +1909,13 @@ AIRPORT_COORDS = {
     "RPLC": (15.1878, 120.5606),    # Clark International Airport, Philippines
 }
 
+import math
+import random
+from collections import defaultdict, deque
+from datetime import datetime
+import streamlit as st
+
+
 def haversine_miles(coord1, coord2):
     """Calculates distance between two lat/lon points in miles."""
     if not coord1 or not coord2:
@@ -1918,10 +1925,15 @@ def haversine_miles(coord1, coord2):
     R = 3958.8  # Earth radius in miles
     dlat = math.radians(lat2 - lat1)
     dlon = math.radians(lon2 - lon1)
-    a = (math.sin(dlat / 2) ** 2 + 
-         math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon / 2) ** 2)
+    a = (
+        math.sin(dlat / 2) ** 2
+        + math.cos(math.radians(lat1))
+        * math.cos(math.radians(lat2))
+        * math.sin(dlon / 2) ** 2
+    )
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     return R * c
+
 
 def calculate_route_score(path):
     """Calculates total route mileage + minor layover penalty."""
@@ -1932,8 +1944,10 @@ def calculate_route_score(path):
         if c1 and c2:
             total_miles += haversine_miles(c1, c2)
         else:
-            total_miles += 800  # Fallback estimate if airport coordinates are unlisted
-            
+            total_miles += (
+                800  # Fallback estimate if airport coordinates are unlisted
+            )
+
     # Add a 150-mile penalty per layover connection to prefer efficient transfers
     layover_penalty = (len(path) - 1) * 150
     return total_miles + layover_penalty
@@ -1943,11 +1957,10 @@ def calculate_route_score(path):
 # 3. GEOGRAPHICALLY OPTIMIZED ROUTE ENGINE
 # ==========================================
 
-from datetime import datetime
 
 def leg_operates_today(days_str):
-    """
-    Checks if a flight leg operates today based on standard codes:
+    """Checks if a flight leg operates today based on standard codes:
+
     'Daily', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
     """
     if not days_str:
@@ -1968,19 +1981,66 @@ def leg_operates_today(days_str):
 
     return False
 
-def find_routes(network, origin, destination, exact_connections=None, max_connections=10, max_display=75):
+
+def get_reachable_destinations(network, origin, max_connections=6):
+    """Returns a list of destination airport codes that have active operating flights
+
+    from the specified origin on today's schedule.
+    """
+    # Keep only flight legs operating TODAY
+    active_network = [
+        leg
+        for leg in network
+        if leg_operates_today(leg.get("Days", "Daily"))
+    ]
+
+    adj_map = defaultdict(list)
+    for leg in active_network:
+        adj_map[leg["Origin"]].append(leg["Destination"])
+
+    if origin not in adj_map:
+        return []
+
+    # BFS traversal to discover all reachable airports within max connection depth
+    reachable = set()
+    queue = deque([(origin, 0)])
+    visited = {origin}
+
+    while queue:
+        curr, depth = queue.popleft()
+        if depth >= max_connections + 1:
+            continue
+        for nxt in adj_map.get(curr, []):
+            if nxt not in visited:
+                visited.add(nxt)
+                reachable.add(nxt)
+                queue.append((nxt, depth + 1))
+
+    return sorted(list(reachable))
+
+
+def find_routes(
+    network,
+    origin,
+    destination,
+    exact_connections=None,
+    max_connections=10,
+    max_display=75,
+):
     origin = origin.strip().upper()
     destination = destination.strip().upper()
 
     if origin == destination:
         return []
 
-    # =========================================================
-    # REAL-TIME DAY FILTER: Keep only flights operating TODAY
-    # =========================================================
-    active_network = [leg for leg in network if leg_operates_today(leg.get("Days", "Daily"))]
+    # Keep only flights operating TODAY
+    active_network = [
+        leg
+        for leg in network
+        if leg_operates_today(leg.get("Days", "Daily"))
+    ]
 
-    # 1. PRE-BUILD ADJACENCY MAP (Using active flights only)
+    # 1. PRE-BUILD ADJACENCY MAP
     adj_map = defaultdict(list)
     for leg in active_network:
         adj_map[leg["Origin"]].append(leg)
@@ -1992,7 +2052,9 @@ def find_routes(network, origin, destination, exact_connections=None, max_connec
     if exact_connections is not None:
         target_legs_list = [exact_connections + 1]
     else:
-        max_depth = min(max_connections if max_connections is not None else 10, 6) + 1
+        max_depth = (
+            min(max_connections if max_connections is not None else 10, 6) + 1
+        )
         target_legs_list = list(range(1, max_depth + 1))
 
     valid_paths = []
@@ -2013,7 +2075,10 @@ def find_routes(network, origin, destination, exact_connections=None, max_connec
 
             if len(path) == target_legs:
                 if current_node == destination:
-                    sig = tuple((leg["Flight"], leg["Origin"], leg["Destination"]) for leg in path)
+                    sig = tuple(
+                        (leg["Flight"], leg["Origin"], leg["Destination"])
+                        for leg in path
+                    )
                     if sig not in seen_signatures:
                         seen_signatures.add(sig)
                         valid_paths.append(path)
@@ -2036,6 +2101,7 @@ def find_routes(network, origin, destination, exact_connections=None, max_connec
     valid_paths.sort(key=lambda p: calculate_route_score(p))
     return valid_paths[:max_display]
 
+
 # ==========================================
 # 4. APP UI
 # ==========================================
@@ -2043,62 +2109,78 @@ def find_routes(network, origin, destination, exact_connections=None, max_connec
 network = get_full_network()
 all_airports = sorted(list(set([f["Origin"] for f in network])))
 
-# ==========================================
-# SEARCH CONTROLS WITH SAFE RANDOM CALLBACK
-# ==========================================
-
 st.subheader("🔍 Search Any Route on Network Map")
-
-# 1. State Initialization
-if "dest_select_val" not in st.session_state:
-    st.session_state["dest_select_val"] = "PAFA" if "PAFA" in all_airports else (all_airports[1] if len(all_airports) > 1 else all_airports[0])
-
-# 2. Callback function executed BEFORE UI reruns
-def set_random_destination():
-    current_orig = st.session_state.get("orig_select_val", all_airports[0])
-    current_dest = st.session_state.get("dest_select_val", None)
-    
-    # Exclude both origin AND current destination so every click changes the selection
-    available = [a for a in all_airports if a != current_orig and a != current_dest]
-    
-    if available:
-        # SystemRandom uses OS entropy, preventing random.seed() calls elsewhere from hijacking selection
-        st.session_state["dest_select_val"] = random.SystemRandom().choice(available)
 
 col1, col2, col3, col4 = st.columns([1, 1.3, 1, 1])
 
-# Origin Dropdown
+# 1. Origin Dropdown
 with col1:
     orig_select = st.selectbox(
         "Origin Airport",
         options=all_airports,
         index=all_airports.index("KRIC") if "KRIC" in all_airports else 0,
         key="orig_select_val",
-        format_func=lambda code: f"{code} - {AIRPORT_NAMES.get(code, 'Unknown Airport')}"
+        format_func=lambda code: f"{code} - {AIRPORT_NAMES.get(code, 'Unknown Airport')}",
     )
 
-# Destination Dropdown + Random Button (with Callback)
-with col2:
-    st.markdown("<label style='font-size: 14px; font-weight: 500;'>Destination Airport</label>", unsafe_allow_html=True)
-    d_col1, d_col2 = st.columns([2.2, 1])
-    
-    with d_col1:
-        dest_select = st.selectbox(
-            "Destination Airport",
-            options=all_airports,
-            key="dest_select_val",
-            label_visibility="collapsed",
-            format_func=lambda code: f"{code} - {AIRPORT_NAMES.get(code, 'Unknown Airport')}"
-        )
-        
-    with d_col2:
-        st.button(
-            "🎲 Random", 
-            on_click=set_random_destination,
-            help="Pick a random destination from the network"
+# 2. Calculate Active Destinations for Today from selected Origin
+valid_destinations = get_reachable_destinations(
+    network, orig_select, max_connections=6
+)
+
+# Keep dest_select_val valid when Origin changes
+if (
+    "dest_select_val" not in st.session_state
+    or st.session_state["dest_select_val"] not in valid_destinations
+):
+    if valid_destinations:
+        st.session_state["dest_select_val"] = valid_destinations[0]
+    else:
+        st.session_state["dest_select_val"] = None
+
+
+# 3. Safe Callback for Random Selection
+def set_random_destination():
+    current_dest = st.session_state.get("dest_select_val", None)
+    # Pick exclusively from today's valid destinations, excluding current selection
+    available = [a for a in valid_destinations if a != current_dest]
+
+    if available:
+        st.session_state["dest_select_val"] = random.SystemRandom().choice(
+            available
         )
 
-# Connections Allowed Dropdown
+
+# 4. Destination Dropdown + Random Button
+with col2:
+    st.markdown(
+        "<label style='font-size: 14px; font-weight: 500;'>Destination Airport</label>",
+        unsafe_allow_html=True,
+    )
+    d_col1, d_col2 = st.columns([2.2, 1])
+
+    with d_col1:
+        if valid_destinations:
+            dest_select = st.selectbox(
+                "Destination Airport",
+                options=valid_destinations,  # Hides destinations without active flights today
+                key="dest_select_val",
+                label_visibility="collapsed",
+                format_func=lambda code: f"{code} - {AIRPORT_NAMES.get(code, 'Unknown Airport')}",
+            )
+        else:
+            st.warning("No flights operate today from this airport.")
+            dest_select = None
+
+    with d_col2:
+        st.button(
+            "🎲 Random",
+            on_click=set_random_destination,
+            disabled=len(valid_destinations) <= 1,
+            help="Pick a random destination operating today",
+        )
+
+# 5. Connections Allowed Dropdown
 with col3:
     conn_str = st.selectbox(
         "Connections Allowed",
@@ -2114,15 +2196,14 @@ with col3:
         index=2,
     )
 
-# Max Options Dropdown
+# 6. Max Options Dropdown
 with col4:
     max_display_count = st.selectbox(
         "Max Options to Show",
         options=[15, 25, 35, 50, 75],
-        index=4, # Defaults to 75
+        index=4,
     )
 
-# Map dropdown string to exact connection count integer
 conn_map = {
     "Nonstop": 0,
     "1 Connection": 1,
@@ -2136,7 +2217,11 @@ exact_conn = conn_map[conn_str]
 
 # Search Action Button
 if st.button("Search Route Options", type="primary"):
-    if orig_select == dest_select:
+    if not dest_select:
+        st.warning(
+            "No valid destination selected or no operating flights today."
+        )
+    elif orig_select == dest_select:
         st.warning("Please choose two different airports.")
     else:
         routes_found = find_routes(
