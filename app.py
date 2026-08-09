@@ -168,8 +168,6 @@ routes_raw = [
     # ----------------------------------------------------
     # II. GEOGRAPHIC BRIDGE CONNECTORS & REGIONAL SPOKES
     # ----------------------------------------------------
-# ----------------------------------------------------
-    # ----------------------------------------------------
     # PAFA Bridge Spokes (1300 Block - Alaska Hub)
     # ----------------------------------------------------
     (1300, "PAFA", "PAJN", "Daily"),  # Juneau, AK
@@ -353,10 +351,10 @@ routes_raw = [
     (494, "KBLI", "KSUN", "Mon, Fri"),  # Sun Valley, ID
     (496, "KBLI", "PASI", "Tue, Thu, Sat"),  # Sitka, AK
     (498, "KBLI", "PAYA", "Mon, Fri"),  # Yakutat, AK
-    (1404, "KBLI", "KFAT", "Mon, Fri"),  # Fresno, CA
-    (1406, "KBLI", "KBFL", "Tue, Thu, Sat"),  # Bakersfield, CA
-    (1408, "KBLI", "KSBA", "Thu, Sun"),  # Santa Barbara, CA
-    (1410, "KBLI", "KSMF", "Mon, Wed, Fri"),  # Sacramento, CA
+    (1400, "KBLI", "KFAT", "Mon, Fri"),  # Fresno, CA
+    (1402, "KBLI", "KBFL", "Tue, Thu, Sat"),  # Bakersfield, CA
+    (1404, "KBLI", "KSBA", "Thu, Sun"),  # Santa Barbara, CA
+    (1406, "KBLI", "KSMF", "Mon, Wed, Fri"),  # Sacramento, CA
 
     # ----------------------------------------------------
     # KMSY Bridge Spokes (500 Block - Gulf Coast Hub)
@@ -647,103 +645,103 @@ routes_raw = [
     # ----------------------------------------------------
     # KIWA International Spokes (Mesa / Phoenix, AZ Hub)
     # ----------------------------------------------------
-    (1830, "KIWA", "MMSD", "Mon, Wed, Fri, Sun"),  # Los Cabos, Mexico
-    (1832, "KIWA", "MMPR", "Mon, Wed, Fri, Sun"),  # Puerto Vallarta, Mexico
-    (1834, "KIWA", "MMMZ", "Tue, Thu, Sat"),  # Mazatlán, Mexico
-    (1836, "KIWA", "MMGL", "Mon, Wed, Fri, Sun"),  # Guadalajara, Mexico
-    (1838, "KIWA", "MMHO", "Tue, Thu, Sat"),  # Hermosillo, Mexico
-    (1840, "KIWA", "MMVR", "Tue, Thu, Sat"),  # Veracruz, Mexico
-    (1842, "KIWA", "MMPB", "Tue, Thu, Sat"),  # Puebla, Mexico
-    (1844, "KIWA", "MMBT", "Mon, Fri"),  # Huatulco, Mexico
-    (1846, "KIWA", "MRLB", "Thu, Sun"),  # Liberia, Costa Rica
-    (1848, "KIWA", "MNMG", "Wed, Sat"),  # Managua, Nicaragua
-    (1850, "KIWA", "MPPA", "Mon, Wed, Fri"),  # Panama City, Panama
-    (1852, "KIWA", "SKCL", "Tue, Thu, Sat"),  # Cali, Colombia
-    (1854, "KIWA", "SPQU", "Wed, Sat"),  # Arequipa, Peru
-    (1856, "KIWA", "SCEL", "Tue, Thu, Sat"),  # Santiago, Chile
-    (1858, "KIWA", "CYEG", "Mon, Fri"),  # Edmonton, AB, Canada
+    (1840, "KIWA", "MMSD", "Mon, Wed, Fri, Sun"),  # Los Cabos, Mexico
+    (1842, "KIWA", "MMPR", "Mon, Wed, Fri, Sun"),  # Puerto Vallarta, Mexico
+    (1844, "KIWA", "MMMZ", "Tue, Thu, Sat"),  # Mazatlán, Mexico
+    (1846, "KIWA", "MMGL", "Mon, Wed, Fri, Sun"),  # Guadalajara, Mexico
+    (1848, "KIWA", "MMHO", "Tue, Thu, Sat"),  # Hermosillo, Mexico
+    (1850, "KIWA", "MMVR", "Tue, Thu, Sat"),  # Veracruz, Mexico
+    (1852, "KIWA", "MMPB", "Tue, Thu, Sat"),  # Puebla, Mexico
+    (1854, "KIWA", "MMBT", "Mon, Fri"),  # Huatulco, Mexico
+    (1856, "KIWA", "MRLB", "Thu, Sun"),  # Liberia, Costa Rica
+    (1858, "KIWA", "MNMG", "Wed, Sat"),  # Managua, Nicaragua
+    (1860, "KIWA", "MPPA", "Mon, Wed, Fri"),  # Panama City, Panama
+    (1862, "KIWA", "SKCL", "Tue, Thu, Sat"),  # Cali, Colombia
+    (1864, "KIWA", "SPQU", "Wed, Sat"),  # Arequipa, Peru
+    (1866, "KIWA", "SCEL", "Tue, Thu, Sat"),  # Santiago, Chile
+    (1868, "KIWA", "CYEG", "Mon, Fri"),  # Edmonton, AB, Canada
 
     # ----------------------------------------------------
     # KMSY International Spokes (New Orleans, LA Hub)
     # ----------------------------------------------------
-    (1860, "KMSY", "MMUN", "Mon, Wed, Fri, Sun"),  # Cancún, Mexico
-    (1862, "KMSY", "MMCZ", "Thu, Sun"),  # Cozumel, Mexico
-    (1864, "KMSY", "MZBZ", "Mon, Wed, Fri"),  # Belize City, Belize
-    (1866, "KMSY", "MGGT", "Tue, Thu, Sat"),  # Guatemala City, Guatemala
-    (1868, "KMSY", "MMBT", "Mon, Fri"),  # Huatulco, Mexico
-    (1870, "KMSY", "MUHA", "Mon, Wed, Fri, Sun"),  # Havana, Cuba
-    (1872, "KMSY", "MKJP", "Tue, Thu, Sat"),  # Kingston, Jamaica
-    (1874, "KMSY", "MYSM", "Thu, Sun"),  # San Salvador, Bahamas
-    (1876, "KMSY", "TJSJ", "Mon, Wed, Fri, Sun"),  # San Juan, PR
-    (1878, "KMSY", "TIST", "Mon, Wed, Fri, Sun"),  # St. Thomas, VI
-    (1880, "KMSY", "TNCC", "Thu, Sun"),  # Curaçao
-    (1882, "KMSY", "SYCJ", "Wed, Sat"),  # Georgetown, Guyana
-    (1884, "KMSY", "SMJP", "Thu, Sun"),  # Paramaribo, Suriname
+    (1880, "KMSY", "MMUN", "Mon, Wed, Fri, Sun"),  # Cancún, Mexico
+    (1882, "KMSY", "MMCZ", "Thu, Sun"),  # Cozumel, Mexico
+    (1884, "KMSY", "MZBZ", "Mon, Wed, Fri"),  # Belize City, Belize
+    (1886, "KMSY", "MGGT", "Tue, Thu, Sat"),  # Guatemala City, Guatemala
+    (1888, "KMSY", "MMBT", "Mon, Fri"),  # Huatulco, Mexico
+    (1890, "KMSY", "MUHA", "Mon, Wed, Fri, Sun"),  # Havana, Cuba
+    (1892, "KMSY", "MKJP", "Tue, Thu, Sat"),  # Kingston, Jamaica
+    (1894, "KMSY", "MYSM", "Thu, Sun"),  # San Salvador, Bahamas
+    (1896, "KMSY", "TJSJ", "Mon, Wed, Fri, Sun"),  # San Juan, PR
+    (1898, "KMSY", "TIST", "Mon, Wed, Fri, Sun"),  # St. Thomas, VI
+    (2800, "KMSY", "TNCC", "Thu, Sun"),  # Curaçao
+    (2802, "KMSY", "SYCJ", "Wed, Sat"),  # Georgetown, Guyana
+    (2804, "KMSY", "SMJP", "Thu, Sun"),  # Paramaribo, Suriname
 
     # ----------------------------------------------------
     # KGRR International Spokes (Grand Rapids, MI Hub)
     # ----------------------------------------------------
-    (2800, "KGRR", "CYHM", "Tue, Thu, Sat"),  # Hamilton, ON, Canada
-    (2802, "KGRR", "CYUL", "Mon, Wed, Fri, Sun"),  # Montréal, QC, Canada
-    (2804, "KGRR", "MMUN", "Mon, Wed, Fri, Sun"),  # Cancún, Mexico
-    (2806, "KGRR", "MDPC", "Thu, Sun"),  # Punta Cana, Dominican Republic
-    (2808, "KGRR", "TNCA", "Thu, Sun"),  # Oranjestad, Aruba
-    (2810, "KGRR", "MROC", "Mon, Thu, Sat"),  # San José, Costa Rica
-    (2812, "KGRR", "SKBO", "Tue, Thu, Sat"),  # Bogotá, Colombia
-    (2814, "KGRR", "SPIM", "Wed, Sat"),  # Lima, Peru
-    (2816, "KGRR", "BIKF", "Mon, Wed, Fri"),  # Reykjavik, Iceland
-    (2818, "KGRR", "LPPD", "Wed, Sat"),  # Ponta Delgada, Portugal
-    (2820, "KGRR", "EINN", "Thu, Sun"),  # Shannon, Ireland
-    (2822, "KGRR", "EGPK", "Wed, Sat"),  # Glasgow, UK
-    (2824, "KGRR", "EGLL", "Mon, Wed, Fri, Sun"),  # London, UK
-    (2826, "KGRR", "LFPG", "Mon, Wed, Fri, Sun"),  # Paris, France
-    (2828, "KGRR", "EDDF", "Tue, Thu, Sat"),  # Frankfurt, Germany
-    (2830, "KGRR", "EHAM", "Mon, Wed, Fri, Sun"),  # Amsterdam, Netherlands
-    (2832, "KGRR", "LEMD", "Mon, Wed, Fri"),  # Madrid, Spain
-    (2834, "KGRR", "LEBL", "Tue, Thu, Sat"),  # Barcelona, Spain
-    (2836, "KGRR", "LIRF", "Tue, Thu, Sat"),  # Rome, Italy
-    (2838, "KGRR", "LPPT", "Mon, Wed, Fri"),  # Lisbon, Portugal
+    (2820, "KGRR", "CYHM", "Tue, Thu, Sat"),  # Hamilton, ON, Canada
+    (2822, "KGRR", "CYUL", "Mon, Wed, Fri, Sun"),  # Montréal, QC, Canada
+    (2824, "KGRR", "MMUN", "Mon, Wed, Fri, Sun"),  # Cancún, Mexico
+    (2826, "KGRR", "MDPC", "Thu, Sun"),  # Punta Cana, Dominican Republic
+    (2828, "KGRR", "TNCA", "Thu, Sun"),  # Oranjestad, Aruba
+    (2830, "KGRR", "MROC", "Mon, Thu, Sat"),  # San José, Costa Rica
+    (2832, "KGRR", "SKBO", "Tue, Thu, Sat"),  # Bogotá, Colombia
+    (2834, "KGRR", "SPIM", "Wed, Sat"),  # Lima, Peru
+    (2836, "KGRR", "BIKF", "Mon, Wed, Fri"),  # Reykjavik, Iceland
+    (2838, "KGRR", "LPPD", "Wed, Sat"),  # Ponta Delgada, Portugal
+    (2840, "KGRR", "EINN", "Thu, Sun"),  # Shannon, Ireland
+    (2842, "KGRR", "EGPK", "Wed, Sat"),  # Glasgow, UK
+    (2844, "KGRR", "EGLL", "Mon, Wed, Fri, Sun"),  # London, UK
+    (2846, "KGRR", "LFPG", "Mon, Wed, Fri, Sun"),  # Paris, France
+    (2848, "KGRR", "EDDF", "Tue, Thu, Sat"),  # Frankfurt, Germany
+    (2850, "KGRR", "EHAM", "Mon, Wed, Fri, Sun"),  # Amsterdam, Netherlands
+    (2852, "KGRR", "LEMD", "Mon, Wed, Fri"),  # Madrid, Spain
+    (2854, "KGRR", "LEBL", "Tue, Thu, Sat"),  # Barcelona, Spain
+    (2856, "KGRR", "LIRF", "Tue, Thu, Sat"),  # Rome, Italy
+    (2858, "KGRR", "LPPT", "Mon, Wed, Fri"),  # Lisbon, Portugal
 
     # ----------------------------------------------------
     # KBGR International Spokes (Bangor, ME Hub)
     # ----------------------------------------------------
-    (2840, "KBGR", "CYHZ", "Mon, Wed, Fri, Sun"),  # Halifax, NS, Canada
-    (2842, "KBGR", "BIKF", "Mon, Wed, Fri, Sun"),  # Reykjavik, Iceland
-    (2844, "KBGR", "EINN", "Mon, Wed, Fri"),  # Shannon, Ireland
-    (2846, "KBGR", "EIDW", "Mon, Wed, Fri, Sun"),  # Dublin, Ireland
-    (2848, "KBGR", "EDDM", "Tue, Thu, Sat"),  # Munich, Germany
-    (2850, "KBGR", "LSZH", "Thu, Sun"),  # Zurich, Switzerland
-    (2852, "KBGR", "ENGM", "Wed, Sat"),  # Oslo, Norway
-    (2854, "KBGR", "ESSA", "Thu, Sun"),  # Stockholm, Sweden
-    (2856, "KBGR", "MPTO", "Tue, Thu, Sat"),  # Panama City, Panama
+    (2870, "KBGR", "CYHZ", "Mon, Wed, Fri, Sun"),  # Halifax, NS, Canada
+    (2872, "KBGR", "BIKF", "Mon, Wed, Fri, Sun"),  # Reykjavik, Iceland
+    (2874, "KBGR", "EINN", "Mon, Wed, Fri"),  # Shannon, Ireland
+    (2876, "KBGR", "EIDW", "Mon, Wed, Fri, Sun"),  # Dublin, Ireland
+    (2878, "KBGR", "EDDM", "Tue, Thu, Sat"),  # Munich, Germany
+    (2880, "KBGR", "LSZH", "Thu, Sun"),  # Zurich, Switzerland
+    (2882, "KBGR", "ENGM", "Wed, Sat"),  # Oslo, Norway
+    (2884, "KBGR", "ESSA", "Thu, Sun"),  # Stockholm, Sweden
+    (2886, "KBGR", "MPTO", "Tue, Thu, Sat"),  # Panama City, Panama
 
     # ----------------------------------------------------
     # KSWF International Spokes (Stewart / Newburgh, NY Hub)
     # ----------------------------------------------------
-    (2860, "KSWF", "CYUL", "Mon, Wed, Fri, Sun"),  # Montréal, QC, Canada
-    (2862, "KSWF", "BIKF", "Mon, Wed, Fri, Sun"),  # Reykjavik, Iceland
-    (2864, "KSWF", "EINN", "Mon, Wed, Fri"),  # Shannon, Ireland
-    (2866, "KSWF", "EIDW", "Mon, Wed, Fri, Sun"),  # Dublin, Ireland
-    (2868, "KSWF", "EBBR", "Mon, Wed, Fri"),  # Brussels, Belgium
-    (2870, "KSWF", "EFHK", "Tue, Thu, Sat"),  # Helsinki, Finland
-    (2872, "KSWF", "LGAV", "Wed, Sat"),  # Athens, Greece
-    (2874, "KSWF", "LROP", "Thu, Sun"),  # Bucharest, Romania
+    (3800, "KSWF", "CYUL", "Mon, Wed, Fri, Sun"),  # Montréal, QC, Canada
+    (3802, "KSWF", "BIKF", "Mon, Wed, Fri, Sun"),  # Reykjavik, Iceland
+    (3804, "KSWF", "EINN", "Mon, Wed, Fri"),  # Shannon, Ireland
+    (3806, "KSWF", "EIDW", "Mon, Wed, Fri, Sun"),  # Dublin, Ireland
+    (3808, "KSWF", "EBBR", "Mon, Wed, Fri"),  # Brussels, Belgium
+    (3810, "KSWF", "EFHK", "Tue, Thu, Sat"),  # Helsinki, Finland
+    (3812, "KSWF", "LGAV", "Wed, Sat"),  # Athens, Greece
+    (3814, "KSWF", "LROP", "Thu, Sun"),  # Bucharest, Romania
 
     # ----------------------------------------------------
     # KRIC International Spokes (Richmond, VA Hub)
     # ----------------------------------------------------
-    (2880, "KRIC", "EGCC", "Mon, Wed, Fri"),  # Manchester, UK
-    (2882, "KRIC", "LOWW", "Tue, Thu, Sat"),  # Vienna, Austria
-    (2884, "KRIC", "EKCH", "Mon, Wed, Fri"),  # Copenhagen, Denmark
-    (2886, "KRIC", "SEQM", "Thu, Sun"),  # Quito, Ecuador
-    (2888, "KRIC", "SAEZ", "Wed, Sat"),  # Buenos Aires, Argentina
+    (3830, "KRIC", "EGCC", "Mon, Wed, Fri"),  # Manchester, UK
+    (3832, "KRIC", "LOWW", "Tue, Thu, Sat"),  # Vienna, Austria
+    (3834, "KRIC", "EKCH", "Mon, Wed, Fri"),  # Copenhagen, Denmark
+    (3836, "KRIC", "SEQM", "Thu, Sun"),  # Quito, Ecuador
+    (3838, "KRIC", "SAEZ", "Wed, Sat"),  # Buenos Aires, Argentina
 
     # ----------------------------------------------------
     # KPVU International Spokes (Provo, UT Hub)
     # ----------------------------------------------------
-    (2890, "KPVU", "CYYC", "Mon, Wed, Fri, Sun"),  # Calgary, AB, Canada
-    (2892, "KPVU", "CYEG", "Tue, Thu, Sat"),  # Edmonton, AB, Canada
-    (2894, "KPVU", "CYZF", "Thu, Sun"),  # Yellowknife, NT, Canada
+    (3850, "KPVU", "CYYC", "Mon, Wed, Fri, Sun"),  # Calgary, AB, Canada
+    (3852, "KPVU", "CYEG", "Tue, Thu, Sat"),  # Edmonton, AB, Canada
+    (3854, "KPVU", "CYZF", "Thu, Sun"),  # Yellowknife, NT, Canada
     
     # ----------------------------------------------------
     # TJBQ Caribbean Regional Spokes (1500 Block - Caribbean Hub)
