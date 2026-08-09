@@ -1192,7 +1192,60 @@ spokes = {
     "KSBN": "South Bend, IN",
     "KTOL": "Toledo, OH",
     "KTVC": "Traverse City, MI",
-
+    "KISP": "Islip / Long Island, NY",
+    "KHPN": "White Plains / Westchester, NY",
+    "KROC": "Rochester, NY",
+    "KBUF": "Buffalo, NY",
+    "KOGS": "Ogdensburg, NY",
+    "KMSS": "Massena, NY",
+    "KFRG": "Farmingdale / Long Island, NY",
+    "KACY": "Atlantic City, NJ",
+    "KTTN": "Trenton, NJ",
+    "KMIV": "Millville, NJ",
+    "KLBE": "Latrobe / Greensburg, PA",
+    "KJST": "Johnstown, PA",
+    "KBFD": "Bradford, PA",
+    "KDUJ": "DuBois, PA",
+    "KRDG": "Reading, PA",
+    "KLNS": "Lancaster, PA",
+    "KGON": "Groton / New London, CT",
+    "KOQU": "Quonset State / North Kingstown, RI",
+    "KSBY": "Salisbury, MD",
+    "KHGR": "Hagerstown, MD",
+    "CYQM": "Moncton, NB, Canada",
+    "CYSJ": "Saint John, NB, Canada",
+    "CYFC": "Fredericton, NB, Canada",
+    "CYQB": "Quebec City, QC, Canada",
+    "CYQY": "Sydney, NS, Canada",
+    "CYYG": "Charlottetown, PE, Canada",
+    "CYDF": "Deer Lake, NL, Canada",
+    "CYYT": "St. John's, NL, Canada",
+    "KAUG": "Augusta, ME",
+    "KSFM": "Sanford, ME",
+    "KPSM": "Portsmouth, NH",
+    "KCON": "Concord, NH",
+    "KMPV": "Barre / Montpelier, VT",
+    "KHYA": "Hyannis / Cape Cod, MA",
+    "KEWB": "New Bedford, MA",
+    "KILG": "Wilmington / Philadelphia area, DE",
+    "KPKB": "Parkersburg, WV",
+    "KCKB": "Clarksburg, WV",
+    "KMGW": "Morgantown, WV",
+    "KLWB": "Lewisburg, WV",
+    "KRDU": "Raleigh / Durham, NC",
+    "KFLO": "Florence, SC",
+    "KCAE": "Columbia, SC",
+    "KAGS": "Augusta, GA",
+    "KSGJ": "St. Augustine, FL",
+    "KPIE": "St. Petersburg / Clearwater, FL",
+    "KGNV": "Gainesville, FL",
+    "KSRQ": "Sarasota / Bradenton, FL",
+    "KFLL": "Fort Lauderdale, FL",
+    "KEYW": "Key West, FL",
+    "KVPS": "Destin / Eglin AFB, FL",
+    "KMBS": "Saginaw, MI",
+    "KVRB": "Vero Beach, FL",
+    
     # Northeast & Mid-Atlantic
     "KABE": "Allentown / Lehigh Valley, PA",
     "KACK": "Nantucket, MA",
@@ -1556,7 +1609,7 @@ AIRPORT_COORDS = {
     "KINL": (48.5682, -93.4003),   # International Falls, MN
     "KESC": (45.7445, -87.0988),   # Escanaba, MI
     "KISQ": (46.4819, -84.4725),   # Sault Ste. Marie, MI
-    "JEF": (38.5962, -92.1578),    # Jefferson City, MO
+    "KJEF": (38.5962, -92.1578),    # Jefferson City, MO
     "KJKA": (30.2882, -87.6713),   # Gulf Shores, AL
     "KJMS": (46.9298, -98.6782),   # Jamestown, ND
     "KJVY": (38.2731, -85.7397),   # Jeffersonville / Louisville area, IN
@@ -1657,6 +1710,32 @@ AIRPORT_COORDS = {
     "KRKD": (44.0601, -69.0992),   # Knox County Regional (Rockland), ME
     "KSLK": (44.3853, -74.2062),   # Adirondack Regional (Saranac Lake), NY
     "KSYR": (43.1112, -76.1063),   # Syracuse Hancock International, NY
+    "KAUG": (44.3206, -69.7972),
+    "KSFM": (43.3939, -70.7075),
+    "KPSM": (43.0779, -70.8233),
+    "KCON": (43.2028, -71.5022),
+    "KMPV": (44.2035, -72.5623),
+    "KHYA": (41.6693, -70.2804),
+    "KEWB": (41.6761, -70.9583),
+    "KISP": (40.7952, -73.1002),
+    "KHPN": (41.0670, -73.7076),
+    "KROC": (43.1189, -77.6724),
+    "KBUF": (42.9405, -78.7322),
+    "KOGS": (44.6819, -75.4656),
+    "KMSS": (44.9358, -74.8456),
+    "KFRG": (40.7288, -73.4134),
+    "KACY": (39.4576, -74.5772),
+    "KTTN": (40.2767, -74.8135),
+    "KMIV": (39.3678, -75.0722),
+    "KLBE": (40.2759, -79.4048),
+    "KJST": (40.3229, -78.8338),
+    "KBFD": (41.8031, -78.6401),
+    "KDUJ": (41.1783, -78.8986),
+    "KRDG": (40.3785, -75.9652),
+    "KLNS": (40.1217, -76.2960),
+    "KGON": (41.3301, -72.0456),
+    "KOQU": (41.5972, -71.4122),
+    "KSBY": (38.3405, -75.5103),
 
     # --------------------------------------------------------------------------
     # MID-ATLANTIC & SOUTHEAST SPOKES
@@ -1699,11 +1778,37 @@ AIRPORT_COORDS = {
     "KTLH": (30.3965, -84.3503),   # Tallahassee International, FL
     "KTYS": (35.8110, -83.9940),   # McGhee Tyson Airport (Knoxville), TN
     "KVRB": (27.6556, -80.4179),   # Vero Beach Regional, FL
+    "KILG": (39.6787, -75.6065),
+    "KPKB": (39.3450, -81.4392),
+    "KCKB": (39.2966, -80.2281),
+    "KMGW": (39.6429, -79.9171),
+    "KLWB": (37.8583, -80.3995),
+    "KRDU": (35.8776, -78.7875),
+    "KFLO": (34.1854, -79.7239),
+    "KCAE": (33.9388, -81.1195),
+    "KAGS": (33.3699, -81.9645),
+    "KSGJ": (29.9592, -81.3397),
+    "KPIE": (27.9102, -82.6874),
+    "KGNV": (29.6901, -82.2718),
+    "KSRQ": (27.3954, -82.5544),
+    "KFLL": (26.0742, -80.1506),
+    "KEYW": (24.5557, -81.7596),
+    "KVPS": (30.4832, -86.5254),
+    "KMBS": (43.5329, -84.0796),
+    "KVRB": (27.6556, -80.4178),
 
     # --------------------------------------------------------------------------
     # CARIBBEAN & INTERNATIONAL SPOKES
     # --------------------------------------------------------------------------
     "BIKF": (63.9850, -22.6056),   # Keflavík International, Iceland
+    "CYQM": (46.1132, -64.6772),
+    "CYSJ": (45.3161, -65.8903),
+    "CYFC": (45.8689, -66.5372),
+    "CYQB": (46.7911, -71.3933),
+    "CYQY": (46.1614, -60.0478),
+    "CYYG": (46.2900, -63.1211),
+    "CYDF": (49.2082, -57.3961),
+    "CYYT": (47.6186, -52.7519),
     "CYEG": (53.3097, -113.5800),  # Edmonton International Airport, AB, Canada
     "CYHM": (43.1736, -79.9350),   # John C. Munro Hamilton Intl, ON, Canada
     "CYHZ": (44.8808, -63.5086),   # Halifax Stanfield International, NS, Canada
