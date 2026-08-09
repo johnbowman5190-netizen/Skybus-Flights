@@ -1006,7 +1006,7 @@ AIRPORT_NAMES = {
     "KSFB": "Orlando / Sanford, FL",
     "TJBQ": "Aguadilla, PR",
 
-spokes = {
+spokes = :
     airports = {
     # Alaska & Hawaii
     "PABE": "Bethel, AK",
