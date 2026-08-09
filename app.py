@@ -169,23 +169,24 @@ routes_raw = [
     # II. GEOGRAPHIC BRIDGE CONNECTORS & REGIONAL SPOKES
     # ----------------------------------------------------
 # ----------------------------------------------------
+    # ----------------------------------------------------
     # PAFA Bridge Spokes (1300 Block - Alaska Hub)
     # ----------------------------------------------------
     (1300, "PAFA", "PAJN", "Daily"),  # Juneau, AK
     (1302, "PAFA", "PAKT", "Tue, Thu, Sat"),  # Ketchikan, AK
-    (1304, "PAFA", "PABR", "Mon, Wed, Fri"),  # Utqiaġvik, AK
+    (1304, "PAFA", "PABR", "Mon, Wed, Fri, Sun"),  # Utqiaġvik, AK
     (1306, "PAFA", "PAOT", "Tue, Thu, Sat"),  # Kotzebue, AK
-    (1308, "PAFA", "PASC", "Daily"),  # Deadhorse, AK
+    (1308, "PAFA", "PASC", "Daily"),  # Deadhorse, AK (North Slope worker corridor)
     (1310, "PAFA", "PADQ", "Mon, Wed, Fri"),  # Kodiak, AK
     (1312, "PAFA", "PAOM", "Tue, Thu, Sat"),  # Nome, AK
     (1314, "PAFA", "PAPG", "Tue, Thu, Sat"),  # Petersburg, AK
     (1316, "PAFA", "PASI", "Mon, Wed, Fri"),  # Sitka, AK
     (1318, "PAFA", "PAYA", "Tue, Thu, Sat"),  # Yakutat, AK
     (1320, "PAFA", "PAVD", "Mon, Fri"),  # Valdez, AK
-    (1322, "PAFA", "PAEN", "Daily"),  # Kenai, AK
+    (1322, "PAFA", "PAEN", "Mon, Wed, Fri, Sun"),  # Kenai, AK
     (1324, "PAFA", "PAKW", "Tue, Thu, Sat"),  # Wrangell, AK
     (1326, "PAFA", "PAHO", "Mon, Wed, Fri, Sun"),  # Homer, AK
-    (1328, "PAFA", "PHNL", "Daily"),  # Honolulu, HI
+    (1328, "PAFA", "PHNL", "Fri, Sun"),  # Honolulu, HI
     (1330, "PAFA", "PHOG", "Thu, Sun"),  # Kahului, HI
     (1332, "PAFA", "PHKO", "Wed, Sat"),  # Kailua-Kona, HI
     (1334, "PAFA", "PAGS", "Tue, Thu, Sat"),  # Gustavus, AK
@@ -198,29 +199,29 @@ routes_raw = [
     (1348, "PAFA", "PADK", "Wed, Sat"),  # Adak, AK
     (1350, "PAFA", "PAGA", "Tue, Thu, Sat"),  # Galena, AK
     (1352, "PAFA", "PAUL", "Mon, Wed, Fri"),  # Unalakleet, AK
-    (1354, "PAFA", "KBZN", "Mon, Wed, Fri"),  # Bozeman, MT
-    (1356, "PAFA", "KMSO", "Tue, Thu, Sat"),  # Missoula, MT
-    (1358, "PAFA", "KBOI", "Daily"),  # Boise, ID
+    (1354, "PAFA", "KBZN", "Thu, Sun"),  # Bozeman, MT
+    (1356, "PAFA", "KMSO", "Tue, Sat"),  # Missoula, MT
+    (1358, "PAFA", "KBOI", "Tue, Thu, Sat"),  # Boise, ID
 
     # ----------------------------------------------------
     # KPVU Bridge Spokes (1400 Block - Intermountain West Hub)
     # ----------------------------------------------------
-    (1400, "KPVU", "KBOI", "Daily"),  # Boise, ID
+    (1400, "KPVU", "KBOI", "Mon, Wed, Fri, Sun"),  # Boise, ID
     (1402, "KPVU", "KSGU", "Mon, Wed, Fri, Sun"),  # St. George, UT
     (1404, "KPVU", "KIFP", "Thu, Sun"),  # Bullhead City, AZ
-    (1406, "KPVU", "KJAC", "Daily"),  # Jackson, WY
-    (1408, "KPVU", "KGEG", "Daily"),  # Spokane, WA
+    (1406, "KPVU", "KJAC", "Mon, Wed, Fri, Sun"),  # Jackson, WY
+    (1408, "KPVU", "KGEG", "Tue, Thu, Sat"),  # Spokane, WA
     (1410, "KPVU", "KEUG", "Mon, Fri"),  # Eugene, OR
     (1412, "KPVU", "KFLG", "Tue, Thu, Sat"),  # Flagstaff, AZ
     (1414, "KPVU", "KCPR", "Mon, Wed, Fri"),  # Casper, WY
     (1416, "KPVU", "KGJT", "Tue, Thu, Sat"),  # Grand Junction, CO
-    (1418, "KPVU", "KIDA", "Daily"),  # Idaho Falls, ID
-    (1420, "KPVU", "KBZN", "Daily"),  # Bozeman, MT
-    (1422, "KPVU", "KMSO", "Mon, Wed, Fri, Sun"),  # Missoula, MT
+    (1418, "KPVU", "KIDA", "Mon, Wed, Fri, Sun"),  # Idaho Falls, ID
+    (1420, "KPVU", "KBZN", "Mon, Wed, Fri, Sun"),  # Bozeman, MT
+    (1422, "KPVU", "KMSO", "Tue, Thu, Sat"),  # Missoula, MT
     (1424, "KPVU", "KTWF", "Tue, Thu, Sat"),  # Twin Falls, ID
     (1426, "KPVU", "KPIH", "Mon, Wed, Fri"),  # Pocatello, ID
-    (1428, "KPVU", "KRNO", "Daily"),  # Reno, NV
-    (1430, "KPVU", "PHNL", "Daily"),  # Honolulu, HI
+    (1428, "KPVU", "KRNO", "Mon, Wed, Fri, Sun"),  # Reno, NV
+    (1430, "KPVU", "PHNL", "Wed, Sat"),  # Honolulu, HI
     (1432, "KPVU", "PHOG", "Thu, Sun"),  # Kahului, HI
     (1434, "KPVU", "KYKM", "Tue, Thu, Sat"),  # Yakima, WA
     (1436, "KPVU", "KPSC", "Mon, Wed, Fri, Sun"),  # Pasco, WA
@@ -240,20 +241,20 @@ routes_raw = [
     (1464, "KPVU", "KRDD", "Mon, Wed, Fri"),  # Redding, CA
     (1466, "KPVU", "KPSP", "Mon, Wed, Fri, Sun"),  # Palm Springs, CA
     (1468, "KPVU", "PHLI", "Mon, Fri"),  # Lihue, HI
-    (1470, "KPVU", "KDVT", "Daily"),  # Phoenix, AZ
-    (1472, "KPVU", "KTUS", "Daily"),  # Tucson, AZ
-    (1474, "KPVU", "KABQ", "Daily"),  # Albuquerque, NM
+    (1470, "KPVU", "KDVT", "Mon, Wed, Fri, Sun"),  # Phoenix, AZ
+    (1472, "KPVU", "KTUS", "Tue, Thu, Sat"),  # Tucson, AZ
+    (1474, "KPVU", "KABQ", "Mon, Wed, Fri, Sun"),  # Albuquerque, NM
     (1476, "KPVU", "KSAF", "Tue, Thu, Sat"),  # Santa Fe, NM
-    (1478, "KPVU", "KBJC", "Daily"),  # Broomfield, CO
+    (1478, "KPVU", "KBJC", "Mon, Wed, Fri, Sun"),  # Broomfield, CO
     (1480, "KPVU", "KCOS", "Mon, Wed, Fri, Sun"),  # Colorado Springs, CO
     (1482, "KPVU", "KDRO", "Tue, Thu, Sat"),  # Durango, CO
     (1484, "KPVU", "KLAS", "Daily"),  # Las Vegas, NV
     (1486, "KPVU", "KEKO", "Thu, Sun"),  # Elko, NV
-    (1488, "KPVU", "KCNY", "Daily"),  # Moab, UT
-    (1490, "KPVU", "KOGD", "Mon, Wed, Fri"),  # Ogden, UT
+    (1488, "KPVU", "KCNY", "Mon, Wed, Fri"),  # Moab, UT
+    (1490, "KPVU", "KOGD", "Mon, Fri"),  # Ogden, UT
     (1492, "KPVU", "KCYS", "Tue, Thu, Sat"),  # Cheyenne, WY
     (1494, "KPVU", "KCOD", "Mon, Fri"),  # Cody, WY
-    (1496, "KPVU", "KSMF", "Daily"),  # Sacramento, CA
+    (1496, "KPVU", "KSMF", "Mon, Wed, Fri, Sun"),  # Sacramento, CA
     (1498, "KPVU", "KPRC", "Mon, Wed, Fri"),  # Prescott, AZ
 
     # ----------------------------------------------------
@@ -261,57 +262,57 @@ routes_raw = [
     # ----------------------------------------------------
     (300, "KIWA", "KSGU", "Mon, Wed, Fri, Sun"),  # St. George, UT
     (302, "KIWA", "KIFP", "Thu, Sun"),  # Bullhead City, AZ
-    (304, "KIWA", "KELP", "Daily"),  # El Paso, TX
+    (304, "KIWA", "KELP", "Mon, Wed, Fri, Sun"),  # El Paso, TX
     (306, "KIWA", "KSAN", "Mon, Fri"),  # San Diego, CA
     (308, "KIWA", "KFLG", "Tue, Thu, Sat"),  # Flagstaff, AZ
-    (310, "KIWA", "KMAF", "Daily"),  # Midland, TX
-    (312, "KIWA", "KABQ", "Daily"),  # Albuquerque, NM
-    (314, "KIWA", "KTUS", "Daily"),  # Tucson, AZ
+    (310, "KIWA", "KMAF", "Mon, Wed, Fri, Sun"),  # Midland, TX
+    (312, "KIWA", "KABQ", "Mon, Wed, Fri, Sun"),  # Albuquerque, NM
+    (314, "KIWA", "KTUS", "Mon, Fri"),  # Tucson, AZ
     (316, "KIWA", "KPSP", "Mon, Wed, Fri, Sun"),  # Palm Springs, CA
     (318, "KIWA", "KROW", "Tue, Thu, Sat"),  # Roswell, NM
     (320, "KIWA", "KPRC", "Mon, Wed, Fri"),  # Prescott, AZ
     (322, "KIWA", "KDRO", "Mon, Wed, Fri, Sun"),  # Durango, CO
     (324, "KIWA", "KEKO", "Tue, Thu, Sat"),  # Elko, NV
     (326, "KIWA", "KSBP", "Thu, Sun"),  # San Luis Obispo, CA
-    (330, "KIWA", "PHNL", "Daily"),  # Honolulu, HI
+    (330, "KIWA", "PHNL", "Wed, Sat"),  # Honolulu, HI
     (332, "KIWA", "PHOG", "Thu, Sun"),  # Kahului, HI
     (334, "KIWA", "PHKO", "Wed, Sat"),  # Kailua-Kona, HI
-    (336, "KIWA", "KSBA", "Daily"),  # Santa Barbara, CA
+    (336, "KIWA", "KSBA", "Thu, Sun"),  # Santa Barbara, CA
     (338, "KIWA", "KMRY", "Mon, Wed, Fri, Sun"),  # Monterey, CA
-    (340, "KIWA", "KFAT", "Daily"),  # Fresno, CA
+    (340, "KIWA", "KFAT", "Mon, Wed, Fri, Sun"),  # Fresno, CA
     (342, "KIWA", "KBFL", "Mon, Wed, Fri"),  # Bakersfield, CA
     (344, "KIWA", "KCDC", "Thu, Sun"),  # Cedar City, UT
     (346, "KIWA", "KACV", "Tue, Thu, Sat"),  # Arcata, CA
     (348, "KIWA", "KACT", "Tue, Thu, Sat"),  # Waco, TX
     (350, "KIWA", "KSJT", "Mon, Wed, Fri, Sun"),  # San Angelo, TX
-    (352, "KIWA", "KVCT", "Daily"),  # Victoria, TX
+    (352, "KIWA", "KVCT", "Tue, Thu, Sat"),  # Victoria, TX
     (354, "KIWA", "KABI", "Tue, Thu, Sat"),  # Abilene, TX
-    (356, "KIWA", "KAMA", "Daily"),  # Amarillo, TX
+    (356, "KIWA", "KAMA", "Tue, Thu, Sat"),  # Amarillo, TX
     (358, "KIWA", "KLBB", "Mon, Wed, Fri, Sun"),  # Lubbock, TX
-    (360, "KIWA", "KOKC", "Daily"),  # Oklahoma City, OK
+    (360, "KIWA", "KOKC", "Mon, Wed, Fri, Sun"),  # Oklahoma City, OK
     (362, "KIWA", "KTUL", "Tue, Thu, Sat"),  # Tulsa, OK
     (364, "KIWA", "KLAW", "Mon, Wed, Fri"),  # Lawton, OK
     (366, "KIWA", "KCRP", "Mon, Wed, Fri, Sun"),  # Corpus Christi, TX
     (368, "KIWA", "KHRL", "Thu, Sun"),  # Harlingen, TX
     (370, "KIWA", "KMFE", "Tue, Thu, Sat"),  # McAllen, TX
     (372, "KIWA", "KLRD", "Mon, Fri"),  # Laredo, TX
-    (374, "KIWA", "KCOS", "Daily"),  # Colorado Springs, CO
+    (374, "KIWA", "KCOS", "Mon, Wed, Fri, Sun"),  # Colorado Springs, CO
     (376, "KIWA", "KGJT", "Tue, Thu, Sat"),  # Grand Junction, CO
     (378, "KIWA", "KPUB", "Thu, Sun"),  # Pueblo, CO
     (380, "KIWA", "KSAF", "Mon, Wed, Fri"),  # Santa Fe, NM
-    (382, "KIWA", "KSBD", "Daily"),  # San Bernardino, CA
+    (382, "KIWA", "KSBD", "Mon, Wed, Fri, Sun"),  # San Bernardino, CA
     (384, "KIWA", "KOGD", "Tue, Thu, Sat"),  # Ogden, UT
-    (386, "KIWA", "KSMF", "Daily"),  # Sacramento, CA
+    (386, "KIWA", "KSMF", "Mon, Wed, Fri, Sun"),  # Sacramento, CA
     (388, "KIWA", "KRDD", "Mon, Wed, Fri"),  # Redding, CA
     (390, "KIWA", "KRNO", "Tue, Thu, Sat"),  # Reno, NV
 
     # ----------------------------------------------------
     # KBLI Bridge Spokes (400 Block - Pacific Northwest Hub)
     # ----------------------------------------------------
-    (400, "KBLI", "PAJN", "Daily"),  # Juneau, AK
+    (400, "KBLI", "PAJN", "Tue, Thu, Sat"),  # Juneau, AK
     (402, "KBLI", "PAKT", "Mon, Wed, Fri, Sun"),  # Ketchikan, AK
-    (404, "KBLI", "KBOI", "Daily"),  # Boise, ID
-    (406, "KBLI", "KGEG", "Daily"),  # Spokane, WA
+    (404, "KBLI", "KBOI", "Mon, Wed, Fri, Sun"),  # Boise, ID
+    (406, "KBLI", "KGEG", "Mon, Wed, Fri, Sun"),  # Spokane, WA
     (408, "KBLI", "KEUG", "Mon, Wed, Fri, Sun"),  # Eugene, OR
     (410, "KBLI", "KYKM", "Tue, Thu, Sat"),  # Yakima, WA
     (412, "KBLI", "KPSC", "Mon, Wed, Fri"),  # Pasco, WA
@@ -322,18 +323,18 @@ routes_raw = [
     (422, "KBLI", "KEAT", "Mon, Wed, Fri"),  # Wenatchee, WA
     (424, "KBLI", "KLWS", "Tue, Thu, Sat"),  # Lewiston, ID
     (426, "KBLI", "KTWF", "Mon, Wed, Fri"),  # Twin Falls, ID
-    (428, "KBLI", "KCLM", "Daily"),  # Port Angeles, WA
-    (430, "KBLI", "PHNL", "Daily"),  # Honolulu, HI
+    (428, "KBLI", "KCLM", "Tue, Thu, Sat"),  # Port Angeles, WA
+    (430, "KBLI", "PHNL", "Wed, Sat"),  # Honolulu, HI
     (432, "KBLI", "PHOG", "Thu, Sun"),  # Kahului, HI
     (434, "KBLI", "PHKO", "Wed, Sat"),  # Kailua-Kona, HI
     (436, "KBLI", "PHLI", "Mon, Fri"),  # Lihue, HI
-    (438, "KBLI", "KJAC", "Daily"),  # Jackson, WY
+    (438, "KBLI", "KJAC", "Mon, Wed, Fri, Sun"),  # Jackson, WY
     (440, "KBLI", "KCPR", "Tue, Thu, Sat"),  # Casper, WY
     (442, "KBLI", "KIDA", "Mon, Wed, Fri, Sun"),  # Idaho Falls, ID
-    (444, "KBLI", "KBZN", "Daily"),  # Bozeman, MT
+    (444, "KBLI", "KBZN", "Tue, Thu, Sat"),  # Bozeman, MT
     (446, "KBLI", "KMSO", "Mon, Wed, Fri"),  # Missoula, MT
     (448, "KBLI", "KPIH", "Tue, Thu, Sat"),  # Pocatello, ID
-    (450, "KBLI", "KRNO", "Daily"),  # Reno, NV
+    (450, "KBLI", "KRNO", "Mon, Wed, Fri, Sun"),  # Reno, NV
     (452, "KBLI", "KACV", "Mon, Wed, Fri, Sun"),  # Arcata, CA
     (454, "KBLI", "KRDD", "Tue, Thu, Sat"),  # Redding, CA
     (456, "KBLI", "KHLN", "Thu, Sun"),  # Helena, MT
@@ -341,12 +342,12 @@ routes_raw = [
     (460, "KBLI", "KMRY", "Mon, Wed, Fri"),  # Monterey, CA
     (462, "KBLI", "PAGS", "Tue, Thu, Sat"),  # Gustavus, AK
     (464, "KBLI", "KPSP", "Mon, Wed, Fri, Sun"),  # Palm Springs, CA
-    (478, "KBLI", "KPDX", "Daily"),  # Portland, OR
+    (478, "KBLI", "KPDX", "Mon, Wed, Fri, Sun"),  # Portland, OR
     (480, "KBLI", "KLMT", "Mon, Fri"),  # Klamath Falls, OR
     (482, "KBLI", "KSLE", "Tue, Thu, Sat"),  # Salem, OR
-    (484, "KBLI", "KPAE", "Mon, Wed, Fri, Sun"),  # Everett, WA
+    (484, "KBLI", "KPAE", "Mon, Fri"),  # Everett, WA
     (486, "KBLI", "KMWH", "Thu, Sun"),  # Moses Lake, WA
-    (488, "KBLI", "KBIL", "Daily"),  # Billings, MT
+    (488, "KBLI", "KBIL", "Tue, Thu, Sat"),  # Billings, MT
     (490, "KBLI", "KGPI", "Mon, Wed, Fri"),  # Kalispell, MT
     (492, "KBLI", "KCOE", "Tue, Thu, Sat"),  # Coeur d'Alene, ID
     (494, "KBLI", "KSUN", "Mon, Fri"),  # Sun Valley, ID
@@ -356,19 +357,19 @@ routes_raw = [
     (1406, "KBLI", "KBFL", "Tue, Thu, Sat"),  # Bakersfield, CA
     (1408, "KBLI", "KSBA", "Thu, Sun"),  # Santa Barbara, CA
     (1410, "KBLI", "KSMF", "Mon, Wed, Fri"),  # Sacramento, CA
-    
+
     # ----------------------------------------------------
     # KMSY Bridge Spokes (500 Block - Gulf Coast Hub)
     # ----------------------------------------------------
-    (500, "KMSY", "KELP", "Daily"),  # El Paso, TX
+    (500, "KMSY", "KELP", "Mon, Wed, Fri, Sun"),  # El Paso, TX
     (502, "KMSY", "KSGF", "Mon, Wed, Fri, Sun"),  # Springfield, MO
-    (504, "KMSY", "KLIT", "Daily"),  # Little Rock, AR
-    (506, "KMSY", "KPNS", "Daily"),  # Pensacola, FL
-    (508, "KMSY", "KMOB", "Mon, Wed, Fri"),  # Mobile, AL
+    (504, "KMSY", "KLIT", "Mon, Wed, Fri, Sun"),  # Little Rock, AR
+    (506, "KMSY", "KPNS", "Mon, Wed, Fri, Sun"),  # Pensacola, FL
+    (508, "KMSY", "KMOB", "Tue, Thu, Sat"),  # Mobile, AL
     (510, "KMSY", "KVPS", "Thu, Sun"),  # Eglin / Destin, FL
-    (512, "KMSY", "KMAF", "Daily"),  # Midland / Odessa, TX
-    (514, "KMSY", "KBTR", "Daily"),  # Baton Rouge, LA
-    (516, "KMSY", "KGPT", "Daily"),  # Gulfport / Biloxi, MS
+    (512, "KMSY", "KMAF", "Mon, Wed, Fri, Sun"),  # Midland / Odessa, TX
+    (514, "KMSY", "KBTR", "Mon, Wed, Fri"),  # Baton Rouge, LA
+    (516, "KMSY", "KGPT", "Thu, Sun"),  # Gulfport / Biloxi, MS
     (518, "KMSY", "KLFT", "Mon, Wed, Fri, Sun"),  # Lafayette, LA
     (520, "KMSY", "KMLU", "Tue, Thu, Sat"),  # Monroe, LA
     (522, "KMSY", "KHBG", "Mon, Fri"),  # Hattiesburg, MS
@@ -377,77 +378,76 @@ routes_raw = [
     (528, "KMSY", "KTYR", "Mon, Wed, Fri, Sun"),  # Tyler, TX
     (530, "KMSY", "KAVL", "Thu, Sun"),  # Asheville, NC
     (532, "KMSY", "KTRI", "Tue, Thu, Sat"),  # Tri-Cities / Bristol, TN
-    (534, "KMSY", "KCRP", "Daily"),  # Corpus Christi, TX
+    (534, "KMSY", "KCRP", "Tue, Thu, Sat"),  # Corpus Christi, TX
     (536, "KMSY", "KBPT", "Mon, Wed, Fri"),  # Beaumont / Port Arthur, TX
-    (538, "KMSY", "KSHV", "Daily"),  # Shreveport, LA
+    (538, "KMSY", "KSHV", "Mon, Wed, Fri, Sun"),  # Shreveport, LA
     (540, "KMSY", "KECP", "Thu, Sun"),  # Panama City Beach, FL
     (542, "KMSY", "KMGM", "Tue, Thu, Sat"),  # Montgomery, AL
     (544, "KMSY", "KBHM", "Tue, Thu, Sat"),  # Birmingham, AL
     (546, "KMSY", "KPGD", "Tue, Thu, Sat"),  # Punta Gorda / Ft. Myers, FL
     (548, "KMSY", "KTYS", "Tue, Thu, Sat"),  # Knoxville, TN
-    (550, "KMSY", "KDAY", "Daily"),  # Dayton, OH
-    (552, "KMSY", "KCMH", "Mon, Wed, Fri, Sun"), # Columbus, OH
-    (554, "KMSY", "KCVG", "Daily"),  # Cincinnati, OH
+    (550, "KMSY", "KDAY", "Tue, Thu, Sat"),  # Dayton, OH
+    (552, "KMSY", "KCMH", "Mon, Wed, Fri, Sun"),  # Columbus, OH
+    (554, "KMSY", "KCVG", "Mon, Wed, Fri, Sun"),  # Cincinnati, OH
     (556, "KMSY", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
     (558, "KMSY", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
-    (560, "KMSY", "KJVY", "Tue, Thu, Sat"),      # Jeffersonville / Louisville area
-    (562, "KMSY", "KOWB", "Mon, Wed, Fri, Sun"),  # Owensboro
-    (564, "KMSY", "KJEF", "Tue, Thu, Sat"),      # Jefferson City
-    (566, "KMSY", "KSPI", "Mon, Wed, Fri, Sun"),  # Springfield (Illinois)
-    (568, "KMSY", "KGCK", "Tue, Thu, Sat"),      # Garden City
-    (570, "KMSY", "KSLN", "Mon, Wed, Fri, Sun"),  # Salina
-    (572, "KMSY", "KICT", "Daily"),              # Wichita
-    (574, "KMSY", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka
-    (576, "KMSY", "KSTJ", "Tue, Thu, Sat"),      # St. Joseph
-    (578, "KMSY", "KBLV", "Daily"),              # Belleville / St. Louis area
-    (580, "KMSY", "KTRI", "Tue, Thu, Sat"),      # Tri-Cities
-    (582, "KMSY", "KBLF", "Mon, Wed, Fri, Sun"),  # Bluefield
-    (584, "KMSY", "KCHA", "Daily"),              # Chattanooga
-    (586, "KMSY", "KLAW", "Tue, Thu, Sat"),      # Lawton
-    (588, "KMSY", "KTUL", "Daily"),              # Tulsa
-    (590, "KMSY", "KFSM", "Mon, Wed, Fri, Sun"),  # Fort Smith
-    (592, "KMSY", "KXNA", "Daily"),              # Northwest Arkansas
-    (594, "KMSY", "KTUP", "Tue, Thu, Sat"),      # Tupelo
-    (596, "KMSY", "KMEI", "Mon, Wed, Fri, Sun"),  # Meridian
-    (598, "KMSY", "KHSV", "Daily"),              # Huntsville
-    (1500, "KMSY", "KPIB", "Tue, Thu, Sat"),      # Hattiesburg / Laurel
-    (1502, "KMSY", "KGTR", "Mon, Wed, Fri, Sun"),  # Columbus / Starkville
-    (1504, "KMSY", "KHEZ", "Tue, Thu, Sat"),      # Natchez
-    (1506, "KMSY", "KMOB", "Daily"),              # Mobile
-    (1508, "KMSY", "KJKA", "Mon, Wed, Fri, Sun"),  # Gulf Shores
-    (1510, "KMSY", "KCSG", "Tue, Thu, Sat"),      # Columbus
-    (1512, "KMSY", "KMCN", "Mon, Wed, Fri, Sun"),  # Macon
-    (1514, "KMSY", "KBWG", "Daily"),              # Bowling Green
-    (1516, "KMSY", "KGSP", "Mon, Wed, Fri, Sun"),  # Greenville / Spartanburg
-    (1518, "KMSY", "KACT", "Tue, Thu, Sat"),      # Waco
-    (1520, "KMSY", "KSJT", "Mon, Wed, Fri, Sun"),  # San Angelo
-    (1522, "KMSY", "KVCT", "Daily"),              # Victoria
-    (1524, "KMSY", "KABI", "Tue, Thu, Sat"),      # Abilene
-    (1526, "KMSY", "KAMA", "Daily"),              # Amarillo
-    (1528, "KMSY", "KLBB", "Mon, Wed, Fri, Sun"),  # Lubbock
-
+    (560, "KMSY", "KJVY", "Tue, Thu, Sat"),  # Jeffersonville / Louisville area
+    (562, "KMSY", "KOWB", "Mon, Wed, Fri, Sun"),  # Owensboro, KY
+    (564, "KMSY", "KJEF", "Tue, Thu, Sat"),  # Jefferson City, MO
+    (566, "KMSY", "KSPI", "Mon, Wed, Fri, Sun"),  # Springfield, IL
+    (568, "KMSY", "KGCK", "Tue, Thu, Sat"),  # Garden City, KS
+    (570, "KMSY", "KSLN", "Mon, Wed, Fri, Sun"),  # Salina, KS
+    (572, "KMSY", "KICT", "Mon, Wed, Fri, Sun"),  # Wichita, KS
+    (574, "KMSY", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka, KS
+    (576, "KMSY", "KSTJ", "Tue, Thu, Sat"),  # St. Joseph, MO
+    (578, "KMSY", "KBLV", "Mon, Wed, Fri, Sun"),  # Belleville / St. Louis area
+    (580, "KMSY", "KTRI", "Tue, Thu, Sat"),  # Tri-Cities, TN
+    (582, "KMSY", "KBLF", "Mon, Wed, Fri, Sun"),  # Bluefield, WV
+    (584, "KMSY", "KCHA", "Tue, Thu, Sat"),  # Chattanooga, TN
+    (586, "KMSY", "KLAW", "Tue, Thu, Sat"),  # Lawton, OK
+    (588, "KMSY", "KTUL", "Mon, Wed, Fri, Sun"),  # Tulsa, OK
+    (590, "KMSY", "KFSM", "Mon, Wed, Fri, Sun"),  # Fort Smith, AR
+    (592, "KMSY", "KXNA", "Mon, Wed, Fri, Sun"),  # Northwest Arkansas
+    (594, "KMSY", "KTUP", "Tue, Thu, Sat"),  # Tupelo, MS
+    (596, "KMSY", "KMEI", "Mon, Wed, Fri, Sun"),  # Meridian, MS
+    (598, "KMSY", "KHSV", "Mon, Wed, Fri, Sun"),  # Huntsville, AL
+    (1500, "KMSY", "KPIB", "Tue, Thu, Sat"),  # Hattiesburg / Laurel, MS
+    (1502, "KMSY", "KGTR", "Mon, Wed, Fri, Sun"),  # Columbus / Starkville, MS
+    (1504, "KMSY", "KHEZ", "Tue, Thu, Sat"),  # Natchez, MS
+    (1506, "KMSY", "KMOB", "Tue, Thu, Sat"),  # Mobile, AL
+    (1508, "KMSY", "KJKA", "Mon, Wed, Fri, Sun"),  # Gulf Shores, AL
+    (1510, "KMSY", "KCSG", "Tue, Thu, Sat"),  # Columbus, GA
+    (1512, "KMSY", "KMCN", "Mon, Wed, Fri, Sun"),  # Macon, GA
+    (1514, "KMSY", "KBWG", "Tue, Thu, Sat"),  # Bowling Green, KY
+    (1516, "KMSY", "KGSP", "Mon, Wed, Fri, Sun"),  # Greenville / Spartanburg, SC
+    (1518, "KMSY", "KACT", "Tue, Thu, Sat"),  # Waco, TX
+    (1520, "KMSY", "KSJT", "Mon, Wed, Fri, Sun"),  # San Angelo, TX
+    (1522, "KMSY", "KVCT", "Tue, Thu, Sat"),  # Victoria, TX
+    (1524, "KMSY", "KABI", "Tue, Thu, Sat"),  # Abilene, TX
+    (1526, "KMSY", "KAMA", "Tue, Thu, Sat"),  # Amarillo, TX
+    (1528, "KMSY", "KLBB", "Mon, Wed, Fri, Sun"),  # Lubbock, TX
 
     # ----------------------------------------------------
     # KOMA Bridge Spokes (600 Block - Midwest Hub)
     # ----------------------------------------------------
-    (600, "KOMA", "KMLI", "Daily"),  # Moline / Quad Cities, IL
+    (600, "KOMA", "KMLI", "Mon, Wed, Fri, Sun"),  # Moline / Quad Cities, IL
     (602, "KOMA", "KSGF", "Mon, Wed, Fri, Sun"),  # Springfield, MO
-    (604, "KOMA", "KLIT", "Daily"),  # Little Rock, AR
-    (606, "KOMA", "KFSD", "Daily"),  # Sioux Falls, SD
-    (608, "KOMA", "KCID", "Daily"),  # Cedar Rapids, IA
+    (604, "KOMA", "KLIT", "Mon, Wed, Fri, Sun"),  # Little Rock, AR
+    (606, "KOMA", "KFSD", "Mon, Wed, Fri, Sun"),  # Sioux Falls, SD
+    (608, "KOMA", "KCID", "Mon, Wed, Fri, Sun"),  # Cedar Rapids, IA
     (610, "KOMA", "KPIA", "Mon, Wed, Fri"),  # Peoria, IL
-    (612, "KOMA", "KDSM", "Daily"),  # Des Moines, IA
-    (614, "KOMA", "KLNK", "Daily"),  # Lincoln, NE
-    (616, "KOMA", "KICT", "Daily"),  # Wichita, KS
+    (612, "KOMA", "KDSM", "Mon, Wed, Fri"),  # Des Moines, IA
+    (614, "KOMA", "KLNK", "Tue, Thu, Sat"),  # Lincoln, NE
+    (616, "KOMA", "KICT", "Mon, Wed, Fri, Sun"),  # Wichita, KS
     (618, "KOMA", "KBIS", "Mon, Wed, Fri, Sun"),  # Bismarck, ND
     (620, "KOMA", "KFAR", "Mon, Wed, Fri, Sun"),  # Fargo, ND
     (622, "KOMA", "KGRI", "Tue, Thu, Sat"),  # Grand Island, NE
     (624, "KOMA", "KSUX", "Mon, Wed, Fri"),  # Sioux City, IA
     (626, "KOMA", "KCOU", "Tue, Thu, Sat"),  # Columbia, MO
     (628, "KOMA", "KALO", "Mon, Fri"),  # Waterloo, IA
-    (630, "KOMA", "KELP", "Daily"),  # El Paso, TX
-    (632, "KOMA", "KMAF", "Daily"),  # Midland / Odessa, TX
-    (634, "KOMA", "KABQ", "Daily"),  # Albuquerque, NM
+    (630, "KOMA", "KELP", "Tue, Thu, Sat"),  # El Paso, TX
+    (632, "KOMA", "KMAF", "Tue, Thu, Sat"),  # Midland / Odessa, TX
+    (634, "KOMA", "KABQ", "Mon, Wed, Fri, Sun"),  # Albuquerque, NM
     (636, "KOMA", "KTUS", "Mon, Wed, Fri, Sun"),  # Tucson, AZ
     (638, "KOMA", "KROW", "Tue, Thu, Sat"),  # Roswell, NM
     (640, "KOMA", "KPRC", "Thu, Sun"),  # Prescott, AZ
@@ -460,10 +460,10 @@ routes_raw = [
     (656, "KOMA", "KAEX", "Tue, Thu, Sat"),  # Alexandria, LA
     (658, "KOMA", "KLCH", "Mon, Fri"),  # Lake Charles, LA
     (660, "KOMA", "KTYR", "Mon, Wed, Fri"),  # Tyler, TX
-    (662, "KOMA", "KMKE", "Daily"),  # Milwaukee, WI
+    (662, "KOMA", "KMKE", "Mon, Wed, Fri, Sun"),  # Milwaukee, WI
     (664, "KOMA", "KBMI", "Mon, Wed, Fri, Sun"),  # Bloomington / Normal, IL
     (666, "KOMA", "KDBQ", "Tue, Thu, Sat"),  # Dubuque, IA
-    (668, "KOMA", "KRST", "Daily"),  # Rochester, MN
+    (668, "KOMA", "KRST", "Tue, Thu, Sat"),  # Rochester, MN
     (670, "KOMA", "KDLH", "Mon, Wed, Fri, Sun"),  # Duluth, MN
     (672, "KOMA", "KCRP", "Thu, Sun"),  # Corpus Christi, TX
     (674, "KOMA", "KSHV", "Mon, Fri"),  # Shreveport, LA
@@ -471,112 +471,111 @@ routes_raw = [
     (678, "KOMA", "KPLN", "Mon, Wed, Fri"),  # Pellston / Mackinac, MI
     (680, "KOMA", "KMGM", "Tue, Thu, Sat"),  # Montgomery, AL
     (682, "KOMA", "KBHM", "Tue, Thu, Sat"),  # Birmingham, AL
-    (684, "KOMA", "KCIU", "Daily"),  # Sault Ste. Marie, MI
+    (684, "KOMA", "KCIU", "Tue, Thu, Sat"),  # Sault Ste. Marie, MI
     (686, "KOMA", "KCMX", "Tue, Thu, Sat"),  # Houghton, MI
-    (688, "KOMA", "KGRB", "Daily"),  # Green Bay, WI
-    (690, "KOMA", "KDAY", "Daily"),  # Dayton, OH
-    (692, "KOMA", "KCMH", "Mon, Wed, Fri, Sun"), # Columbus, OH
-    (694, "KOMA", "KCVG", "Daily"),  # Cincinnati, OH
+    (688, "KOMA", "KGRB", "Tue, Thu, Sat"),  # Green Bay, WI
+    (690, "KOMA", "KDAY", "Tue, Thu, Sat"),  # Dayton, OH
+    (692, "KOMA", "KCMH", "Mon, Wed, Fri, Sun"),  # Columbus, OH
+    (694, "KOMA", "KCVG", "Mon, Wed, Fri, Sun"),  # Cincinnati, OH
     (696, "KOMA", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
     (698, "KOMA", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
-    (1600, "KOMA", "KRFD", "Mon, Wed, Fri, Sun"),  # Chicago Rockford
-    (1602, "KOMA", "KGYY", "Tue, Thu, Sat"),      # Gary, IN
-    (1604, "KOMA", "KCWA", "Daily"),              # Central Wisconsin
-    (1606, "KOMA", "KATW", "Daily"),              # Appleton / Fox Cities
-    (1608, "KOMA", "KSTC", "Mon, Wed, Fri, Sun"),  # St. Cloud
-    (1610, "KOMA", "KLSE", "Tue, Thu, Sat"),      # La Crosse
-    (1612, "KOMA", "KIMT", "Mon, Wed, Fri, Sun"),  # Iron Mountain
-    (1614, "KOMA", "KESC", "Daily"),              # Escanaba
-    (1616, "KOMA", "KISQ", "Tue, Thu, Sat"),      # Sault Ste. Marie (Ontario/US border region - or regional)
-    (1618, "KOMA", "KAPN", "Mon, Wed, Fri, Sun"),  # Alpena
-    (1620, "KOMA", "KINL", "Tue, Thu, Sat"),      # International Falls
-    (1622, "KOMA", "KBJI", "Mon, Wed, Fri, Sun"),  # Bemidji
-    (1624, "KOMA", "KMOT", "Daily"),              # Minot
-    (1626, "KOMA", "KDVL", "Tue, Thu, Sat"),      # Devils Lake
-    (1628, "KOMA", "KDIK", "Mon, Wed, Fri, Sun"),  # Dickinson
-    (1630, "KOMA", "KJMS", "Tue, Thu, Sat"),      # Jamestown
-    (1632, "KOMA", "KRAP", "Daily"),              # Rapid City
-    (1634, "KOMA", "KPIR", "Mon, Wed, Fri, Sun"),  # Pierre
-    (1636, "KOMA", "KJVY", "Tue, Thu, Sat"),      # Jeffersonville / Louisville area
-    (1638, "KOMA", "KOWB", "Mon, Wed, Fri, Sun"),  # Owensboro
-    (1640, "KOMA", "KJEF", "Tue, Thu, Sat"),      # Jefferson City
-    (1642, "KOMA", "KSPI", "Mon, Wed, Fri, Sun"),  # Springfield (Illinois)
-    (1644, "KOMA", "KGCK", "Tue, Thu, Sat"),      # Garden City
-    (1646, "KOMA", "KSLN", "Mon, Wed, Fri, Sun"),  # Salina
-    (1648, "KOMA", "KICT", "Daily"),              # Wichita
-    (1650, "KOMA", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka
-    (1652, "KOMA", "KSTJ", "Tue, Thu, Sat"),      # St. Joseph
-    (1654, "KOMA", "KBLV", "Daily"),              # Belleville / St. Louis area
+    (1600, "KOMA", "KRFD", "Mon, Wed, Fri, Sun"),  # Chicago Rockford, IL
+    (1602, "KOMA", "KGYY", "Tue, Thu, Sat"),  # Gary, IN
+    (1604, "KOMA", "KCWA", "Tue, Thu, Sat"),  # Central Wisconsin
+    (1606, "KOMA", "KATW", "Tue, Thu, Sat"),  # Appleton / Fox Cities, WI
+    (1608, "KOMA", "KSTC", "Mon, Wed, Fri, Sun"),  # St. Cloud, MN
+    (1610, "KOMA", "KLSE", "Tue, Thu, Sat"),  # La Crosse, WI
+    (1612, "KOMA", "KIMT", "Mon, Wed, Fri, Sun"),  # Iron Mountain, MI
+    (1614, "KOMA", "KESC", "Thu, Sun"),  # Escanaba, MI
+    (1616, "KOMA", "KISQ", "Tue, Thu, Sat"),  # Schoolcraft County / Manistique, MI
+    (1618, "KOMA", "KAPN", "Mon, Wed, Fri, Sun"),  # Alpena, MI
+    (1620, "KOMA", "KINL", "Tue, Thu, Sat"),  # International Falls, MN
+    (1622, "KOMA", "KBJI", "Mon, Wed, Fri, Sun"),  # Bemidji, MN
+    (1624, "KOMA", "KMOT", "Tue, Thu, Sat"),  # Minot, ND
+    (1626, "KOMA", "KDVL", "Tue, Thu, Sat"),  # Devils Lake, ND
+    (1628, "KOMA", "KDIK", "Mon, Wed, Fri, Sun"),  # Dickinson, ND
+    (1630, "KOMA", "KJMS", "Tue, Thu, Sat"),  # Jamestown, ND
+    (1632, "KOMA", "KRAP", "Mon, Wed, Fri, Sun"),  # Rapid City, SD
+    (1634, "KOMA", "KPIR", "Mon, Wed, Fri, Sun"),  # Pierre, SD
+    (1636, "KOMA", "KJVY", "Tue, Thu, Sat"),  # Jeffersonville / Louisville area
+    (1638, "KOMA", "KOWB", "Mon, Wed, Fri, Sun"),  # Owensboro, KY
+    (1640, "KOMA", "KJEF", "Tue, Thu, Sat"),  # Jefferson City, MO
+    (1642, "KOMA", "KSPI", "Mon, Wed, Fri, Sun"),  # Springfield, IL
+    (1644, "KOMA", "KGCK", "Tue, Thu, Sat"),  # Garden City, KS
+    (1646, "KOMA", "KSLN", "Mon, Wed, Fri, Sun"),  # Salina, KS
+    (1648, "KOMA", "KICT", "Mon, Wed, Fri, Sun"),  # Wichita, KS
+    (1650, "KOMA", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka, KS
+    (1652, "KOMA", "KSTJ", "Tue, Thu, Sat"),  # St. Joseph, MO
+    (1654, "KOMA", "KBLV", "Mon, Wed, Fri, Sun"),  # Belleville / St. Louis area
     
     
     # ----------------------------------------------------
     # KGRR Bridge Spokes (700 Block - Great Lakes Hub)
     # ----------------------------------------------------
-    (700, "KGRR", "KMLI", "Daily"),  # Moline / Quad Cities, IL
+    (700, "KGRR", "KMLI", "Mon, Wed, Fri, Sun"),  # Moline / Quad Cities, IL
     (702, "KGRR", "KPNS", "Thu, Sun"),  # Pensacola, FL
-    (704, "KGRR", "KPIT", "Daily"),  # Pittsburgh, PA
+    (704, "KGRR", "KPIT", "Mon, Wed, Fri, Sun"),  # Pittsburgh, PA
     (706, "KGRR", "KCAK", "Mon, Wed, Fri, Sun"),  # Akron / Canton, OH
-    (708, "KGRR", "KTVC", "Daily"),  # Traverse City, MI
+    (708, "KGRR", "KTVC", "Mon, Wed, Fri, Sun"),  # Traverse City, MI
     (710, "KGRR", "KHTS", "Tue, Thu, Sat"),  # Huntington, WV
-    (712, "KGRR", "KCID", "Daily"),  # Cedar Rapids, IA
+    (712, "KGRR", "KCID", "Mon, Wed, Fri, Sun"),  # Cedar Rapids, IA
     (714, "KGRR", "KPIA", "Mon, Wed, Fri"),  # Peoria, IL
-    (716, "KGRR", "KSBN", "Daily"),  # South Bend, IN
-    (718, "KGRR", "KMKE", "Daily"),  # Milwaukee, WI
-    (720, "KGRR", "KFWA", "Daily"),  # Fort Wayne, IN
-    (722, "KGRR", "KLAN", "Daily"),  # Lansing, MI
-    (724, "KGRR", "KAZO", "Daily"),  # Kalamazoo, MI
-    (726, "KGRR", "KFNT", "Daily"),  # Flint, MI
-    (728, "KGRR", "KTOL", "Mon, Wed, Fri, Sun"),  # Toledo, OH
+    (716, "KGRR", "KSBN", "Tue, Thu, Sat"),  # South Bend, IN
+    (718, "KGRR", "KMKE", "Mon, Wed, Fri, Sun"),  # Milwaukee, WI
+    (720, "KGRR", "KFWA", "Tue, Thu, Sat"),  # Fort Wayne, IN
+    (722, "KGRR", "KLAN", "Mon, Fri"),  # Lansing, MI
+    (724, "KGRR", "KAZO", "Mon, Fri"),  # Kalamazoo, MI
+    (726, "KGRR", "KFNT", "Tue, Thu, Sat"),  # Flint, MI
+    (728, "KGRR", "KTOL", "Mon, Wed, Fri"),  # Toledo, OH
     (730, "KGRR", "KMQT", "Mon, Wed, Fri, Sun"),  # Marquette, MI
-    (732, "KGRR", "KPLN", "Daily"),  # Pellston / Mackinac, MI
+    (732, "KGRR", "KPLN", "Tue, Thu, Sat"),  # Pellston / Mackinac, MI
     (734, "KGRR", "KERI", "Mon, Wed, Fri"),  # Erie, PA
     (736, "KGRR", "KBMI", "Thu, Sun"),  # Bloomington, IL
     (738, "KGRR", "KDBQ", "Mon, Fri"),  # Dubuque, IA
     (740, "KGRR", "KIPT", "Tue, Thu, Sat"),  # Williamsport, PA
-    (742, "KGRR", "KTYS", "Tue, Thu, Sat"),  # Knoxville, 
-    (744, "KGRR", "KGRB", "Daily"),  # Green Bay, WI
-    (746, "KGRR", "KDAY", "Daily"),  # Dayton, OH
-    (748, "KGRR", "KCMH", "Mon, Wed, Fri, Sun"), # Columbus, OH
-    (750, "KGRR", "KCVG", "Daily"),  # Cincinnati, OH
+    (742, "KGRR", "KTYS", "Tue, Thu, Sat"),  # Knoxville, TN
+    (744, "KGRR", "KGRB", "Tue, Thu, Sat"),  # Green Bay, WI
+    (746, "KGRR", "KDAY", "Tue, Thu, Sat"),  # Dayton, OH
+    (748, "KGRR", "KCMH", "Mon, Wed, Fri, Sun"),  # Columbus, OH
+    (750, "KGRR", "KCVG", "Mon, Wed, Fri, Sun"),  # Cincinnati, OH
     (752, "KGRR", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
     (754, "KGRR", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
     (756, "KGRR", "KRST", "Thu, Sun"),  # Rochester, MN
-    (758, "KGRR", "KDLH", "Mon, Wed, Fri, Sun"), # Duluth, MN
-    (760, "KGRR", "KCIU", "Daily"),  # Sault Ste. Marie, MI
+    (758, "KGRR", "KDLH", "Mon, Wed, Fri, Sun"),  # Duluth, MN
+    (760, "KGRR", "KCIU", "Tue, Thu, Sat"),  # Sault Ste. Marie, MI
     (762, "KGRR", "KCMX", "Tue, Thu, Sat"),  # Houghton, MI
-    (764, "KGRR", "KRFD", "Mon, Wed, Fri, Sun"),  # Chicago Rockford
-    (766, "KGRR", "KGYY", "Tue, Thu, Sat"),      # Gary, IN
-    (768, "KGRR", "KCWA", "Daily"),              # Central Wisconsin
-    (770, "KGRR", "KATW", "Daily"),              # Appleton / Fox Cities
-    (772, "KGRR", "KSTC", "Mon, Wed, Fri, Sun"),  # St. Cloud
-    (774, "KGRR", "KLSE", "Tue, Thu, Sat"),      # La Crosse
-    (776, "KGRR", "KIMT", "Mon, Wed, Fri, Sun"),  # Iron Mountain
-    (778, "KGRR", "KESC", "Daily"),              # Escanaba
-    (780, "KGRR", "KISQ", "Tue, Thu, Sat"),      # Manistique, MI
-    (782, "KGRR", "KAPN", "Mon, Wed, Fri, Sun"),  # Alpena
-    (784, "KGRR", "KINL", "Tue, Thu, Sat"),      # International Falls
-    (786, "KGRR", "KBJI", "Mon, Wed, Fri, Sun"),  # Bemidji
-    (788, "KGRR", "KMOT", "Daily"),              # Minot
-    (790, "KGRR", "KDVL", "Tue, Thu, Sat"),      # Devils Lake
-    (792, "KGRR", "KDIK", "Mon, Wed, Fri, Sun"),  # Dickinson
-    (794, "KGRR", "KJMS", "Tue, Thu, Sat"),      # Jamestown
-    (796, "KGRR", "KRAP", "Daily"),              # Rapid City
-    (798, "KGRR", "KPIR", "Mon, Wed, Fri, Sun"),  # Pierre
-    (1700, "KGRR", "KJVY", "Tue, Thu, Sat"),      # Jeffersonville / Louisville area
-    (1702, "KGRR", "KOWB", "Mon, Wed, Fri, Sun"),  # Owensboro
-    (1704, "KGRR", "KJEF", "Tue, Thu, Sat"),      # Jefferson City
-    (1706, "KGRR", "KSPI", "Mon, Wed, Fri, Sun"),  # Springfield (Illinois)
-    (1708, "KGRR", "KGCK", "Tue, Thu, Sat"),      # Garden City
-    (1710, "KGRR", "KSLN", "Mon, Wed, Fri, Sun"),  # Salina
-    (1712, "KGRR", "KICT", "Daily"),              # Wichita
-    (1714, "KGRR", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka
-    (1716, "KGRR", "KSTJ", "Tue, Thu, Sat"),      # St. Joseph
-    (1718, "KGRR", "KBLV", "Daily"),              # Belleville / St. Louis area
-    (1720, "KGRR", "KMBS", "Daily"),              # Saginaw, MI
+    (764, "KGRR", "KRFD", "Mon, Wed, Fri, Sun"),  # Chicago Rockford, IL
+    (766, "KGRR", "KGYY", "Tue, Thu, Sat"),  # Gary, IN
+    (768, "KGRR", "KCWA", "Tue, Thu, Sat"),  # Central Wisconsin
+    (770, "KGRR", "KATW", "Mon, Wed, Fri, Sun"),  # Appleton / Fox Cities, WI
+    (772, "KGRR", "KSTC", "Mon, Wed, Fri, Sun"),  # St. Cloud, MN
+    (774, "KGRR", "KLSE", "Tue, Thu, Sat"),  # La Crosse, WI
+    (776, "KGRR", "KIMT", "Mon, Wed, Fri, Sun"),  # Iron Mountain, MI
+    (778, "KGRR", "KESC", "Thu, Sun"),  # Escanaba, MI
+    (780, "KGRR", "KISQ", "Tue, Thu, Sat"),  # Manistique, MI
+    (782, "KGRR", "KAPN", "Mon, Wed, Fri, Sun"),  # Alpena, MI
+    (784, "KGRR", "KINL", "Tue, Thu, Sat"),  # International Falls, MN
+    (786, "KGRR", "KBJI", "Mon, Wed, Fri, Sun"),  # Bemidji, MN
+    (788, "KGRR", "KMOT", "Tue, Thu, Sat"),  # Minot, ND
+    (790, "KGRR", "KDVL", "Tue, Thu, Sat"),  # Devils Lake, ND
+    (792, "KGRR", "KDIK", "Mon, Wed, Fri, Sun"),  # Dickinson, ND
+    (794, "KGRR", "KJMS", "Tue, Thu, Sat"),  # Jamestown, ND
+    (796, "KGRR", "KRAP", "Mon, Wed, Fri, Sun"),  # Rapid City, SD
+    (798, "KGRR", "KPIR", "Mon, Wed, Fri, Sun"),  # Pierre, SD
+    (1700, "KGRR", "KJVY", "Tue, Thu, Sat"),  # Jeffersonville / Louisville area
+    (1702, "KGRR", "KOWB", "Mon, Wed, Fri, Sun"),  # Owensboro, KY
+    (1704, "KGRR", "KJEF", "Tue, Thu, Sat"),  # Jefferson City, MO
+    (1706, "KGRR", "KSPI", "Mon, Wed, Fri, Sun"),  # Springfield, IL
+    (1708, "KGRR", "KGCK", "Tue, Thu, Sat"),  # Garden City, KS
+    (1710, "KGRR", "KSLN", "Mon, Wed, Fri, Sun"),  # Salina, KS
+    (1712, "KGRR", "KICT", "Mon, Wed, Fri, Sun"),  # Wichita, KS
+    (1714, "KGRR", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka, KS
+    (1716, "KGRR", "KSTJ", "Tue, Thu, Sat"),  # St. Joseph, MO
+    (1718, "KGRR", "KBLV", "Mon, Wed, Fri, Sun"),  # Belleville / St. Louis area
+    (1720, "KGRR", "KMBS", "Mon, Wed, Fri"),  # Saginaw, MI
 
     # ----------------------------------------------------
     # International Flights (800 Block - Skybus Network)
-    # ----------------------------------------------------
     # ----------------------------------------------------
     # TJBQ International Spokes (Aguadilla, PR Hub)
     # ----------------------------------------------------
@@ -591,14 +590,14 @@ routes_raw = [
     (816, "TJBQ", "TLPL", "Thu, Sun"),  # Vieux Fort, St. Lucia
     (818, "TJBQ", "TBPB", "Mon, Wed, Fri"),  # Bridgetown, Barbados
     (820, "TJBQ", "TVSA", "Tue, Thu, Sat"),  # Kingstown, St. Vincent
-    (822, "TJBQ", "MDPC", "Daily"),  # Punta Cana, Dominican Republic
+    (822, "TJBQ", "MDPC", "Mon, Wed, Fri, Sun"),  # Punta Cana, Dominican Republic
 
     # ----------------------------------------------------
     # KSFB International Spokes (Sanford / Orlando, FL Hub)
     # ----------------------------------------------------
-    (830, "KSFB", "MYNN", "Daily"),  # Nassau, Bahamas
-    (832, "KSFB", "MKJS", "Daily"),  # Montego Bay, Jamaica
-    (834, "KSFB", "MDPC", "Daily"),  # Punta Cana, Dominican Republic
+    (830, "KSFB", "MYNN", "Mon, Wed, Fri, Sun"),  # Nassau, Bahamas
+    (832, "KSFB", "MKJS", "Tue, Thu, Sat"),  # Montego Bay, Jamaica
+    (834, "KSFB", "MDPC", "Mon, Wed, Fri, Sun"),  # Punta Cana, Dominican Republic
     (836, "KSFB", "MBPV", "Thu, Sun"),  # Providenciales, Turks & Caicos
     (838, "KSFB", "MROC", "Mon, Wed, Fri, Sun"),  # San José, Costa Rica
     (840, "KSFB", "MUVR", "Tue, Thu, Sat"),  # Varadero, Cuba
@@ -612,8 +611,8 @@ routes_raw = [
     # ----------------------------------------------------
     # PAFA International Spokes (Fairbanks, AK Hub)
     # ----------------------------------------------------
-    (860, "PAFA", "CYVR", "Daily"),  # Vancouver, BC, Canada
-    (862, "PAFA", "CYYC", "Daily"),  # Calgary, AB, Canada
+    (860, "PAFA", "CYVR", "Mon, Wed, Fri, Sun"),  # Vancouver, BC, Canada
+    (862, "PAFA", "CYYC", "Tue, Thu, Sat"),  # Calgary, AB, Canada
     (864, "PAFA", "CYEG", "Tue, Thu, Sat"),  # Edmonton, AB, Canada
     (866, "PAFA", "CYXY", "Mon, Wed, Fri"),  # Whitehorse, YT, Canada
     (868, "PAFA", "CYYJ", "Tue, Thu, Sat"),  # Victoria, BC, Canada
@@ -629,9 +628,9 @@ routes_raw = [
     # ----------------------------------------------------
     # KBLI International Spokes (Bellingham, WA Hub)
     # ----------------------------------------------------
-    (1800, "KBLI", "CYVR", "Daily"),  # Vancouver, BC, Canada
-    (1802, "KBLI", "CYYJ", "Daily"),  # Victoria, BC, Canada
-    (1804, "KBLI", "CYYC", "Daily"),  # Calgary, AB, Canada
+    (1800, "KBLI", "CYVR", "Tue, Thu, Sat"),  # Vancouver, BC, Canada
+    (1802, "KBLI", "CYYJ", "Mon, Wed, Fri, Sun"),  # Victoria, BC, Canada
+    (1804, "KBLI", "CYYC", "Mon, Wed, Fri, Sun"),  # Calgary, AB, Canada
     (1806, "KBLI", "CYEG", "Mon, Wed, Fri"),  # Edmonton, AB, Canada
     (1808, "KBLI", "CYXX", "Mon, Wed, Fri, Sun"),  # Abbotsford, BC, Canada
     (1810, "KBLI", "CYLW", "Tue, Thu, Sat"),  # Kelowna, BC, Canada
@@ -648,11 +647,11 @@ routes_raw = [
     # ----------------------------------------------------
     # KIWA International Spokes (Mesa / Phoenix, AZ Hub)
     # ----------------------------------------------------
-    (1830, "KIWA", "MMSD", "Daily"),  # Los Cabos, Mexico
+    (1830, "KIWA", "MMSD", "Mon, Wed, Fri, Sun"),  # Los Cabos, Mexico
     (1832, "KIWA", "MMPR", "Mon, Wed, Fri, Sun"),  # Puerto Vallarta, Mexico
     (1834, "KIWA", "MMMZ", "Tue, Thu, Sat"),  # Mazatlán, Mexico
-    (1836, "KIWA", "MMGL", "Daily"),  # Guadalajara, Mexico
-    (1838, "KIWA", "MMHO", "Daily"),  # Hermosillo, Mexico
+    (1836, "KIWA", "MMGL", "Mon, Wed, Fri, Sun"),  # Guadalajara, Mexico
+    (1838, "KIWA", "MMHO", "Tue, Thu, Sat"),  # Hermosillo, Mexico
     (1840, "KIWA", "MMVR", "Tue, Thu, Sat"),  # Veracruz, Mexico
     (1842, "KIWA", "MMPB", "Tue, Thu, Sat"),  # Puebla, Mexico
     (1844, "KIWA", "MMBT", "Mon, Fri"),  # Huatulco, Mexico
@@ -667,7 +666,7 @@ routes_raw = [
     # ----------------------------------------------------
     # KMSY International Spokes (New Orleans, LA Hub)
     # ----------------------------------------------------
-    (1860, "KMSY", "MMUN", "Daily"),  # Cancún, Mexico
+    (1860, "KMSY", "MMUN", "Mon, Wed, Fri, Sun"),  # Cancún, Mexico
     (1862, "KMSY", "MMCZ", "Thu, Sun"),  # Cozumel, Mexico
     (1864, "KMSY", "MZBZ", "Mon, Wed, Fri"),  # Belize City, Belize
     (1866, "KMSY", "MGGT", "Tue, Thu, Sat"),  # Guatemala City, Guatemala
@@ -675,7 +674,7 @@ routes_raw = [
     (1870, "KMSY", "MUHA", "Mon, Wed, Fri, Sun"),  # Havana, Cuba
     (1872, "KMSY", "MKJP", "Tue, Thu, Sat"),  # Kingston, Jamaica
     (1874, "KMSY", "MYSM", "Thu, Sun"),  # San Salvador, Bahamas
-    (1876, "KMSY", "TJSJ", "Daily"),  # San Juan, PR
+    (1876, "KMSY", "TJSJ", "Mon, Wed, Fri, Sun"),  # San Juan, PR
     (1878, "KMSY", "TIST", "Mon, Wed, Fri, Sun"),  # St. Thomas, VI
     (1880, "KMSY", "TNCC", "Thu, Sun"),  # Curaçao
     (1882, "KMSY", "SYCJ", "Wed, Sat"),  # Georgetown, Guyana
@@ -684,7 +683,7 @@ routes_raw = [
     # ----------------------------------------------------
     # KGRR International Spokes (Grand Rapids, MI Hub)
     # ----------------------------------------------------
-    (2800, "KGRR", "CYHM", "Daily"),  # Hamilton, ON, Canada
+    (2800, "KGRR", "CYHM", "Tue, Thu, Sat"),  # Hamilton, ON, Canada
     (2802, "KGRR", "CYUL", "Mon, Wed, Fri, Sun"),  # Montréal, QC, Canada
     (2804, "KGRR", "MMUN", "Mon, Wed, Fri, Sun"),  # Cancún, Mexico
     (2806, "KGRR", "MDPC", "Thu, Sun"),  # Punta Cana, Dominican Republic
@@ -696,7 +695,7 @@ routes_raw = [
     (2818, "KGRR", "LPPD", "Wed, Sat"),  # Ponta Delgada, Portugal
     (2820, "KGRR", "EINN", "Thu, Sun"),  # Shannon, Ireland
     (2822, "KGRR", "EGPK", "Wed, Sat"),  # Glasgow, UK
-    (2824, "KGRR", "EGLL", "Daily"),  # London, UK
+    (2824, "KGRR", "EGLL", "Mon, Wed, Fri, Sun"),  # London, UK
     (2826, "KGRR", "LFPG", "Mon, Wed, Fri, Sun"),  # Paris, France
     (2828, "KGRR", "EDDF", "Tue, Thu, Sat"),  # Frankfurt, Germany
     (2830, "KGRR", "EHAM", "Mon, Wed, Fri, Sun"),  # Amsterdam, Netherlands
@@ -721,10 +720,10 @@ routes_raw = [
     # ----------------------------------------------------
     # KSWF International Spokes (Stewart / Newburgh, NY Hub)
     # ----------------------------------------------------
-    (2860, "KSWF", "CYUL", "Daily"),  # Montréal, QC, Canada
+    (2860, "KSWF", "CYUL", "Mon, Wed, Fri, Sun"),  # Montréal, QC, Canada
     (2862, "KSWF", "BIKF", "Mon, Wed, Fri, Sun"),  # Reykjavik, Iceland
     (2864, "KSWF", "EINN", "Mon, Wed, Fri"),  # Shannon, Ireland
-    (2866, "KSWF", "EIDW", "Daily"),  # Dublin, Ireland
+    (2866, "KSWF", "EIDW", "Mon, Wed, Fri, Sun"),  # Dublin, Ireland
     (2868, "KSWF", "EBBR", "Mon, Wed, Fri"),  # Brussels, Belgium
     (2870, "KSWF", "EFHK", "Tue, Thu, Sat"),  # Helsinki, Finland
     (2872, "KSWF", "LGAV", "Wed, Sat"),  # Athens, Greece
@@ -749,10 +748,10 @@ routes_raw = [
     # ----------------------------------------------------
     # TJBQ Caribbean Regional Spokes (1500 Block - Caribbean Hub)
     # ----------------------------------------------------
-    (1500, "TJBQ", "TJPS", "Daily"),  # Ponce, PR
-    (1502, "TJBQ", "TIST", "Daily"),  # St. Thomas, USVI
+    (1500, "TJBQ", "TJPS", "Tue, Thu, Sat"),  # Ponce, PR
+    (1502, "TJBQ", "TIST", "Mon, Wed, Fri, Sun"),  # St. Thomas, USVI
     (1504, "TJBQ", "TISX", "Tue, Thu, Sat"),  # St. Croix, USVI
-    (1506, "TJBQ", "TJSJ", "Daily"),  # San Juan, PR
+    (1506, "TJBQ", "TJSJ", "Mon, Wed, Fri, Sun"),  # San Juan, PR
     (1508, "TJBQ", "KMYR", "Thu, Sun"),  # Myrtle Beach, SC
     (1510, "TJBQ", "KILM", "Mon, Fri"),  # Wilmington, NC
     (1512, "TJBQ", "KPVD", "Mon, Wed, Fri, Sun"),  # Providence, RI
@@ -763,22 +762,22 @@ routes_raw = [
     # ----------------------------------------------------
     # KSWF Bridge Spokes (900 Block - Northeast / Hudson Valley Hub)
     # ----------------------------------------------------
-    (900, "KSWF", "KABE", "Daily"),  # Allentown, PA
-    (902, "KSWF", "KMDT", "Daily"),  # Harrisburg, PA
-    (904, "KSWF", "KPWM", "Daily"),  # Portland, ME
+    (900, "KSWF", "KABE", "Tue, Thu, Sat"),  # Allentown, PA
+    (902, "KSWF", "KMDT", "Mon, Wed, Fri, Sun"),  # Harrisburg, PA
+    (904, "KSWF", "KPWM", "Mon, Wed, Fri, Sun"),  # Portland, ME
     (906, "KSWF", "KCAK", "Mon, Wed, Fri, Sun"),  # Akron / Canton, OH
-    (908, "KSWF", "KPVD", "Daily"),  # Providence, RI
+    (908, "KSWF", "KPVD", "Mon, Wed, Fri, Sun"),  # Providence, RI
     (910, "KSWF", "KCRW", "Tue, Thu, Sat"),  # Charleston, WV
-    (912, "KSWF", "KBTV", "Daily"),  # Burlington, VT
+    (912, "KSWF", "KBTV", "Mon, Wed, Fri, Sun"),  # Burlington, VT
     (914, "KSWF", "KORH", "Mon, Wed, Fri"),  # Worcester, MA
-    (916, "KSWF", "KSYR", "Daily"),  # Syracuse, NY
+    (916, "KSWF", "KSYR", "Tue, Thu, Sat"),  # Syracuse, NY
     (918, "KSWF", "KBGM", "Mon, Fri"),  # Binghamton, NY
     (920, "KSWF", "KITH", "Tue, Thu, Sat"),  # Ithaca, NY
     (922, "KSWF", "KART", "Mon, Wed, Fri"),  # Watertown, NY
-    (924, "KSWF", "KAVP", "Daily"),  # Wilkes-Barre / Scranton, PA
+    (924, "KSWF", "KAVP", "Mon, Fri"),  # Wilkes-Barre / Scranton, PA
     (926, "KSWF", "KELM", "Tue, Thu, Sat"),  # Elmira / Corning, NY
-    (928, "KSWF", "KHVN", "Daily"),  # New Haven, CT
-    (930, "KSWF", "KMHT", "Daily"),  # Manchester, NH
+    (928, "KSWF", "KHVN", "Mon, Fri"),  # New Haven, CT
+    (930, "KSWF", "KMHT", "Mon, Wed, Fri, Sun"),  # Manchester, NH
     (932, "KSWF", "KACK", "Thu, Sun"),  # Nantucket, MA
     (934, "KSWF", "KMVY", "Thu, Sun"),  # Martha's Vineyard, MA
     (936, "KSWF", "KLEB", "Mon, Wed, Fri"),  # Lebanon, NH
@@ -786,7 +785,7 @@ routes_raw = [
     (940, "KSWF", "KSLK", "Mon, Fri"),  # Saranac Lake, NY
     (942, "KSWF", "KFMH", "Thu, Sun"),  # Falmouth / Cape Cod, MA
     (944, "KSWF", "KIPT", "Mon, Wed, Fri, Sun"),  # Williamsport, PA
-    (946, "KSWF", "KALB", "Daily"),  # Albany, NY
+    (946, "KSWF", "KALB", "Mon, Fri"),  # Albany, NY
     (948, "KSWF", "KERI", "Thu, Sun"),  # Erie, PA
     (950, "KSWF", "KCHO", "Tue, Thu, Sat"),  # Charlottesville, VA
     (952, "KSWF", "KMQT", "Tue, Thu, Sat"),  # Marquette, MI
@@ -795,16 +794,16 @@ routes_raw = [
     (958, "KSWF", "KJQF", "Tue, Thu, Sat"),  # Concord / Charlotte, NC
     (960, "KSWF", "KPGV", "Tue, Thu, Sat"),  # Greenville, NC
     (962, "KSWF", "KTYS", "Tue, Thu, Sat"),  # Knoxville, TN
-    (964, "KSWF", "KMBS", "Daily"),  # Saginaw, MI
-    (966, "KSWF", "KISP", "Daily"),  # Islip / Long Island, NY
-    (968, "KSWF", "KHPN", "Daily"),  # White Plains / Westchester, NY
+    (964, "KSWF", "KMBS", "Tue, Thu, Sat"),  # Saginaw, MI
+    (966, "KSWF", "KISP", "Mon, Fri"),  # Islip / Long Island, NY
+    (968, "KSWF", "KHPN", "Mon, Fri"),  # White Plains / Westchester, NY
     (970, "KSWF", "KROC", "Mon, Wed, Fri, Sun"),  # Rochester, NY
-    (972, "KSWF", "KBUF", "Daily"),  # Buffalo, NY
+    (972, "KSWF", "KBUF", "Mon, Wed, Fri, Sun"),  # Buffalo, NY
     (974, "KSWF", "KOGS", "Tue, Thu, Sat"),  # Ogdensburg, NY
     (976, "KSWF", "KMSS", "Mon, Wed, Fri"),  # Massena, NY
     (978, "KSWF", "KFRG", "Thu, Sun"),  # Farmingdale / Long Island, NY
-    (980, "KSWF", "KACY", "Daily"),  # Atlantic City, NJ
-    (982, "KSWF", "KTTN", "Daily"),  # Trenton, NJ
+    (980, "KSWF", "KACY", "Tue, Thu, Sat"),  # Atlantic City, NJ
+    (982, "KSWF", "KTTN", "Mon, Fri"),  # Trenton, NJ
     (984, "KSWF", "KMIV", "Tue, Thu, Sat"),  # Millville, NJ
     (986, "KSWF", "KLBE", "Mon, Wed, Fri"),  # Latrobe / Greensburg, PA
     (988, "KSWF", "KJST", "Tue, Thu, Sat"),  # Johnstown, PA
@@ -820,15 +819,15 @@ routes_raw = [
     # ----------------------------------------------------
     # KBGR Bridge Spokes (1000 Block - Northern New England Hub)
     # ----------------------------------------------------
-    (1000, "KBGR", "KPWM", "Daily"),  # Portland, ME
-    (1002, "KBGR", "KMHT", "Daily"),  # Manchester, NH
-    (1004, "KBGR", "KPVD", "Daily"),  # Providence, RI
-    (1006, "KBGR", "KBTV", "Daily"),  # Burlington, VT
+    (1000, "KBGR", "KPWM", "Mon, Fri"),  # Portland, ME
+    (1002, "KBGR", "KMHT", "Mon, Wed, Fri, Sun"),  # Manchester, NH
+    (1004, "KBGR", "KPVD", "Mon, Wed, Fri, Sun"),  # Providence, RI
+    (1006, "KBGR", "KBTV", "Mon, Wed, Fri, Sun"),  # Burlington, VT
     (1008, "KBGR", "KACK", "Thu, Sun"),  # Nantucket, MA
     (1010, "KBGR", "KMVY", "Thu, Sun"),  # Martha's Vineyard, MA
     (1012, "KBGR", "KPQB", "Mon, Wed, Fri"),  # Presque Isle, ME
     (1014, "KBGR", "KORH", "Tue, Thu, Sat"),  # Worcester, MA
-    (1016, "KBGR", "KHVN", "Daily"),  # New Haven, CT
+    (1016, "KBGR", "KHVN", "Tue, Thu, Sat"),  # New Haven, CT
     (1018, "KBGR", "KRKD", "Mon, Fri"),  # Rockland, ME
     (1020, "KBGR", "KBHB", "Mon, Wed, Fri, Sun"),  # Bar Harbor, ME
     (1022, "KBGR", "KLEB", "Tue, Thu, Sat"),  # Lebanon, NH
@@ -836,18 +835,18 @@ routes_raw = [
     (1026, "KBGR", "KSLK", "Mon, Fri"),  # Saranac Lake, NY
     (1028, "KBGR", "KFMH", "Thu, Sun"),  # Falmouth / Cape Cod, MA
     (1030, "KBGR", "KALB", "Mon, Wed, Fri"),  # Albany, NY
-    (1032, "KBGR", "KSYR", "Daily"),  # Syracuse, NY
+    (1032, "KBGR", "KSYR", "Mon, Wed, Fri, Sun"),  # Syracuse, NY
     (1034, "KBGR", "KERI", "Mon, Wed, Fri"),  # Erie, PA
     (1036, "KBGR", "KMQT", "Tue, Thu, Sat"),  # Marquette, MI
     (1038, "KBGR", "KPLN", "Mon, Wed, Fri"),  # Pellston / Mackinac, MI
-    (1040, "KBGR", "KDAY", "Daily"),  # Dayton, OH
+    (1040, "KBGR", "KDAY", "Tue, Thu, Sat"),  # Dayton, OH
     (1042, "KBGR", "KCMH", "Mon, Wed, Fri, Sun"),  # Columbus, OH
-    (1044, "KBGR", "KCVG", "Daily"),  # Cincinnati, OH
+    (1044, "KBGR", "KCVG", "Mon, Wed, Fri, Sun"),  # Cincinnati, OH
     (1046, "KBGR", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
     (1048, "KBGR", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
     (1050, "KBGR", "KAUG", "Mon, Fri"),  # Augusta, ME
     (1052, "KBGR", "KSFM", "Tue, Thu, Sat"),  # Sanford, ME
-    (1054, "KBGR", "KPSM", "Daily"),  # Portsmouth, NH
+    (1054, "KBGR", "KPSM", "Tue, Thu, Sat"),  # Portsmouth, NH
     (1056, "KBGR", "KCON", "Mon, Wed, Fri"),  # Concord, NH
     (1058, "KBGR", "KMPV", "Tue, Thu, Sat"),  # Barre / Montpelier, VT
     (1060, "KBGR", "KHYA", "Mon, Wed, Fri, Sun"),  # Hyannis / Cape Cod, MA
@@ -856,27 +855,27 @@ routes_raw = [
     # ----------------------------------------------------
     # KRIC Bridge Spokes (1100 Block - Mid-Atlantic Hub)
     # ----------------------------------------------------
-    (1100, "KRIC", "KCHS", "Daily"),  # Charleston, SC
-    (1102, "KRIC", "KILM", "Daily"),  # Wilmington, NC
-    (1104, "KRIC", "KABE", "Daily"),  # Allentown, PA
-    (1106, "KRIC", "KMDT", "Daily"),  # Harrisburg, PA
-    (1108, "KRIC", "KPIT", "Daily"),  # Pittsburgh, PA
+    (1100, "KRIC", "KCHS", "Mon, Wed, Fri, Sun"),  # Charleston, SC
+    (1102, "KRIC", "KILM", "Mon, Wed, Fri"),  # Wilmington, NC
+    (1104, "KRIC", "KABE", "Tue, Thu, Sat"),  # Allentown, PA
+    (1106, "KRIC", "KMDT", "Tue, Thu, Sat"),  # Harrisburg, PA
+    (1108, "KRIC", "KPIT", "Mon, Wed, Fri, Sun"),  # Pittsburgh, PA
     (1110, "KRIC", "KROA", "Mon, Wed, Fri"),  # Roanoke, VA
     (1112, "KRIC", "KHTS", "Tue, Thu, Sat"),  # Huntington, WV
     (1114, "KRIC", "KCRW", "Tue, Thu, Sat"),  # Charleston, WV
-    (1116, "KRIC", "KSAV", "Daily"),  # Savannah, GA
+    (1116, "KRIC", "KSAV", "Mon, Wed, Fri, Sun"),  # Savannah, GA
     (1118, "KRIC", "KAVL", "Mon, Wed, Fri, Sun"),  # Asheville, NC
     (1120, "KRIC", "KTRI", "Tue, Thu, Sat"),  # Tri-Cities / Bristol, TN
     (1122, "KRIC", "KEWN", "Mon, Fri"),  # New Bern, NC
     (1124, "KRIC", "KFAY", "Mon, Wed, Fri"),  # Fayetteville, NC
-    (1126, "KRIC", "KPHF", "Daily"),  # Newport News / Williamsburg, VA
+    (1126, "KRIC", "KPHF", "Mon, Fri"),  # Newport News / Williamsburg, VA
     (1128, "KRIC", "KLYH", "Tue, Thu, Sat"),  # Lynchburg, VA
     (1130, "KRIC", "KSBN", "Mon, Wed, Fri"),  # South Bend, IN
     (1132, "KRIC", "KFWA", "Tue, Thu, Sat"),  # Fort Wayne, IN
     (1134, "KRIC", "KTOL", "Mon, Fri"),  # Toledo, OH
     (1136, "KRIC", "KBQK", "Thu, Sun"),  # Brunswick, GA
-    (1138, "KRIC", "KMYR", "Daily"),  # Myrtle Beach, SC
-    (1140, "KRIC", "KCHO", "Daily"),  # Charlottesville, VA
+    (1138, "KRIC", "KMYR", "Mon, Wed, Fri, Sun"),  # Myrtle Beach, SC
+    (1140, "KRIC", "KCHO", "Mon, Fri"),  # Charlottesville, VA
     (1142, "KRIC", "KIPT", "Thu, Sun"),  # Williamsport, PA
     (1144, "KRIC", "KMLB", "Mon, Wed, Fri"),  # Melbourne, FL
     (1146, "KRIC", "KECP", "Tue, Thu, Sat"),  # Panama City Beach, FL
@@ -889,67 +888,67 @@ routes_raw = [
     (1160, "KRIC", "KBHM", "Tue, Thu, Sat"),  # Birmingham, AL
     (1162, "KRIC", "KPGD", "Tue, Thu, Sat"),  # Punta Gorda / Ft. Myers, FL
     (1164, "KRIC", "KTYS", "Tue, Thu, Sat"),  # Knoxville, TN
-    (1166, "KRIC", "KDAY", "Daily"),  # Dayton, OH
+    (1166, "KRIC", "KDAY", "Tue, Thu, Sat"),  # Dayton, OH
     (1168, "KRIC", "KCMH", "Mon, Wed, Fri, Sun"),  # Columbus, OH
-    (1170, "KRIC", "KCVG", "Daily"),  # Cincinnati, OH
+    (1170, "KRIC", "KCVG", "Mon, Wed, Fri, Sun"),  # Cincinnati, OH
     (1172, "KRIC", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
     (1174, "KRIC", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
     (1176, "KRIC", "KTUP", "Tue, Thu, Sat"),  # Tupelo, MS
     (1178, "KRIC", "KMEI", "Mon, Wed, Fri, Sun"),  # Meridian, MS
-    (1180, "KRIC", "KHSV", "Daily"),  # Huntsville, AL
+    (1180, "KRIC", "KHSV", "Tue, Thu, Sat"),  # Huntsville, AL
     (1182, "KRIC", "KPIB", "Tue, Thu, Sat"),  # Hattiesburg / Laurel, MS
     (1184, "KRIC", "KGTR", "Mon, Wed, Fri, Sun"),  # Columbus / Starkville, MS
     (1186, "KRIC", "KHEZ", "Tue, Thu, Sat"),  # Natchez, MS
-    (1188, "KRIC", "KMOB", "Daily"),  # Mobile, AL
+    (1188, "KRIC", "KMOB", "Mon, Wed, Fri, Sun"),  # Mobile, AL
     (1190, "KRIC", "KJKA", "Mon, Wed, Fri, Sun"),  # Gulf Shores, AL
     (1192, "KRIC", "KCSG", "Tue, Thu, Sat"),  # Columbus, GA
     (1194, "KRIC", "KMCN", "Mon, Wed, Fri, Sun"),  # Macon, GA
-    (1196, "KRIC", "KBWG", "Daily"),  # Bowling Green, KY
+    (1196, "KRIC", "KBWG", "Tue, Thu, Sat"),  # Bowling Green, KY
     (1198, "KRIC", "KGSP", "Mon, Wed, Fri, Sun"),  # Greenville / Spartanburg, SC
     (2100, "KRIC", "KHGR", "Tue, Thu, Sat"),  # Hagerstown, MD
     (2102, "KRIC", "KILG", "Mon, Wed, Fri, Sun"),  # Wilmington / Philadelphia area, DE
-    (2104, "KRIC", "KACY", "Daily"),  # Atlantic City, NJ
+    (2104, "KRIC", "KACY", "Tue, Thu, Sat"),  # Atlantic City, NJ
     (2106, "KRIC", "KPKB", "Mon, Wed, Fri, Sun"),  # Parkersburg, WV
     (2108, "KRIC", "KCKB", "Tue, Thu, Sat"),  # Clarksburg, WV
-    (2110, "KRIC", "KMGW", "Daily"),  # Morgantown, WV
+    (2110, "KRIC", "KMGW", "Mon, Wed, Fri"),  # Morgantown, WV
     (2112, "KRIC", "KLWB", "Mon, Wed, Fri, Sun"),  # Lewisburg, WV
-    (2114, "KRIC", "KRDU", "Daily"),  # Raleigh / Durham, NC
+    (2114, "KRIC", "KRDU", "Mon, Fri"),  # Raleigh / Durham, NC
     (2116, "KRIC", "KFLO", "Tue, Thu, Sat"),  # Florence, SC
     (2118, "KRIC", "KCAE", "Mon, Wed, Fri, Sun"),  # Columbia, SC
-    (2120, "KRIC", "KAGS", "Daily"),  # Augusta, GA
+    (2120, "KRIC", "KAGS", "Tue, Thu, Sat"),  # Augusta, GA
     (2122, "KRIC", "KSGJ", "Tue, Thu, Sat"),  # St. Augustine, FL
     (2124, "KRIC", "KPIE", "Mon, Wed, Fri, Sun"),  # St. Petersburg / Clearwater, FL
-    (2126, "KRIC", "KGNV", "Daily"),  # Gainesville, FL
+    (2126, "KRIC", "KGNV", "Mon, Wed, Fri"),  # Gainesville, FL
     (2128, "KRIC", "KSRQ", "Tue, Thu, Sat"),  # Sarasota / Bradenton, FL
-    (2130, "KRIC", "KFLL", "Daily"),  # Fort Lauderdale, FL
+    (2130, "KRIC", "KFLL", "Mon, Wed, Fri, Sun"),  # Fort Lauderdale, FL
     (2132, "KRIC", "KEYW", "Mon, Wed, Fri, Sun"),  # Key West, FL
-    (2134, "KRIC", "KVPS", "Daily"),  # Destin / Eglin AFB, FL
-    (2136, "KRIC", "KMBS", "Daily"),  # Saginaw, MI
+    (2134, "KRIC", "KVPS", "Thu, Sun"),  # Destin / Eglin AFB, FL
+    (2136, "KRIC", "KMBS", "Tue, Thu, Sat"),  # Saginaw, MI
 
     # ----------------------------------------------------
     # KSFB Bridge Spokes (1200 Block - Florida / Southeast Hub)
     # ----------------------------------------------------
-    (1200, "KSFB", "KCHS", "Daily"),  # Charleston, SC
-    (1202, "KSFB", "KILM", "Daily"),  # Wilmington, NC
-    (1204, "KSFB", "KPNS", "Daily"),  # Pensacola, FL
-    (1206, "KSFB", "KEYW", "Daily"),  # Key West, FL
-    (1208, "KSFB", "KSAV", "Daily"),  # Savannah, GA
+    (1200, "KSFB", "KCHS", "Mon, Wed, Fri, Sun"),  # Charleston, SC
+    (1202, "KSFB", "KILM", "Tue, Thu, Sat"),  # Wilmington, NC
+    (1204, "KSFB", "KPNS", "Mon, Wed, Fri, Sun"),  # Pensacola, FL
+    (1206, "KSFB", "KEYW", "Thu, Sun"),  # Key West, FL
+    (1208, "KSFB", "KSAV", "Mon, Wed, Fri, Sun"),  # Savannah, GA
     (1210, "KSFB", "KMOB", "Mon, Wed, Fri, Sun"),  # Mobile, AL
     (1212, "KSFB", "KVPS", "Thu, Sun"),  # Eglin / Destin, FL
-    (1214, "KSFB", "KTLH", "Daily"),  # Tallahassee, FL
-    (1216, "KSFB", "KMYR", "Daily"),  # Myrtle Beach, SC
+    (1214, "KSFB", "KTLH", "Tue, Thu, Sat"),  # Tallahassee, FL
+    (1216, "KSFB", "KMYR", "Mon, Wed, Fri, Sun"),  # Myrtle Beach, SC
     (1218, "KSFB", "KGPT", "Mon, Wed, Fri, Sun"),  # Gulfport / Biloxi, MS
     (1220, "KSFB", "KBQK", "Thu, Sun"),  # Brunswick, GA
-    (1222, "KSFB", "KGNV", "Daily"),  # Gainesville, FL
+    (1222, "KSFB", "KGNV", "Mon, Fri"),  # Gainesville, FL
     (1224, "KSFB", "KVRB", "Mon, Wed, Fri"),  # Vero Beach, FL
     (1226, "KSFB", "KAVL", "Mon, Wed, Fri, Sun"),  # Asheville, NC
     (1228, "KSFB", "KTRI", "Tue, Thu, Sat"),  # Tri-Cities / Bristol, TN
     (1230, "KSFB", "KEWN", "Mon, Fri"),  # New Bern, NC
     (1232, "KSFB", "KFAY", "Mon, Wed, Fri"),  # Fayetteville, NC
-    (1234, "KSFB", "KPHF", "Daily"),  # Newport News / Williamsburg, VA
+    (1234, "KSFB", "KPHF", "Tue, Thu, Sat"),  # Newport News / Williamsburg, VA
     (1236, "KSFB", "KLYH", "Tue, Thu, Sat"),  # Lynchburg, VA
-    (1238, "KSFB", "KMLB", "Daily"),  # Melbourne, FL
-    (1240, "KSFB", "KECP", "Daily"),  # Panama City Beach, FL
+    (1238, "KSFB", "KMLB", "Mon, Fri"),  # Melbourne, FL
+    (1240, "KSFB", "KECP", "Tue, Thu, Sat"),  # Panama City Beach, FL
     (1242, "KSFB", "KCHO", "Thu, Sun"),  # Charlottesville, VA
     (1244, "KSFB", "KGSO", "Tue, Thu, Sat"),  # Greensboro, NC
     (1246, "KSFB", "KJQF", "Tue, Thu, Sat"),  # Concord / Charlotte, NC
@@ -958,39 +957,39 @@ routes_raw = [
     (1252, "KSFB", "KBHM", "Tue, Thu, Sat"),  # Birmingham, AL
     (1254, "KSFB", "KPGD", "Tue, Thu, Sat"),  # Punta Gorda / Ft. Myers, FL
     (1256, "KSFB", "KTYS", "Tue, Thu, Sat"),  # Knoxville, TN
-    (1258, "KSFB", "KDAY", "Daily"),  # Dayton, OH
+    (1258, "KSFB", "KDAY", "Tue, Thu, Sat"),  # Dayton, OH
     (1260, "KSFB", "KCMH", "Mon, Wed, Fri, Sun"),  # Columbus, OH
-    (1262, "KSFB", "KCVG", "Daily"),  # Cincinnati, OH
+    (1262, "KSFB", "KCVG", "Mon, Wed, Fri, Sun"),  # Cincinnati, OH
     (1264, "KSFB", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
     (1266, "KSFB", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
     (1268, "KSFB", "KTUP", "Tue, Thu, Sat"),  # Tupelo, MS
     (1270, "KSFB", "KMEI", "Mon, Wed, Fri, Sun"),  # Meridian, MS
-    (1272, "KSFB", "KHSV", "Daily"),  # Huntsville, AL
+    (1272, "KSFB", "KHSV", "Tue, Thu, Sat"),  # Huntsville, AL
     (1274, "KSFB", "KPIB", "Tue, Thu, Sat"),  # Hattiesburg / Laurel, MS
     (1276, "KSFB", "KGTR", "Mon, Wed, Fri, Sun"),  # Columbus / Starkville, MS
     (1278, "KSFB", "KHEZ", "Tue, Thu, Sat"),  # Natchez, MS
-    (1280, "KSFB", "KMOB", "Daily"),  # Mobile, AL
+    (1280, "KSFB", "KMOB", "Mon, Wed, Fri, Sun"),  # Mobile, AL
     (1282, "KSFB", "KJKA", "Mon, Wed, Fri, Sun"),  # Gulf Shores, AL
     (1284, "KSFB", "KCSG", "Tue, Thu, Sat"),  # Columbus, GA
     (1286, "KSFB", "KMCN", "Mon, Wed, Fri, Sun"),  # Macon, GA
-    (1288, "KSFB", "KBWG", "Daily"),  # Bowling Green, KY
+    (1288, "KSFB", "KBWG", "Tue, Thu, Sat"),  # Bowling Green, KY
     (1290, "KSFB", "KGSP", "Mon, Wed, Fri, Sun"),  # Greenville / Spartanburg, SC
     (1292, "KSFB", "KHGR", "Tue, Thu, Sat"),  # Hagerstown, MD
     (1294, "KSFB", "KILG", "Mon, Wed, Fri, Sun"),  # Wilmington / Philadelphia area, DE
-    (1296, "KSFB", "KACY", "Daily"),  # Atlantic City, NJ
+    (1296, "KSFB", "KACY", "Mon, Wed, Fri, Sun"),  # Atlantic City, NJ
     (1298, "KSFB", "KPKB", "Mon, Wed, Fri, Sun"),  # Parkersburg, WV
     (2200, "KSFB", "KCKB", "Tue, Thu, Sat"),  # Clarksburg, WV
-    (2202, "KSFB", "KMGW", "Daily"),  # Morgantown, WV
+    (2202, "KSFB", "KMGW", "Tue, Thu, Sat"),  # Morgantown, WV
     (2204, "KSFB", "KLWB", "Mon, Wed, Fri, Sun"),  # Lewisburg, WV
-    (2206, "KSFB", "KRDU", "Daily"),  # Raleigh / Durham, NC
+    (2206, "KSFB", "KRDU", "Mon, Wed, Fri, Sun"),  # Raleigh / Durham, NC
     (2208, "KSFB", "KFLO", "Tue, Thu, Sat"),  # Florence, SC
     (2210, "KSFB", "KCAE", "Mon, Wed, Fri, Sun"),  # Columbia, SC
-    (2212, "KSFB", "KAGS", "Daily"),  # Augusta, GA
+    (2212, "KSFB", "KAGS", "Tue, Thu, Sat"),  # Augusta, GA
     (2214, "KSFB", "KSGJ", "Tue, Thu, Sat"),  # St. Augustine, FL
     (2216, "KSFB", "KPIE", "Mon, Wed, Fri, Sun"),  # St. Petersburg / Clearwater, FL
-    (2218, "KSFB", "KGNV", "Daily"),  # Gainesville, FL
+    (2218, "KSFB", "KGNV", "Mon, Fri"),  # Gainesville, FL
     (2220, "KSFB", "KSRQ", "Tue, Thu, Sat"),  # Sarasota / Bradenton, FL
-    (2222, "KSFB", "KFLL", "Daily"),  # Fort Lauderdale, FL
+    (2222, "KSFB", "KFLL", "Mon, Fri"),  # Fort Lauderdale, FL
 
 ]
 
