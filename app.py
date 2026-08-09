@@ -1065,6 +1065,7 @@ AIRPORT_NAMES = {
     "KEVV": "Evansville, IN",
     "KCIU": "Sault Ste. Marie, MI",
     "KCMX": "Houghton, MI",
+    "KMBS": "Saginaw, MI",
 
     # Northeast / Hudson Valley Spokes
     "KABE": "Allentown / Lehigh Valley, PA",
@@ -1505,6 +1506,8 @@ AIRPORT_COORDS = {
     "KEVV": (38.0383, -87.5308),    # Evansville
     "KCIU": (46.2508, -84.4725),    # Sault Ste. Marie
     "KCMX": (47.1684, -88.4891),    # Houghton
+    "KMBS": (43.5328, -84.0796),    # Saginaw / Bay City / Midland, MI
+
 
 
     # --------------------------------------------------------------------------
