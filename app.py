@@ -518,7 +518,7 @@ routes_raw = [
     (1714, "KGRR", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka
     (1716, "KGRR", "KSTJ", "Tue, Thu, Sat"),      # St. Joseph
     (1718, "KGRR", "KBLV", "Daily"),              # Belleville / St. Louis area
-
+    (1720, "KGRR", "KMBS", "Daily"),              # Saginaw, MI
 
     # ----------------------------------------------------
     # International Flights (800 Block - Skybus Network)
@@ -687,6 +687,7 @@ routes_raw = [
     (958, "KSWF", "KJQF", "Tue, Thu, Sat"),  # Concord / Charlotte, NC
     (960, "KSWF", "KPGV", "Tue, Thu, Sat"),  # Greenville, NC
     (962, "KSWF", "KTYS", "Tue, Thu, Sat"),  # Knoxville, TN
+    (964, "KSWF", "KMBS", "Daily"),          # Saginaw, MI
 
     # ----------------------------------------------------
     # KBGR Bridge Spokes (1000 Block - Northern New England Hub)
@@ -788,6 +789,7 @@ routes_raw = [
     (2130, "KRIC", "KFLL", "Daily"),              # Fort Lauderdale
     (2132, "KRIC", "KEYW", "Mon, Wed, Fri, Sun"),  # Key West
     (2134, "KRIC", "KVPS", "Daily"),              # Destin / Eglin AFB
+    (2136, "KRIC", "KMBS", "Daily"),              # Saginaw, MI
 
 
     # ----------------------------------------------------
