@@ -762,7 +762,27 @@ routes_raw = [
     (958, "KSWF", "KJQF", "Tue, Thu, Sat"),  # Concord / Charlotte, NC
     (960, "KSWF", "KPGV", "Tue, Thu, Sat"),  # Greenville, NC
     (962, "KSWF", "KTYS", "Tue, Thu, Sat"),  # Knoxville, TN
-    (964, "KSWF", "KMBS", "Daily"),          # Saginaw, MI
+    (964, "KSWF", "KMBS", "Daily"),  # Saginaw, MI
+    (966, "KSWF", "KISP", "Daily"),  # Islip / Long Island, NY
+    (968, "KSWF", "KHPN", "Daily"),  # White Plains / Westchester, NY
+    (970, "KSWF", "KROC", "Mon, Wed, Fri, Sun"),  # Rochester, NY
+    (972, "KSWF", "KBUF", "Daily"),  # Buffalo, NY
+    (974, "KSWF", "KOGS", "Tue, Thu, Sat"),  # Ogdensburg, NY
+    (976, "KSWF", "KMSS", "Mon, Wed, Fri"),  # Massena, NY
+    (978, "KSWF", "KFRG", "Thu, Sun"),  # Farmingdale / Long Island, NY
+    (980, "KSWF", "KACY", "Daily"),  # Atlantic City, NJ
+    (982, "KSWF", "KTTN", "Daily"),  # Trenton, NJ
+    (984, "KSWF", "KMIV", "Tue, Thu, Sat"),  # Millville, NJ
+    (986, "KSWF", "KLBE", "Mon, Wed, Fri"),  # Latrobe / Greensburg, PA
+    (988, "KSWF", "KJST", "Tue, Thu, Sat"),  # Johnstown, PA
+    (990, "KSWF", "KBFD", "Mon, Fri"),  # Bradford, PA
+    (992, "KSWF", "KDUJ", "Tue, Thu, Sat"),  # DuBois, PA
+    (994, "KSWF", "KRDG", "Mon, Wed, Fri"),  # Reading, PA
+    (996, "KSWF", "KLNS", "Tue, Thu, Sat"),  # Lancaster, PA
+    (998, "KSWF", "KGON", "Mon, Wed, Fri, Sun"),  # Groton / New London, CT
+    (1900, "KSWF", "KOQU", "Thu, Sun"),  # Quonset State / North Kingstown, RI
+    (1902, "KSWF", "KSBY", "Mon, Wed, Fri, Sun"),  # Salisbury, MD
+    (1904, "KSWF", "KHGR", "Tue, Thu, Sat"),  # Hagerstown, MD
 
     # ----------------------------------------------------
     # KBGR Bridge Spokes (1000 Block - Northern New England Hub)
@@ -788,10 +808,17 @@ routes_raw = [
     (1036, "KBGR", "KMQT", "Tue, Thu, Sat"),  # Marquette, MI
     (1038, "KBGR", "KPLN", "Mon, Wed, Fri"),  # Pellston / Mackinac, MI
     (1040, "KBGR", "KDAY", "Daily"),  # Dayton, OH
-    (1042, "KBGR", "KCMH", "Mon, Wed, Fri, Sun"), # Columbus, OH
+    (1042, "KBGR", "KCMH", "Mon, Wed, Fri, Sun"),  # Columbus, OH
     (1044, "KBGR", "KCVG", "Daily"),  # Cincinnati, OH
     (1046, "KBGR", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
     (1048, "KBGR", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
+    (1050, "KBGR", "KAUG", "Mon, Fri"),  # Augusta, ME
+    (1052, "KBGR", "KSFM", "Tue, Thu, Sat"),  # Sanford, ME
+    (1054, "KBGR", "KPSM", "Daily"),  # Portsmouth, NH
+    (1056, "KBGR", "KCON", "Mon, Wed, Fri"),  # Concord, NH
+    (1058, "KBGR", "KMPV", "Tue, Thu, Sat"),  # Barre / Montpelier, VT
+    (1060, "KBGR", "KHYA", "Mon, Wed, Fri, Sun"),  # Hyannis / Cape Cod, MA
+    (1062, "KBGR", "KEWB", "Tue, Thu, Sat"),  # New Bedford, MA
 
     # ----------------------------------------------------
     # KRIC Bridge Spokes (1100 Block - Mid-Atlantic Hub)
@@ -818,7 +845,7 @@ routes_raw = [
     (1138, "KRIC", "KMYR", "Daily"),  # Myrtle Beach, SC
     (1140, "KRIC", "KCHO", "Daily"),  # Charlottesville, VA
     (1142, "KRIC", "KIPT", "Thu, Sun"),  # Williamsport, PA
-    (1144, "KRIC", "KMLB", "Mon, Wed, Fri"), # Melbourne, FL
+    (1144, "KRIC", "KMLB", "Mon, Wed, Fri"),  # Melbourne, FL
     (1146, "KRIC", "KECP", "Tue, Thu, Sat"),  # Panama City Beach, FL
     (1148, "KRIC", "KALB", "Mon, Wed, Fri"),  # Albany, NY
     (1150, "KRIC", "KERI", "Mon, Wed, Fri"),  # Erie, PA
@@ -830,42 +857,41 @@ routes_raw = [
     (1162, "KRIC", "KPGD", "Tue, Thu, Sat"),  # Punta Gorda / Ft. Myers, FL
     (1164, "KRIC", "KTYS", "Tue, Thu, Sat"),  # Knoxville, TN
     (1166, "KRIC", "KDAY", "Daily"),  # Dayton, OH
-    (1168, "KRIC", "KCMH", "Mon, Wed, Fri, Sun"), # Columbus, OH
+    (1168, "KRIC", "KCMH", "Mon, Wed, Fri, Sun"),  # Columbus, OH
     (1170, "KRIC", "KCVG", "Daily"),  # Cincinnati, OH
     (1172, "KRIC", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
     (1174, "KRIC", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
-    (1176, "KRIC", "KTUP", "Tue, Thu, Sat"),      # Tupelo
-    (1178, "KRIC", "KMEI", "Mon, Wed, Fri, Sun"),  # Meridian
-    (1180, "KRIC", "KHSV", "Daily"),              # Huntsville
-    (1182, "KRIC", "KPIB", "Tue, Thu, Sat"),      # Hattiesburg / Laurel
-    (1184, "KRIC", "KGTR", "Mon, Wed, Fri, Sun"),  # Columbus / Starkville
-    (1186, "KRIC", "KHEZ", "Tue, Thu, Sat"),      # Natchez
-    (1188, "KRIC", "KMOB", "Daily"),              # Mobile
-    (1190, "KRIC", "KJKA", "Mon, Wed, Fri, Sun"),  # Gulf Shores
-    (1192, "KRIC", "KCSG", "Tue, Thu, Sat"),      # Columbus
-    (1194, "KRIC", "KMCN", "Mon, Wed, Fri, Sun"),  # Macon
-    (1196, "KRIC", "KBWG", "Daily"),              # Bowling Green
-    (1198, "KRIC", "KGSP", "Mon, Wed, Fri, Sun"),  # Greenville / Spartanburg
-    (2100, "KRIC", "KHGR", "Tue, Thu, Sat"),      # Hagerstown
-    (2102, "KRIC", "KILG", "Mon, Wed, Fri, Sun"),  # Wilmington / Philadelphia area
-    (2104, "KRIC", "KACY", "Daily"),              # Atlantic City
-    (2106, "KRIC", "KPKB", "Mon, Wed, Fri, Sun"),  # Parkersburg
-    (2108, "KRIC", "KCKB", "Tue, Thu, Sat"),      # Clarksburg
-    (2110, "KRIC", "KMGW", "Daily"),              # Morgantown
-    (2112, "KRIC", "KLWB", "Mon, Wed, Fri, Sun"),  # Lewisburg
-    (2114, "KRIC", "KRDU", "Daily"),              # Raleigh / Durham
-    (2116, "KRIC", "KFLO", "Tue, Thu, Sat"),      # Florence
-    (2118, "KRIC", "KCAE", "Mon, Wed, Fri, Sun"),  # Columbia
-    (2120, "KRIC", "KAGS", "Daily"),              # Augusta
-    (2122, "KRIC", "KSGJ", "Tue, Thu, Sat"),      # St. Augustine
-    (2124, "KRIC", "KPIE", "Mon, Wed, Fri, Sun"),  # St. Petersburg / Clearwater
-    (2126, "KRIC", "KGNV", "Daily"),              # Gainesville
-    (2128, "KRIC", "KSRQ", "Tue, Thu, Sat"),      # Sarasota / Bradenton
-    (2130, "KRIC", "KFLL", "Daily"),              # Fort Lauderdale
-    (2132, "KRIC", "KEYW", "Mon, Wed, Fri, Sun"),  # Key West
-    (2134, "KRIC", "KVPS", "Daily"),              # Destin / Eglin AFB
-    (2136, "KRIC", "KMBS", "Daily"),              # Saginaw, MI
-
+    (1176, "KRIC", "KTUP", "Tue, Thu, Sat"),  # Tupelo, MS
+    (1178, "KRIC", "KMEI", "Mon, Wed, Fri, Sun"),  # Meridian, MS
+    (1180, "KRIC", "KHSV", "Daily"),  # Huntsville, AL
+    (1182, "KRIC", "KPIB", "Tue, Thu, Sat"),  # Hattiesburg / Laurel, MS
+    (1184, "KRIC", "KGTR", "Mon, Wed, Fri, Sun"),  # Columbus / Starkville, MS
+    (1186, "KRIC", "KHEZ", "Tue, Thu, Sat"),  # Natchez, MS
+    (1188, "KRIC", "KMOB", "Daily"),  # Mobile, AL
+    (1190, "KRIC", "KJKA", "Mon, Wed, Fri, Sun"),  # Gulf Shores, AL
+    (1192, "KRIC", "KCSG", "Tue, Thu, Sat"),  # Columbus, GA
+    (1194, "KRIC", "KMCN", "Mon, Wed, Fri, Sun"),  # Macon, GA
+    (1196, "KRIC", "KBWG", "Daily"),  # Bowling Green, KY
+    (1198, "KRIC", "KGSP", "Mon, Wed, Fri, Sun"),  # Greenville / Spartanburg, SC
+    (2100, "KRIC", "KHGR", "Tue, Thu, Sat"),  # Hagerstown, MD
+    (2102, "KRIC", "KILG", "Mon, Wed, Fri, Sun"),  # Wilmington / Philadelphia area, DE
+    (2104, "KRIC", "KACY", "Daily"),  # Atlantic City, NJ
+    (2106, "KRIC", "KPKB", "Mon, Wed, Fri, Sun"),  # Parkersburg, WV
+    (2108, "KRIC", "KCKB", "Tue, Thu, Sat"),  # Clarksburg, WV
+    (2110, "KRIC", "KMGW", "Daily"),  # Morgantown, WV
+    (2112, "KRIC", "KLWB", "Mon, Wed, Fri, Sun"),  # Lewisburg, WV
+    (2114, "KRIC", "KRDU", "Daily"),  # Raleigh / Durham, NC
+    (2116, "KRIC", "KFLO", "Tue, Thu, Sat"),  # Florence, SC
+    (2118, "KRIC", "KCAE", "Mon, Wed, Fri, Sun"),  # Columbia, SC
+    (2120, "KRIC", "KAGS", "Daily"),  # Augusta, GA
+    (2122, "KRIC", "KSGJ", "Tue, Thu, Sat"),  # St. Augustine, FL
+    (2124, "KRIC", "KPIE", "Mon, Wed, Fri, Sun"),  # St. Petersburg / Clearwater, FL
+    (2126, "KRIC", "KGNV", "Daily"),  # Gainesville, FL
+    (2128, "KRIC", "KSRQ", "Tue, Thu, Sat"),  # Sarasota / Bradenton, FL
+    (2130, "KRIC", "KFLL", "Daily"),  # Fort Lauderdale, FL
+    (2132, "KRIC", "KEYW", "Mon, Wed, Fri, Sun"),  # Key West, FL
+    (2134, "KRIC", "KVPS", "Daily"),  # Destin / Eglin AFB, FL
+    (2136, "KRIC", "KMBS", "Daily"),  # Saginaw, MI
 
     # ----------------------------------------------------
     # KSFB Bridge Spokes (1200 Block - Florida / Southeast Hub)
@@ -900,38 +926,38 @@ routes_raw = [
     (1254, "KSFB", "KPGD", "Tue, Thu, Sat"),  # Punta Gorda / Ft. Myers, FL
     (1256, "KSFB", "KTYS", "Tue, Thu, Sat"),  # Knoxville, TN
     (1258, "KSFB", "KDAY", "Daily"),  # Dayton, OH
-    (1260, "KSFB", "KCMH", "Mon, Wed, Fri, Sun"), # Columbus, OH
+    (1260, "KSFB", "KCMH", "Mon, Wed, Fri, Sun"),  # Columbus, OH
     (1262, "KSFB", "KCVG", "Daily"),  # Cincinnati, OH
     (1264, "KSFB", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
     (1266, "KSFB", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
-    (1268, "KSFB", "KTUP", "Tue, Thu, Sat"),      # Tupelo
-    (1270, "KSFB", "KMEI", "Mon, Wed, Fri, Sun"),  # Meridian
-    (1272, "KSFB", "KHSV", "Daily"),              # Huntsville
-    (1274, "KSFB", "KPIB", "Tue, Thu, Sat"),      # Hattiesburg / Laurel
-    (1276, "KSFB", "KGTR", "Mon, Wed, Fri, Sun"),  # Columbus / Starkville
-    (1278, "KSFB", "KHEZ", "Tue, Thu, Sat"),      # Natchez
-    (1280, "KSFB", "KMOB", "Daily"),              # Mobile
-    (1282, "KSFB", "KJKA", "Mon, Wed, Fri, Sun"),  # Gulf Shores
-    (1284, "KSFB", "KCSG", "Tue, Thu, Sat"),      # Columbus
-    (1286, "KSFB", "KMCN", "Mon, Wed, Fri, Sun"),  # Macon
-    (1288, "KSFB", "KBWG", "Daily"),              # Bowling Green
-    (1290, "KSFB", "KGSP", "Mon, Wed, Fri, Sun"),  # Greenville / Spartanburg
-    (1292, "KSFB", "KHGR", "Tue, Thu, Sat"),      # Hagerstown
-    (1294, "KSFB", "KILG", "Mon, Wed, Fri, Sun"),  # Wilmington / Philadelphia area
-    (1296, "KSFB", "KACY", "Daily"),              # Atlantic City
-    (1298, "KSFB", "KPKB", "Mon, Wed, Fri, Sun"),  # Parkersburg
-    (2200, "KSFB", "KCKB", "Tue, Thu, Sat"),      # Clarksburg
-    (2202, "KSFB", "KMGW", "Daily"),              # Morgantown
-    (2204, "KSFB", "KLWB", "Mon, Wed, Fri, Sun"),  # Lewisburg
-    (2206, "KSFB", "KRDU", "Daily"),              # Raleigh / Durham
-    (2208, "KSFB", "KFLO", "Tue, Thu, Sat"),      # Florence
-    (2210, "KSFB", "KCAE", "Mon, Wed, Fri, Sun"),  # Columbia
-    (2212, "KSFB", "KAGS", "Daily"),              # Augusta
-    (2214, "KSFB", "KSGJ", "Tue, Thu, Sat"),      # St. Augustine
-    (2216, "KSFB", "KPIE", "Mon, Wed, Fri, Sun"),  # St. Petersburg / Clearwater
-    (2218, "KSFB", "KGNV", "Daily"),              # Gainesville
-    (2220, "KSFB", "KSRQ", "Tue, Thu, Sat"),      # Sarasota / Bradenton
-    (2222, "KSFB", "KFLL", "Daily"),              # Fort Lauderdale
+    (1268, "KSFB", "KTUP", "Tue, Thu, Sat"),  # Tupelo, MS
+    (1270, "KSFB", "KMEI", "Mon, Wed, Fri, Sun"),  # Meridian, MS
+    (1272, "KSFB", "KHSV", "Daily"),  # Huntsville, AL
+    (1274, "KSFB", "KPIB", "Tue, Thu, Sat"),  # Hattiesburg / Laurel, MS
+    (1276, "KSFB", "KGTR", "Mon, Wed, Fri, Sun"),  # Columbus / Starkville, MS
+    (1278, "KSFB", "KHEZ", "Tue, Thu, Sat"),  # Natchez, MS
+    (1280, "KSFB", "KMOB", "Daily"),  # Mobile, AL
+    (1282, "KSFB", "KJKA", "Mon, Wed, Fri, Sun"),  # Gulf Shores, AL
+    (1284, "KSFB", "KCSG", "Tue, Thu, Sat"),  # Columbus, GA
+    (1286, "KSFB", "KMCN", "Mon, Wed, Fri, Sun"),  # Macon, GA
+    (1288, "KSFB", "KBWG", "Daily"),  # Bowling Green, KY
+    (1290, "KSFB", "KGSP", "Mon, Wed, Fri, Sun"),  # Greenville / Spartanburg, SC
+    (1292, "KSFB", "KHGR", "Tue, Thu, Sat"),  # Hagerstown, MD
+    (1294, "KSFB", "KILG", "Mon, Wed, Fri, Sun"),  # Wilmington / Philadelphia area, DE
+    (1296, "KSFB", "KACY", "Daily"),  # Atlantic City, NJ
+    (1298, "KSFB", "KPKB", "Mon, Wed, Fri, Sun"),  # Parkersburg, WV
+    (2200, "KSFB", "KCKB", "Tue, Thu, Sat"),  # Clarksburg, WV
+    (2202, "KSFB", "KMGW", "Daily"),  # Morgantown, WV
+    (2204, "KSFB", "KLWB", "Mon, Wed, Fri, Sun"),  # Lewisburg, WV
+    (2206, "KSFB", "KRDU", "Daily"),  # Raleigh / Durham, NC
+    (2208, "KSFB", "KFLO", "Tue, Thu, Sat"),  # Florence, SC
+    (2210, "KSFB", "KCAE", "Mon, Wed, Fri, Sun"),  # Columbia, SC
+    (2212, "KSFB", "KAGS", "Daily"),  # Augusta, GA
+    (2214, "KSFB", "KSGJ", "Tue, Thu, Sat"),  # St. Augustine, FL
+    (2216, "KSFB", "KPIE", "Mon, Wed, Fri, Sun"),  # St. Petersburg / Clearwater, FL
+    (2218, "KSFB", "KGNV", "Daily"),  # Gainesville, FL
+    (2220, "KSFB", "KSRQ", "Tue, Thu, Sat"),  # Sarasota / Bradenton, FL
+    (2222, "KSFB", "KFLL", "Daily"),  # Fort Lauderdale, FL
 
 ]
 
