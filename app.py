@@ -1186,7 +1186,7 @@ AIRPORT_NAMES = {
     "SKCG": "Cartagena, Colombia",
     "CYEG": "Edmonton, AB, Canada",
     "MMBT": "Huatulco, Mexico",
-    "LPPD": "Ponta Delgada (Azores), Portugal,
+    "LPPD": "Ponta Delgada (Azores), Portugal",
     "EGPK": "Glasgow, Scotland",
     "LFPG": "Paris Charles de Gaulle, France",
     "EGLL": "London Heathrow, United Kingdom",
