@@ -577,141 +577,174 @@ routes_raw = [
     # ----------------------------------------------------
     # International Flights (800 Block - Skybus Network)
     # ----------------------------------------------------
-    (800, "TJBQ", "TNCM", "Mon, Wed, Fri, Sun"),  # St. Maarten
-    (802, "TJBQ", "TKPK", "Tue, Thu, Sat"),  # St. Kitts
-    (804, "TJBQ", "TFFR", "Tue, Thu, Sat"),  # Guadeloupe
-    (806, "TJBQ", "TFFF", "Mon, Wed, Fri"),  # Martinique
-    (808, "TJBQ", "TAPA", "Thu, Sun"),  # Antigua
-    (810, "TJBQ", "TNCA", "Mon, Wed, Fri, Sun"),  # Aruba
-    (812, "TJBQ", "TNCB", "Tue, Thu, Sat"),  # Bonaire
-    (814, "TJBQ", "TNCC", "Mon, Wed, Fri, Sun"),  # Curaçao
-    (816, "TJBQ", "TLPL", "Thu, Sun"),  # St. Lucia
-    (818, "TJBQ", "TBPB", "Mon, Wed, Fri"),  # Barbados
-    (820, "TJBQ", "TVSA", "Tue, Thu, Sat"),  # St. Vincent
+    # ----------------------------------------------------
+    # TJBQ International Spokes (Aguadilla, PR Hub)
+    # ----------------------------------------------------
+    (800, "TJBQ", "TNCM", "Mon, Wed, Fri, Sun"),  # Philipsburg, St. Maarten
+    (802, "TJBQ", "TKPK", "Tue, Thu, Sat"),  # Basseterre, St. Kitts
+    (804, "TJBQ", "TFFR", "Tue, Thu, Sat"),  # Pointe-à-Pitre, Guadeloupe
+    (806, "TJBQ", "TFFF", "Mon, Wed, Fri"),  # Fort-de-France, Martinique
+    (808, "TJBQ", "TAPA", "Thu, Sun"),  # St. John's, Antigua
+    (810, "TJBQ", "TNCA", "Mon, Wed, Fri, Sun"),  # Oranjestad, Aruba
+    (812, "TJBQ", "TNCB", "Tue, Thu, Sat"),  # Kralendijk, Bonaire
+    (814, "TJBQ", "TNCC", "Mon, Wed, Fri, Sun"),  # Willemstad, Curaçao
+    (816, "TJBQ", "TLPL", "Thu, Sun"),  # Vieux Fort, St. Lucia
+    (818, "TJBQ", "TBPB", "Mon, Wed, Fri"),  # Bridgetown, Barbados
+    (820, "TJBQ", "TVSA", "Tue, Thu, Sat"),  # Kingstown, St. Vincent
     (822, "TJBQ", "MDPC", "Daily"),  # Punta Cana, Dominican Republic
-    (824, "KSFB", "MDPC", "Daily"),  # Punta Cana, Dominican Republic
-    (826, "KSFB", "MBPV", "Thu, Sun"),  # Providenciales, Turks & Caicos
-    (828, "KSFB", "MKJS", "Daily"),  # Montego Bay, Jamaica
+
+    # ----------------------------------------------------
+    # KSFB International Spokes (Sanford / Orlando, FL Hub)
+    # ----------------------------------------------------
     (830, "KSFB", "MYNN", "Daily"),  # Nassau, Bahamas
-    (832, "KSFB", "MROC", "Mon, Wed, Fri, Sun"),  # San José, Costa Rica
-    (834, "PAFA", "CYXY", "Tue, Thu, Sat"),  # Whitehorse, YT, Canada
-    (836, "PAFA", "CYVR", "Daily"),  # Vancouver, BC, Canada
-    (838, "KBLI", "CYYJ", "Daily"),  # Victoria, BC, Canada
-    (840, "KBLI", "CYYC", "Daily"),  # Calgary, AB, Canada
-    (842, "KBLI", "MMSD", "Thu, Sun"),  # Los Cabos, Mexico
-    (844, "KIWA", "MMSD", "Daily"),  # Los Cabos, Mexico
-    (846, "KIWA", "MMPR", "Mon, Wed, Fri, Sun"),  # Puerto Vallarta, Mexico
-    (848, "KIWA", "MMMZ", "Tue, Thu, Sat"),  # Mazatlán, Mexico
-    (850, "KIWA", "MMGL", "Mon, Wed, Fri, Sun"),  # Guadalajara, Mexico
-    (852, "KMSY", "MMUN", "Daily"),  # Cancún, Mexico
-    (854, "KMSY", "MMCZ", "Thu, Sun"),  # Cozumel, Mexico
-    (856, "KMSY", "MZBZ", "Mon, Wed, Fri"),  # Belize City, Belize
-    (858, "KGRR", "CYHM", "Daily"),  # Hamilton / Toronto South, ON, Canada
-    (860, "KGRR", "CYUL", "Daily"),  # Montréal, QC, Canada
-    (862, "KGRR", "MMUN", "Mon, Wed, Fri, Sun"),  # Cancún, Mexico
-    (864, "KBGR", "CYHZ", "Mon, Wed, Fri, Sun"),  # Halifax, NS, Canada
-    (866, "KBGR", "BIKF", "Thu, Sun"),  # Reykjavik / Keflavik, Iceland
-    (868, "KBGR", "EINN", "Mon, Wed, Fri"),  # Shannon, Ireland
-    (870, "KSWF", "CYUL", "Daily"),  # Montréal, QC, Canada
-    (872, "KSWF", "BIKF", "Mon, Wed, Fri, Sun"),  # Reykjavik / Keflavik, Iceland
-    (874, "KSWF", "EINN", "Thu, Sun"),  # Shannon, Ireland
-    (876, "KSWF", "EIDW", "Daily"),  # Dublin, Ireland
-    (878, "KBGR", "EIDW", "Mon, Wed, Fri, Sun"),  # Dublin, Ireland
-    (880, "KMSY", "MGGT", "Thu, Sun"),  # Guatemala City, Guatemala
-    (882, "KIWA", "MRLB", "Thu, Sun"),  # Liberia / Guanacaste, Costa Rica
-    (884, "KBLI", "MMPR", "Mon, Wed, Fri"),  # Puerto Vallarta, Mexico
-    (886, "KGRR", "MDPC", "Thu, Sun"),  # Punta Cana, Dominican Republic
-    (888, "KSFB", "SKCG", "Mon, Fri"),  # Cartagena, Colombia
-    (890, "PAFA", "CYEG", "Tue, Thu, Sat"),  # Edmonton, AB, Canada
-    (892, "KMSY", "MMBT", "Mon, Wed, Fri"),  # Huatulco, Mexico
-    (894, "KIWA", "MMBT", "Mon, Wed, Fri"),  # Huatulco, Mexico
-    (896, "KGRR", "BIKF", "Mon, Wed, Fri"),   # Keflavík / Reykjavik, Iceland
-    (898, "KGRR", "LPPD", "Tue, Thu, Sat"),   # Ponta Delgada (Azores), Portugal
-    (1800, "KGRR", "EINN", "Mon, Thu, Sun"),   # Shannon, Ireland (Summer Seasonal)
-    (1802, "KGRR", "EGPK", "Wed, Sat"),   # Glasgow Prestwick, Scotland (Summer Seasonal)
-    (1804, "KGRR", "MROC", "Mon, Thu, Sat"),   # San José, Costa Rica
-    (1806, "KGRR", "TNCA", "Wed, Sun"),   # Oranjestad, Aruba
-    (1810, "KGRR", "LFPG", "Mon, Wed, Fri, Sun"),  # Paris Charles de Gaulle
-    (1812, "KGRR", "EGLL", "Daily"),              # London Heathrow
-    (1814, "KGRR", "EDDF", "Tue, Thu, Sat"),      # Frankfurt
-    (1816, "KGRR", "EHAM", "Daily"),              # Amsterdam
-    (1818, "KGRR", "LEMD", "Mon, Wed, Fri, Sun"),  # Madrid
-    (1820, "KGRR", "LIRF", "Tue, Thu, Sat"),      # Rome Fiumicino
-    (1822, "KGRR", "LPPT", "Mon, Wed, Fri, Sun"),  # Lisbon
-    (1824, "KGRR", "LEBL", "Daily"),              # Barcelona
-    (1826, "KGRR", "SKBO", "Tue, Thu, Sat"),      # Bogota
-    (1828, "KGRR", "SPIM", "Mon, Wed, Fri, Sun"),  # Lima
-    (1830, "KRIC", "EGCC", "Mon, Wed, Fri, Sun"),  # Manchester
-    (1832, "KRIC", "LOWW", "Tue, Thu, Sat"),      # Vienna
-    (1834, "KRIC", "EKCH", "Mon, Wed, Fri, Sun"),  # Copenhagen
-    (1836, "KRIC", "SEQM", "Tue, Thu, Sat"),      # Quito
-    (1838, "KRIC", "SAEZ", "Mon, Wed, Fri, Sun"),  # Buenos Aires Ezeiza
-    (1840, "KBGR", "EDDM", "Tue, Thu, Sat"),      # Munich
-    (1842, "KBGR", "LSZH", "Mon, Wed, Fri, Sun"),  # Zurich
-    (1844, "KBGR", "ENGM", "Tue, Thu, Sat"),      # Oslo
-    (1846, "KBGR", "ESSA", "Mon, Wed, Fri, Sun"),  # Stockholm Arlanda
-    (1848, "KBGR", "MPTO", "Tue, Thu, Sat"),      # Panama City (Tocumen)
-    (1850, "KSWF", "EFHK", "Mon, Wed, Fri, Sun"),  # Helsinki
-    (1852, "KSWF", "LGAV", "Tue, Thu, Sat"),      # Athens
-    (1854, "KSWF", "EBBR", "Mon, Wed, Fri, Sun"),  # Brussels
-    (1856, "KSWF", "LROP", "Tue, Thu, Sat"),      # Bucharest
-    (1858, "KIWA", "MMVR", "Mon, Wed, Fri, Sun"),  # Veracruz
-    (1860, "KIWA", "MMHO", "Tue, Thu, Sat"),      # Hermosillo
-    (1862, "KIWA", "MMPB", "Mon, Wed, Fri, Sun"),  # Puebla
-    (1864, "KIWA", "MNMG", "Tue, Thu, Sat"),      # Managua
-    (1866, "KIWA", "MPPA", "Mon, Wed, Fri, Sun"),  # Howard / Panama Pacifico
-    (1868, "KIWA", "SKCL", "Tue, Thu, Sat"),      # Cali
-    (1870, "KIWA", "SPQU", "Mon, Wed, Fri, Sun"),  # Arequipa
-    (1872, "KIWA", "SCEL", "Tue, Thu, Sat"),      # Santiago
-    (1874, "KBLI", "CYQB", "Mon, Wed, Fri, Sun"),  # Quebec City
-    (1876, "KBLI", "CYHZ", "Tue, Thu, Sat"),      # Halifax
-    (1878, "KBLI", "MMGL", "Mon, Wed, Fri, Sun"),  # Guadalajara
-    (1880, "KBLI", "RKPK", "Tue, Thu, Sat"),      # Busan
-    (1882, "KBLI", "RPLC", "Mon, Wed, Fri, Sun"),  # Clark
-    (1884, "PAFA", "CYWG", "Tue, Thu, Sat"),      # Winnipeg
-    (1886, "PAFA", "CYUL", "Mon, Wed, Fri, Sun"),  # Montreal
-    (1888, "PAFA", "MMTJ", "Tue, Thu, Sat"),      # Tijuana
-    (1890, "PAFA", "ROAH", "Mon, Wed, Fri, Sun"),  # Naha
-    (1892, "PAFA", "RORS", "Tue, Thu, Sat"),      # Shimojishima
-    (1894, "KMSY", "MUHA", "Mon, Wed, Fri, Sun"),  # Havana
-    (1896, "KMSY", "MKJP", "Tue, Thu, Sat"),      # Kingston
-    (1898, "KMSY", "MYSM", "Mon, Wed, Fri, Sun"),  # San Salvador, Bahamas
-    (2800, "KMSY", "TJSJ", "Tue, Thu, Sat"),      # San Juan
-    (2802, "KMSY", "TIST", "Mon, Wed, Fri, Sun"),  # St. Thomas
-    (2804, "KMSY", "TNCC", "Mon, Wed, Fri, Sun"),  # Curacao
-    (2806, "KMSY", "SYCJ", "Tue, Thu, Sat"),      # Georgetown
-    (2808, "KMSY", "SMJP", "Mon, Wed, Fri, Sun"),  # Paramaribo
-    (2810, "KSFB", "MKJS", "Tue, Thu, Sat"),      # Montego Bay
-    (2812, "KSFB", "MYNN", "Mon, Wed, Fri, Sun"),  # Nassau
-    (2814, "KSFB", "MUVR", "Tue, Thu, Sat"),      # Varadero
-    (2816, "KSFB", "MWCR", "Mon, Wed, Fri, Sun"),  # Grand Cayman
-    (2818, "KSFB", "TLPL", "Tue, Thu, Sat"),      # St. Lucia
-    (2820, "KSFB", "TBPB", "Mon, Wed, Fri, Sun"),  # Bridgetown
-    (2822, "KSFB", "SKRG", "Tue, Thu, Sat"),      # Medellin
-    (2824, "KSFB", "SPJC", "Mon, Wed, Fri, Sun"),  # Lima
-    (2826, "PAFA", "CYXY", "Mon, Wed, Fri, Sun"),  # Whitehorse, YT
-    (2828, "PAFA", "CYVR", "Daily"),  # Vancouver, BC
-    (2830, "PAFA", "CYYJ", "Tue, Thu, Sat"),  # Victoria, BC
-    (2832, "PAFA", "CYEG", "Mon, Wed, Fri"),  # Edmonton, AB
-    (2834, "PAFA", "CYYC", "Daily"),  # Calgary, AB
-    (2836, "PAFA", "CYXS", "Thu, Sun"),  # Prince George, BC
-    (2838, "PAFA", "CYZF", "Tue, Thu, Sat"),  # Yellowknife, NT
-    (2840, "PAFA", "CYEV", "Mon, Fri"),  # Inuvik, NT
-    (2842, "KPVU", "CYEG", "Tue, Thu, Sat"),  # Edmonton, AB
-    (2844, "KPVU", "CYZF", "Mon, Fri"),  # Yellowknife, NT
-    (2846, "KPVU", "CYYC", "Mon, Wed, Fri, Sun"),  # Calgary, AB
-    (2848, "KIWA", "CYEG", "Mon, Fri"),  # Edmonton, AB
-    (2850, "KBLI", "CYXY", "Mon, Wed, Fri, Sun"),  # Whitehorse, YT
-    (2852, "KBLI", "CYXS", "Thu, Sun"),  # Prince George, BC
-    (2854, "KBLI", "CYVR", "Daily"),  # Vancouver, BC
-    (2856, "KBLI", "CYYJ", "Mon, Wed, Fri, Sun"),  # Victoria, BC
-    (2858, "KBLI", "CYLW", "Tue, Thu, Sat"),  # Kelowna, BC
-    (2860, "KBLI", "CYYC", "Daily"),  # Calgary, AB
-    (2862, "KBLI", "CYEG", "Mon, Wed, Fri"),  # Edmonton, AB
-    (2864, "KBLI", "CYXX", "Thu, Sun"),  # Abbotsford, BC
+    (832, "KSFB", "MKJS", "Daily"),  # Montego Bay, Jamaica
+    (834, "KSFB", "MDPC", "Daily"),  # Punta Cana, Dominican Republic
+    (836, "KSFB", "MBPV", "Thu, Sun"),  # Providenciales, Turks & Caicos
+    (838, "KSFB", "MROC", "Mon, Wed, Fri, Sun"),  # San José, Costa Rica
+    (840, "KSFB", "MUVR", "Tue, Thu, Sat"),  # Varadero, Cuba
+    (842, "KSFB", "MWCR", "Mon, Wed, Fri, Sun"),  # Grand Cayman, Cayman Islands
+    (844, "KSFB", "TLPL", "Thu, Sun"),  # Vieux Fort, St. Lucia
+    (846, "KSFB", "TBPB", "Mon, Wed, Fri"),  # Bridgetown, Barbados
+    (848, "KSFB", "SKCG", "Tue, Thu, Sat"),  # Cartagena, Colombia
+    (850, "KSFB", "SKRG", "Tue, Thu, Sat"),  # Medellín, Colombia
+    (852, "KSFB", "SPJC", "Mon, Wed, Fri"),  # Lima, Peru
 
+    # ----------------------------------------------------
+    # PAFA International Spokes (Fairbanks, AK Hub)
+    # ----------------------------------------------------
+    (860, "PAFA", "CYVR", "Daily"),  # Vancouver, BC, Canada
+    (862, "PAFA", "CYYC", "Daily"),  # Calgary, AB, Canada
+    (864, "PAFA", "CYEG", "Tue, Thu, Sat"),  # Edmonton, AB, Canada
+    (866, "PAFA", "CYXY", "Mon, Wed, Fri"),  # Whitehorse, YT, Canada
+    (868, "PAFA", "CYYJ", "Tue, Thu, Sat"),  # Victoria, BC, Canada
+    (870, "PAFA", "CYXS", "Thu, Sun"),  # Prince George, BC, Canada
+    (872, "PAFA", "CYZF", "Tue, Thu, Sat"),  # Yellowknife, NT, Canada
+    (874, "PAFA", "CYEV", "Mon, Fri"),  # Inuvik, NT, Canada
+    (876, "PAFA", "CYWG", "Thu, Sun"),  # Winnipeg, MB, Canada
+    (878, "PAFA", "CYUL", "Mon, Wed, Fri"),  # Montréal, QC, Canada
+    (880, "PAFA", "MMTJ", "Tue, Thu, Sat"),  # Tijuana, Mexico
+    (882, "PAFA", "ROAH", "Wed, Sat"),  # Naha, Japan
+    (884, "PAFA", "RORS", "Thu, Sun"),  # Shimojishima, Japan
 
+    # ----------------------------------------------------
+    # KBLI International Spokes (Bellingham, WA Hub)
+    # ----------------------------------------------------
+    (1800, "KBLI", "CYVR", "Daily"),  # Vancouver, BC, Canada
+    (1802, "KBLI", "CYYJ", "Daily"),  # Victoria, BC, Canada
+    (1804, "KBLI", "CYYC", "Daily"),  # Calgary, AB, Canada
+    (1806, "KBLI", "CYEG", "Mon, Wed, Fri"),  # Edmonton, AB, Canada
+    (1808, "KBLI", "CYXX", "Mon, Wed, Fri, Sun"),  # Abbotsford, BC, Canada
+    (1810, "KBLI", "CYLW", "Tue, Thu, Sat"),  # Kelowna, BC, Canada
+    (1812, "KBLI", "CYXS", "Thu, Sun"),  # Prince George, BC, Canada
+    (1814, "KBLI", "CYXY", "Mon, Fri"),  # Whitehorse, YT, Canada
+    (1816, "KBLI", "CYQB", "Thu, Sun"),  # Quebec City, QC, Canada
+    (1818, "KBLI", "CYHZ", "Wed, Sat"),  # Halifax, NS, Canada
+    (1820, "KBLI", "MMSD", "Thu, Sun"),  # Los Cabos, Mexico
+    (1822, "KBLI", "MMPR", "Mon, Wed, Fri"),  # Puerto Vallarta, Mexico
+    (1824, "KBLI", "MMGL", "Tue, Thu, Sat"),  # Guadalajara, Mexico
+    (1826, "KBLI", "RKPK", "Wed, Sat"),  # Busan, South Korea
+    (1828, "KBLI", "RPLC", "Thu, Sun"),  # Clark, Philippines
 
+    # ----------------------------------------------------
+    # KIWA International Spokes (Mesa / Phoenix, AZ Hub)
+    # ----------------------------------------------------
+    (1830, "KIWA", "MMSD", "Daily"),  # Los Cabos, Mexico
+    (1832, "KIWA", "MMPR", "Mon, Wed, Fri, Sun"),  # Puerto Vallarta, Mexico
+    (1834, "KIWA", "MMMZ", "Tue, Thu, Sat"),  # Mazatlán, Mexico
+    (1836, "KIWA", "MMGL", "Daily"),  # Guadalajara, Mexico
+    (1838, "KIWA", "MMHO", "Daily"),  # Hermosillo, Mexico
+    (1840, "KIWA", "MMVR", "Tue, Thu, Sat"),  # Veracruz, Mexico
+    (1842, "KIWA", "MMPB", "Tue, Thu, Sat"),  # Puebla, Mexico
+    (1844, "KIWA", "MMBT", "Mon, Fri"),  # Huatulco, Mexico
+    (1846, "KIWA", "MRLB", "Thu, Sun"),  # Liberia, Costa Rica
+    (1848, "KIWA", "MNMG", "Wed, Sat"),  # Managua, Nicaragua
+    (1850, "KIWA", "MPPA", "Mon, Wed, Fri"),  # Panama City, Panama
+    (1852, "KIWA", "SKCL", "Tue, Thu, Sat"),  # Cali, Colombia
+    (1854, "KIWA", "SPQU", "Wed, Sat"),  # Arequipa, Peru
+    (1856, "KIWA", "SCEL", "Tue, Thu, Sat"),  # Santiago, Chile
+    (1858, "KIWA", "CYEG", "Mon, Fri"),  # Edmonton, AB, Canada
+
+    # ----------------------------------------------------
+    # KMSY International Spokes (New Orleans, LA Hub)
+    # ----------------------------------------------------
+    (1860, "KMSY", "MMUN", "Daily"),  # Cancún, Mexico
+    (1862, "KMSY", "MMCZ", "Thu, Sun"),  # Cozumel, Mexico
+    (1864, "KMSY", "MZBZ", "Mon, Wed, Fri"),  # Belize City, Belize
+    (1866, "KMSY", "MGGT", "Tue, Thu, Sat"),  # Guatemala City, Guatemala
+    (1868, "KMSY", "MMBT", "Mon, Fri"),  # Huatulco, Mexico
+    (1870, "KMSY", "MUHA", "Mon, Wed, Fri, Sun"),  # Havana, Cuba
+    (1872, "KMSY", "MKJP", "Tue, Thu, Sat"),  # Kingston, Jamaica
+    (1874, "KMSY", "MYSM", "Thu, Sun"),  # San Salvador, Bahamas
+    (1876, "KMSY", "TJSJ", "Daily"),  # San Juan, PR
+    (1878, "KMSY", "TIST", "Mon, Wed, Fri, Sun"),  # St. Thomas, VI
+    (1880, "KMSY", "TNCC", "Thu, Sun"),  # Curaçao
+    (1882, "KMSY", "SYCJ", "Wed, Sat"),  # Georgetown, Guyana
+    (1884, "KMSY", "SMJP", "Thu, Sun"),  # Paramaribo, Suriname
+
+    # ----------------------------------------------------
+    # KGRR International Spokes (Grand Rapids, MI Hub)
+    # ----------------------------------------------------
+    (2800, "KGRR", "CYHM", "Daily"),  # Hamilton, ON, Canada
+    (2802, "KGRR", "CYUL", "Mon, Wed, Fri, Sun"),  # Montréal, QC, Canada
+    (2804, "KGRR", "MMUN", "Mon, Wed, Fri, Sun"),  # Cancún, Mexico
+    (2806, "KGRR", "MDPC", "Thu, Sun"),  # Punta Cana, Dominican Republic
+    (2808, "KGRR", "TNCA", "Thu, Sun"),  # Oranjestad, Aruba
+    (2810, "KGRR", "MROC", "Mon, Thu, Sat"),  # San José, Costa Rica
+    (2812, "KGRR", "SKBO", "Tue, Thu, Sat"),  # Bogotá, Colombia
+    (2814, "KGRR", "SPIM", "Wed, Sat"),  # Lima, Peru
+    (2816, "KGRR", "BIKF", "Mon, Wed, Fri"),  # Reykjavik, Iceland
+    (2818, "KGRR", "LPPD", "Wed, Sat"),  # Ponta Delgada, Portugal
+    (2820, "KGRR", "EINN", "Thu, Sun"),  # Shannon, Ireland
+    (2822, "KGRR", "EGPK", "Wed, Sat"),  # Glasgow, UK
+    (2824, "KGRR", "EGLL", "Daily"),  # London, UK
+    (2826, "KGRR", "LFPG", "Mon, Wed, Fri, Sun"),  # Paris, France
+    (2828, "KGRR", "EDDF", "Tue, Thu, Sat"),  # Frankfurt, Germany
+    (2830, "KGRR", "EHAM", "Mon, Wed, Fri, Sun"),  # Amsterdam, Netherlands
+    (2832, "KGRR", "LEMD", "Mon, Wed, Fri"),  # Madrid, Spain
+    (2834, "KGRR", "LEBL", "Tue, Thu, Sat"),  # Barcelona, Spain
+    (2836, "KGRR", "LIRF", "Tue, Thu, Sat"),  # Rome, Italy
+    (2838, "KGRR", "LPPT", "Mon, Wed, Fri"),  # Lisbon, Portugal
+
+    # ----------------------------------------------------
+    # KBGR International Spokes (Bangor, ME Hub)
+    # ----------------------------------------------------
+    (2840, "KBGR", "CYHZ", "Mon, Wed, Fri, Sun"),  # Halifax, NS, Canada
+    (2842, "KBGR", "BIKF", "Mon, Wed, Fri, Sun"),  # Reykjavik, Iceland
+    (2844, "KBGR", "EINN", "Mon, Wed, Fri"),  # Shannon, Ireland
+    (2846, "KBGR", "EIDW", "Mon, Wed, Fri, Sun"),  # Dublin, Ireland
+    (2848, "KBGR", "EDDM", "Tue, Thu, Sat"),  # Munich, Germany
+    (2850, "KBGR", "LSZH", "Thu, Sun"),  # Zurich, Switzerland
+    (2852, "KBGR", "ENGM", "Wed, Sat"),  # Oslo, Norway
+    (2854, "KBGR", "ESSA", "Thu, Sun"),  # Stockholm, Sweden
+    (2856, "KBGR", "MPTO", "Tue, Thu, Sat"),  # Panama City, Panama
+
+    # ----------------------------------------------------
+    # KSWF International Spokes (Stewart / Newburgh, NY Hub)
+    # ----------------------------------------------------
+    (2860, "KSWF", "CYUL", "Daily"),  # Montréal, QC, Canada
+    (2862, "KSWF", "BIKF", "Mon, Wed, Fri, Sun"),  # Reykjavik, Iceland
+    (2864, "KSWF", "EINN", "Mon, Wed, Fri"),  # Shannon, Ireland
+    (2866, "KSWF", "EIDW", "Daily"),  # Dublin, Ireland
+    (2868, "KSWF", "EBBR", "Mon, Wed, Fri"),  # Brussels, Belgium
+    (2870, "KSWF", "EFHK", "Tue, Thu, Sat"),  # Helsinki, Finland
+    (2872, "KSWF", "LGAV", "Wed, Sat"),  # Athens, Greece
+    (2874, "KSWF", "LROP", "Thu, Sun"),  # Bucharest, Romania
+
+    # ----------------------------------------------------
+    # KRIC International Spokes (Richmond, VA Hub)
+    # ----------------------------------------------------
+    (2880, "KRIC", "EGCC", "Mon, Wed, Fri"),  # Manchester, UK
+    (2882, "KRIC", "LOWW", "Tue, Thu, Sat"),  # Vienna, Austria
+    (2884, "KRIC", "EKCH", "Mon, Wed, Fri"),  # Copenhagen, Denmark
+    (2886, "KRIC", "SEQM", "Thu, Sun"),  # Quito, Ecuador
+    (2888, "KRIC", "SAEZ", "Wed, Sat"),  # Buenos Aires, Argentina
+
+    # ----------------------------------------------------
+    # KPVU International Spokes (Provo, UT Hub)
+    # ----------------------------------------------------
+    (2890, "KPVU", "CYYC", "Mon, Wed, Fri, Sun"),  # Calgary, AB, Canada
+    (2892, "KPVU", "CYEG", "Tue, Thu, Sat"),  # Edmonton, AB, Canada
+    (2894, "KPVU", "CYZF", "Thu, Sun"),  # Yellowknife, NT, Canada
     
     # ----------------------------------------------------
     # TJBQ Caribbean Regional Spokes (1500 Block - Caribbean Hub)
@@ -977,6 +1010,7 @@ AIRPORT_NAMES = {
     "TJBQ": "Aguadilla, PR",
 
 spokes = {
+    airports = {
     # Alaska & Hawaii
     "PABE": "Bethel, AK",
     "PABR": "Utqiaġvik (Barrow), AK",
@@ -1008,8 +1042,8 @@ spokes = {
     "PHOG": "Kahului, HI (Maui)",
 
     # Intermountain West & Pacific Northwest
-    "KALW": "Walla Walla, WA",
     "KACV": "Arcata / Eureka, CA",
+    "KALW": "Walla Walla, WA",
     "KBFL": "Bakersfield, CA",
     "KBIL": "Billings, MT",
     "KBJC": "Broomfield, CO",
@@ -1074,6 +1108,7 @@ spokes = {
     "KABQ": "Albuquerque, NM",
     "KACT": "Waco, TX",
     "KAMA": "Amarillo, TX",
+    "KBPT": "Beaumont / Port Arthur, TX",
     "KCRP": "Corpus Christi, TX",
     "KELP": "El Paso, TX",
     "KHRL": "Harlingen, TX",
@@ -1088,16 +1123,15 @@ spokes = {
     "KSJT": "San Angelo, TX",
     "KTUL": "Tulsa, OK",
     "KTUS": "Tucson, AZ",
+    "KTYR": "Tyler, TX",
     "KVCT": "Victoria, TX",
 
     # Gulf Coast & South
     "KAEX": "Alexandria, LA",
     "KBHM": "Birmingham, AL",
-    "KBPT": "Beaumont / Port Arthur, TX",
     "KBTR": "Baton Rouge, LA",
     "KBWG": "Bowling Green, KY",
     "KCHA": "Chattanooga, TN",
-    "KCSG": "Columbus, GA",
     "KFSM": "Fort Smith, AR",
     "KGPT": "Gulfport / Biloxi, MS",
     "KGTR": "Columbus / Starkville, MS",
@@ -1106,57 +1140,50 @@ spokes = {
     "KHSV": "Huntsville, AL",
     "KJKA": "Gulf Shores, AL",
     "KLCH": "Lake Charles, LA",
+    "KLEX": "Lexington, KY",
     "KLFT": "Lafayette, LA",
     "KLIT": "Little Rock, AR",
-    "KMCN": "Macon, GA",
     "KMEI": "Meridian, MS",
     "KMGM": "Montgomery, AL",
     "KMLU": "Monroe, LA",
     "KMOB": "Mobile, AL",
+    "KOWB": "Owensboro, KY",
     "KPIB": "Hattiesburg / Laurel, MS",
-    "KPNS": "Pensacola, FL",
-    "KSGF": "Springfield, MO",
     "KSHV": "Shreveport, LA",
     "KTRI": "Tri-Cities / Bristol, TN",
     "KTUP": "Tupelo, MS",
-    "KTYR": "Tyler, TX",
-    "KVPS": "Eglin / Destin, FL",
+    "KTYS": "Knoxville, TN",
     "KXNA": "Fayetteville / Northwest Arkansas, AR",
 
     # Midwest
     "KALO": "Waterloo, IA",
-    "KATW": "Appleton, WI",
     "KBIS": "Bismarck, ND",
     "KBJI": "Bemidji, MN",
     "KBLV": "Belleville, IL",
     "KCID": "Cedar Rapids, IA",
     "KCOU": "Columbia, MO",
-    "KCWA": "Mosinee / Wausau, WI",
+    "KDBQ": "Dubuque, IA",
     "KDIK": "Dickinson, ND",
+    "KDLH": "Duluth, MN",
     "KDSM": "Des Moines, IA",
     "KDVL": "Devils Lake, ND",
-    "KESC": "Escanaba, MI",
     "KFAR": "Fargo, ND",
     "KFSD": "Sioux Falls, SD",
     "KGCK": "Garden City, KS",
     "KGRI": "Grand Island, NE",
-    "KGYY": "Gary / Chicago, IN",
     "KICT": "Wichita, KS",
-    "KIMT": "Iron Mountain, MI",
     "KINL": "International Falls, MN",
-    "KISQ": "Sault Ste. Marie, MI",
     "KJEF": "Jefferson City, MO",
     "KJMS": "Jamestown, ND",
-    "KJVY": "Jeffersonville, IN",
     "KLNK": "Lincoln, NE",
-    "KLSE": "La Crosse, WI",
     "KMLI": "Moline / Quad Cities, IL",
     "KMOT": "Minot, ND",
-    "KOWB": "Owensboro, KY",
     "KPIA": "Peoria, IL",
     "KPIR": "Pierre, SD",
     "KRAP": "Rapid City, SD",
     "KRFD": "Rockford, IL",
+    "KRST": "Rochester, MN",
+    "KSGF": "Springfield, MO",
     "KSLN": "Salina, KS",
     "KSPI": "Springfield, IL",
     "KSTC": "St. Cloud, MN",
@@ -1165,87 +1192,36 @@ spokes = {
     "KTOP": "Topeka, KS",
 
     # Great Lakes
-    "KAZO": "Kalamazoo, MI",
     "KAPN": "Alpena, MI",
+    "KATW": "Appleton, WI",
+    "KAZO": "Kalamazoo, MI",
     "KBMI": "Bloomington, IL",
     "KCAK": "Akron / Canton, OH",
     "KCIU": "Sault Ste. Marie, MI",
     "KCMH": "Columbus, OH",
     "KCMX": "Houghton, MI",
     "KCVG": "Cincinnati, OH",
+    "KCWA": "Mosinee / Wausau, WI",
     "KDAY": "Dayton, OH",
-    "KDBQ": "Dubuque, IA",
-    "KDLH": "Duluth, MN",
+    "KESC": "Escanaba, MI",
     "KEVV": "Evansville, IN",
     "KFNT": "Flint, MI",
     "KFWA": "Fort Wayne, IN",
     "KGRB": "Green Bay, WI",
-    "KHTS": "Huntington, WV",
+    "KGYY": "Gary / Chicago, IN",
+    "KIMT": "Iron Mountain, MI",
+    "KISQ": "Sault Ste. Marie, MI",
+    "KJVY": "Jeffersonville, IN",
     "KLAN": "Lansing, MI",
-    "KLEX": "Lexington, KY",
+    "KLSE": "La Crosse, WI",
     "KMBS": "Saginaw, MI",
     "KMKE": "Milwaukee, WI",
     "KMQT": "Marquette, MI",
-    "KPIT": "Pittsburgh, PA",
     "KPLN": "Pellston / Mackinac, MI",
-    "KRST": "Rochester, MN",
     "KSBN": "South Bend, IN",
     "KTOL": "Toledo, OH",
     "KTVC": "Traverse City, MI",
-    "KISP": "Islip / Long Island, NY",
-    "KHPN": "White Plains / Westchester, NY",
-    "KROC": "Rochester, NY",
-    "KBUF": "Buffalo, NY",
-    "KOGS": "Ogdensburg, NY",
-    "KMSS": "Massena, NY",
-    "KFRG": "Farmingdale / Long Island, NY",
-    "KACY": "Atlantic City, NJ",
-    "KTTN": "Trenton, NJ",
-    "KMIV": "Millville, NJ",
-    "KLBE": "Latrobe / Greensburg, PA",
-    "KJST": "Johnstown, PA",
-    "KBFD": "Bradford, PA",
-    "KDUJ": "DuBois, PA",
-    "KRDG": "Reading, PA",
-    "KLNS": "Lancaster, PA",
-    "KGON": "Groton / New London, CT",
-    "KOQU": "Quonset State / North Kingstown, RI",
-    "KSBY": "Salisbury, MD",
-    "KHGR": "Hagerstown, MD",
-    "CYQM": "Moncton, NB, Canada",
-    "CYSJ": "Saint John, NB, Canada",
-    "CYFC": "Fredericton, NB, Canada",
-    "CYQB": "Quebec City, QC, Canada",
-    "CYQY": "Sydney, NS, Canada",
-    "CYYG": "Charlottetown, PE, Canada",
-    "CYDF": "Deer Lake, NL, Canada",
-    "CYYT": "St. John's, NL, Canada",
-    "KAUG": "Augusta, ME",
-    "KSFM": "Sanford, ME",
-    "KPSM": "Portsmouth, NH",
-    "KCON": "Concord, NH",
-    "KMPV": "Barre / Montpelier, VT",
-    "KHYA": "Hyannis / Cape Cod, MA",
-    "KEWB": "New Bedford, MA",
-    "KILG": "Wilmington / Philadelphia area, DE",
-    "KPKB": "Parkersburg, WV",
-    "KCKB": "Clarksburg, WV",
-    "KMGW": "Morgantown, WV",
-    "KLWB": "Lewisburg, WV",
-    "KRDU": "Raleigh / Durham, NC",
-    "KFLO": "Florence, SC",
-    "KCAE": "Columbia, SC",
-    "KAGS": "Augusta, GA",
-    "KSGJ": "St. Augustine, FL",
-    "KPIE": "St. Petersburg / Clearwater, FL",
-    "KGNV": "Gainesville, FL",
-    "KSRQ": "Sarasota / Bradenton, FL",
-    "KFLL": "Fort Lauderdale, FL",
-    "KEYW": "Key West, FL",
-    "KVPS": "Destin / Eglin AFB, FL",
-    "KMBS": "Saginaw, MI",
-    "KVRB": "Vero Beach, FL",
-    
+
     # Northeast & Mid-Atlantic
     "KABE": "Allentown / Lehigh Valley, PA",
     "KACK": "Nantucket, MA",
@@ -1253,67 +1229,97 @@ spokes = {
     "KAGS": "Augusta, GA",
     "KALB": "Albany, NY",
     "KART": "Watertown, NY",
+    "KAUG": "Augusta, ME",
     "KAVL": "Asheville, NC",
     "KAVP": "Wilkes-Barre / Scranton, PA",
+    "KBFD": "Bradford, PA",
     "KBGM": "Binghamton, NY",
     "KBHB": "Bar Harbor, ME",
+    "KBQK": "Brunswick, GA",
     "KBTV": "Burlington, VT",
+    "KBUF": "Buffalo, NY",
     "KCAE": "Columbia, SC",
     "KCHO": "Charlottesville, VA",
     "KCHS": "Charleston, SC",
     "KCKB": "Clarksburg, WV",
+    "KCON": "Concord, NH",
     "KCRW": "Charleston, WV",
+    "KCSG": "Columbus, GA",
+    "KDUJ": "DuBois, PA",
     "KELM": "Elmira / Corning, NY",
     "KERI": "Erie, PA",
+    "KEWB": "New Bedford, MA",
     "KEWN": "New Bern, NC",
     "KFAY": "Fayetteville, NC",
     "KFLO": "Florence, SC",
     "KFMH": "Falmouth / Cape Cod, MA",
+    "KFRG": "Farmingdale / Long Island, NY",
+    "KGON": "Groton / New London, CT",
     "KGSO": "Greensboro, NC",
     "KGSP": "Greenville / Spartanburg, SC",
     "KHGR": "Hagerstown, MD",
+    "KHPN": "White Plains / Westchester, NY",
+    "KHTS": "Huntington, WV",
     "KHVN": "New Haven, CT",
+    "KHYA": "Hyannis / Cape Cod, MA",
     "KILG": "Wilmington, DE",
     "KILM": "Wilmington, NC",
     "KIPT": "Williamsport, PA",
+    "KISP": "Islip / Long Island, NY",
     "KITH": "Ithaca, NY",
     "KJQF": "Concord / Charlotte, NC",
+    "KJST": "Johnstown, PA",
+    "KLBE": "Latrobe / Greensburg, PA",
     "KLEB": "Lebanon, NH",
+    "KLNS": "Lancaster, PA",
     "KLWB": "Lewisburg, WV",
     "KLYH": "Lynchburg, VA",
+    "KMCN": "Macon, GA",
     "KMDT": "Harrisburg, PA",
     "KMGW": "Morgantown, WV",
     "KMHT": "Manchester, NH",
+    "KMIV": "Millville, NJ",
+    "KMPV": "Barre / Montpelier, VT",
+    "KMSS": "Massena, NY",
     "KMVY": "Martha's Vineyard, MA",
+    "KMYR": "Myrtle Beach, SC",
+    "KOGS": "Ogdensburg, NY",
+    "KOQU": "Quonset State / North Kingstown, RI",
     "KORH": "Worcester, MA",
     "KPBG": "Plattsburgh, NY",
     "KPGV": "Greenville, NC",
     "KPHF": "Newport News / Williamsburg, VA",
+    "KPIT": "Pittsburgh, PA",
     "KPKB": "Parkersburg, WV",
     "KPQB": "Presque Isle, ME",
+    "KPSM": "Portsmouth, NH",
     "KPVD": "Providence, RI",
     "KPWM": "Portland, ME",
+    "KRDG": "Reading, PA",
     "KRDU": "Raleigh / Durham, NC",
     "KRKD": "Rockland, ME",
     "KROA": "Roanoke, VA",
+    "KROC": "Rochester, NY",
     "KSAV": "Savannah, GA",
+    "KSBY": "Salisbury, MD",
+    "KSFM": "Sanford, ME",
     "KSLK": "Saranac Lake, NY",
     "KSYR": "Syracuse, NY",
-    "KTYS": "Knoxville, TN",
+    "KTTN": "Trenton, NJ",
 
     # Florida
-    "KBQK": "Brunswick, GA",
     "KECP": "Panama City Beach, FL",
     "KEYW": "Key West, FL",
     "KFLL": "Fort Lauderdale, FL",
     "KGNV": "Gainesville, FL",
     "KMLB": "Melbourne, FL",
-    "KMYR": "Myrtle Beach, SC",
     "KPGD": "Punta Gorda / Ft. Myers, FL",
     "KPIE": "St. Petersburg / Clearwater, FL",
+    "KPNS": "Pensacola, FL",
     "KSGJ": "St. Augustine, FL",
     "KSRQ": "Sarasota / Bradenton, FL",
     "KTLH": "Tallahassee, FL",
+    "KVPS": "Eglin / Destin, FL",
     "KVRB": "Vero Beach, FL",
 
     # Caribbean & Latin America
@@ -1326,17 +1332,17 @@ spokes = {
     "MMCZ": "Cozumel, Mexico",
     "MMGL": "Guadalajara, Mexico",
     "MMHO": "Hermosillo, Mexico",
+    "MMMZ": "Mazatlán, Mexico",
     "MMPB": "Puebla, Mexico",
     "MMPR": "Puerto Vallarta, Mexico",
     "MMSD": "Los Cabos, Mexico",
     "MMTJ": "Tijuana, Mexico",
     "MMUN": "Cancún, Mexico",
     "MMVR": "Veracruz, Mexico",
-    "MMMZ": "Mazatlán, Mexico",
     "MNMG": "Managua, Nicaragua",
     "MPPA": "Howard / Panama Pacifico, Panama",
-    "MROC": "San José, Costa Rica",
     "MRLB": "Liberia / Guanacaste, Costa Rica",
+    "MROC": "San José, Costa Rica",
     "MUHA": "Havana, Cuba",
     "MUVR": "Varadero, Cuba",
     "MWCR": "Grand Cayman, Cayman Islands",
@@ -1351,7 +1357,6 @@ spokes = {
     "SKCL": "Cali, Colombia",
     "SKRG": "Medellin, Colombia",
     "SMJP": "Paramaribo, Suriname",
-    "SPIM": "Lima, Peru",
     "SPJC": "Lima, Peru",
     "SPQU": "Arequipa, Peru",
     "SYCJ": "Georgetown, Guyana",
@@ -1361,23 +1366,28 @@ spokes = {
     "TFFR": "Guadeloupe",
     "TIST": "St. Thomas, USVI",
     "TISX": "St. Croix, USVI",
+    "TJPS": "Ponce, PR",
+    "TJSJ": "San Juan, PR",
     "TKPK": "St. Kitts",
     "TLPL": "St. Lucia",
     "TNCA": "Aruba",
     "TNCB": "Bonaire",
     "TNCC": "Curaçao",
     "TNCM": "St. Maarten",
-    "TJPS": "Ponce, PR",
-    "TJSJ": "San Juan, PR",
     "TVSA": "St. Vincent",
 
     # Canada
+    "CYDF": "Deer Lake, NL, Canada",
     "CYEG": "Edmonton, AB, Canada",
     "CYEV": "Inuvik, NT, Canada",
+    "CYFC": "Fredericton, NB, Canada",
     "CYHM": "Hamilton / Toronto South, ON, Canada",
     "CYHZ": "Halifax, NS, Canada",
     "CYLW": "Kelowna, BC, Canada",
     "CYQB": "Quebec City, QC, Canada",
+    "CYQM": "Moncton, NB, Canada",
+    "CYQY": "Sydney, NS, Canada",
+    "CYSJ": "Saint John, NB, Canada",
     "CYUL": "Montréal, QC, Canada",
     "CYVR": "Vancouver, BC, Canada",
     "CYWG": "Winnipeg, MB, Canada",
@@ -1385,7 +1395,9 @@ spokes = {
     "CYXX": "Abbotsford, BC, Canada",
     "CYXY": "Whitehorse, YT, Canada",
     "CYYC": "Calgary, AB, Canada",
+    "CYYG": "Charlottetown, PE, Canada",
     "CYYJ": "Victoria, BC, Canada",
+    "CYYT": "St. John's, NL, Canada",
     "CYZF": "Yellowknife, NT, Canada",
 
     # Europe, Asia & Transatlantic
@@ -1394,9 +1406,9 @@ spokes = {
     "EDDF": "Frankfurt, Germany",
     "EDDM": "Munich, Germany",
     "EFHK": "Helsinki, Finland",
-    "EGPK": "Glasgow, Scotland",
     "EGCC": "Manchester, United Kingdom",
     "EGLL": "London Heathrow, United Kingdom",
+    "EGPK": "Glasgow, Scotland",
     "EHAM": "Amsterdam, Netherlands",
     "EIDW": "Dublin, Ireland",
     "EINN": "Shannon, Ireland",
@@ -1417,6 +1429,7 @@ spokes = {
     "ROAH": "Naha, Japan",
     "RORS": "Shimojishima, Japan",
     "RPLC": "Clark, Philippines",
+}
 }
 
 
