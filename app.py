@@ -2384,7 +2384,8 @@ if "selected_itinerary" in st.session_state:
     today_date = datetime.now().strftime("%d %b %Y").upper()
 
     # Calculate aircraft model & passenger load for active leg
-    flight_info = get_flight_capacity_and_pax(active_leg["Flight"])
+    flight_info = get_flight_capacity_and_pax(active_leg)
+
 
     card_html = f"""
 <!DOCTYPE html>
