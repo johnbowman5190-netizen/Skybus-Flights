@@ -2409,7 +2409,7 @@ if "selected_itinerary" in st.session_state:
     # Calculate aircraft model & passenger
     used_tails = set()
     path_flight_infos = [get_flight_capacity_and_pax(leg, last_state=last_state) for leg in path]
-    flight_info = path_flight_infos[select
+    flight_info = path_flight_infos[selected_leg_index]
 
     card_html = f"""
 <!DOCTYPE html>
