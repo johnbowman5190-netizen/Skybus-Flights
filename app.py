@@ -2127,11 +2127,14 @@ FLEET_SPECS = {
 }
 
 
-def get_flight_capacity_and_pax(leg):
-    """Assigns aircraft model, tail number, and passenger load factor based on
+def get_flight_capacity_and_pax(leg, used_tails=None):
+    """Assigns aircraft model, unique tail number, and passenger load factor
 
-    distance, route classification, flight number, and date.
+    based on distance, route classification, flight number, date, and previously assigned tails.
     """
+    if used_tails is None:
+        used_tails = set()
+
     flight_num = leg["Flight"]
     orig = leg["Origin"]
     dest = leg["Destination"]
@@ -2155,9 +2158,18 @@ def get_flight_capacity_and_pax(leg):
         ac_type = rng.choice(["A320", "A320", "A320", "A319", "A321"])
 
     spec = FLEET_SPECS[ac_type]
-    tail_number = rng.choice(spec["registrations"])
-    capacity = spec["capacity"]
 
+    # Exclude tail numbers already used in earlier legs of this itinerary
+    avail_regs = [r for r in spec["registrations"] if r not in used_tails]
+    if not avail_regs:
+        avail_regs = (
+            spec["registrations"]  # Fallback if all 4 registrations are in use
+        )
+
+    tail_number = rng.choice(avail_regs)
+    used_tails.add(tail_number)
+
+    capacity = spec["capacity"]
     min_pax = int(capacity * 0.72)
     max_pax = int(capacity * 0.98)
     pax_count = rng.randint(min_pax, max_pax)
@@ -2346,8 +2358,11 @@ if "search_results" in st.session_state:
         st.markdown(
             f"#### 📋 Leg Breakdown for Option {selected_option_idx + 1}"
         )
+        used_tails = set()
         for idx, leg in enumerate(selected_path, 1):
-            flight_info = get_flight_capacity_and_pax(leg)
+            flight_info = get_flight_capacity_and_pax(
+                leg, used_tails=used_tails
+            )
             st.write(
                 f"**Leg {idx}:** Flight **SX #{leg['Flight']}** | `{leg['Origin']}` ➔ `{leg['Destination']}` | "
                 f"Days: *{leg['Days']}* | "
@@ -2388,9 +2403,10 @@ if "selected_itinerary" in st.session_state:
     assigned_gate = get_random_gate(active_leg["Flight"])
     today_date = datetime.now().strftime("%d %b %Y").upper()
 
-    # Calculate aircraft model & passenger load for active leg
-    flight_info = get_flight_capacity_and_pax(active_leg)
-
+    # Calculate aircraft model & passenger load sequentially to match Section 5 assignments
+    used_tails = set()
+    path_flight_infos = [get_flight_capacity_and_pax(leg, used_tails=used_tails) for leg in path]
+    flight_info = path_flight_infos[selected_leg_index]
 
     card_html = f"""
 <!DOCTYPE html>
