@@ -2127,14 +2127,12 @@ FLEET_SPECS = {
 }
 
 
-def get_flight_capacity_and_pax(leg, used_tails=None):
-    """Assigns aircraft model, unique tail number, and passenger load factor
+def get_flight_capacity_and_pax(leg, last_state=None):
+    """Assigns aircraft model, tail registration, and passenger load.
 
-    based on distance, route classification, flight number, date, and previously assigned tails.
+    Reuses the previous leg's tail registration if the aircraft type is
+    identical.
     """
-    if used_tails is None:
-        used_tails = set()
-
     flight_num = leg["Flight"]
     orig = leg["Origin"]
     dest = leg["Destination"]
@@ -2159,15 +2157,20 @@ def get_flight_capacity_and_pax(leg, used_tails=None):
 
     spec = FLEET_SPECS[ac_type]
 
-    # Exclude tail numbers already used in earlier legs of this itinerary
-    avail_regs = [r for r in spec["registrations"] if r not in used_tails]
-    if not avail_regs:
-        avail_regs = (
-            spec["registrations"]  # Fallback if all 4 registrations are in use
-        )
+    # Re-use previous tail registration if same aircraft type; otherwise pick new registration
+    if (
+        last_state is not None
+        and last_state.get("type") == ac_type
+        and last_state.get("tail")
+    ):
+        tail_number = last_state["tail"]
+    else:
+        tail_number = rng.choice(spec["registrations"])
 
-    tail_number = rng.choice(avail_regs)
-    used_tails.add(tail_number)
+    # Update state for next leg comparison
+    if last_state is not None:
+        last_state["type"] = ac_type
+        last_state["tail"] = tail_number
 
     capacity = spec["capacity"]
     min_pax = int(capacity * 0.72)
@@ -2358,10 +2361,10 @@ if "search_results" in st.session_state:
         st.markdown(
             f"#### 📋 Leg Breakdown for Option {selected_option_idx + 1}"
         )
-        used_tails = set()
+        last_state = {}
         for idx, leg in enumerate(selected_path, 1):
             flight_info = get_flight_capacity_and_pax(
-                leg, used_tails=used_tails
+                leg, last_state=last_state
             )
             st.write(
                 f"**Leg {idx}:** Flight **SX #{leg['Flight']}** | `{leg['Origin']}` ➔ `{leg['Destination']}` | "
@@ -2403,10 +2406,10 @@ if "selected_itinerary" in st.session_state:
     assigned_gate = get_random_gate(active_leg["Flight"])
     today_date = datetime.now().strftime("%d %b %Y").upper()
 
-    # Calculate aircraft model & passenger load sequentially to match Section 5 assignments
+    # Calculate aircraft model & passenger
     used_tails = set()
-    path_flight_infos = [get_flight_capacity_and_pax(leg, used_tails=used_tails) for leg in path]
-    flight_info = path_flight_infos[selected_leg_index]
+    path_flight_infos = [get_flight_capaci
+    flight_info = path_flight_infos[select
 
     card_html = f"""
 <!DOCTYPE html>
