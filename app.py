@@ -2127,6 +2127,10 @@ FLEET_SPECS = {
 }
 
 def get_flight_capacity_and_pax(leg, last_state=None):
+    """Assigns aircraft model, tail registration, and passenger load based on
+
+    strict realistic fleet constraints (range, hub hierarchy, and route type).
+    """
     flight_num = leg["Flight"]
     orig = leg["Origin"]
     dest = leg["Destination"]
@@ -2139,27 +2143,48 @@ def get_flight_capacity_and_pax(leg, last_state=None):
     seed_value = f"{flight_num}-{today_str}"
     rng = random.Random(seed_value)
 
-    # Route Flags
+    # Route Classification Checks
     is_hub_to_hub = (orig in HUBS) and (dest in HUBS)
     touches_hub = (orig in HUBS) or (dest in HUBS)
-    is_international = (orig in INTL_AIRPORTS) or (dest in INTL_AIRPORTS)
+    is_near_intl = (orig in INTL_AIRPORTS) or (dest in INTL_AIRPORTS)
 
-    # Tighter Fleet Rules:
-    if is_international or is_hub_to_hub or distance >= 1000:
-        # Long-haul / Heavy Hubs -> Mostly A321
-        ac_type = rng.choice(["A321", "A321", "A321", "A320"])
-    elif touches_hub and distance >= 450:
-        # Hub-to-Spoke Mid-haul -> A320 heavy, occasional A321
-        ac_type = rng.choice(["A320", "A320", "A320", "A319", "A321"])
-    elif distance < 450 or not touches_hub:
-        # Spoke-to-Spoke OR Short-haul -> Strictly A319 or A320 (No A321)
-        ac_type = rng.choice(["A319", "A319", "A320"])
+    # European / Transatlantic ICAO code check (e.g. LPPT, EGLL, LFPG)
+    is_transatlantic = orig.startswith(("L", "E", "F")) or dest.startswith(
+        ("L", "E", "F")
+    )
+
+    # STRICT FLEET ASSIGNMENT RULES:
+    if is_transatlantic or distance >= 2000 or is_hub_to_hub:
+        # Transatlantic long-haul or Hub-to-Hub Direct Mainline -> Strictly A321
+        ac_type = "A321"
+
+    elif is_near_intl:
+        # Near Caribbean / Island Routes -> A320 or A321
+        ac_type = (
+            rng.choice(["A320", "A321"])
+            if distance >= 1000
+            else rng.choice(["A319", "A320"])
+        )
+
+    elif touches_hub:
+        # Hub-to-Spoke Feeders (e.g., KRIC -> KGNV) -> Strictly A320 or A319
+        ac_type = (
+            rng.choice(["A320", "A320", "A319"])
+            if distance >= 700
+            else rng.choice(["A319", "A319", "A320"])
+        )
+
     else:
-        ac_type = rng.choice(["A320", "A319"])
+        # Spoke-to-Spoke / Regional Routes (e.g., KDAY -> KGRR, KMSY -> KELP) -> Strictly A319 or A320
+        ac_type = (
+            rng.choice(["A319", "A319", "A320"])
+            if distance < 450
+            else rng.choice(["A320", "A319"])
+        )
 
     spec = FLEET_SPECS[ac_type]
 
-    # Re-use previous tail registration if same aircraft type
+    # Re-use previous tail registration if aircraft type is identical
     if (
         last_state is not None
         and last_state.get("type") == ac_type
@@ -2169,6 +2194,7 @@ def get_flight_capacity_and_pax(leg, last_state=None):
     else:
         tail_number = rng.choice(spec["registrations"])
 
+    # Update last state for next leg check
     if last_state is not None:
         last_state["type"] = ac_type
         last_state["tail"] = tail_number
