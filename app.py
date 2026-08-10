@@ -2126,13 +2126,7 @@ FLEET_SPECS = {
     },
 }
 
-
 def get_flight_capacity_and_pax(leg, last_state=None):
-    """Assigns aircraft model, tail registration, and passenger load.
-
-    Reuses the previous leg's tail registration if the aircraft type is
-    identical.
-    """
     flight_num = leg["Flight"]
     orig = leg["Origin"]
     dest = leg["Destination"]
@@ -2145,19 +2139,27 @@ def get_flight_capacity_and_pax(leg, last_state=None):
     seed_value = f"{flight_num}-{today_str}"
     rng = random.Random(seed_value)
 
+    # Route Flags
     is_hub_to_hub = (orig in HUBS) and (dest in HUBS)
+    touches_hub = (orig in HUBS) or (dest in HUBS)
     is_international = (orig in INTL_AIRPORTS) or (dest in INTL_AIRPORTS)
 
+    # Tighter Fleet Rules:
     if is_international or is_hub_to_hub or distance >= 1000:
-        ac_type = rng.choice(["A321", "A321", "A321", "A321", "A320"])
-    elif distance < 450:
-        ac_type = rng.choice(["A319", "A319", "A319", "A320"])
-    else:
+        # Long-haul / Heavy Hubs -> Mostly A321
+        ac_type = rng.choice(["A321", "A321", "A321", "A320"])
+    elif touches_hub and distance >= 450:
+        # Hub-to-Spoke Mid-haul -> A320 heavy, occasional A321
         ac_type = rng.choice(["A320", "A320", "A320", "A319", "A321"])
+    elif distance < 450 or not touches_hub:
+        # Spoke-to-Spoke OR Short-haul -> Strictly A319 or A320 (No A321)
+        ac_type = rng.choice(["A319", "A319", "A320"])
+    else:
+        ac_type = rng.choice(["A320", "A319"])
 
     spec = FLEET_SPECS[ac_type]
 
-    # Re-use previous tail registration if same aircraft type; otherwise pick new registration
+    # Re-use previous tail registration if same aircraft type
     if (
         last_state is not None
         and last_state.get("type") == ac_type
@@ -2167,7 +2169,6 @@ def get_flight_capacity_and_pax(leg, last_state=None):
     else:
         tail_number = rng.choice(spec["registrations"])
 
-    # Update state for next leg comparison
     if last_state is not None:
         last_state["type"] = ac_type
         last_state["tail"] = tail_number
