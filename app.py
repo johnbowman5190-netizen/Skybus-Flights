@@ -2278,8 +2278,12 @@ if "search_results" in st.session_state:
             f"#### 📋 Leg Breakdown for Option {selected_option_idx + 1}"
         )
         for idx, leg in enumerate(selected_path, 1):
+            flight_info = get_flight_capacity_and_pax(leg)
             st.write(
-                f"**Leg {idx}:** Flight **SX #{leg['Flight']}** | `{leg['Origin']}` ➔ `{leg['Destination']}` | Operating Days: *{leg['Days']}*"
+                f"**Leg {idx}:** Flight **SX #{leg['Flight']}** | `{leg['Origin']}` ➔ `{leg['Destination']}` | "
+                f"Days: *{leg['Days']}* | "
+                f"✈️ **Aircraft:** {flight_info['aircraft_name']} (`{flight_info['tail_number']}`) | "
+                f"👥 **Est. Load:** {flight_info['pax_count']}/{flight_info['capacity']} ({flight_info['load_factor']}%)"
             )
 
         st.session_state["selected_itinerary"] = selected_path
