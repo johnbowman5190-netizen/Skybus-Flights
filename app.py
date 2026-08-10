@@ -1910,10 +1910,14 @@ AIRPORT_COORDS = {
 }
 
 import math
-import random
 from collections import defaultdict, deque
 from datetime import datetime
-import streamlit as st
+
+
+def get_coords(code):
+    """Safely retrieves airport coordinates even if AIRPORT_COORDS is defined lower in the file."""
+    coords_map = globals().get("AIRPORT_COORDS", {})
+    return coords_map.get(str(code).strip().upper())
 
 
 def haversine_miles(coord1, coord2):
@@ -1935,16 +1939,25 @@ def haversine_miles(coord1, coord2):
     return R * c
 
 
-def calculate_route_score(path, origin, destination):
+def calculate_route_score(path, origin=None, destination=None):
     """Calculates total route score incorporating distance, layover penalties,
 
     leg backtracking, and overall route circuity.
     """
+    if not path:
+        return 0
+
+    # Auto-infer origin and destination if not explicitly passed
+    if not origin:
+        origin = path[0].get("Origin", "")
+    if not destination:
+        destination = path[-1].get("Destination", "")
+
     total_miles = 0
     backtrack_penalty = 0
 
-    orig_coord = AIRPORT_COORDS.get(origin)
-    dest_coord = AIRPORT_COORDS.get(destination)
+    orig_coord = get_coords(origin)
+    dest_coord = get_coords(destination)
     direct_miles = (
         haversine_miles(orig_coord, dest_coord)
         if (orig_coord and dest_coord)
@@ -1952,32 +1965,28 @@ def calculate_route_score(path, origin, destination):
     )
 
     for leg in path:
-        c1 = AIRPORT_COORDS.get(leg["Origin"])
-        c2 = AIRPORT_COORDS.get(leg["Destination"])
+        c1 = get_coords(leg.get("Origin"))
+        c2 = get_coords(leg.get("Destination"))
 
         if c1 and c2:
             leg_dist = haversine_miles(c1, c2)
             total_miles += leg_dist
 
-            # Penalize individual legs that move AWAY from the target destination
+            # Penalize legs that move farther away from destination
             if dest_coord:
                 dist_from = haversine_miles(c1, dest_coord)
                 dist_to = haversine_miles(c2, dest_coord)
-                # Allow minor hub deviations (+100 mi), heavily penalize major detours
                 if dist_to > dist_from + 100:
                     backtrack_penalty += (dist_to - dist_from) * 5
         else:
-            total_miles += 800  # Fallback estimate for unlisted coordinates
+            total_miles += 800
 
-    # Standard layover penalty (150 miles equivalent per connection)
     layover_penalty = (len(path) - 1) * 150
 
-    # Circuity Ratio Penalty: Path Miles / Direct Miles
     circuity_penalty = 0
     if direct_miles > 50:
         ratio = total_miles / direct_miles
         if ratio > 1.35:
-            # Exponentially penalize out-of-the-way detours
             circuity_penalty = (ratio - 1.35) * 3000
 
     return total_miles + layover_penalty + backtrack_penalty + circuity_penalty
@@ -2043,8 +2052,8 @@ def find_routes(
     max_connections=10,
     max_display=75,
 ):
-    origin = origin.strip().upper()
-    destination = destination.strip().upper()
+    origin = str(origin).strip().upper()
+    destination = str(destination).strip().upper()
 
     if origin == destination:
         return []
@@ -2061,7 +2070,7 @@ def find_routes(
     if origin not in adj_map:
         return []
 
-    dest_coord = AIRPORT_COORDS.get(destination)
+    dest_coord = get_coords(destination)
 
     if exact_connections is not None:
         target_legs_list = [exact_connections + 1]
@@ -2079,19 +2088,17 @@ def find_routes(
         if len(valid_paths) >= max_display * 2:
             break
 
-        # BFS Queue ensures routes with fewer/direct hops are discovered first
         queue = deque()
 
-        # Prioritize legs that land closer to the target destination
         initial_legs = adj_map[origin]
         if dest_coord:
             initial_legs = sorted(
                 initial_legs,
                 key=lambda l: (
                     haversine_miles(
-                        AIRPORT_COORDS.get(l["Destination"]), dest_coord
+                        get_coords(l.get("Destination")), dest_coord
                     )
-                    if AIRPORT_COORDS.get(l["Destination"])
+                    if get_coords(l.get("Destination"))
                     else 99999
                 ),
             )
@@ -2119,15 +2126,14 @@ def find_routes(
             if len(path) < target_legs:
                 next_legs = adj_map.get(current_node, [])
 
-                # Sort next hops geographically towards the destination
                 if dest_coord:
                     next_legs = sorted(
                         next_legs,
                         key=lambda l: (
                             haversine_miles(
-                                AIRPORT_COORDS.get(l["Destination"]), dest_coord
+                                get_coords(l.get("Destination")), dest_coord
                             )
-                            if AIRPORT_COORDS.get(l["Destination"])
+                            if get_coords(l.get("Destination"))
                             else 99999
                         ),
                     )
