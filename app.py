@@ -1947,7 +1947,6 @@ def calculate_route_score(path, origin=None, destination=None):
     if not path:
         return 0
 
-    # Auto-infer origin and destination if not explicitly passed
     if not origin:
         origin = path[0].get("Origin", "")
     if not destination:
@@ -1972,7 +1971,6 @@ def calculate_route_score(path, origin=None, destination=None):
             leg_dist = haversine_miles(c1, c2)
             total_miles += leg_dist
 
-            # Penalize legs that move farther away from destination
             if dest_coord:
                 dist_from = haversine_miles(c1, dest_coord)
                 dist_to = haversine_miles(c2, dest_coord)
@@ -2070,7 +2068,13 @@ def find_routes(
     if origin not in adj_map:
         return []
 
+    orig_coord = get_coords(origin)
     dest_coord = get_coords(destination)
+    direct_miles = (
+        haversine_miles(orig_coord, dest_coord)
+        if (orig_coord and dest_coord)
+        else 0
+    )
 
     if exact_connections is not None:
         target_legs_list = [exact_connections + 1]
@@ -2083,12 +2087,16 @@ def find_routes(
     valid_paths = []
     seen_signatures = set()
 
+    # Safety iteration cap per tier to protect memory & avoid timeouts
+    MAX_SEARCH_STEPS = 35000
+
     # 2. TARGETED GEOGRAPHIC SEARCH
     for target_legs in target_legs_list:
         if len(valid_paths) >= max_display * 2:
             break
 
         queue = deque()
+        steps = 0
 
         initial_legs = adj_map[origin]
         if dest_coord:
@@ -2104,10 +2112,11 @@ def find_routes(
             )
 
         for leg in initial_legs:
-            queue.append(([leg], {origin, leg["Destination"]}))
+            queue.append([leg])
 
-        while queue:
-            path, visited = queue.popleft()
+        while queue and steps < MAX_SEARCH_STEPS:
+            steps += 1
+            path = queue.popleft()
             current_node = path[-1]["Destination"]
 
             if len(path) == target_legs:
@@ -2124,6 +2133,19 @@ def find_routes(
                 continue
 
             if len(path) < target_legs:
+                # Early Pruning: If path is intermediate and wandering way too far off target, skip
+                if dest_coord and direct_miles > 0 and len(path) >= 2:
+                    curr_coord = get_coords(current_node)
+                    if curr_coord:
+                        dist_to_dest = haversine_miles(curr_coord, dest_coord)
+                        if dist_to_dest > max(direct_miles * 2.2, 1200):
+                            continue
+
+                # Build visited list dynamically without copying set objects
+                visited_airports = {origin}
+                for p_leg in path:
+                    visited_airports.add(p_leg["Destination"])
+
                 next_legs = adj_map.get(current_node, [])
 
                 if dest_coord:
@@ -2138,12 +2160,13 @@ def find_routes(
                         ),
                     )
 
+                # Beam width cap: Limit branching factor on deep connection searches (5+ legs)
+                if target_legs >= 5:
+                    next_legs = next_legs[:12]
+
                 for nxt in next_legs:
-                    nxt_dest = nxt["Destination"]
-                    if nxt_dest not in visited:
-                        new_visited = visited.copy()
-                        new_visited.add(nxt_dest)
-                        queue.append((path + [nxt], new_visited))
+                    if nxt["Destination"] not in visited_airports:
+                        queue.append(path + [nxt])
 
     if not valid_paths:
         return []
