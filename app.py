@@ -1953,9 +1953,9 @@ def calculate_route_score(path):
     return total_miles + layover_penalty
 
 
-# ==========================================
-# 3. GEOGRAPHICALLY OPTIMIZED ROUTE ENGINE
-# ==========================================
+def get_leg_days(leg):
+    """Safely retrieves the days string regardless of key casing."""
+    return leg.get("Days") or leg.get("days") or "Daily"
 
 
 def leg_operates_today(days_str):
@@ -1976,10 +1976,7 @@ def leg_operates_today(days_str):
     today_code = datetime.now().strftime("%a")
 
     # 3. Check if today's code is listed in the days string
-    if today_code.lower() in days_clean.lower():
-        return True
-
-    return False
+    return today_code.lower() in days_clean.lower()
 
 
 def get_reachable_destinations(network, origin, max_connections=6):
@@ -1989,9 +1986,7 @@ def get_reachable_destinations(network, origin, max_connections=6):
     """
     # Keep only flight legs operating TODAY
     active_network = [
-        leg
-        for leg in network
-        if leg_operates_today(leg.get("Days", "Daily"))
+        leg for leg in network if leg_operates_today(get_leg_days(leg))
     ]
 
     adj_map = defaultdict(list)
@@ -2001,7 +1996,6 @@ def get_reachable_destinations(network, origin, max_connections=6):
     if origin not in adj_map:
         return []
 
-    # BFS traversal to discover all reachable airports within max connection depth
     reachable = set()
     queue = deque([(origin, 0)])
     visited = {origin}
@@ -2035,12 +2029,9 @@ def find_routes(
 
     # Keep only flights operating TODAY
     active_network = [
-        leg
-        for leg in network
-        if leg_operates_today(leg.get("Days", "Daily"))
+        leg for leg in network if leg_operates_today(get_leg_days(leg))
     ]
 
-    # 1. PRE-BUILD ADJACENCY MAP
     adj_map = defaultdict(list)
     for leg in active_network:
         adj_map[leg["Origin"]].append(leg)
@@ -2048,7 +2039,6 @@ def find_routes(
     if origin not in adj_map:
         return []
 
-    # Determine target flight leg depth (Legs = Connections + 1)
     if exact_connections is not None:
         target_legs_list = [exact_connections + 1]
     else:
