@@ -1935,22 +1935,52 @@ def haversine_miles(coord1, coord2):
     return R * c
 
 
-def calculate_route_score(path):
-    """Calculates total route mileage + minor layover penalty."""
+def calculate_route_score(path, origin, destination):
+    """Calculates total route score incorporating distance, layover penalties,
+
+    leg backtracking, and overall route circuity.
+    """
     total_miles = 0
+    backtrack_penalty = 0
+
+    orig_coord = AIRPORT_COORDS.get(origin)
+    dest_coord = AIRPORT_COORDS.get(destination)
+    direct_miles = (
+        haversine_miles(orig_coord, dest_coord)
+        if (orig_coord and dest_coord)
+        else 0
+    )
+
     for leg in path:
         c1 = AIRPORT_COORDS.get(leg["Origin"])
         c2 = AIRPORT_COORDS.get(leg["Destination"])
-        if c1 and c2:
-            total_miles += haversine_miles(c1, c2)
-        else:
-            total_miles += (
-                800  # Fallback estimate if airport coordinates are unlisted
-            )
 
-    # Add a 150-mile penalty per layover connection to prefer efficient transfers
+        if c1 and c2:
+            leg_dist = haversine_miles(c1, c2)
+            total_miles += leg_dist
+
+            # Penalize individual legs that move AWAY from the target destination
+            if dest_coord:
+                dist_from = haversine_miles(c1, dest_coord)
+                dist_to = haversine_miles(c2, dest_coord)
+                # Allow minor hub deviations (+100 mi), heavily penalize major detours
+                if dist_to > dist_from + 100:
+                    backtrack_penalty += (dist_to - dist_from) * 5
+        else:
+            total_miles += 800  # Fallback estimate for unlisted coordinates
+
+    # Standard layover penalty (150 miles equivalent per connection)
     layover_penalty = (len(path) - 1) * 150
-    return total_miles + layover_penalty
+
+    # Circuity Ratio Penalty: Path Miles / Direct Miles
+    circuity_penalty = 0
+    if direct_miles > 50:
+        ratio = total_miles / direct_miles
+        if ratio > 1.35:
+            # Exponentially penalize out-of-the-way detours
+            circuity_penalty = (ratio - 1.35) * 3000
+
+    return total_miles + layover_penalty + backtrack_penalty + circuity_penalty
 
 
 def get_leg_days(leg):
@@ -1959,23 +1989,16 @@ def get_leg_days(leg):
 
 
 def leg_operates_today(days_str):
-    """Checks if a flight leg operates today based on standard codes:
-
-    'Daily', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
-    """
+    """Checks if a flight leg operates today based on standard codes."""
     if not days_str:
         return True
 
     days_clean = str(days_str).strip()
 
-    # 1. 'Daily' always operates
     if "daily" in days_clean.lower():
         return True
 
-    # 2. Get today's 3-letter day abbreviation (e.g., 'Mon', 'Wed', 'Fri')
     today_code = datetime.now().strftime("%a")
-
-    # 3. Check if today's code is listed in the days string
     return today_code.lower() in days_clean.lower()
 
 
@@ -1984,7 +2007,6 @@ def get_reachable_destinations(network, origin, max_connections=6):
 
     from the specified origin on today's schedule.
     """
-    # Keep only flight legs operating TODAY
     active_network = [
         leg for leg in network if leg_operates_today(get_leg_days(leg))
     ]
@@ -2027,7 +2049,7 @@ def find_routes(
     if origin == destination:
         return []
 
-    # Keep only flights operating TODAY
+    # 1. FILTER ACTIVE NETWORK FOR TODAY
     active_network = [
         leg for leg in network if leg_operates_today(get_leg_days(leg))
     ]
@@ -2038,6 +2060,8 @@ def find_routes(
 
     if origin not in adj_map:
         return []
+
+    dest_coord = AIRPORT_COORDS.get(destination)
 
     if exact_connections is not None:
         target_legs_list = [exact_connections + 1]
@@ -2050,17 +2074,33 @@ def find_routes(
     valid_paths = []
     seen_signatures = set()
 
-    # 2. TARGETED SEARCH FOR SELECTED CONNECTION LEVEL
+    # 2. TARGETED GEOGRAPHIC SEARCH
     for target_legs in target_legs_list:
         if len(valid_paths) >= max_display * 2:
             break
 
-        stack = []
-        for leg in adj_map[origin]:
-            stack.append(([leg], {origin, leg["Destination"]}))
+        # BFS Queue ensures routes with fewer/direct hops are discovered first
+        queue = deque()
 
-        while stack:
-            path, visited = stack.pop()
+        # Prioritize legs that land closer to the target destination
+        initial_legs = adj_map[origin]
+        if dest_coord:
+            initial_legs = sorted(
+                initial_legs,
+                key=lambda l: (
+                    haversine_miles(
+                        AIRPORT_COORDS.get(l["Destination"]), dest_coord
+                    )
+                    if AIRPORT_COORDS.get(l["Destination"])
+                    else 99999
+                ),
+            )
+
+        for leg in initial_legs:
+            queue.append(([leg], {origin, leg["Destination"]}))
+
+        while queue:
+            path, visited = queue.popleft()
             current_node = path[-1]["Destination"]
 
             if len(path) == target_legs:
@@ -2077,18 +2117,35 @@ def find_routes(
                 continue
 
             if len(path) < target_legs:
-                for nxt in adj_map.get(current_node, []):
+                next_legs = adj_map.get(current_node, [])
+
+                # Sort next hops geographically towards the destination
+                if dest_coord:
+                    next_legs = sorted(
+                        next_legs,
+                        key=lambda l: (
+                            haversine_miles(
+                                AIRPORT_COORDS.get(l["Destination"]), dest_coord
+                            )
+                            if AIRPORT_COORDS.get(l["Destination"])
+                            else 99999
+                        ),
+                    )
+
+                for nxt in next_legs:
                     nxt_dest = nxt["Destination"]
                     if nxt_dest not in visited:
                         new_visited = visited.copy()
                         new_visited.add(nxt_dest)
-                        stack.append((path + [nxt], new_visited))
+                        queue.append((path + [nxt], new_visited))
 
     if not valid_paths:
         return []
 
     # 3. SORT & RETURN BEST ROUTE OPTIONS
-    valid_paths.sort(key=lambda p: calculate_route_score(p))
+    valid_paths.sort(
+        key=lambda p: calculate_route_score(p, origin, destination)
+    )
     return valid_paths[:max_display]
 
 # ==========================================
