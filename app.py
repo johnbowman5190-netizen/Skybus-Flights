@@ -714,6 +714,7 @@ routes_raw = [
     (2882, "KBGR", "ENGM", "Wed, Sat"),  # Oslo, Norway
     (2884, "KBGR", "ESSA", "Thu, Sun"),  # Stockholm, Sweden
     (2886, "KBGR", "MPTO", "Tue, Thu, Sat"),  # Panama City, Panama
+    (2888, "KBGR", "EHAM", "Mon, Wed, Fri"),  # Amsterdam, Netherlands
 
     # ----------------------------------------------------
     # KSWF International Spokes (Stewart / Newburgh, NY Hub)
@@ -1404,7 +1405,7 @@ AIRPORT_NAMES = {
     "EGCC": "Manchester, United Kingdom",
     "EGLL": "London Heathrow, United Kingdom",
     "EGPK": "Glasgow, Scotland",
-    "EHAM": "Amsterdam, Netherlands",
+    "": "Amsterdam, Netherlands",
     "EIDW": "Dublin, Ireland",
     "EINN": "Shannon, Ireland",
     "EKCH": "Copenhagen, Denmark",
