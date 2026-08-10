@@ -2127,9 +2127,10 @@ FLEET_SPECS = {
 }
 
 def get_flight_capacity_and_pax(leg, last_state=None):
-    """Assigns aircraft model, tail registration, and passenger load based on
+    """Assigns aircraft model, tail registration, and realistic passenger load
 
-    strict realistic fleet constraints (range, hub hierarchy, and route type).
+    factor considering ULCC network dynamics: day of week, seasonal calendar,
+    route type, and directional leisure asymmetry ("empty leg" effect).
     """
     flight_num = leg["Flight"]
     orig = leg["Origin"]
@@ -2139,7 +2140,8 @@ def get_flight_capacity_and_pax(leg, last_state=None):
     c2 = AIRPORT_COORDS.get(dest)
     distance = haversine_miles(c1, c2) if (c1 and c2) else 600
 
-    today_str = datetime.now().strftime("%Y-%m-%d")
+    now = datetime.now()
+    today_str = now.strftime("%Y-%m-%d")
     seed_value = f"{flight_num}-{today_str}"
     rng = random.Random(seed_value)
 
@@ -2147,35 +2149,28 @@ def get_flight_capacity_and_pax(leg, last_state=None):
     is_hub_to_hub = (orig in HUBS) and (dest in HUBS)
     touches_hub = (orig in HUBS) or (dest in HUBS)
     is_near_intl = (orig in INTL_AIRPORTS) or (dest in INTL_AIRPORTS)
-
-    # European / Transatlantic ICAO code check (e.g. LPPT, EGLL, LFPG)
     is_transatlantic = orig.startswith(("L", "E", "F")) or dest.startswith(
         ("L", "E", "F")
     )
 
-    # STRICT FLEET ASSIGNMENT RULES:
+    # ---------------------------------------------------------
+    # 1. AIRCRAFT TYPE SELECTION
+    # ---------------------------------------------------------
     if is_transatlantic or distance >= 2000 or is_hub_to_hub:
-        # Transatlantic long-haul or Hub-to-Hub Direct Mainline -> Strictly A321
         ac_type = "A321"
-
     elif is_near_intl:
-        # Near Caribbean / Island Routes -> A320 or A321
         ac_type = (
             rng.choice(["A320", "A321"])
             if distance >= 1000
             else rng.choice(["A319", "A320"])
         )
-
     elif touches_hub:
-        # Hub-to-Spoke Feeders (e.g., KRIC -> KGNV) -> Strictly A320 or A319
         ac_type = (
             rng.choice(["A320", "A320", "A319"])
             if distance >= 700
             else rng.choice(["A319", "A319", "A320"])
         )
-
     else:
-        # Spoke-to-Spoke / Regional Routes (e.g., KDAY -> KGRR, KMSY -> KELP) -> Strictly A319 or A320
         ac_type = (
             rng.choice(["A319", "A319", "A320"])
             if distance < 450
@@ -2184,7 +2179,7 @@ def get_flight_capacity_and_pax(leg, last_state=None):
 
     spec = FLEET_SPECS[ac_type]
 
-    # Re-use previous tail registration if aircraft type is identical
+    # Re-use tail registration for consecutive same-type legs
     if (
         last_state is not None
         and last_state.get("type") == ac_type
@@ -2194,15 +2189,104 @@ def get_flight_capacity_and_pax(leg, last_state=None):
     else:
         tail_number = rng.choice(spec["registrations"])
 
-    # Update last state for next leg check
     if last_state is not None:
         last_state["type"] = ac_type
         last_state["tail"] = tail_number
 
+    # ---------------------------------------------------------
+    # 2. REALISTIC ULCC DEMAND ENGINE
+    # ---------------------------------------------------------
+
+    # A. Day-of-Week Factor (Mon=0 ... Sun=6)
+    dow = now.weekday()
+    dow_multipliers = {
+        0: 0.92,  # Monday (Business / Return leisure)
+        1: 0.72,  # Tuesday (Heavy ULCC mid-week lull)
+        2: 0.74,  # Wednesday (Mid-week lull)
+        3: 0.91,  # Thursday (Early weekend departures)
+        4: 1.02,  # Friday (Peak weekend outbound)
+        5: 0.82,  # Saturday (Moderate)
+        6: 1.05,  # Sunday (Peak weekend return)
+    }
+    dow_factor = dow_multipliers[dow]
+
+    # B. Seasonal Calendar Factor
+    month, day = now.month, now.day
+    is_thanksgiving = month == 11 and day >= 18
+    is_holiday_season = (month == 12 and day >= 14) or (
+        month == 1 and day <= 6
+    )
+    is_summer_peak = (month == 6 and day >= 15) or month in [7, 8]
+    is_spring_break = (month == 3 and day >= 10) or (month == 4 and day <= 20)
+    is_winter_lull = (month == 1 and day > 6) or month == 2
+    is_fall_lull = month == 9 or (month == 10 and day <= 24)
+
+    if is_holiday_season or is_thanksgiving:
+        season_factor = 1.18  # Major holiday rush
+    elif is_summer_peak:
+        season_factor = 1.10  # Peak summer vacation
+    elif is_spring_break:
+        season_factor = 1.05  # Spring Break surge
+    elif is_winter_lull or is_fall_lull:
+        season_factor = 0.80  # Post-holiday / off-peak lulls
+    else:
+        season_factor = 0.95  # Standard shoulder period
+
+    # C. Route Hierarchy Factor
+    if is_transatlantic or is_hub_to_hub:
+        route_factor = 1.06
+    elif touches_hub:
+        route_factor = 0.97
+    else:
+        route_factor = 0.84  # Regional spoke-to-spoke routes carry lower average loads
+
+    # D. Directional Leisure Asymmetry ("Empty Leg" Effect)
+    SUN_DESTINATIONS = {
+        "KSFB",
+        "TJBQ",
+        "TIST",
+        "TISX",
+        "KMYR",
+        "KEYW",
+        "KPBI",
+        "KRSW",
+    }
+    is_heading_to_sun = dest in SUN_DESTINATIONS
+    is_heading_from_sun = orig in SUN_DESTINATIONS
+
+    directional_factor = 1.00
+    if is_heading_to_sun:
+        if dow in [3, 4]:  # Thu/Fri heading to leisure spots
+            directional_factor = 1.12
+        elif dow in [0, 6]:  # Sun/Mon heading to leisure spots (counter-flow)
+            directional_factor = 0.82
+    elif is_heading_from_sun:
+        if dow in [0, 6]:  # Sun/Mon returning from leisure spots
+            directional_factor = 1.12
+        elif dow in [3, 4]:  # Thu/Fri returning from leisure spots (counter-flow)
+            directional_factor = 0.82
+
+    # ---------------------------------------------------------
+    # 3. FINAL LOAD FACTOR CALCULATION
+    # ---------------------------------------------------------
+    baseline_load = 0.84
+    target_lf = (
+        baseline_load
+        * dow_factor
+        * season_factor
+        * route_factor
+        * directional_factor
+    )
+
+    # Deterministic flight-level variance (+/- 4%)
+    variance = rng.uniform(-0.04, 0.04)
+    final_load_factor = target_lf + variance
+
+    # Allow load factors to naturally range between 48% (off-peak Tuesday) and 99% (holiday Sunday)
+    final_load_factor = max(0.48, min(0.99, final_load_factor))
+
     capacity = spec["capacity"]
-    min_pax = int(capacity * 0.72)
-    max_pax = int(capacity * 0.98)
-    pax_count = rng.randint(min_pax, max_pax)
+    pax_count = int(capacity * final_load_factor)
 
     return {
         "aircraft_code": ac_type,
