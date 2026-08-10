@@ -2087,19 +2087,19 @@ def find_routes(
     valid_paths = []
     seen_signatures = set()
 
-    # Safety iteration cap per tier to protect memory & avoid timeouts
-    MAX_SEARCH_STEPS = 35000
+    MAX_SEARCH_STEPS = 50000
 
-    # 2. TARGETED GEOGRAPHIC SEARCH
+    # 2. TARGETED GEOGRAPHIC DFS SEARCH
     for target_legs in target_legs_list:
         if len(valid_paths) >= max_display * 2:
             break
 
-        queue = deque()
+        stack = []
         steps = 0
 
         initial_legs = adj_map[origin]
         if dest_coord:
+            # Sort descending so popping from stack evaluates closest to destination first
             initial_legs = sorted(
                 initial_legs,
                 key=lambda l: (
@@ -2109,14 +2109,15 @@ def find_routes(
                     if get_coords(l.get("Destination"))
                     else 99999
                 ),
+                reverse=True,
             )
 
         for leg in initial_legs:
-            queue.append([leg])
+            stack.append([leg])
 
-        while queue and steps < MAX_SEARCH_STEPS:
+        while stack and steps < MAX_SEARCH_STEPS:
             steps += 1
-            path = queue.popleft()
+            path = stack.pop()
             current_node = path[-1]["Destination"]
 
             if len(path) == target_legs:
@@ -2133,15 +2134,14 @@ def find_routes(
                 continue
 
             if len(path) < target_legs:
-                # Early Pruning: If path is intermediate and wandering way too far off target, skip
-                if dest_coord and direct_miles > 0 and len(path) >= 2:
+                # Relaxed pruning threshold for deep connection paths (5-6 connections)
+                if dest_coord and direct_miles > 0 and len(path) >= 3:
                     curr_coord = get_coords(current_node)
                     if curr_coord:
                         dist_to_dest = haversine_miles(curr_coord, dest_coord)
-                        if dist_to_dest > max(direct_miles * 2.2, 1200):
+                        if dist_to_dest > max(direct_miles * 2.8, 1800):
                             continue
 
-                # Build visited list dynamically without copying set objects
                 visited_airports = {origin}
                 for p_leg in path:
                     visited_airports.add(p_leg["Destination"])
@@ -2149,6 +2149,7 @@ def find_routes(
                 next_legs = adj_map.get(current_node, [])
 
                 if dest_coord:
+                    # Sort descending so stack popping prioritizes geographic progress
                     next_legs = sorted(
                         next_legs,
                         key=lambda l: (
@@ -2158,15 +2159,15 @@ def find_routes(
                             if get_coords(l.get("Destination"))
                             else 99999
                         ),
+                        reverse=True,
                     )
 
-                # Beam width cap: Limit branching factor on deep connection searches (5+ legs)
                 if target_legs >= 5:
-                    next_legs = next_legs[:12]
+                    next_legs = next_legs[-18:]  # Keep top 18 closest choices
 
                 for nxt in next_legs:
                     if nxt["Destination"] not in visited_airports:
-                        queue.append(path + [nxt])
+                        stack.append(path + [nxt])
 
     if not valid_paths:
         return []
