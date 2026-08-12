@@ -571,6 +571,7 @@ routes_raw = [
     (1716, "KGRR", "KSTJ", "Tue, Thu, Sat"),  # St. Joseph, MO
     (1718, "KGRR", "KBLV", "Mon, Wed, Fri, Sun"),  # Belleville / St. Louis area
     (1720, "KGRR", "KMBS", "Mon, Wed, Fri"),  # Saginaw, MI
+    (1722, "KGRR", "KBLF", "Mon, Wed, Fri, Sun"),  # Bluefield, WV
 
     # ----------------------------------------------------
     # International Flights (800 Block - Skybus Network)
@@ -688,7 +689,7 @@ routes_raw = [
     (2828, "KGRR", "TNCA", "Thu, Sun"),  # Oranjestad, Aruba
     (2830, "KGRR", "MROC", "Mon, Thu, Sat"),  # San José, Costa Rica
     (2832, "KGRR", "SKBO", "Tue, Thu, Sat"),  # Bogotá, Colombia
-    (2834, "KGRR", "SPIM", "Wed, Sat"),  # Lima, Peru
+    (2834, "KGRR", "SPJC", "Wed, Sat"),  # Lima, Peru
     (2836, "KGRR", "BIKF", "Mon, Wed, Fri"),  # Reykjavik, Iceland
     (2838, "KGRR", "LPPD", "Wed, Sat"),  # Ponta Delgada, Portugal
     (2840, "KGRR", "EINN", "Thu, Sun"),  # Shannon, Ireland
@@ -923,6 +924,7 @@ routes_raw = [
     (2132, "KRIC", "KEYW", "Mon, Wed, Fri, Sun"),  # Key West, FL
     (2134, "KRIC", "KVPS", "Thu, Sun"),  # Destin / Eglin AFB, FL
     (2136, "KRIC", "KMBS", "Tue, Thu, Sat"),  # Saginaw, MI
+    (2138, "KRIC", "KBLF", "Mon, Wed, Fri, Sun"),  # Bluefield, WV
 
     # ----------------------------------------------------
     # KSFB Bridge Spokes (1200 Block - Florida / Southeast Hub)
@@ -1231,6 +1233,7 @@ AIRPORT_NAMES = {
     "KBFD": "Bradford, PA",
     "KBGM": "Binghamton, NY",
     "KBHB": "Bar Harbor, ME",
+    "KBLF": "Bluefield, WV",
     "KBQK": "Brunswick, GA",
     "KBTV": "Burlington, VT",
     "KBUF": "Buffalo, NY",
@@ -1405,7 +1408,7 @@ AIRPORT_NAMES = {
     "EGCC": "Manchester, United Kingdom",
     "EGLL": "London Heathrow, United Kingdom",
     "EGPK": "Glasgow, Scotland",
-    "": "Amsterdam, Netherlands",
+    "EHAM": "Amsterdam, Netherlands",
     "EIDW": "Dublin, Ireland",
     "EINN": "Shannon, Ireland",
     "EKCH": "Copenhagen, Denmark",
