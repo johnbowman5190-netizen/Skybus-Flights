@@ -766,6 +766,12 @@ routes_raw = [
     (3874, "KOMA", "MROC", "Sat, Sun"),  # San José, Costa Rica
     (3876, "KOMA", "SKBO", "Fri, Sun"),  # Bogotá, Colombia
     (3878, "KOMA", "BIKF", "Tue, Thu, Sun"),  # Keflavík / Reykjavík, Iceland
+    (3880, "KOMA", "MDPC", "Wed, Sat"),         # Punta Cana, Dominican Republic
+    (3882, "KOMA", "CYWG", "Mon, Wed, Fri"),    # Winnipeg, MB, Canada
+    (3884, "KOMA", "EGLL", "Wed, Fri, Sun"),    # London Heathrow, United Kingdom
+    (3886, "KOMA", "MBPV", "Wed, Sat"),         # Providenciales, Turks & Caicos
+    (3888, "KOMA", "SPJC", "Wed, Sat"),         # Lima, Peru
+
 
     
     # ----------------------------------------------------
