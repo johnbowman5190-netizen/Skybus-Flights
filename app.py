@@ -728,6 +728,7 @@ routes_raw = [
     (3810, "KSWF", "EFHK", "Tue, Thu, Sat"),  # Helsinki, Finland
     (3812, "KSWF", "LGAV", "Wed, Sat"),  # Athens, Greece
     (3814, "KSWF", "LROP", "Thu, Sun"),  # Bucharest, Romania
+    (3816, "KSWF", "TXKF", "Thu, Sun"),  # Bermuda
 
     # ----------------------------------------------------
     # KRIC International Spokes (Richmond, VA Hub)
@@ -737,6 +738,13 @@ routes_raw = [
     (3834, "KRIC", "EKCH", "Mon, Wed, Fri"),  # Copenhagen, Denmark
     (3836, "KRIC", "SEQM", "Thu, Sun"),  # Quito, Ecuador
     (3838, "KRIC", "SAEZ", "Wed, Sat"),  # Buenos Aires, Argentina
+    (3840, "KRIC", "EGLL", "Tue, Thu, Sat"),  # London Heathrow, United Kingdom
+    (3842, "KRIC", "LFPG", "Mon, Wed, Fri"),  # Paris, France
+    (3844, "KRIC", "EDDF", "Thu, Sun"),  # Frankfurt, Germany
+    (3846, "KRIC", "EIDW", "Mon, Fri, Sun"),  # Dublin, Ireland
+    (3848, "KRIC", "MMUN", "Sat, Sun"),  # Cancún, Mexico
+    (3850, "KRIC", "TXKF", "Thu, Sun"),  # Bermuda
+
 
     # ----------------------------------------------------
     # KPVU International Spokes (Provo, UT Hub)
@@ -744,6 +752,11 @@ routes_raw = [
     (3850, "KPVU", "CYYC", "Mon, Wed, Fri, Sun"),  # Calgary, AB, Canada
     (3852, "KPVU", "CYEG", "Tue, Thu, Sat"),  # Edmonton, AB, Canada
     (3854, "KPVU", "CYZF", "Thu, Sun"),  # Yellowknife, NT, Canada
+    (3856, "KPVU", "CYVR", "Mon, Wed, Fri"),  # Vancouver, BC, Canada
+    (3858, "KPVU", "MMUN", "Sat, Sun"),  # Cancún, Mexico
+    (3860, "KPVU", "MMSD", "Thu, Sun"),  # San José del Cabo, Mexico
+    (3862, "KPVU", "BIKF", "Tue, Thu, Sat"),  # Keflavík, Iceland
+    (3864, "KPVU", "MROC", "Wed, Sat"),  # San José, Costa Rica
     
     # ----------------------------------------------------
     # --- KOMA International Routes (Omaha, NE Hub)
@@ -1438,6 +1451,8 @@ AIRPORT_NAMES = {
     "ROAH": "Naha, Japan",
     "RORS": "Shimojishima, Japan",
     "RPLC": "Clark, Philippines",
+    "TXKF": "Bermuda",
+
 }
 
 
@@ -1913,6 +1928,7 @@ AIRPORT_COORDS = {
     "LPPT": (38.7813, -9.1359),     # Humberto Delgado Airport (Lisbon), Portugal
     "LROP": (44.5722, 26.1022),     # Henri Coandă Intl (Bucharest), Romania
     "LSZH": (47.4647, 8.5492),      # Zurich Airport, Switzerland
+    "TXKF": (32.3640, -64.6787),    # L.F. Wade Airport, Bermuda
 
     # --------------------------------------------------------------------------
     # ASIA & PACIFIC
