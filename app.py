@@ -746,6 +746,16 @@ routes_raw = [
     (3854, "KPVU", "CYZF", "Thu, Sun"),  # Yellowknife, NT, Canada
     
     # ----------------------------------------------------
+    # --- KOMA International Routes (Omaha, NE Hub)
+    # ----------------------------------------------------
+    (3870, "KOMA", "CYYC", "Mon, Thu, Sat"),  # Calgary, AB, Canada
+    (3872, "KOMA", "CYVR", "Wed, Fri, Sun"),  # Vancouver, BC, Canada
+    (3874, "KOMA", "MROC", "Sat, Sun"),  # San José, Costa Rica
+    (3876, "KOMA", "SKBO", "Fri, Sun"),  # Bogotá, Colombia
+    (3878, "KOMA", "BIKF", "Tue, Thu, Sun"),  # Keflavík / Reykjavík, Iceland
+
+    
+    # ----------------------------------------------------
     # TJBQ Caribbean Regional Spokes (1500 Block - Caribbean Hub)
     # ----------------------------------------------------
     (1500, "TJBQ", "TJPS", "Tue, Thu, Sat"),  # Ponce, PR
