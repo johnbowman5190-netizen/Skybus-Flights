@@ -590,7 +590,6 @@ routes_raw = [
     (818, "TJBQ", "TBPB", "Mon, Wed, Fri"),  # Bridgetown, Barbados
     (820, "TJBQ", "TVSA", "Tue, Thu, Sat"),  # Kingstown, St. Vincent
     (822, "TJBQ", "MDPC", "Mon, Wed, Fri, Sun"),  # Punta Cana, Dominican Republic
-    (824, "TJBQ", "LOWW", "Mon, Wed, Fri"),  # Vienna, Austria
 
     # ----------------------------------------------------
     # KSFB International Spokes (Sanford / Orlando, FL Hub)
@@ -717,6 +716,7 @@ routes_raw = [
     (2884, "KBGR", "ESSA", "Thu, Sun"),  # Stockholm, Sweden
     (2886, "KBGR", "MPTO", "Tue, Thu, Sat"),  # Panama City, Panama
     (2888, "KBGR", "EHAM", "Mon, Wed, Fri"),  # Amsterdam, Netherlands
+    (2890, "KBGR", "LOWW", "Mon, Wed, Fri"),  # Vienna, Austria
 
     # ----------------------------------------------------
     # KSWF International Spokes (Stewart / Newburgh, NY Hub)
