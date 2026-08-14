@@ -590,6 +590,7 @@ routes_raw = [
     (818, "TJBQ", "TBPB", "Mon, Wed, Fri"),  # Bridgetown, Barbados
     (820, "TJBQ", "TVSA", "Tue, Thu, Sat"),  # Kingstown, St. Vincent
     (822, "TJBQ", "MDPC", "Mon, Wed, Fri, Sun"),  # Punta Cana, Dominican Republic
+    (824, "TJBQ", "LOWW", "Mon, Wed, Fri"),  # Vienna, Austria
 
     # ----------------------------------------------------
     # KSFB International Spokes (Sanford / Orlando, FL Hub)
