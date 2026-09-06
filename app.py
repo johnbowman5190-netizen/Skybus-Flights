@@ -778,7 +778,7 @@ routes_raw = [
     # ----------------------------------------------------
     # TJBQ Caribbean Regional Spokes (1500 Block - Caribbean Hub)
     # ----------------------------------------------------
-    (1500, "TJBQ", "TJPS", "Tue, Thu, Sat"),  # Ponce, PR
+    (1500, "TJBQ", "TJPS", "Tue, Thu, Sat, Sun"),  # Ponce, PR
     (1502, "TJBQ", "TIST", "Mon, Wed, Fri, Sun"),  # St. Thomas, USVI
     (1504, "TJBQ", "TISX", "Tue, Thu, Sat"),  # St. Croix, USVI
     (1506, "TJBQ", "TJSJ", "Mon, Wed, Fri, Sun"),  # San Juan, PR
