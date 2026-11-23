@@ -250,6 +250,16 @@ routes_raw = [
     (1354, "PAFA", "KBZN", "Thu, Sun"),  # Bozeman, MT
     (1356, "PAFA", "KMSO", "Tue, Sat"),  # Missoula, MT
     (1358, "PAFA", "KBOI", "Tue, Thu, Sat"),  # Boise, ID
+    (1360, "PAFA", "PHLI", "Tue, Sat"),  # Lihue, HI
+    (1362, "PAFA", "PASN", "Wed, Sat"),  # St. Paul Island, AK
+    (1364, "PAFA", "KGEG", "Mon, Wed, Fri, Sun"),  # Spokane, WA
+    (1366, "PAFA", "KFCA", "Thu, Sun"),  # Kalispell / Glacier Park, MT
+    (1368, "PAFA", "KEUG", "Tue, Thu, Sat"),  # Eugene, OR
+    (1370, "PAFA", "KBIL", "Mon, Fri"),  # Billings, MT
+    (1372, "PAFA", "KRNO", "Tue, Thu, Sat"),  # Reno-Tahoe, NV
+    (1374, "PAFA", "KOAK", "Daily"),  # Oakland, CA
+    (1376, "PAFA", "KLAS", "Mon, Wed, Fri, Sun"),  # Las Vegas, NV
+    (1378, "PAFA", "KPSP", "Tue, Thu, Sat"),  # Palm Springs, CA
 
     # ----------------------------------------------------
     # KPVU Bridge Spokes (1400 Block - Intermountain West Hub)
