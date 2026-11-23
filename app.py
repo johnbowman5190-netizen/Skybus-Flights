@@ -1746,475 +1746,574 @@ AIRPORT_COORDS = {
     # --------------------------------------------------------------------------
     # HUB AIRPORTS
     # --------------------------------------------------------------------------
-    "PAFA": (64.8151, -147.8564),  # Fairbanks International, AK
-    "KPVU": (40.2192, -111.7233),  # Provo Municipal, UT
-    "KIWA": (33.3078, -111.6550),  # Phoenix-Mesa Gateway, AZ
-    "KBLI": (48.7927, -122.5375),  # Bellingham International, WA
-    "KMSY": (29.9934, -90.2580),   # Louis Armstrong New Orleans Intl, LA
-    "KOMA": (41.3025, -95.8942),   # Eppley Airfield (Omaha), NE
-    "KGRR": (42.8808, -85.5228),   # Gerald R. Ford Intl (Grand Rapids), MI
-    "TJBQ": (18.4949, -67.1294),   # Rafael Hernández Intl (Aguadilla), PR
-    "KSWF": (41.5041, -74.1048),   # New York Stewart Intl, NY
-    "KBGR": (44.8074, -68.8281),   # Bangor International, ME
-    "KRIC": (37.5052, -77.3197),   # Richmond International, VA
-    "KSFB": (28.7776, -81.2375),   # Orlando Sanford Intl, FL
-    "KONT": (34.0560, -117.6012),  # Ontario International, CA
-    "KCOS": (38.8058, -104.7008),  # Colorado Springs Airport, CO
-    "KSAT": (29.5337, -98.4698),   # San Antonio International, TX
-    "KTYS": (35.8110, -83.9940),   # McGhee Tyson Airport (Knoxville), TN
+import math
 
-    # --------------------------------------------------------------------------
+AIRPORT_COORDS = {
+    # HUBS / FOCUS CITIES
+    "PAFA": (64.8151, -147.8564), "KPVU": (40.2192, -111.7233),
+    "KIWA": (33.3078, -111.6550), "KBLI": (48.7927, -122.5375),
+    "KMSY": (29.9934, -90.2580),  "KOMA": (41.3025, -95.8942),
+    "KGRR": (42.8808, -85.5228),  "TJBQ": (18.4949, -67.1294),
+    "KSWF": (41.5041, -74.1048),  "KBGR": (44.8074, -68.8281),
+    "KRIC": (37.5052, -77.3197),  "KSFB": (28.7776, -81.2375),
+    "KONT": (34.0560, -117.6012), "KCOS": (38.8058, -104.7008),
+    "KSAT": (29.5337, -98.4698),  "KTYS": (35.8110, -83.9940),
+
     # ALASKA SPOKES
-    # --------------------------------------------------------------------------
-    "PAJN": (58.3594, -134.5762),  # Juneau International, AK
-    "PAKT": (55.3556, -131.7137),  # Ketchikan International, AK
-    "PABR": (71.2854, -156.7660),  # Utqiaġvik (Barrow), AK
-    "PAOT": (66.8847, -162.5986),  # Ralph Wien Memorial (Kotzebue), AK
-    "PASC": (70.1947, -148.4652),  # Deadhorse / Prudhoe Bay, AK
-    "PADQ": (57.7499, -152.4939),  # Kodiak Airport, AK
-    "PAOM": (64.5122, -165.4453),  # Nome Airport, AK
-    "PAPG": (56.8017, -132.9453),  # Petersburg James A. Johnson, AK
-    "PASI": (57.0471, -135.3616),  # Sitka Rocky Gutierrez, AK
-    "PAYA": (59.5033, -139.6602),  # Yakutat Airport, AK
-    "PAVD": (61.1339, -146.2483),  # Valdez Airport, AK
-    "PAEN": (60.5731, -151.2450),  # Kenai Municipal, AK
-    "PAKW": (56.4843, -132.3698),  # Wrangell Airport, AK
-    "PAHO": (59.6456, -151.4766),  # Homer Airport, AK
-    "PADL": (59.0454, -158.5033),  # Dillingham Airport, AK
-    "PAKN": (58.6768, -156.6492),  # King Salmon Airport, AK
-    "PAGS": (58.4244, -135.7075),  # Gustavus Airport, AK
+    "PAJN": (58.3594, -134.5762), "PAKT": (55.3556, -131.7137),
+    "PABR": (71.2854, -156.7660), "PAOT": (66.8847, -162.5986),
+    "PASC": (70.1947, -148.4652), "PADQ": (57.7499, -152.4939),
+    "PAOM": (64.5122, -165.4453), "PAPG": (56.8017, -132.9453),
+    "PASI": (57.0471, -135.3616), "PAYA": (59.5033, -139.6602),
+    "PAVD": (61.1339, -146.2483), "PAEN": (60.5731, -151.2450),
+    "PAKW": (56.4843, -132.3698), "PAHO": (59.6456, -151.4766),
+    "PADL": (59.0454, -158.5033), "PAKN": (58.6768, -156.6492),
+    "PAGS": (58.4244, -135.7075),
 
-    # --------------------------------------------------------------------------
     # HAWAII SPOKES
-    # --------------------------------------------------------------------------
-    "PHNL": (21.3187, -157.9224),  # Daniel K. Inouye Intl (Honolulu), HI
-    "PHOG": (20.8986, -156.4305),  # Kahului Airport (Maui), HI
-    "PHKO": (19.7388, -155.9874),  # Ellison Onizuka Kona Intl, HI
-    "PHLI": (21.9760, -159.3390),  # Lihue Airport (Kauai), HI
+    "PHNL": (21.3187, -157.9224), "PHOG": (20.8986, -156.4305),
+    "PHKO": (19.7388, -155.9874), "PHLI": (21.9760, -159.3390),
 
-    # --------------------------------------------------------------------------
     # INTERMOUNTAIN & PACIFIC NORTHWEST SPOKES
-    # --------------------------------------------------------------------------
-    "KALW": (46.0944, -118.2881),  # Walla Walla Regional Airport, WA
-    "KBIL": (45.8077, -108.5429),  # Billings Logan International Airport, MT
-    "KBOI": (43.5644, -116.2228),  # Boise Airport, ID
-    "KBZN": (45.7775, -111.1531),  # Bozeman Yellowstone International Airport, MT
-    "KCDC": (37.7010, -113.0988),  # Cedar City Regional Airport, UT
-    "KCLM": (48.1202, -123.4997),  # William R. Fairchild (Port Angeles), WA
-    "KCNY": (38.7550, -109.7548),  # Canyonlands Regional Airport (Moab), UT
-    "KCOD": (44.5202, -109.0238),  # Yellowstone Regional Airport (Cody), WY
-    "KCPR": (42.9080, -106.4644),  # Casper/Natrona County Intl, WY
-    "KCYS": (41.1557, -104.8118),  # Cheyenne Regional Airport, WY
-    "KEAT": (47.3999, -120.2068),  # Pangborn Memorial Airport (Wenatchee), WA
-    "KEGE": (39.6426, -106.9177),  # Eagle County Regional Airport (Vail), CO
-    "KEUG": (44.1233, -123.2186),  # Eugene Airport, OR
-    "KGEG": (47.6199, -117.5338),  # Spokane International Airport, WA
-    "KGJT": (39.1224, -108.5267),  # Grand Junction Regional, CO
-    "KGPI": (48.3105, -114.2560),  # Glacier Park International Airport (Kalispell), MT
-    "KGTF": (47.4820, -111.3707),  # Great Falls International Airport, MT
-    "KHDN": (40.4812, -107.2177),  # Yampa Valley Regional (Hayden / Steamboat Springs), CO
-    "KHLN": (46.6068, -111.9827),  # Helena Regional Airport, MT
-    "KIDA": (43.5146, -112.0702),  # Idaho Falls Regional Airport, ID
-    "KJAC": (43.6073, -110.7377),  # Jackson Hole Airport, WY
-    "KLWS": (46.3745, -117.0154),  # Lewiston-Nez Perce County Airport, ID
-    "KMFR": (42.3742, -122.8735),  # Rogue Valley International-Medford Airport, OR
-    "KMSO": (46.9163, -114.0906),  # Missoula Montana Airport, MT
-    "KMTJ": (38.5098, -107.8943),  # Montrose Regional Airport (Telluride), CO
-    "KOGD": (41.1959, -112.0122),  # Ogden-Hinckley Airport, UT
-    "KOTH": (43.4171, -124.2460),  # Southwest Oregon Regional (North Bend), OR
-    "KPDX": (45.5898, -122.5951),  # Portland International Airport, OR
-    "KPIH": (42.9113, -112.5959),  # Pocatello Regional, ID
-    "KPSC": (46.2647, -119.1190),  # Tri-Cities Airport (Pasco), WA
-    "KRDM": (44.2541, -121.1500),  # Roberts Field (Redmond), OR
-    "KRNO": (39.4991, -119.7681),  # Reno/Tahoe International Airport, NV
-    "KSGU": (37.0364, -113.5103),  # St. George Regional Airport, UT
-    "KTWF": (42.4818, -114.4877),  # Magic Valley Regional Airport (Twin Falls), ID
-    "KVEL": (40.4409, -109.5099),  # Vernal Regional Airport, UT
-    "KYKM": (46.5682, -120.5440),  # Yakima Air Terminal, WA
+    "KALW": (46.0944, -118.2881), "KBIL": (45.8077, -108.5429),
+    "KBOI": (43.5644, -116.2228), "KBZN": (45.7775, -111.1531),
+    "KCDC": (37.7010, -113.0988), "KCLM": (48.1202, -123.4997),
+    "KCNY": (38.7550, -109.7548), "KCOD": (44.5202, -109.0238),
+    "KCPR": (42.9080, -106.4644), "KCYS": (41.1557, -104.8118),
+    "KEAT": (47.3999, -120.2068), "KEGE": (39.6426, -106.9177),
+    "KEUG": (44.1233, -123.2186), "KGEG": (47.6199, -117.5338),
+    "KGJT": (39.1224, -108.5267), "KGPI": (48.3105, -114.2560),
+    "KGTF": (47.4820, -111.3707), "KHDN": (40.4812, -107.2177),
+    "KHLN": (46.6068, -111.9827), "KIDA": (43.5146, -112.0702),
+    "KJAC": (43.6073, -110.7377), "KLWS": (46.3745, -117.0154),
+    "KMFR": (42.3742, -122.8735), "KMSO": (46.9163, -114.0906),
+    "KMTJ": (38.5098, -107.8943), "KOGD": (41.1959, -112.0122),
+    "KOTH": (43.4171, -124.2460), "KPDX": (45.5898, -122.5951),
+    "KPIH": (42.9113, -112.5959), "KPSC": (46.2647, -119.1190),
+    "KRDM": (44.2541, -121.1500), "KRNO": (39.4991, -119.7681),
+    "KSGU": (37.0364, -113.5103), "KTWF": (42.4818, -114.4877),
+    "KVEL": (40.4409, -109.5099), "KYKM": (46.5682, -120.5440),
 
-    # --------------------------------------------------------------------------
     # SOUTHWEST SPOKES
-    # --------------------------------------------------------------------------
-    "KABQ": (35.0402, -106.6091),  # Albuquerque International Sunport, NM
-    "KACV": (40.9781, -124.1086),  # California Redwood Coast-Humboldt County Airport, CA
-    "KBFL": (35.4336, -119.0567),  # Meadows Field Airport (Bakersfield), CA
-    "KDRO": (37.1515, -107.7538),  # Durango-La Plata County Airport, CO
-    "KDVT": (33.6883, -112.0825),  # Phoenix Deer Valley Airport, AZ
-    "KEKO": (40.8249, -115.7917),  # Elko Regional, NV
-    "KELP": (31.8066, -106.3778),  # El Paso International, TX
-    "KFAT": (36.7762, -119.7181),  # Fresno Yosemite International Airport, CA
-    "KFLG": (35.1384, -111.6712),  # Flagstaff Pulliam Airport, AZ
-    "KSEZ": (34.8486, -111.7886),  # Sedona Airport, AZ
-    "KIFP": (35.1561, -114.5595),  # Laughlin/Bullhead International Airport, AZ
-    "KLAS": (36.0840, -115.1537),  # Harry Reid International Airport (Las Vegas), NV
-    "KMAF": (31.9425, -102.2019),  # Midland International, TX
-    "KMRY": (36.5870, -121.8430),  # Monterey Regional Airport, CA
-    "KOAK": (37.7213, -122.2208),  # Oakland International Airport, CA
-    "KPRC": (34.6545, -112.4196),  # Prescott Regional Airport, AZ
-    "KPSP": (33.8297, -116.5067),  # Palm Springs International Airport, CA
-    "KRDD": (40.5090, -122.2934),  # Redding Regional Airport, CA
-    "KROW": (33.3015, -104.5306),  # Roswell Air Center, NM
-    "KSAF": (35.6171, -106.0894),  # Santa Fe Regional Airport, NM
-    "KSBA": (34.4262, -119.8403),  # Santa Barbara Municipal Airport, CA
-    "KSBD": (34.0953, -117.2349),  # San Bernardino International Airport, CA
-    "KSBP": (35.2371, -120.6424),  # San Luis Obispo County Regional, CA
-    "KSCK": (37.8942, -121.2383),  # Stockton Metropolitan Airport, CA
-    "KSJC": (37.3626, -121.9290),  # Norman Y. Mineta San Jose International, CA
-    "KSMF": (38.6954, -121.5908),  # Sacramento International Airport, CA
-    "KSTS": (38.5090, -122.8129),  # Charles M. Schulz-Sonoma County (Santa Rosa), CA
-    "KTUS": (32.1161, -110.9410),  # Tucson International, AZ
-    "KYUM": (32.6566, -114.6060),  # Yuma International Airport, AZ
+    "KABQ": (35.0402, -106.6091), "KACV": (40.9781, -124.1086),
+    "KBFL": (35.4336, -119.0567), "KDRO": (37.1515, -107.7538),
+    "KDVT": (33.6883, -112.0825), "KEKO": (40.8249, -115.7917),
+    "KELP": (31.8066, -106.3778), "KFAT": (36.7762, -119.7181),
+    "KFLG": (35.1384, -111.6712), "KSEZ": (34.8486, -111.7886),
+    "KIFP": (35.1561, -114.5595), "KLAS": (36.0840, -115.1537),
+    "KMAF": (31.9425, -102.2019), "KMRY": (36.5870, -121.8430),
+    "KOAK": (37.7213, -122.2208), "KPRC": (34.6545, -112.4196),
+    "KPSP": (33.8297, -116.5067), "KRDD": (40.5090, -122.2934),
+    "KROW": (33.3015, -104.5306), "KSAF": (35.6171, -106.0894),
+    "KSBA": (34.4262, -119.8403), "KSBD": (34.0953, -117.2349),
+    "KSBP": (35.2371, -120.6424), "KSCK": (37.8942, -121.2383),
+    "KSJC": (37.3626, -121.9290), "KSMF": (38.6954, -121.5908),
+    "KSTS": (38.5090, -122.8129), "KTUS": (32.1161, -110.9410),
+    "KYUM": (32.6566, -114.6060),
 
-    # --------------------------------------------------------------------------
     # GULF COAST & MIDWEST SPOKES
-    # --------------------------------------------------------------------------
-    "KABI": (32.4163, -99.6804),   # Abilene, TX
-    "KACT": (31.6113, -97.2293),   # Waco, TX
-    "KAEX": (31.3274, -92.5498),   # Alexandria International, LA
-    "KALO": (42.5571, -92.4003),   # Waterloo Regional, IA
-    "KAMA": (35.2194, -101.7059),  # Amarillo, TX
-    "KATW": (44.2575, -88.5192),   # Appleton / Fox Cities, WI
-    "KBHM": (33.5629, -86.7535),   # Birmingham-Shuttlesworth Intl Airport, AL
-    "KBIS": (46.7727, -100.7460),  # Bismarck Municipal, ND
-    "KBJI": (47.5098, -94.9333),   # Bemidji, MN
-    "KBLV": (38.5451, -89.8458),   # Belleville / St. Louis area, IL
-    "KBMI": (40.4771, -88.9159),   # Central Illinois Regional Airport (Bloomington), IL
-    "KBPT": (29.9508, -94.0207),   # Jack Brooks Regional Airport (Beaumont), TX
-    "KBRO": (25.9068, -97.4259),   # Brownsville/South Padre Island Intl, TX
-    "KBTR": (30.5332, -91.1496),   # Baton Rouge Metropolitan, LA
-    "KBWG": (36.9696, -86.4137),   # Bowling Green, KY
-    "KCHA": (35.0353, -85.2038),   # Chattanooga, TN
-    "KCID": (41.8847, -91.7108),   # The Eastern Iowa Airport (Cedar Rapids), IA
-    "KCOU": (38.8181, -92.2196),   # Columbia Regional, MO
-    "KCRP": (27.7704, -97.5012),   # Corpus Christi International Airport, TX
-    "KCSG": (32.5163, -84.9388),   # Columbus, GA
-    "KCWA": (44.7776, -89.6661),   # Central Wisconsin, WI
-    "KDBQ": (42.4020, -90.7095),   # Dubuque Regional Airport, IA
-    "KDIK": (46.7979, -102.8023),  # Dickinson, ND
-    "KDSM": (41.5340, -93.6631),   # Des Moines International, IA
-    "KDVL": (48.1158, -98.9036),   # Devils Lake, ND
-    "KESC": (45.7445, -87.0988),   # Escanaba, MI
-    "KFAR": (46.9197, -96.8157),   # Hector International (Fargo), ND
-    "KFSD": (43.5820, -96.7418),   # Sioux Falls Regional, SD
-    "KFSM": (35.3364, -94.3687),   # Fort Smith, AR
-    "KGCK": (37.9275, -100.7244),  # Garden City, KS
-    "KGFK": (47.9473, -97.1738),   # Grand Forks International Airport, ND
-    "KGGG": (32.3840, -94.7115),   # East Texas Regional Airport (Longview), TX
-    "KGPT": (30.4073, -89.0701),   # Gulfport-Biloxi International, MS
-    "KGRI": (40.9675, -98.3096),   # Central Nebraska Regional (Grand Island), NE
-    "KGRK": (31.0672, -97.8289),   # Killeen-Fort Cavazos Regional Airport, TX
-    "KGTR": (33.4547, -88.5912),   # Columbus / Starkville, MS
-    "KGYY": (41.6163, -87.4139),   # Gary / Chicago area, IN
-    "KHBG": (31.2829, -89.2530),   # Hattiesburg-Laurel Regional, MS
-    "KHEZ": (31.7915, -91.2991),   # Natchez, MS
-    "KHRL": (26.2285, -97.6544),   # Valley International Airport (Harlingen), TX
-    "KHSV": (34.6404, -86.7756),   # Huntsville, AL
-    "KICT": (37.6499, -97.4331),   # Wichita Dwight D. Eisenhower National, KS
-    "KIMT": (45.8184, -88.1143),   # Iron Mountain, MI
-    "KINL": (48.5682, -93.4003),   # International Falls, MN
-    "KISQ": (45.9744, -86.1714),   # Schoolcraft County Airport (Manistique), MI
-    "KJEF": (38.5962, -92.1578),   # Jefferson City, MO
-    "KJKA": (30.2882, -87.6713),   # Gulf Shores, AL
-    "KJMS": (46.9298, -98.6782),   # Jamestown, ND
-    "KJVY": (38.2731, -85.7397),   # Jeffersonville / Louisville area, IN
-    "KLAW": (34.5676, -98.4153),   # Lawton, OK
-    "KLBB": (33.6636, -101.8228),  # Lubbock, TX
-    "KLCH": (30.1261, -93.2233),   # Lake Charles Regional, LA
-    "KLFT": (30.2053, -91.9876),   # Lafayette Regional, LA
-    "KLIT": (34.7294, -92.2243),   # Bill and Hillary Clinton National (Little Rock), AR
-    "KLNK": (40.8510, -96.7592),   # Lincoln Airport, NE
-    "KLRD": (27.5438, -99.4616),   # Laredo International Airport, TX
-    "KLSE": (43.8794, -91.2567),   # La Crosse, WI
-    "KMCI": (39.2976, -94.7139),   # Kansas City International Airport, MO
-    "KMCN": (32.6939, -83.6431),   # Macon, GA
-    "KMEI": (32.3432, -88.7554),   # Meridian, MS
-    "KMFE": (26.1758, -98.2386),   # McAllen International Airport, TX
-    "KMGM": (32.3006, -86.3940),   # Montgomery Regional Airport, AL
-    "KMLI": (41.4485, -90.5075),   # Quad Cities International (Moline), IL
-    "KMLU": (32.5109, -92.0376),   # Monroe Regional, LA
-    "KMOB": (30.6914, -88.2428),   # Mobile Regional, AL
-    "KMOT": (48.2575, -101.2803),  # Minot, ND
-    "KOKC": (35.3931, -97.6007),   # Will Rogers World Airport (Oklahoma City), OK
-    "KOWB": (37.7408, -87.1656),   # Owensboro, KY
-    "KPIA": (40.6642, -89.6933),   # General Wayne A. Downing Peoria Intl, IL
-    "KPIB": (31.4673, -89.3374),   # Hattiesburg / Laurel, MS
-    "KPIR": (44.3845, -100.2862),  # Pierre, SD
-    "KPNS": (30.4734, -87.1866),   # Pensacola International, FL
-    "KRAP": (44.0453, -103.0572),  # Rapid City, SD
-    "KRFD": (42.1954, -89.0982),   # Rockford, IL
-    "KSDF": (38.1741, -85.7365),   # Louisville Muhammad Ali International, KY
-    "KSGF": (37.2457, -93.3886),   # Springfield-Branson National, MO
-    "KSHV": (32.4466, -93.8256),   # Shreveport Regional Airport, LA
-    "KSJT": (31.3564, -100.4963),  # San Angelo, TX
-    "KSLN": (38.7911, -97.6519),   # Salina, KS
-    "KSPI": (39.8441, -89.6779),   # Springfield, IL
-    "KSTC": (45.5456, -94.0699),   # St. Cloud, MN
-    "KSTJ": (39.7733, -94.9056),   # St. Joseph, MO
-    "KSUX": (42.4026, -96.3844),   # Sioux Gateway Airport, IA
-    "KTOP": (39.0706, -95.6258),   # Topeka, KS
-    "KTRI": (36.4752, -82.4074),   # Tri-Cities, TN/VA
-    "KTUL": (36.1984, -95.8881),   # Tulsa, OK
-    "KTUP": (34.2690, -88.7656),   # Tupelo, MS
-    "KTYR": (32.3541, -95.4024),   # Tyler Pounds Regional, TX
-    "KVCT": (28.8475, -96.9774),   # Victoria, TX
-    "KVPS": (30.4832, -86.5254),   # Destin-Fort Walton Beach / Eglin AFB, FL
-    "KXNA": (36.2819, -94.3068),   # Fayetteville / Northwest Arkansas, AR
+    "KABI": (32.4163, -99.6804),  "KACT": (31.6113, -97.2293),
+    "KAEX": (31.3274, -92.5498),  "KALO": (42.5571, -92.4003),
+    "KAMA": (35.2194, -101.7059), "KATW": (44.2575, -88.5192),
+    "KBHM": (33.5629, -86.7535),  "KBIS": (46.7727, -100.7460),
+    "KBJI": (47.5098, -94.9333),  "KBLV": (38.5451, -89.8458),
+    "KBMI": (40.4771, -88.9159),  "KBPT": (29.9508, -94.0207),
+    "KBRO": (25.9068, -97.4259),  "KBTR": (30.5332, -91.1496),
+    "KBWG": (36.9696, -86.4137),  "KCHA": (35.0353, -85.2038),
+    "KCID": (41.8847, -91.7108),  "KCOU": (38.8181, -92.2196),
+    "KCRP": (27.7704, -97.5012),  "KCSG": (32.5163, -84.9388),
+    "KCWA": (44.7776, -89.6661),  "KDBQ": (42.4020, -90.7095),
+    "KDIK": (46.7979, -102.8023), "KDSM": (41.5340, -93.6631),
+    "KDVL": (48.1158, -98.9036),  "KESC": (45.7445, -87.0988),
+    "KFAR": (46.9197, -96.8157),  "KFSD": (43.5820, -96.7418),
+    "KFSM": (35.3364, -94.3687),  "KGCK": (37.9275, -100.7244),
+    "KGFK": (47.9473, -97.1738),  "KGGG": (32.3840, -94.7115),
+    "KGPT": (30.4073, -89.0701),  "KGRI": (40.9675, -98.3096),
+    "KGRK": (31.0672, -97.8289),  "KGTR": (33.4547, -88.5912),
+    "KGYY": (41.6163, -87.4139),  "KHBG": (31.2829, -89.2530),
+    "KHEZ": (31.7915, -91.2991),  "KHRL": (26.2285, -97.6544),
+    "KHSV": (34.6404, -86.7756),  "KICT": (37.6499, -97.4331),
+    "KIMT": (45.8184, -88.1143),  "KINL": (48.5682, -93.4003),
+    "KISQ": (45.9744, -86.1714),  "KJEF": (38.5962, -92.1578),
+    "KJKA": (30.2882, -87.6713),  "KJMS": (46.9298, -98.6782),
+    "KJVY": (38.2731, -85.7397),  "KLAW": (34.5676, -98.4153),
+    "KLBB": (33.6636, -101.8228), "KLCH": (30.1261, -93.2233),
+    "KLFT": (30.2053, -91.9876),  "KLIT": (34.7294, -92.2243),
+    "KLNK": (40.8510, -96.7592),  "KLRD": (27.5438, -99.4616),
+    "KLSE": (43.8794, -91.2567),  "KMCI": (39.2976, -94.7139),
+    "KMCN": (32.6939, -83.6431),  "KMEI": (32.3432, -88.7554),
+    "KMFE": (26.1758, -98.2386),  "KMGM": (32.3006, -86.3940),
+    "KMLI": (41.4485, -90.5075),  "KMLU": (32.5109, -92.0376),
+    "KMOB": (30.6914, -88.2428),  "KMOT": (48.2575, -101.2803),
+    "KOKC": (35.3931, -97.6007),  "KOWB": (37.7408, -87.1656),
+    "KPIA": (40.6642, -89.6933),  "KPIB": (31.4673, -89.3374),
+    "KPIR": (44.3845, -100.2862), "KPNS": (30.4734, -87.1866),
+    "KRAP": (44.0453, -103.0572), "KRFD": (42.1954, -89.0982),
+    "KSDF": (38.1741, -85.7365),  "KSGF": (37.2457, -93.3886),
+    "KSHV": (32.4466, -93.8256),  "KSJT": (31.3564, -100.4963),
+    "KSLN": (38.7911, -97.6519),  "KSPI": (39.8441, -89.6779),
+    "KSTC": (45.5456, -94.0699),  "KSTJ": (39.7733, -94.9056),
+    "KSUX": (42.4026, -96.3844),  "KTOP": (39.0706, -95.6258),
+    "KTRI": (36.4752, -82.4074),  "KTUL": (36.1984, -95.8881),
+    "KTUP": (34.2690, -88.7656),  "KTYR": (32.3541, -95.4024),
+    "KVCT": (28.8475, -96.9774),  "KVPS": (30.4832, -86.5254),
+    "KXNA": (36.2819, -94.3068),
 
-    # --------------------------------------------------------------------------
     # GREAT LAKES SPOKES
-    # --------------------------------------------------------------------------
-    "KAPN": (45.0781, -83.5603),   # Alpena, MI
-    "KAZO": (42.2349, -85.5521),   # Kalamazoo/Battle Creek Intl, MI
-    "KCAK": (40.9161, -81.4422),   # Akron-Canton Airport, OH
-    "KCIU": (46.2508, -84.4725),   # Chippewa County Intl (Sault Ste. Marie), MI
-    "KCMH": (39.9981, -82.8919),   # Columbus, OH
-    "KCMX": (47.1684, -88.4891),   # Houghton, MI
-    "KCVG": (39.0461, -84.6622),   # Cincinnati, OH/KY
-    "KDAY": (39.9024, -84.2194),   # Dayton, OH
-    "KDLH": (46.8421, -92.1936),   # Duluth International Airport, MN
-    "KERI": (42.0820, -80.1762),   # Erie International Airport, PA
-    "KEVV": (38.0383, -87.5308),   # Evansville, IN
-    "KFNT": (42.9654, -83.7436),   # Bishop International (Flint), MI
-    "KFWA": (40.9785, -85.1951),   # Fort Wayne International, IN
-    "KGRB": (44.4846, -88.1297),   # Green Bay, WI
-    "KHTS": (38.3667, -82.5580),   # Tri-State Airport (Huntington), WV
-    "KIND": (39.7173, -86.2944),   # Indianapolis International Airport, IN
-    "KLAN": (42.7787, -84.5874),   # Capital Region Intl (Lansing), MI
-    "KLEX": (38.0364, -84.6058),   # Lexington, KY
-    "KMBS": (43.5328, -84.0796),   # Saginaw / Bay City / Midland, MI
-    "KMKE": (42.9472, -87.8966),   # Milwaukee Mitchell International, WI
-    "KMQT": (46.3536, -87.3953),   # Sawyer International Airport (Marquette), MI
-    "KMSN": (43.1399, -89.3375),   # Dane County Regional Airport (Madison), WI
-    "KPIT": (40.4915, -80.2329),   # Pittsburgh International, PA
-    "KPLN": (45.5708, -84.7967),   # Pellston Regional Airport, MI
-    "KRST": (43.9083, -92.4980),   # Rochester International Airport, MN
-    "KSBN": (41.7086, -86.3173),   # South Bend International, IN
-    "KTOL": (41.5868, -83.8078),   # Toledo Express Airport, OH
-    "KTVC": (44.7414, -85.5822),   # Cherry Capital Airport (Traverse City), MI
+    "KAPN": (45.0781, -83.5603),  "KAZO": (42.2349, -85.5521),
+    "KCAK": (40.9161, -81.4422),  "KCIU": (46.2508, -84.4725),
+    "KCMH": (39.9981, -82.8919),  "KCMX": (47.1684, -88.4891),
+    "KCVG": (39.0461, -84.6622),  "KDAY": (39.9024, -84.2194),
+    "KDLH": (46.8421, -92.1936),  "KERI": (42.0820, -80.1762),
+    "KEVV": (38.0383, -87.5308),  "KFNT": (42.9654, -83.7436),
+    "KFWA": (40.9785, -85.1951),  "KGRB": (44.4846, -88.1297),
+    "KHTS": (38.3667, -82.5580),  "KIND": (39.7173, -86.2944),
+    "KLAN": (42.7787, -84.5874),  "KLEX": (38.0364, -84.6058),
+    "KMBS": (43.5328, -84.0796),  "KMKE": (42.9472, -87.8966),
+    "KMQT": (46.3536, -87.3953),  "KMSN": (43.1399, -89.3375),
+    "KPIT": (40.4915, -80.2329),  "KPLN": (45.5708, -84.7967),
+    "KRST": (43.9083, -92.4980),  "KSBN": (41.7086, -86.3173),
+    "KTOL": (41.5868, -83.8078),  "KTVC": (44.7414, -85.5822),
 
-    # --------------------------------------------------------------------------
     # NORTHEAST & NORTHERN NEW ENGLAND SPOKES
-    # --------------------------------------------------------------------------
-    "KABE": (40.6521, -75.4408),   # Lehigh Valley International (Allentown), PA
-    "KACK": (41.2531, -70.0602),   # Nantucket Memorial, MA
-    "KALB": (42.7483, -73.8017),   # Albany International Airport, NY
-    "KART": (44.0022, -75.7217),   # Watertown International, NY
-    "KAUG": (44.3206, -69.7972),   # Augusta State Airport, ME
-    "KAVP": (41.3385, -75.7234),   # Wilkes-Barre/Scranton International, PA
-    "KBFD": (41.8031, -78.6401),   # Bradford Regional Airport, PA
-    "KBGM": (42.2086, -75.9797),   # Greater Binghamton Airport, NY
-    "KBHB": (44.4498, -68.3616),   # Hancock County-Bar Harbor, ME
-    "KBTV": (44.4730, -73.1533),   # Patrick Leahy Burlington International, VT
-    "KBUF": (42.9405, -78.7322),   # Buffalo Niagara International, NY
-    "KCON": (43.2028, -71.5022),   # Concord Municipal Airport, NH
-    "KDUJ": (41.1783, -78.8986),   # DuBois Regional Airport, PA
-    "KELM": (42.1599, -76.8914),   # Elmira/Corning Regional, NY
-    "KEWB": (41.6761, -70.9583),   # New Bedford Regional, MA
-    "KFMH": (41.6585, -70.5215),   # Cape Cod Coast Guard Air Station / Falmouth, MA
-    "KFRG": (40.7288, -73.4134),   # Republic Airport (Farmingdale), NY
-    "KGON": (41.3301, -72.0456),   # Groton-New London Airport, CT
-    "KHPN": (41.0670, -73.7076),   # Westchester County Airport (White Plains), NY
-    "KHVN": (41.2638, -72.8868),   # Tweed-New Haven Airport, CT
-    "KHYA": (41.6693, -70.2804),   # Barnstable Municipal (Hyannis), MA
-    "KIPT": (41.2419, -76.9211),   # Williamsport Regional Airport, PA
-    "KISP": (40.7952, -73.1002),   # Long Island MacArthur Airport (Islip), NY
-    "KITH": (42.4913, -76.4585),   # Tompkins Cortland Community (Ithaca), NY
-    "KJST": (40.3229, -78.8338),   # Johnstown-Cambria County Airport, PA
-    "KLBE": (40.2759, -79.4048),   # Arnold Palmer Regional Airport (Latrobe), PA
-    "KLEB": (43.6261, -72.3042),   # Lebanon Municipal, NH
-    "KLNS": (40.1217, -76.2960),   # Lancaster Airport, PA
-    "KMDT": (40.1935, -76.7634),   # Harrisburg International, PA
-    "KMHT": (42.9326, -71.4357),   # Manchester-Boston Regional, NH
-    "KMIV": (39.3678, -75.0722),   # Millville Municipal Airport, NJ
-    "KMPV": (44.2035, -72.5623),   # Edward F. Knapp State (Montpelier), VT
-    "KMSS": (44.9358, -74.8456),   # Massena International Airport, NY
-    "KMVY": (41.3931, -70.6143),   # Martha's Vineyard Airport, MA
-    "KOGS": (44.6819, -75.4656),   # Ogdensburg International Airport, NY
-    "KOQU": (41.5972, -71.4122),   # Quonset State Airport (North Kingstown), RI
-    "KORH": (42.2673, -71.8757),   # Worcester Regional, MA
-    "KPBG": (44.6509, -73.4681),   # Plattsburgh International, NY
-    "KPQB": (46.6889, -68.0448),   # Presque Isle International, ME
-    "KPSM": (43.0779, -70.8233),   # Portsmouth International at Pease, NH
-    "KPVD": (41.7240, -71.4282),   # Rhode Island T.F. Green Intl (Providence), RI
-    "KPWM": (43.6462, -70.3088),   # Portland International Jetport, ME
-    "KRDG": (40.3785, -75.9652),   # Reading Regional Airport, PA
-    "KRKD": (44.0601, -69.0992),   # Knox County Regional (Rockland), ME
-    "KROC": (43.1189, -77.6724),   # Frederick Douglass - Greater Rochester Intl, NY
-    "KSBY": (38.3405, -75.5103),   # Salisbury-Ocean City Wicomico Regional, MD
-    "KSFM": (43.3939, -70.7075),   # Sanford Seacoast Regional Airport, ME
-    "KSLK": (44.3853, -74.2062),   # Adirondack Regional (Saranac Lake), NY
-    "KSYR": (43.1112, -76.1063),   # Syracuse Hancock International, NY
-    "KTTN": (40.2767, -74.8135),   # Trenton-Mercer Airport, NJ
+    "KABE": (40.6521, -75.4408),  "KACK": (41.2531, -70.0602),
+    "KALB": (42.7483, -73.8017),  "KART": (44.0022, -75.7217),
+    "KAUG": (44.3206, -69.7972),  "KAVP": (41.3385, -75.7234),
+    "KBFD": (41.8031, -78.6401),  "KBGM": (42.2086, -75.9797),
+    "KBHB": (44.4498, -68.3616),  "KBTV": (44.4730, -73.1533),
+    "KBUF": (42.9405, -78.7322),  "KCON": (43.2028, -71.5022),
+    "KDUJ": (41.1783, -78.8986),  "KELM": (42.1599, -76.8914),
+    "KEWB": (41.6761, -70.9583),  "KFMH": (41.6585, -70.5215),
+    "KFRG": (40.7288, -73.4134),  "KGON": (41.3301, -72.0456),
+    "KHPN": (41.0670, -73.7076),  "KHVN": (41.2638, -72.8868),
+    "KHYA": (41.6693, -70.2804),  "KIPT": (41.2419, -76.9211),
+    "KISP": (40.7952, -73.1002),  "KITH": (42.4913, -76.4585),
+    "KJST": (40.3229, -78.8338),  "KLBE": (40.2759, -79.4048),
+    "KLEB": (43.6261, -72.3042),  "KLNS": (40.1217, -76.2960),
+    "KMDT": (40.1935, -76.7634),  "KMHT": (42.9326, -71.4357),
+    "KMIV": (39.3678, -75.0722),  "KMPV": (44.2035, -72.5623),
+    "KMSS": (44.9358, -74.8456),  "KMVY": (41.3931, -70.6143),
+    "KOGS": (44.6819, -75.4656),  "KOQU": (41.5972, -71.4122),
+    "KORH": (42.2673, -71.8757),  "KPBG": (44.6509, -73.4681),
+    "KPQB": (46.6889, -68.0448),  "KPSM": (43.0779, -70.8233),
+    "KPVD": (41.7240, -71.4282),  "KPWM": (43.6462, -70.3088),
+    "KRDG": (40.3785, -75.9652),  "KRKD": (44.0601, -69.0992),
+    "KROC": (43.1189, -77.6724),  "KSBY": (38.3405, -75.5103),
+    "KSFM": (43.3939, -70.7075),  "KSLK": (44.3853, -74.2062),
+    "KSYR": (43.1112, -76.1063),  "KTTN": (40.2767, -74.8135),
 
-    # --------------------------------------------------------------------------
     # MID-ATLANTIC & SOUTHEAST SPOKES
-    # --------------------------------------------------------------------------
-    "KACY": (39.4576, -74.5772),   # Atlantic City International, NJ
-    "KAGS": (33.3699, -82.0292),   # Augusta Regional, GA
-    "KAVL": (35.4362, -82.5418),   # Asheville Regional, NC
-    "KBLF": (37.2934, -81.2155),   # Mercer County Airport (Bluefield), WV
-    "KBQK": (31.2590, -81.4663),   # Brunswick Golden Isles, GA
-    "KCAE": (33.9388, -81.1195),   # Columbia Metropolitan, SC
-    "KCHO": (38.1386, -78.4529),   # Charlottesville-Albemarle Airport, VA
-    "KCHS": (32.8986, -80.0405),   # Charleston International, SC
-    "KCKB": (39.2965, -80.2280),   # North Central West Virginia (Clarksburg), WV
-    "KCRW": (38.3731, -81.5932),   # West Virginia International Yeager (Charleston), WV
-    "KECP": (30.3571, -85.7956),   # Northwest Florida Beaches International Airport, FL
-    "KEWN": (35.0730, -77.0429),   # Coastal Carolina Regional (New Bern), NC
-    "KFAY": (34.9912, -78.8803),   # Fayetteville Regional, NC
-    "KFLO": (34.1874, -79.7153),   # Florence Regional, SC
-    "KFLL": (26.0726, -80.1527),   # Fort Lauderdale/Hollywood Intl, FL
-    "KGNV": (29.6901, -82.2718),   # Gainesville Regional, FL
-    "KGSO": (36.0978, -79.9373),   # Piedmont Triad International Airport (Greensboro), NC
-    "KGSP": (34.8957, -82.2188),   # Greenville-Spartanburg International, SC
-    "KHGR": (39.7077, -77.7297),   # Hagerstown Regional, MD
-    "KILG": (39.6787, -75.6065),   # Wilmington Airport, DE
-    "KILM": (34.2706, -77.9026),   # Wilmington International, NC
-    "KEYW": (24.5557, -81.7596),   # Key West International, FL
-    "KJQF": (35.3878, -80.7092),   # Concord-Padgett Regional Airport, NC
-    "KLWB": (37.8583, -80.3995),   # Greenbrier Valley Airport (Lewisburg), WV
-    "KLYH": (37.3267, -79.2004),   # Lynchburg Regional, VA
-    "KMGW": (39.6425, -79.9157),   # Morgantown Municipal, WV
-    "KMLB": (28.1028, -80.6453),   # Melbourne Orlando International Airport, FL
-    "KMYR": (33.6797, -78.9283),   # Myrtle Beach International, SC
-    "KORF": (36.8946, -76.2012),   # Norfolk International Airport, VA
-    "KPGD": (26.9163, -82.0006),   # Punta Gorda Airport, FL
-    "KPGV": (35.6353, -77.3853),   # Pitt-Greenville Airport, NC
-    "KPHF": (37.1319, -76.4930),   # Newport News/Williamsburg Intl, VA
-    "KPIE": (27.9105, -82.6874),   # St. Pete-Clearwater International, FL
-    "KPKB": (39.3453, -81.4423),   # Mid-Ohio Valley Regional (Parkersburg), WV
-    "KRDU": (35.8776, -78.7875),   # Raleigh-Durham International, NC
-    "KROA": (37.3255, -79.9754),   # Roanoke-Blacksburg Regional, VA
-    "KSAV": (32.1276, -81.2021),   # Savannah/Hilton Head International, GA
-    "KSGJ": (29.9593, -81.3397),   # Northeast Florida Regional (St. Augustine), FL
-    "KSRQ": (27.3954, -82.5544),   # Sarasota/Bradenton International, FL
-    "KTLH": (30.3965, -84.3503),   # Tallahassee International, FL
-    "KVRB": (27.6556, -80.4179),   # Vero Beach Regional, FL
+    "KACY": (39.4576, -74.5772),  "KAGS": (33.3699, -82.0292),
+    "KAVL": (35.4362, -82.5418),  "KBLF": (37.2934, -81.2155),
+    "KBQK": (31.2590, -81.4663),  "KCAE": (33.9388, -81.1195),
+    "KCHO": (38.1386, -78.4529),  "KCHS": (32.8986, -80.0405),
+    "KCKB": (39.2965, -80.2280),  "KCRW": (38.3731, -81.5932),
+    "KECP": (30.3571, -85.7956),  "KEWN": (35.0730, -77.0429),
+    "KFAY": (34.9912, -78.8803),  "KFLO": (34.1874, -79.7153),
+    "KFLL": (26.0726, -80.1527),  "KGNV": (29.6901, -82.2718),
+    "KGSO": (36.0978, -79.9373),  "KGSP": (34.8957, -82.2188),
+    "KHGR": (39.7077, -77.7297),  "KILG": (39.6787, -75.6065),
+    "KILM": (34.2706, -77.9026),  "KEYW": (24.5557, -81.7596),
+    "KJQF": (35.3878, -80.7092),  "KLWB": (37.8583, -80.3995),
+    "KLYH": (37.3267, -79.2004),  "KMGW": (39.6425, -79.9157),
+    "KMLB": (28.1028, -80.6453),  "KMYR": (33.6797, -78.9283),
+    "KORF": (36.8946, -76.2012),  "KPGD": (26.9163, -82.0006),
+    "KPGV": (35.6353, -77.3853),  "KPHF": (37.1319, -76.4930),
+    "KPIE": (27.9105, -82.6874),  "KPKB": (39.3453, -81.4423),
+    "KRDU": (35.8776, -78.7875),  "KROA": (37.3255, -79.9754),
+    "KSAV": (32.1276, -81.2021),  "KSGJ": (29.9593, -81.3397),
+    "KSRQ": (27.3954, -82.5544),  "KTLH": (30.3965, -84.3503),
+    "KVRB": (27.6556, -80.4179),
 
-    # --------------------------------------------------------------------------
     # CANADA
-    # --------------------------------------------------------------------------
-    "CYDF": (49.2082, -57.3961),   # Deer Lake Airport, NL
-    "CYEG": (53.3097, -113.5800),  # Edmonton International Airport, AB
-    "CYFC": (45.8689, -66.5372),   # Fredericton International, NB
-    "CYHM": (43.1736, -79.9350),   # John C. Munro Hamilton Intl, ON
-    "CYHZ": (44.8808, -63.5086),   # Halifax Stanfield International, NS
-    "CYQB": (46.7911, -71.3933),   # Québec City Jean Lesage Intl, QC
-    "CYQM": (46.1132, -64.6772),   # Greater Moncton Roméo LeBlanc Intl, NB
-    "CYQY": (46.1614, -60.0478),   # Sydney Airport, NS
-    "CYSJ": (45.3161, -65.8903),   # Saint John Airport, NB
-    "CYUL": (45.4706, -73.7408),   # Montréal-Trudeau International, QC
-    "CYVR": (49.1939, -123.1840),  # Vancouver International Airport, BC
-    "CYWG": (49.9100, -97.2397),   # Winnipeg Richardson International, MB
-    "CYXS": (53.8894, -122.6790),  # Prince George Airport, BC
-    "CYXY": (60.7096, -135.0673),  # Erik Nielsen Whitehorse International, YT
-    "CYYC": (51.1188, -114.0099),  # Calgary International Airport, AB
-    "CYYG": (46.2900, -63.1211),   # Charlottetown Airport, PE
-    "CYYJ": (48.6469, -123.4258),  # Victoria International Airport, BC
-    "CYYT": (47.6186, -52.7519),   # St. John's International Airport, NL
-    "CYZF": (62.4631, -114.4403),  # Yellowknife Airport, NT
+    "CYDF": (49.2082, -57.3961),  "CYEG": (53.3097, -113.5800),
+    "CYFC": (45.8689, -66.5372),  "CYHM": (43.1736, -79.9350),
+    "CYHZ": (44.8808, -63.5086),  "CYQB": (46.7911, -71.3933),
+    "CYQM": (46.1132, -64.6772),  "CYQY": (46.1614, -60.0478),
+    "CYSJ": (45.3161, -65.8903),  "CYUL": (45.4706, -73.7408),
+    "CYVR": (49.1939, -123.1840), "CYWG": (49.9100, -97.2397),
+    "CYXS": (53.8894, -122.6790), "CYXY": (60.7096, -135.0673),
+    "CYYC": (51.1188, -114.0099), "CYYG": (46.2900, -63.1211),
+    "CYYJ": (48.6469, -123.4258), "CYYT": (47.6186, -52.7519),
+    "CYZF": (62.4631, -114.4403),
 
-    # --------------------------------------------------------------------------
     # MEXICO & CENTRAL AMERICA
-    # --------------------------------------------------------------------------
-    "MGGT": (14.5833, -90.5275),   # La Aurora Intl (Guatemala City), Guatemala
-    "MMBT": (15.7753, -96.2625),   # Bahías de Huatulco Intl, Mexico
-    "MMCZ": (20.5224, -86.9255),   # Cozumel International, Mexico
-    "MMGL": (20.5218, -103.3112),  # Miguel Hidalgo y Costilla Intl (Guadalajara), Mexico
-    "MMHO": (29.0958, -111.0478),  # General Ignacio Pesqueira García Intl (Hermosillo), Mexico
-    "MMMZ": (23.1614, -106.3712),  # General Rafael Buelna Intl (Mazatlán), Mexico
-    "MMPB": (19.1583, -98.3711),   # Hermanos Serdán Intl (Puebla), Mexico
-    "MMPR": (20.6801, -105.2541),  # Lic. Gustavo Díaz Ordaz Intl (Puerto Vallarta), Mexico
-    "MMSD": (23.1518, -109.7210),  # Los Cabos International, Mexico
-    "MMTJ": (32.5411, -116.9700),  # Tijuana International Airport, Mexico
-    "MMUN": (21.0365, -86.8771),   # Cancún International, Mexico
-    "MMVR": (19.1458, -96.1897),   # General Heriberto Jara Intl (Veracruz), Mexico
-    "MNMG": (12.1444, -86.1683),   # Augusto C. Sandino Intl (Managua), Nicaragua
-    "MPPA": (8.9775, -79.5997),    # Panamá Pacífico International, Panama
-    "MROC": (9.9939, -84.2088),    # Juan Santamaría Intl (San José), Costa Rica
-    "MRLB": (10.5933, -85.5444),   # Daniel Oduber Quirós Intl (Liberia), Costa Rica
-    "MZBZ": (17.5391, -88.3082),   # Philip S. W. Goldson Intl (Belize City), Belize
+    "MGGT": (14.5833, -90.5275),  "MMBT": (15.7753, -96.2625),
+    "MMCZ": (20.5224, -86.9255),  "MMGL": (20.5218, -103.3112),
+    "MMHO": (29.0958, -111.0478), "MMMZ": (23.1614, -106.3712),
+    "MMPB": (19.1583, -98.3711),  "MMPR": (20.6801, -105.2541),
+    "MMSD": (23.1518, -109.7210), "MMTJ": (32.5411, -116.9700),
+    "MMUN": (21.0365, -86.8771),  "MMVR": (19.1458, -96.1897),
+    "MNMG": (12.1444, -86.1683),  "MPPA": (8.9775, -79.5997),
+    "MROC": (9.9939, -84.2088),   "MRLB": (10.5933, -85.5444),
+    "MZBZ": (17.5391, -88.3082),
 
-    # --------------------------------------------------------------------------
     # CARIBBEAN & US TERRITORIES
-    # --------------------------------------------------------------------------
-    "MBPV": (21.7736, -72.2659),   # Providenciales Intl, Turks & Caicos
-    "MDPC": (18.5674, -68.3634),   # Punta Cana International, Dominican Republic
-    "MKJP": (17.9356, -76.7875),   # Norman Manley Intl (Kingston), Jamaica
-    "MKJS": (18.5037, -77.9134),   # Sangster International (Montego Bay), Jamaica
-    "MUHA": (22.9892, -82.4092),   # José Martí International (Havana), Cuba
-    "MUVR": (23.1592, -81.4328),   # Juan Gualberto Gómez (Varadero), Cuba
-    "MWCR": (19.2922, -81.3578),   # Owen Roberts Intl (Grand Cayman), Cayman Islands
-    "MYNN": (25.0390, -77.4662),   # Lynden Pindling International (Nassau), Bahamas
-    "MYSM": (24.0864, -74.5247),   # San Salvador Airport, Bahamas
-    "TAPA": (17.1367, -61.7927),   # V.C. Bird International, Antigua
-    "TBPB": (13.0746, -59.4925),   # Grantley Adams International, Barbados
-    "TFFF": (14.5910, -61.0032),   # Martinique Aimé Césaire Intl, Martinique
-    "TFFR": (16.2653, -61.5318),   # Pointe-à-Pitre International, Guadeloupe
-    "TIST": (18.3373, -64.9734),   # Cyril E. King Airport (St. Thomas), USVI
-    "TISX": (17.7019, -64.7986),   # Henry E. Rohlsen Airport (St. Croix), USVI
-    "TJPS": (18.0083, -66.5630),   # Mercedita Airport (Ponce), PR
-    "TJSJ": (18.4394, -66.0018),   # Luis Muñoz Marín Intl (San Juan), PR
-    "TKPK": (17.3112, -62.7187),   # Robert L. Bradshaw Intl, St. Kitts
-    "TLPL": (13.7332, -60.9526),   # Hewanorra International, St. Lucia
-    "TNCA": (12.5014, -70.0152),   # Queen Beatrix International, Aruba
-    "TNCB": (12.1310, -68.2685),   # Flamingo International, Bonaire
-    "TNCC": (12.1889, -68.9598),   # Curaçao International, Curaçao
-    "TNCM": (18.0410, -63.1089),   # Princess Juliana Intl, St. Maarten
-    "TVSA": (13.1569, -61.1481),   # Argyle International, St. Vincent
+    "MBPV": (21.7736, -72.2659),  "MDPC": (18.5674, -68.3634),
+    "MKJP": (17.9356, -76.7875),  "MKJS": (18.5037, -77.9134),
+    "MUHA": (22.9892, -82.4092),  "MUVR": (23.1592, -81.4328),
+    "MWCR": (19.2922, -81.3578),  "MYNN": (25.0390, -77.4662),
+    "MYSM": (24.0864, -74.5247),  "TAPA": (17.1367, -61.7927),
+    "TBPB": (13.0746, -59.4925),  "TFFF": (14.5910, -61.0032),
+    "TFFR": (16.2653, -61.5318),  "TIST": (18.3373, -64.9734),
+    "TISX": (17.7019, -64.7986),  "TJPS": (18.0083, -66.5630),
+    "TJSJ": (18.4394, -66.0018),  "TKPK": (17.3112, -62.7187),
+    "TLPL": (13.7332, -60.9526),  "TNCA": (12.5014, -70.0152),
+    "TNCB": (12.1310, -68.2685),  "TNCC": (12.1889, -68.9598),
+    "TNCM": (18.0410, -63.1089),  "TVSA": (13.1569, -61.1481),
 
-    # --------------------------------------------------------------------------
     # SOUTH AMERICA
-    # --------------------------------------------------------------------------
-    "SAEZ": (-34.8222, -58.5358),  # Ezeiza International (Buenos Aires), Argentina
-    "SCEL": (-33.3930, -70.7858),  # Arturo Merino Benítez Intl (Santiago), Chile
-    "SEQM": (-0.1292, -78.3575),   # Mariscal Sucre International (Quito), Ecuador
-    "SKBO": (-4.7016, -74.1469),   # El Dorado International (Bogota), Colombia
-    "SKCG": (10.4424, -75.5130),   # Rafael Núñez Intl (Cartagena), Colombia
-    "SKCL": (3.5433, -76.3814),    # Alfonso Bonilla Aragón Intl (Cali), Colombia
-    "SKRG": (6.1645, -75.4233),    # José María Córdova Intl (Medellin), Colombia
-    "SMJP": (5.4431, -55.1903),    # Johan Adolf Pengel Intl (Paramaribo), Suriname
-    "SPJC": (-12.0219, -77.1143),  # Jorge Chávez International (Lima), Peru
-    "SPQU": (-16.3411, -71.5831),  # Rodríguez Ballón Intl (Arequipa), Peru
-    "SYCJ": (6.4981, -58.2539),    # Cheddi Jagan Intl (Georgetown), Guyana
+    "SAEZ": (-34.8222, -58.5358), "SCEL": (-33.3930, -70.7858),
+    "SEQM": (-0.1292, -78.3575),  "SKBO": (-4.7016, -74.1469),
+    "SKCG": (10.4424, -75.5130),  "SKCL": (3.5433, -76.3814),
+    "SKRG": (6.1645, -75.4233),   "SMJP": (5.4431, -55.1903),
+    "SPJC": (-12.0219, -77.1143), "SPQU": (-16.3411, -71.5831),
+    "SYCJ": (6.4981, -58.2539),
 
-    # --------------------------------------------------------------------------
     # EUROPE & ICELAND
-    # --------------------------------------------------------------------------
-    "BIKF": (63.9850, -22.6056),    # Keflavík International, Iceland
-    "EBBR": (50.9014, 4.4844),      # Brussels Airport, Belgium
-    "EDDF": (50.0379, 8.5622),      # Frankfurt Airport, Germany
-    "EDDM": (48.3538, 11.7861),     # Munich Airport, Germany
-    "EFHK": (60.3172, 24.9633),     # Helsinki Airport, Finland
-    "EGCC": (53.3537, -2.2750),     # Manchester Airport, United Kingdom
-    "EGPK": (55.5094, -4.5867),     # Glasgow Prestwick Airport, Scotland
-    "EGLL": (51.4700, -0.4543),     # London Heathrow Airport, United Kingdom
-    "EHAM": (52.3105, 4.7683),      # Amsterdam Airport Schiphol, Netherlands
-    "EIDW": (53.4213, -6.2701),     # Dublin Airport, Ireland
-    "EINN": (52.7020, -8.9248),     # Shannon Airport, Ireland
-    "EKCH": (55.6180, 12.6508),     # Copenhagen Airport, Denmark
-    "ENGM": (60.1939, 11.1004),     # Oslo Airport Gardermoen, Norway
-    "ESSA": (59.6519, 17.9186),     # Stockholm Arlanda Airport, Sweden
-    "LEBL": (41.2974, 2.0833),      # Josep Tarradellas Barcelona-El Prat, Spain
-    "LEMD": (40.4936, -3.5668),     # Adolfo Suárez Madrid–Barajas, Spain
-    "LFPG": (49.0097, 2.5479),      # Paris Charles de Gaulle Airport, France
-    "LGAV": (37.9364, 23.9445),     # Athens International Airport, Greece
-    "LIRF": (41.8003, 12.2389),     # Rome Fiumicino Airport, Italy
-    "LOWW": (48.1103, 16.5697),     # Vienna International Airport, Austria
-    "LPPD": (37.7412, -25.6979),    # Ponta Delgada (Azores), Portugal
-    "LPPT": (38.7813, -9.1359),     # Humberto Delgado Airport (Lisbon), Portugal
-    "LROP": (44.5722, 26.1022),     # Henri Coandă Intl (Bucharest), Romania
-    "LSZH": (47.4647, 8.5492),      # Zurich Airport, Switzerland
-    "TXKF": (32.3640, -64.6787),    # L.F. Wade Airport, Bermuda
+    "BIKF": (63.9850, -22.6056),  "EBBR": (50.9014, 4.4844),
+    "EDDF": (50.0379, 8.5622),    "EDDM": (48.3538, 11.7861),
+    "EFHK": (60.3172, 24.9633),   "EGCC": (53.3537, -2.2750),
+    "EGPK": (55.5094, -4.5867),   "EGLL": (51.4700, -0.4543),
+    "EHAM": (52.3105, 4.7683),    "EIDW": (53.4213, -6.2701),
+    "EINN": (52.7020, -8.9248),   "EKCH": (55.6180, 12.6508),
+    "ENGM": (60.1939, 11.1004),   "ESSA": (59.6519, 17.9186),
+    "LEBL": (41.2974, 2.0833),    "LEMD": (40.4936, -3.5668),
+    "LFPG": (49.0097, 2.5479),    "LGAV": (37.9364, 23.9445),
+    "LIRF": (41.8003, 12.2389),   "LOWW": (48.1103, 16.5697),
+    "LPPD": (37.7412, -25.6979),  "LPPT": (38.7813, -9.1359),
+    "LROP": (44.5722, 26.1022),   "LSZH": (47.4647, 8.5492),
+    "TXKF": (32.3640, -64.6787),
 
-    # --------------------------------------------------------------------------
     # ASIA & PACIFIC
-    # --------------------------------------------------------------------------
-    "RKPK": (35.1795, 128.9381),    # Gimhae International (Busan), South Korea
-    "ROAH": (26.1958, 127.6458),    # Naha Airport (Okinawa), Japan
-    "RORS": (24.8267, 125.1458),    # Shimojishima Airport, Japan
-    "RPLC": (15.1878, 120.5606),    # Clark International Airport, Philippines
+    "RKPK": (35.1795, 128.9381),  "ROAH": (26.1958, 127.6458),
+    "RORS": (24.8267, 125.1458),  "RPLC": (15.1878, 120.5606),
 }
+
+AIRCRAFT_CAPACITY = {"A319": 156, "A320": 186, "A321": 236}
+US_TERRITORIES = {"TJBQ", "TJSJ", "TJPS", "TIST", "TISX"}
+
+# Rural / EAS airports exempt from the $5.30 domestic segment tax and $4.50 PFC
+RURAL_EXEMPT_AIRPORTS = {
+    "KBFD", "KDUJ", "KJST", "KIPT", "KSLK", "KMSS", "KOGS", "KART",
+    "KAUG", "KBHB", "KPQB", "KRKD", "KLEB", "KMPV", "KPIR", "KDVL",
+    "KJMS", "KDIK", "KGCK", "KSLN", "KGRI", "KALO", "KDBQ", "KSTJ",
+    "KJEF", "KCOU", "KBLF", "KHEZ", "KMEI", "KTUP", "KGTR", "KEKO",
+    "KVEL", "KCNY", "KCDC", "KIFP", "KLMT", "KOTH", "KEAT", "KALW",
+    "KLWS", "KPIH", "KCOD", "KCLM", "KSEZ", "KPRC", "KROW", "KISQ",
+    "KIMT", "KESC", "KCMX", "KCIU", "KAPN", "KPLN", "KINL", "KBJI",
+    "KCON", "KFMH", "KFRG", "KMIV", "KOQU", "KSFM", "KLWB", "KMGW",
+    "KPKB", "KCKB", "PABR", "PAOT", "PASC", "PAOM", "PAPG", "PAYA",
+    "PAVD", "PAKW", "PAHO", "PADL", "PAKN", "PAGS",
+}
+
+# Market & operating-cost multipliers (default = 1.00)
+AIRPORT_MULTIPLIERS = {
+    # Remote / Overwater / 2-ACT Long-Haul
+    "PAFA": 1.30, "PABR": 1.45, "PASC": 1.45, "PAOT": 1.40, "PAOM": 1.40,
+    "PADL": 1.40, "PAKN": 1.40, "PADQ": 1.35, "PAJN": 1.30, "PAKT": 1.30,
+    "PASI": 1.30, "PAPG": 1.35, "PAYA": 1.35, "PAVD": 1.35, "PAEN": 1.30,
+    "PAKW": 1.35, "PAHO": 1.30, "PAGS": 1.35,
+    "PHNL": 1.30, "PHOG": 1.30, "PHKO": 1.30, "PHLI": 1.35,
+    "TJBQ": 1.25, "TJSJ": 1.25, "TJPS": 1.25, "TIST": 1.30, "TISX": 1.30,
+    # High-Yield Ski / Island / Resort
+    "KEYW": 1.30, "KJAC": 1.25, "KEGE": 1.25, "KHDN": 1.20, "KMTJ": 1.20,
+    "KDRO": 1.15, "KBZN": 1.15, "KGPI": 1.15, "KMSO": 1.15, "KMVY": 1.25,
+    "KACK": 1.25, "KHYA": 1.15, "KPSP": 1.15, "KLAS": 1.15, "KSBA": 1.15,
+    "KMRY": 1.15, "KHPN": 1.15, "KAVL": 1.12, "KCHS": 1.12, "KSAV": 1.12,
+    "KMYR": 1.10, "KFLL": 1.10, "KSRQ": 1.10, "KECP": 1.10, "KVPS": 1.10,
+    # Thin Regional / Price-Stimulation Spokes
+    "KBLF": 0.85, "KPKB": 0.85, "KCKB": 0.90, "KDIK": 0.85, "KPIR": 0.85,
+    "KDVL": 0.85, "KJMS": 0.85, "KGCK": 0.88, "KSLN": 0.88, "KGRI": 0.88,
+    "KALO": 0.88, "KDBQ": 0.88, "KSTJ": 0.88, "KJEF": 0.88, "KHEZ": 0.85,
+    "KMEI": 0.85, "KTUP": 0.88, "KBFD": 0.85, "KDUJ": 0.85, "KJST": 0.85,
+    "KSLK": 0.85, "KMSS": 0.85, "KOGS": 0.85, "KART": 0.88, "KAUG": 0.85,
+    "KRKD": 0.85, "KPQB": 0.85, "KLEB": 0.88, "KMPV": 0.85,
+    # International Handling & Slot Tiers
+    "EGLL": 1.35, "LFPG": 1.30, "EDDF": 1.28, "EDDM": 1.28, "EHAM": 1.28,
+    "LSZH": 1.32, "LOWW": 1.25, "EKCH": 1.25, "ENGM": 1.25, "ESSA": 1.25,
+    "EFHK": 1.25, "EBBR": 1.25, "LIRF": 1.25, "LEMD": 1.25, "LEBL": 1.25,
+    "LGAV": 1.25, "LROP": 1.20, "EIDW": 1.20, "EINN": 1.18, "EGCC": 1.22,
+    "EGPK": 1.15, "BIKF": 1.20, "LPPT": 1.22, "LPPD": 1.18, "TXKF": 1.25,
+    "SAEZ": 1.30, "SCEL": 1.30, "SPJC": 1.25, "SPQU": 1.22, "SEQM": 1.22,
+    "SKBO": 1.20, "SKCG": 1.22, "SKCL": 1.20, "SKRG": 1.20, "SMJP": 1.25,
+    "SYCJ": 1.25, "RKPK": 1.30, "ROAH": 1.30, "RORS": 1.32, "RPLC": 1.28,
+}
+
+# Directional foreign departure & arrival taxes/airport fees (USD) for all 96 non-US airports
+FOREIGN_PORT_FEES = {
+    # Canada (ATSC Security + Airport Improvement Fee on departure)
+    "CYVR": {"dep": 44.00, "arr": 0.00, "label": "Canada ATSC + YVR AIF"},
+    "CYYC": {"dep": 47.00, "arr": 0.00, "label": "Canada ATSC + YYC AIF"},
+    "CYEG": {"dep": 47.00, "arr": 0.00, "label": "Canada ATSC + YEG AIF"},
+    "CYUL": {"dep": 47.00, "arr": 0.00, "label": "Canada ATSC + YUL AIF"},
+    "CYHZ": {"dep": 47.00, "arr": 0.00, "label": "Canada ATSC + YHZ AIF"},
+    "CYQB": {"dep": 47.00, "arr": 0.00, "label": "Canada ATSC + YQB AIF"},
+    "CYWG": {"dep": 49.00, "arr": 0.00, "label": "Canada ATSC + YWG AIF"},
+    "CYYT": {"dep": 51.00, "arr": 0.00, "label": "Canada ATSC + YYT AIF"},
+    "CYDF": {"dep": 48.00, "arr": 0.00, "label": "Canada ATSC + YDF AIF"},
+    "CYFC": {"dep": 46.00, "arr": 0.00, "label": "Canada ATSC + YFC AIF"},
+    "CYHM": {"dep": 43.00, "arr": 0.00, "label": "Canada ATSC + YHM AIF"},
+    "CYQM": {"dep": 46.00, "arr": 0.00, "label": "Canada ATSC + YQM AIF"},
+    "CYQY": {"dep": 46.00, "arr": 0.00, "label": "Canada ATSC + YQY AIF"},
+    "CYSJ": {"dep": 46.00, "arr": 0.00, "label": "Canada ATSC + YSJ AIF"},
+    "CYXS": {"dep": 44.00, "arr": 0.00, "label": "Canada ATSC + YXS AIF"},
+    "CYXY": {"dep": 41.00, "arr": 0.00, "label": "Canada ATSC + YXY AIF"},
+    "CYYG": {"dep": 46.00, "arr": 0.00, "label": "Canada ATSC + YYG AIF"},
+    "CYYJ": {"dep": 42.00, "arr": 0.00, "label": "Canada ATSC + YYJ AIF"},
+    "CYZF": {"dep": 44.00, "arr": 0.00, "label": "Canada ATSC + YZF AIF"},
+
+    # Mexico (TUA Airport Fee on departure + DNR Tourism Tax on entry)
+    "MMUN": {"dep": 36.00, "arr": 42.00, "label": "Mexico TUA / DNR Tourism Tax"},
+    "MMCZ": {"dep": 38.00, "arr": 42.00, "label": "Mexico TUA / DNR Tourism Tax"},
+    "MMSD": {"dep": 44.00, "arr": 42.00, "label": "Mexico TUA / DNR Tourism Tax"},
+    "MMPR": {"dep": 42.00, "arr": 42.00, "label": "Mexico TUA / DNR Tourism Tax"},
+    "MMGL": {"dep": 45.00, "arr": 42.00, "label": "Mexico TUA / DNR Tourism Tax"},
+    "MMTJ": {"dep": 39.00, "arr": 42.00, "label": "Mexico TUA / DNR Tourism Tax"},
+    "MMHO": {"dep": 38.00, "arr": 42.00, "label": "Mexico TUA / DNR Tourism Tax"},
+    "MMMZ": {"dep": 44.00, "arr": 42.00, "label": "Mexico TUA / DNR Tourism Tax"},
+    "MMBT": {"dep": 43.00, "arr": 42.00, "label": "Mexico TUA / DNR Tourism Tax"},
+    "MMPB": {"dep": 36.00, "arr": 42.00, "label": "Mexico TUA / DNR Tourism Tax"},
+    "MMVR": {"dep": 41.00, "arr": 42.00, "label": "Mexico TUA / DNR Tourism Tax"},
+
+    # Central America
+    "MROC": {"dep": 32.00, "arr": 15.00, "label": "Costa Rica Exit & Airport Tax"},
+    "MRLB": {"dep": 32.00, "arr": 15.00, "label": "Costa Rica Exit & Airport Tax"},
+    "MZBZ": {"dep": 55.50, "arr": 18.00, "label": "Belize PACT Conservation & Airport Tax"},
+    "MPPA": {"dep": 45.00, "arr": 15.00, "label": "Panama Airport & Security Fee"},
+    "MGGT": {"dep": 33.00, "arr": 15.00, "label": "Guatemala Departure & Security Tax"},
+    "MNMG": {"dep": 44.00, "arr": 12.00, "label": "Nicaragua Airport & Tourist Tax"},
+
+    # Caribbean & Bermuda (Foreign)
+    "MYNN": {"dep": 62.00, "arr": 29.00, "label": "Bahamas Departure, Security & NAD Fee"},
+    "MYSM": {"dep": 45.00, "arr": 29.00, "label": "Bahamas Out-Island Departure Tax"},
+    "MBPV": {"dep": 58.00, "arr": 20.00, "label": "Turks & Caicos Airport & Tourism Tax"},
+    "MDPC": {"dep": 48.00, "arr": 20.00, "label": "Dominican Republic Exit & Tourist Card"},
+    "MKJP": {"dep": 65.00, "arr": 35.00, "label": "Jamaica Tourism Enhancement & Airport Fee"},
+    "MKJS": {"dep": 65.00, "arr": 35.00, "label": "Jamaica Tourism Enhancement & Airport Fee"},
+    "MUHA": {"dep": 30.00, "arr": 25.00, "label": "Cuba Airport & Sanitary Tax"},
+    "MUVR": {"dep": 30.00, "arr": 25.00, "label": "Cuba Airport & Sanitary Tax"},
+    "MWCR": {"dep": 52.00, "arr": 25.00, "label": "Cayman Islands Departure & Security Tax"},
+    "TAPA": {"dep": 55.00, "arr": 20.00, "label": "Antigua Embarkation & Facility Fee"},
+    "TBPB": {"dep": 58.00, "arr": 20.00, "label": "Barbados Departure & Security Levy"},
+    "TFFF": {"dep": 42.00, "arr": 18.00, "label": "French Antilles Airport & Solidarity Tax"},
+    "TFFR": {"dep": 42.00, "arr": 18.00, "label": "French Antilles Airport & Solidarity Tax"},
+    "TKPK": {"dep": 52.00, "arr": 20.00, "label": "St. Kitts Departure & Environmental Levy"},
+    "TLPL": {"dep": 54.00, "arr": 20.00, "label": "St. Lucia Airport Service & Security Tax"},
+    "TNCA": {"dep": 54.00, "arr": 20.00, "label": "Aruba PFC & Tourism Levy"},
+    "TNCB": {"dep": 48.00, "arr": 20.00, "label": "Bonaire Airport & Visitor Entry Tax"},
+    "TNCC": {"dep": 52.00, "arr": 20.00, "label": "Curaçao Airport Passenger Facility Charge"},
+    "TNCM": {"dep": 50.00, "arr": 18.00, "label": "St. Maarten Departure & Security Fee"},
+    "TVSA": {"dep": 50.00, "arr": 20.00, "label": "St. Vincent Airport Service Charge"},
+    "TXKF": {"dep": 68.00, "arr": 35.00, "label": "Bermuda Passenger Departure & Tourism Tax"},
+
+    # South America
+    "SKBO": {"dep": 54.00, "arr": 25.00, "label": "Colombia Aerocivil & Tourism Tax"},
+    "SKCG": {"dep": 54.00, "arr": 25.00, "label": "Colombia Aerocivil & Tourism Tax"},
+    "SKCL": {"dep": 54.00, "arr": 25.00, "label": "Colombia Aerocivil & Tourism Tax"},
+    "SKRG": {"dep": 54.00, "arr": 25.00, "label": "Colombia Aerocivil & Tourism Tax"},
+    "SPJC": {"dep": 48.00, "arr": 15.00, "label": "Peru TUUA & Tourism Tax"},
+    "SPQU": {"dep": 46.00, "arr": 15.00, "label": "Peru TUUA & Tourism Tax"},
+    "SEQM": {"dep": 56.00, "arr": 18.00, "label": "Ecuador Eco-Delta & Quito Airport Fee"},
+    "SCEL": {"dep": 34.00, "arr": 15.00, "label": "Chile Embarque International Fee"},
+    "SAEZ": {"dep": 64.00, "arr": 22.00, "label": "Argentina Tasa de Uso & Security Tax"},
+    "SMJP": {"dep": 48.00, "arr": 20.00, "label": "Suriname Terminal & Security Fee"},
+    "SYCJ": {"dep": 45.00, "arr": 20.00, "label": "Guyana Travel & Security Tax"},
+
+    # Europe & Iceland
+    "EGLL": {"dep": 162.00, "arr": 0.00,  "label": "UK Air Passenger Duty (APD) + LHR PSC"},
+    "EGCC": {"dep": 144.00, "arr": 0.00,  "label": "UK Air Passenger Duty (APD) + MAN PSC"},
+    "EGPK": {"dep": 134.00, "arr": 0.00,  "label": "UK Air Passenger Duty (APD) + PIK PSC"},
+    "EDDF": {"dep": 108.00, "arr": 22.00, "label": "Germany Air Transport Tax + FRA PSC"},
+    "EDDM": {"dep": 104.00, "arr": 20.00, "label": "Germany Air Transport Tax + MUC PSC"},
+    "LFPG": {"dep": 88.00,  "arr": 20.00, "label": "France Solidarity/Eco Tax + CDG PSC"},
+    "EHAM": {"dep": 78.00,  "arr": 18.00, "label": "Netherlands Flight Tax + AMS PSC"},
+    "LSZH": {"dep": 62.00,  "arr": 18.00, "label": "Switzerland ZRH Passenger & Noise Fee"},
+    "LOWW": {"dep": 58.00,  "arr": 16.00, "label": "Austria Air Transport Levy + VIE PSC"},
+    "EBBR": {"dep": 54.00,  "arr": 16.00, "label": "Belgium Embarkation & BRU PSC"},
+    "EIDW": {"dep": 36.00,  "arr": 14.00, "label": "Ireland DUB Passenger Service Charge"},
+    "EINN": {"dep": 32.00,  "arr": 12.00, "label": "Ireland SNN Passenger Service Charge"},
+    "BIKF": {"dep": 34.00,  "arr": 14.00, "label": "Iceland KEF Passenger & Security Fee"},
+    "EKCH": {"dep": 46.00,  "arr": 15.00, "label": "Denmark Passenger Tax + CPH PSC"},
+    "ENGM": {"dep": 48.00,  "arr": 15.00, "label": "Norway Air Passenger Tax + OSL PSC"},
+    "ESSA": {"dep": 44.00,  "arr": 14.00, "label": "Sweden ARN Passenger & Security Fee"},
+    "EFHK": {"dep": 38.00,  "arr": 14.00, "label": "Finland HEL Passenger & Security Fee"},
+    "LEMD": {"dep": 38.00,  "arr": 14.00, "label": "Spain AENA Departure & Security Fee"},
+    "LEBL": {"dep": 38.00,  "arr": 14.00, "label": "Spain AENA Departure & Security Fee"},
+    "LIRF": {"dep": 52.00,  "arr": 16.00, "label": "Italy Council City Tax + FCO PSC"},
+    "LGAV": {"dep": 46.00,  "arr": 15.00, "label": "Greece Airport Development & ATH PSC"},
+    "LPPT": {"dep": 42.00,  "arr": 14.00, "label": "Portugal Carbon Tax + LIS PSC"},
+    "LPPD": {"dep": 34.00,  "arr": 12.00, "label": "Portugal Azores PDL Passenger Fee"},
+    "LROP": {"dep": 34.00,  "arr": 12.00, "label": "Romania OTP Passenger & Security Fee"},
+
+    # Asia & Pacific
+    "RKPK": {"dep": 26.00,  "arr": 10.00, "label": "South Korea Departure & PUS Facility Fee"},
+    "ROAH": {"dep": 28.00,  "arr": 10.00, "label": "Japan Intl Tourist Tax + OKA PSFC"},
+    "RORS": {"dep": 26.00,  "arr": 10.00, "label": "Japan Intl Tourist Tax + SHI PSFC"},
+    "RPLC": {"dep": 36.00,  "arr": 12.00, "label": "Philippines Travel Tax & CRK Terminal Fee"},
+}
+
+
+def haversine_nm(origin: str, dest: str) -> float:
+    lat1, lon1 = map(math.radians, AIRPORT_COORDS[origin])
+    lat2, lon2 = map(math.radians, AIRPORT_COORDS[dest])
+    dlat, dlon = lat2 - lat1, lon2 - lon1
+    a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
+    return round(3440.065 * 2 * math.asin(math.sqrt(a)), 1)
+
+
+def is_us_airport(code: str) -> bool:
+    return code.startswith(("K", "PA", "PH")) or code in US_TERRITORIES
+
+
+def compute_leg_taxes(origin: str, dest: str, taxable_fare: float, include_tsa: bool = True) -> dict:
+    orig_us = is_us_airport(origin)
+    dest_us = is_us_airport(dest)
+    fees = {}
+
+    if orig_us and dest_us:
+        if origin in US_TERRITORIES or dest in US_TERRITORIES:
+            fees["U.S. Territory Head Tax"] = 23.40
+            if include_tsa:
+                fees["TSA Sept 11 Security Fee"] = 5.60
+            fees["U.S. Airport PFC"] = 4.50
+        elif (
+            (origin.startswith("PA") or dest.startswith("PA") or origin.startswith("PH") or dest.startswith("PH"))
+            and not (origin.startswith("PA") and dest.startswith("PA"))
+            and not (origin.startswith("PH") and dest.startswith("PH"))
+        ):
+            fees["U.S. Federal Excise Tax (7.5%)"] = round(taxable_fare * 0.075, 2)
+            fees["AK/HI Non-Contiguous Tax"] = 11.70
+            if include_tsa:
+                fees["TSA Sept 11 Security Fee"] = 5.60
+            fees["U.S. Airport PFC"] = 4.50
+        else:
+            exempt_seg = origin in RURAL_EXEMPT_AIRPORTS or dest in RURAL_EXEMPT_AIRPORTS
+            exempt_pfc = origin in RURAL_EXEMPT_AIRPORTS
+            fees["U.S. Federal Excise Tax (7.5%)"] = round(taxable_fare * 0.075, 2)
+            if not exempt_seg:
+                fees["U.S. Flight Segment Tax"] = 5.30
+            if include_tsa:
+                fees["TSA Sept 11 Security Fee"] = 5.60
+            if not exempt_pfc:
+                fees["U.S. Airport PFC"] = 4.50
+
+    elif orig_us and not dest_us:
+        fees["U.S. Intl Departure Tax"] = 23.40
+        if include_tsa:
+            fees["TSA Sept 11 Security Fee"] = 5.60
+        if origin not in RURAL_EXEMPT_AIRPORTS:
+            fees["U.S. Airport PFC"] = 4.50
+        dest_port = FOREIGN_PORT_FEES[dest]
+        if dest_port["arr"] > 0:
+            fees[f"{dest_port['label']} (Arrival)"] = dest_port["arr"]
+
+    elif not orig_us and dest_us:
+        orig_port = FOREIGN_PORT_FEES[origin]
+        if orig_port["dep"] > 0:
+            fees[f"{orig_port['label']} (Departure)"] = orig_port["dep"]
+        fees["U.S. Intl Arrival Tax"] = 23.40
+        fees["U.S. Customs (CBP) User Fee"] = 7.39
+        fees["U.S. Immigration User Fee"] = 7.00
+        fees["U.S. APHIS Agriculture Fee"] = 3.71
+
+    else:
+        orig_port = FOREIGN_PORT_FEES[origin]
+        dest_port = FOREIGN_PORT_FEES[dest]
+        if orig_port["dep"] > 0:
+            fees[f"{orig_port['label']} (Departure)"] = orig_port["dep"]
+        if dest_port["arr"] > 0:
+            fees[f"{dest_port['label']} (Arrival)"] = dest_port["arr"]
+
+    return fees
+
+
+def quote_flight(
+    origin: str,
+    dest: str,
+    aircraft: str = "A320",
+    seats_sold: int = 0,
+    days_out: int = 21,
+    include_tsa: bool = True,
+) -> dict:
+    capacity = AIRCRAFT_CAPACITY.get(aircraft, 186)
+    seats_left = max(0, capacity - seats_sold)
+    if seats_left == 0:
+        return {"sold_out": True}
+
+    dist_nm = haversine_nm(origin, dest)
+    m_air = (AIRPORT_MULTIPLIERS.get(origin, 1.0) + AIRPORT_MULTIPLIERS.get(dest, 1.0)) / 2
+    ref_fare = (24.00 + (dist_nm * 0.068)) * m_air
+
+    # Skybus 5-Tier Yield Ladder ("$10 airfares. Only birds fly cheaper.")
+    load_factor = seats_sold / capacity
+    if seats_sold < 10 and days_out >= 7:
+        bucket, base_fare, carrier_fee = "BIRD-10", 10.00, 0.00
+        bucket_left = 10 - seats_sold
+    elif load_factor < 0.25 and days_out >= 14:
+        bucket, base_fare, carrier_fee = "EARLY BIRD", max(19.00, round(ref_fare * 0.50)), 12.00
+        bucket_left = max(1, int(capacity * 0.25) - seats_sold)
+    elif load_factor < 0.60 and days_out >= 7:
+        bucket, base_fare, carrier_fee = "SMART SAVER", max(29.00, round(ref_fare * 0.85)), 15.00
+        bucket_left = max(1, int(capacity * 0.60) - seats_sold)
+    elif load_factor < 0.85 and days_out >= 3:
+        bucket, base_fare, carrier_fee = "STANDARD", max(49.00, round(ref_fare * 1.20)), 18.00
+        bucket_left = max(1, int(capacity * 0.85) - seats_sold)
+    else:
+        bucket, base_fare, carrier_fee = "WALK-UP", max(79.00, round(ref_fare * 1.75)), 20.00
+        bucket_left = seats_left
+
+    tax_breakdown = compute_leg_taxes(origin, dest, base_fare + carrier_fee, include_tsa=include_tsa)
+    taxes_total = round(sum(tax_breakdown.values()), 2)
+    all_in_total = round(base_fare + carrier_fee + taxes_total, 2)
+
+    tier = 0 if dist_nm < 600 else (1 if dist_nm < 1500 else 2)
+    ancillaries = {
+        "personal_item": 0.00,
+        "carry_on_bag": [29.00, 39.00, 49.00][tier],
+        "checked_bag_1": [15.00, 25.00, 35.00][tier],
+        "checked_bag_2": [25.00, 35.00, 45.00][tier],
+        "priority_boarding": [10.00, 14.00, 18.00][tier],
+        "seat_selection": [12.00, 18.00, 26.00][tier],
+    }
+
+    return {
+        "sold_out": False,
+        "route": f"{origin}-{dest}",
+        "distance_nm": dist_nm,
+        "bucket": bucket,
+        "seats_left_in_bucket": bucket_left,
+        "base_fare": round(base_fare, 2),
+        "carrier_fee": round(carrier_fee, 2),
+        "taxes_total": taxes_total,
+        "tax_breakdown": tax_breakdown,
+        "all_in_total": all_in_total,
+        "ancillaries": ancillaries,
+    }
+
+
+def quote_itinerary(legs: list, aircraft_list: list, seats_sold_list: list, days_out: int = 21) -> dict:
+    """Prices 1-stop or multi-leg point-to-point trips while capping TSA at $5.60 per U.S. one-way."""
+    leg_quotes = []
+    tsa_charged = False
+    for idx, (orig, dest) in enumerate(legs):
+        charge_tsa_here = is_us_airport(orig) and not tsa_charged
+        q = quote_flight(orig, dest, aircraft_list[idx], seats_sold_list[idx], days_out, include_tsa=charge_tsa_here)
+        if q.get("sold_out"):
+            return {"sold_out": True, "failed_leg": f"{orig}-{dest}"}
+        if "TSA Sept 11 Security Fee" in q["tax_breakdown"]:
+            tsa_charged = True
+        leg_quotes.append(q)
+
+    return {
+        "sold_out": False,
+        "segments": len(leg_quotes),
+        "total_distance_nm": round(sum(x["distance_nm"] for x in leg_quotes), 1),
+        "total_base_and_fees": round(sum(x["base_fare"] + x["carrier_fee"] for x in leg_quotes), 2),
+        "total_taxes": round(sum(x["taxes_total"] for x in leg_quotes), 2),
+        "grand_total_all_in": round(sum(x["all_in_total"] for x in leg_quotes), 2),
+        "legs": leg_quotes,
+    }
 
 import math
 from collections import defaultdict, deque
