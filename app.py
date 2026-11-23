@@ -2284,6 +2284,16 @@ def compute_leg_taxes(origin: str, dest: str, taxable_fare: float, include_tsa: 
 
     return fees
 
+ANCILLARY_CAPS = {
+    "carry_on_bag": 59.00,
+    "checked_bag_1": 55.00,
+    "checked_bag_2": 75.00,
+    "priority_boarding": 24.00,
+    "seat_selection": 35.00,
+    "wifi": 22.00,
+}
+
+
 def quote_flight(
     origin: str,
     dest: str,
@@ -2305,7 +2315,7 @@ def quote_flight(
     ref_fare = (24.00 + (dist_nm * 0.068)) * m_air
     load_factor = total_sold / capacity
 
-    # Completely random roll per flight per search for a $10 BIRD-10 base fare (~30% odds)
+    # Random roll per flight per search for a $10 BIRD-10 base fare (~30% odds)
     rng = (
         random.Random(f"bird10-{flight_num}-{search_nonce}")
         if search_nonce is not None
@@ -2335,15 +2345,23 @@ def quote_flight(
     taxes_total = round(sum(tax_breakdown.values()), 2)
     all_in_total = round(base_fare + carrier_fee + taxes_total, 2)
 
-    tier = 0 if dist_nm < 600 else (1 if dist_nm < 1500 else 2)
+    if dist_nm < 600:
+        tier = 0
+    elif dist_nm < 1500:
+        tier = 1
+    elif dist_nm < 2200:
+        tier = 2
+    else:
+        tier = 3
+
     ancillaries = {
         "personal_item": 0.00,
-        "carry_on_bag": [29.00, 39.00, 49.00][tier],
-        "checked_bag_1": [15.00, 25.00, 35.00][tier],
-        "checked_bag_2": [25.00, 35.00, 45.00][tier],
-        "priority_boarding": [10.00, 14.00, 18.00][tier],
-        "seat_selection": [12.00, 18.00, 26.00][tier],
-        "wifi": [8.00, 12.00, 16.00][tier],
+        "carry_on_bag": min(ANCILLARY_CAPS["carry_on_bag"], [29.00, 39.00, 49.00, 59.00][tier]),
+        "checked_bag_1": min(ANCILLARY_CAPS["checked_bag_1"], [15.00, 25.00, 35.00, 55.00][tier]),
+        "checked_bag_2": min(ANCILLARY_CAPS["checked_bag_2"], [25.00, 35.00, 45.00, 75.00][tier]),
+        "priority_boarding": min(ANCILLARY_CAPS["priority_boarding"], [10.00, 14.00, 18.00, 24.00][tier]),
+        "seat_selection": min(ANCILLARY_CAPS["seat_selection"], [12.00, 18.00, 26.00, 35.00][tier]),
+        "wifi": min(ANCILLARY_CAPS["wifi"], [8.00, 12.00, 16.00, 22.00][tier]),
     }
 
     return {
