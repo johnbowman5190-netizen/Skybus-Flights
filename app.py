@@ -2017,6 +2017,10 @@ AIRPORT_COORDS = {
     "RORS": (24.8267, 125.1458),  "RPLC": (15.1878, 120.5606),
 }
 
+# ==========================================
+# 4. SKYBUS PRICING, TAX & ROUTING ENGINE
+# ==========================================
+
 AIRCRAFT_CAPACITY = {"A319": 156, "A320": 186, "A321": 236}
 US_TERRITORIES = {"TJBQ", "TJSJ", "TJPS", "TIST", "TISX"}
 
@@ -2069,7 +2073,7 @@ AIRPORT_MULTIPLIERS = {
 
 # Directional foreign departure & arrival taxes/airport fees (USD) for all 96 non-US airports
 FOREIGN_PORT_FEES = {
-    # Canada (ATSC Security + Airport Improvement Fee on departure)
+    # Canada
     "CYVR": {"dep": 44.00, "arr": 0.00, "label": "Canada ATSC + YVR AIF"},
     "CYYC": {"dep": 47.00, "arr": 0.00, "label": "Canada ATSC + YYC AIF"},
     "CYEG": {"dep": 47.00, "arr": 0.00, "label": "Canada ATSC + YEG AIF"},
@@ -2089,8 +2093,7 @@ FOREIGN_PORT_FEES = {
     "CYYG": {"dep": 46.00, "arr": 0.00, "label": "Canada ATSC + YYG AIF"},
     "CYYJ": {"dep": 42.00, "arr": 0.00, "label": "Canada ATSC + YYJ AIF"},
     "CYZF": {"dep": 44.00, "arr": 0.00, "label": "Canada ATSC + YZF AIF"},
-
-    # Mexico (TUA Airport Fee on departure + DNR Tourism Tax on entry)
+    # Mexico
     "MMUN": {"dep": 36.00, "arr": 42.00, "label": "Mexico TUA / DNR Tourism Tax"},
     "MMCZ": {"dep": 38.00, "arr": 42.00, "label": "Mexico TUA / DNR Tourism Tax"},
     "MMSD": {"dep": 44.00, "arr": 42.00, "label": "Mexico TUA / DNR Tourism Tax"},
@@ -2102,7 +2105,6 @@ FOREIGN_PORT_FEES = {
     "MMBT": {"dep": 43.00, "arr": 42.00, "label": "Mexico TUA / DNR Tourism Tax"},
     "MMPB": {"dep": 36.00, "arr": 42.00, "label": "Mexico TUA / DNR Tourism Tax"},
     "MMVR": {"dep": 41.00, "arr": 42.00, "label": "Mexico TUA / DNR Tourism Tax"},
-
     # Central America
     "MROC": {"dep": 32.00, "arr": 15.00, "label": "Costa Rica Exit & Airport Tax"},
     "MRLB": {"dep": 32.00, "arr": 15.00, "label": "Costa Rica Exit & Airport Tax"},
@@ -2110,7 +2112,6 @@ FOREIGN_PORT_FEES = {
     "MPPA": {"dep": 45.00, "arr": 15.00, "label": "Panama Airport & Security Fee"},
     "MGGT": {"dep": 33.00, "arr": 15.00, "label": "Guatemala Departure & Security Tax"},
     "MNMG": {"dep": 44.00, "arr": 12.00, "label": "Nicaragua Airport & Tourist Tax"},
-
     # Caribbean & Bermuda (Foreign)
     "MYNN": {"dep": 62.00, "arr": 29.00, "label": "Bahamas Departure, Security & NAD Fee"},
     "MYSM": {"dep": 45.00, "arr": 29.00, "label": "Bahamas Out-Island Departure Tax"},
@@ -2133,7 +2134,6 @@ FOREIGN_PORT_FEES = {
     "TNCM": {"dep": 50.00, "arr": 18.00, "label": "St. Maarten Departure & Security Fee"},
     "TVSA": {"dep": 50.00, "arr": 20.00, "label": "St. Vincent Airport Service Charge"},
     "TXKF": {"dep": 68.00, "arr": 35.00, "label": "Bermuda Passenger Departure & Tourism Tax"},
-
     # South America
     "SKBO": {"dep": 54.00, "arr": 25.00, "label": "Colombia Aerocivil & Tourism Tax"},
     "SKCG": {"dep": 54.00, "arr": 25.00, "label": "Colombia Aerocivil & Tourism Tax"},
@@ -2146,7 +2146,6 @@ FOREIGN_PORT_FEES = {
     "SAEZ": {"dep": 64.00, "arr": 22.00, "label": "Argentina Tasa de Uso & Security Tax"},
     "SMJP": {"dep": 48.00, "arr": 20.00, "label": "Suriname Terminal & Security Fee"},
     "SYCJ": {"dep": 45.00, "arr": 20.00, "label": "Guyana Travel & Security Tax"},
-
     # Europe & Iceland
     "EGLL": {"dep": 162.00, "arr": 0.00,  "label": "UK Air Passenger Duty (APD) + LHR PSC"},
     "EGCC": {"dep": 144.00, "arr": 0.00,  "label": "UK Air Passenger Duty (APD) + MAN PSC"},
@@ -2172,7 +2171,6 @@ FOREIGN_PORT_FEES = {
     "LPPT": {"dep": 42.00,  "arr": 14.00, "label": "Portugal Carbon Tax + LIS PSC"},
     "LPPD": {"dep": 34.00,  "arr": 12.00, "label": "Portugal Azores PDL Passenger Fee"},
     "LROP": {"dep": 34.00,  "arr": 12.00, "label": "Romania OTP Passenger & Security Fee"},
-
     # Asia & Pacific
     "RKPK": {"dep": 26.00,  "arr": 10.00, "label": "South Korea Departure & PUS Facility Fee"},
     "ROAH": {"dep": 28.00,  "arr": 10.00, "label": "Japan Intl Tourist Tax + OKA PSFC"},
@@ -2181,16 +2179,51 @@ FOREIGN_PORT_FEES = {
 }
 
 
+def get_coords(code):
+    """Safely retrieves airport coordinates even if AIRPORT_COORDS is defined lower in the file."""
+    coords_map = globals().get("AIRPORT_COORDS", {})
+    return coords_map.get(str(code).strip().upper())
+
+
+def haversine_miles(coord1, coord2):
+    """Calculates distance between two lat/lon points in statute miles."""
+    if not coord1 or not coord2:
+        return 0
+    lat1, lon1 = coord1
+    lat2, lon2 = coord2
+    R = 3958.8
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+    a = (
+        math.sin(dlat / 2) ** 2
+        + math.cos(math.radians(lat1))
+        * math.cos(math.radians(lat2))
+        * math.sin(dlon / 2) ** 2
+    )
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    return R * c
+
+
 def haversine_nm(origin: str, dest: str) -> float:
-    lat1, lon1 = map(math.radians, AIRPORT_COORDS[origin])
-    lat2, lon2 = map(math.radians, AIRPORT_COORDS[dest])
+    """Calculates distance between two ICAO codes in nautical miles safely."""
+    c1, c2 = get_coords(origin), get_coords(dest)
+    if not c1 or not c2:
+        return 600.0
+    lat1, lon1 = map(math.radians, c1)
+    lat2, lon2 = map(math.radians, c2)
     dlat, dlon = lat2 - lat1, lon2 - lon1
     a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
     return round(3440.065 * 2 * math.asin(math.sqrt(a)), 1)
 
 
 def is_us_airport(code: str) -> bool:
+    code = str(code).strip().upper()
     return code.startswith(("K", "PA", "PH")) or code in US_TERRITORIES
+
+
+def parse_flight_int(flight_val) -> int:
+    digits = "".join(ch for ch in str(flight_val) if ch.isdigit())
+    return int(digits) if digits else 100
 
 
 def compute_leg_taxes(origin: str, dest: str, taxable_fare: float, include_tsa: bool = True) -> dict:
@@ -2205,7 +2238,7 @@ def compute_leg_taxes(origin: str, dest: str, taxable_fare: float, include_tsa: 
                 fees["TSA Sept 11 Security Fee"] = 5.60
             fees["U.S. Airport PFC"] = 4.50
         elif (
-            (origin.startswith("PA") or dest.startswith("PA") or origin.startswith("PH") or dest.startswith("PH"))
+            (origin.startswith(("PA", "PH")) or dest.startswith(("PA", "PH")))
             and not (origin.startswith("PA") and dest.startswith("PA"))
             and not (origin.startswith("PH") and dest.startswith("PH"))
         ):
@@ -2231,13 +2264,13 @@ def compute_leg_taxes(origin: str, dest: str, taxable_fare: float, include_tsa: 
             fees["TSA Sept 11 Security Fee"] = 5.60
         if origin not in RURAL_EXEMPT_AIRPORTS:
             fees["U.S. Airport PFC"] = 4.50
-        dest_port = FOREIGN_PORT_FEES[dest]
-        if dest_port["arr"] > 0:
+        dest_port = FOREIGN_PORT_FEES.get(dest)
+        if dest_port and dest_port["arr"] > 0:
             fees[f"{dest_port['label']} (Arrival)"] = dest_port["arr"]
 
     elif not orig_us and dest_us:
-        orig_port = FOREIGN_PORT_FEES[origin]
-        if orig_port["dep"] > 0:
+        orig_port = FOREIGN_PORT_FEES.get(origin)
+        if orig_port and orig_port["dep"] > 0:
             fees[f"{orig_port['label']} (Departure)"] = orig_port["dep"]
         fees["U.S. Intl Arrival Tax"] = 23.40
         fees["U.S. Customs (CBP) User Fee"] = 7.39
@@ -2245,11 +2278,11 @@ def compute_leg_taxes(origin: str, dest: str, taxable_fare: float, include_tsa: 
         fees["U.S. APHIS Agriculture Fee"] = 3.71
 
     else:
-        orig_port = FOREIGN_PORT_FEES[origin]
-        dest_port = FOREIGN_PORT_FEES[dest]
-        if orig_port["dep"] > 0:
+        orig_port = FOREIGN_PORT_FEES.get(origin)
+        dest_port = FOREIGN_PORT_FEES.get(dest)
+        if orig_port and orig_port["dep"] > 0:
             fees[f"{orig_port['label']} (Departure)"] = orig_port["dep"]
-        if dest_port["arr"] > 0:
+        if dest_port and dest_port["arr"] > 0:
             fees[f"{dest_port['label']} (Arrival)"] = dest_port["arr"]
 
     return fees
@@ -2319,62 +2352,59 @@ def quote_flight(
     }
 
 
-def quote_itinerary(legs: list, aircraft_list: list, seats_sold_list: list, days_out: int = 21) -> dict:
-    """Prices 1-stop or multi-leg point-to-point trips while capping TSA at $5.60 per U.S. one-way."""
+def quote_route_path(path: list[dict], days_out: int = 21, passengers: int = 1) -> dict:
+    """
+    Directly prices any `path` list returned by `find_routes(...)`,
+    using your schedule's `Origin`, `Destination`, `Flight`, and `Aircraft` keys
+    plus live Streamlit session bookings (`get_seats_sold`).
+    """
     leg_quotes = []
     tsa_charged = False
-    for idx, (orig, dest) in enumerate(legs):
+    total_addons = {"carry_on_bag": 0.0, "checked_bag_1": 0.0, "checked_bag_2": 0.0, "priority_boarding": 0.0, "seat_selection": 0.0}
+
+    for leg in path:
+        orig = str(leg["Origin"]).strip().upper()
+        dest = str(leg["Destination"]).strip().upper()
+        flt_num = parse_flight_int(leg.get("Flight", 100))
+        aircraft = leg.get("Aircraft") or leg.get("Equipment") or "A320"
+        capacity = AIRCRAFT_CAPACITY.get(aircraft, 186)
+        seats_sold = get_seats_sold(flt_num, capacity)
+
         charge_tsa_here = is_us_airport(orig) and not tsa_charged
-        q = quote_flight(orig, dest, aircraft_list[idx], seats_sold_list[idx], days_out, include_tsa=charge_tsa_here)
+        q = quote_flight(orig, dest, aircraft=aircraft, seats_sold=seats_sold, days_out=days_out, include_tsa=charge_tsa_here)
         if q.get("sold_out"):
             return {"sold_out": True, "failed_leg": f"{orig}-{dest}"}
+
         if "TSA Sept 11 Security Fee" in q["tax_breakdown"]:
             tsa_charged = True
+
+        q["flight"] = leg.get("Flight", flt_num)
+        q["flight_int"] = flt_num
         leg_quotes.append(q)
 
+        for k in total_addons:
+            total_addons[k] = round(total_addons[k] + q["ancillaries"][k], 2)
+
+    per_pax_all_in = round(sum(x["all_in_total"] for x in leg_quotes), 2)
     return {
         "sold_out": False,
         "segments": len(leg_quotes),
+        "passengers": passengers,
         "total_distance_nm": round(sum(x["distance_nm"] for x in leg_quotes), 1),
-        "total_base_and_fees": round(sum(x["base_fare"] + x["carrier_fee"] for x in leg_quotes), 2),
-        "total_taxes": round(sum(x["taxes_total"] for x in leg_quotes), 2),
-        "grand_total_all_in": round(sum(x["all_in_total"] for x in leg_quotes), 2),
+        "per_pax_base": round(sum(x["base_fare"] for x in leg_quotes), 2),
+        "per_pax_carrier_fees": round(sum(x["carrier_fee"] for x in leg_quotes), 2),
+        "per_pax_taxes": round(sum(x["taxes_total"] for x in leg_quotes), 2),
+        "per_pax_all_in": per_pax_all_in,
+        "group_all_in": round(per_pax_all_in * passengers, 2),
+        "has_bird10": any(x["bucket"] == "BIRD-10" for x in leg_quotes),
+        "min_bird10_seats": min((x["seats_left_in_bucket"] for x in leg_quotes if x["bucket"] == "BIRD-10"), default=0),
+        "per_pax_addons": total_addons,
         "legs": leg_quotes,
     }
-
-import math
-from collections import defaultdict, deque
-from datetime import datetime
-
-
-def get_coords(code):
-    """Safely retrieves airport coordinates even if AIRPORT_COORDS is defined lower in the file."""
-    coords_map = globals().get("AIRPORT_COORDS", {})
-    return coords_map.get(str(code).strip().upper())
-
-
-def haversine_miles(coord1, coord2):
-    """Calculates distance between two lat/lon points in miles."""
-    if not coord1 or not coord2:
-        return 0
-    lat1, lon1 = coord1
-    lat2, lon2 = coord2
-    R = 3958.8  # Earth radius in miles
-    dlat = math.radians(lat2 - lat1)
-    dlon = math.radians(lon2 - lon1)
-    a = (
-        math.sin(dlat / 2) ** 2
-        + math.cos(math.radians(lat1))
-        * math.cos(math.radians(lat2))
-        * math.sin(dlon / 2) ** 2
-    )
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-    return R * c
 
 
 def calculate_route_score(path, origin=None, destination=None):
     """Calculates total route score incorporating distance, layover penalties,
-
     leg backtracking, and overall route circuity.
     """
     if not path:
@@ -2444,7 +2474,6 @@ def leg_operates_today(days_str):
 
 def get_reachable_destinations(network, origin, max_connections=6):
     """Returns a list of destination airport codes that have active operating flights
-
     from the specified origin on today's schedule.
     """
     active_network = [
@@ -2489,6 +2518,9 @@ def find_routes(
     if origin == destination:
         return []
 
+    # Block U.S. cabotage (Foreign -> U.S. Hub -> Foreign)
+    foreign_to_foreign = not is_us_airport(origin) and not is_us_airport(destination)
+
     # 1. FILTER ACTIVE NETWORK FOR TODAY
     active_network = [
         leg for leg in network if leg_operates_today(get_leg_days(leg))
@@ -2532,7 +2564,6 @@ def find_routes(
 
         initial_legs = adj_map[origin]
         if dest_coord:
-            # Sort descending so popping from stack evaluates closest to destination first
             initial_legs = sorted(
                 initial_legs,
                 key=lambda l: (
@@ -2546,6 +2577,8 @@ def find_routes(
             )
 
         for leg in initial_legs:
+            if foreign_to_foreign and is_us_airport(leg["Destination"]):
+                continue
             stack.append([leg])
 
         while stack and steps < MAX_SEARCH_STEPS:
@@ -2567,7 +2600,6 @@ def find_routes(
                 continue
 
             if len(path) < target_legs:
-                # Relaxed pruning threshold for deep connection paths (5-6 connections)
                 if dest_coord and direct_miles > 0 and len(path) >= 3:
                     curr_coord = get_coords(current_node)
                     if curr_coord:
@@ -2582,7 +2614,6 @@ def find_routes(
                 next_legs = adj_map.get(current_node, [])
 
                 if dest_coord:
-                    # Sort descending so stack popping prioritizes geographic progress
                     next_legs = sorted(
                         next_legs,
                         key=lambda l: (
@@ -2596,9 +2627,11 @@ def find_routes(
                     )
 
                 if target_legs >= 5:
-                    next_legs = next_legs[-18:]  # Keep top 18 closest choices
+                    next_legs = next_legs[-18:]
 
                 for nxt in next_legs:
+                    if foreign_to_foreign and is_us_airport(nxt["Destination"]):
+                        continue
                     if nxt["Destination"] not in visited_airports:
                         stack.append(path + [nxt])
 
@@ -2610,6 +2643,7 @@ def find_routes(
         key=lambda p: calculate_route_score(p, origin, destination)
     )
     return valid_paths[:max_display]
+
 
 # ==========================================
 # FLEET & CAPACITY HELPER
