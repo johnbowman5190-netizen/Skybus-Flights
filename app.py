@@ -2284,40 +2284,51 @@ def compute_leg_taxes(origin: str, dest: str, taxable_fare: float, include_tsa: 
 
     return fees
 
-
 def quote_flight(
     origin: str,
     dest: str,
     aircraft: str = "A320",
     seats_sold: int = 0,
-    days_out: int = 21,
     include_tsa: bool = True,
+    flight_num: int = 100,
+    search_nonce: int | None = None,
+    session_booked: int = 0,
 ) -> dict:
-    capacity = AIRCRAFT_CAPACITY.get(aircraft, 186)
-    seats_left = max(0, capacity - seats_sold)
+    capacity = AIRCRAFT_CAPACITY.get(aircraft, 180)
+    total_sold = min(capacity, seats_sold + session_booked)
+    seats_left = max(0, capacity - total_sold)
     if seats_left == 0:
         return {"sold_out": True}
 
     dist_nm = haversine_nm(origin, dest)
     m_air = (AIRPORT_MULTIPLIERS.get(origin, 1.0) + AIRPORT_MULTIPLIERS.get(dest, 1.0)) / 2
     ref_fare = (24.00 + (dist_nm * 0.068)) * m_air
+    load_factor = total_sold / capacity
 
-    # Skybus 5-Tier Yield Ladder ("$10 airfares. Only birds fly cheaper.")
-    load_factor = seats_sold / capacity
-    if seats_sold < 10 and days_out >= 7:
+    # Completely random roll per flight per search for a $10 BIRD-10 base fare (~30% odds)
+    rng = (
+        random.Random(f"bird10-{flight_num}-{search_nonce}")
+        if search_nonce is not None
+        else random.SystemRandom()
+    )
+    won_bird10 = rng.random() < 0.30
+    bird10_pool = rng.randint(1, 4) if won_bird10 else 0
+    bird10_remaining = max(0, bird10_pool - session_booked)
+
+    if won_bird10 and bird10_remaining > 0:
         bucket, base_fare, carrier_fee = "BIRD-10", 10.00, 0.00
-        bucket_left = 10 - seats_sold
-    elif load_factor < 0.25 and days_out >= 14:
-        bucket, base_fare, carrier_fee = "EARLY BIRD", max(19.00, round(ref_fare * 0.50)), 12.00
-        bucket_left = max(1, int(capacity * 0.25) - seats_sold)
-    elif load_factor < 0.60 and days_out >= 7:
-        bucket, base_fare, carrier_fee = "SMART SAVER", max(29.00, round(ref_fare * 0.85)), 15.00
-        bucket_left = max(1, int(capacity * 0.60) - seats_sold)
-    elif load_factor < 0.85 and days_out >= 3:
-        bucket, base_fare, carrier_fee = "STANDARD", max(49.00, round(ref_fare * 1.20)), 18.00
-        bucket_left = max(1, int(capacity * 0.85) - seats_sold)
+        bucket_left = min(seats_left, bird10_remaining)
+    elif load_factor < 0.65:
+        bucket, base_fare, carrier_fee = "SAVER", max(29.00, round(ref_fare * 0.75)), 12.00
+        bucket_left = seats_left
+    elif load_factor < 0.82:
+        bucket, base_fare, carrier_fee = "VALUE", max(44.00, round(ref_fare * 1.00)), 15.00
+        bucket_left = seats_left
+    elif load_factor < 0.92:
+        bucket, base_fare, carrier_fee = "STANDARD", max(64.00, round(ref_fare * 1.30)), 18.00
+        bucket_left = seats_left
     else:
-        bucket, base_fare, carrier_fee = "WALK-UP", max(79.00, round(ref_fare * 1.75)), 20.00
+        bucket, base_fare, carrier_fee = "LAST SEAT", max(89.00, round(ref_fare * 1.65)), 20.00
         bucket_left = seats_left
 
     tax_breakdown = compute_leg_taxes(origin, dest, base_fare + carrier_fee, include_tsa=include_tsa)
@@ -2332,6 +2343,7 @@ def quote_flight(
         "checked_bag_2": [25.00, 35.00, 45.00][tier],
         "priority_boarding": [10.00, 14.00, 18.00][tier],
         "seat_selection": [12.00, 18.00, 26.00][tier],
+        "wifi": [8.00, 12.00, 16.00][tier],
     }
 
     return {
@@ -2349,28 +2361,47 @@ def quote_flight(
     }
 
 
-def quote_route_path(path: list[dict], days_out: int = 21, passengers: int = 1) -> dict:
-    """
-    Directly prices any `path` list returned by `find_routes(...)`,
-    using your schedule's `Origin`, `Destination`, `Flight`, and `Aircraft` keys
-    plus live Streamlit session bookings (`get_seats_sold`).
+def quote_route_path(
+    path: list[dict], passengers: int = 1, search_nonce: int | None = None
+) -> dict:
+    """Prices any `path` from `find_routes(...)` using realistic cabin loads,
+    random $10 BIRD-10 base-fare drops, and capped one-way TSA security fees.
     """
     leg_quotes = []
     tsa_charged = False
-    total_addons = {"carry_on_bag": 0.0, "checked_bag_1": 0.0, "checked_bag_2": 0.0, "priority_boarding": 0.0, "seat_selection": 0.0}
+    tail_state = {}
+    total_addons = {
+        "carry_on_bag": 0.0,
+        "checked_bag_1": 0.0,
+        "checked_bag_2": 0.0,
+        "priority_boarding": 0.0,
+        "seat_selection": 0.0,
+        "wifi": 0.0,
+    }
 
     for leg in path:
         orig = str(leg["Origin"]).strip().upper()
         dest = str(leg["Destination"]).strip().upper()
         flt_num = parse_flight_int(leg.get("Flight", 100))
-        aircraft = leg.get("Aircraft") or leg.get("Equipment") or "A320"
-        capacity = AIRCRAFT_CAPACITY.get(aircraft, 186)
-        seats_sold = get_seats_sold(flt_num, capacity)
+        fleet_info = get_flight_capacity_and_pax(leg, last_state=tail_state)
+        aircraft = fleet_info["aircraft_code"]
+        session_booked = st.session_state.booked_seats.get(flt_num, 0)
 
         charge_tsa_here = is_us_airport(orig) and not tsa_charged
-        q = quote_flight(orig, dest, aircraft=aircraft, seats_sold=seats_sold, days_out=days_out, include_tsa=charge_tsa_here)
-        if q.get("sold_out"):
-            return {"sold_out": True, "failed_leg": f"{orig}-{dest}"}
+        q = quote_flight(
+            orig,
+            dest,
+            aircraft=aircraft,
+            seats_sold=fleet_info["pax_count"],
+            include_tsa=charge_tsa_here,
+            flight_num=flt_num,
+            search_nonce=search_nonce,
+            session_booked=session_booked,
+        )
+        if q.get("sold_out") or q["seats_left_in_bucket"] < passengers and q["bucket"] != "BIRD-10":
+            # Ensure enough total seats exist on the plane for the group
+            if q.get("sold_out") or (fleet_info["capacity"] - fleet_info["pax_count"] - session_booked) < passengers:
+                return {"sold_out": True, "failed_leg": f"{orig}-{dest}"}
 
         if "TSA Sept 11 Security Fee" in q["tax_breakdown"]:
             tsa_charged = True
@@ -2394,11 +2425,13 @@ def quote_route_path(path: list[dict], days_out: int = 21, passengers: int = 1) 
         "per_pax_all_in": per_pax_all_in,
         "group_all_in": round(per_pax_all_in * passengers, 2),
         "has_bird10": any(x["bucket"] == "BIRD-10" for x in leg_quotes),
-        "min_bird10_seats": min((x["seats_left_in_bucket"] for x in leg_quotes if x["bucket"] == "BIRD-10"), default=0),
+        "min_bird10_seats": min(
+            (x["seats_left_in_bucket"] for x in leg_quotes if x["bucket"] == "BIRD-10"),
+            default=0,
+        ),
         "per_pax_addons": total_addons,
         "legs": leg_quotes,
     }
-
 
 def calculate_route_score(path, origin=None, destination=None):
     """Calculates total route score incorporating distance, layover penalties,
