@@ -115,8 +115,7 @@ def get_random_gate(flight_num):
     gate_num = random.randint(1, 25)
     return f"{concourse}{gate_num}"
 
-
-def get_seats_sold(flight_num, capacity=186):
+def get_seats_sold(flight_num, capacity=180):
     """Returns deterministic baseline cabin load + live session bookings for a flight."""
     f_id = int(flight_num)
     random.seed(f_id + 77)
@@ -2021,7 +2020,7 @@ AIRPORT_COORDS = {
 # 4. SKYBUS PRICING, TAX & ROUTING ENGINE
 # ==========================================
 
-AIRCRAFT_CAPACITY = {"A319": 156, "A320": 186, "A321": 236}
+AIRCRAFT_CAPACITY = {"A319": 150, "A320": 180, "A321": 220}
 US_TERRITORIES = {"TJBQ", "TJSJ", "TJPS", "TIST", "TISX"}
 
 # Rural / EAS airports exempt from the $5.30 domestic segment tax and $4.50 PFC
