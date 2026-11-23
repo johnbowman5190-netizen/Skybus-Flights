@@ -3153,7 +3153,15 @@ if "selected_leg" in st.session_state:
 
     leg_fare_bucket = active_quote["bucket"] if active_quote else "BIRD-10"
     leg_all_in = active_quote["all_in_total"] if active_quote else 26.15
-    boarding_zone = "Zone 1" if active_addons["priority"] else "Zone 2"
+    if active_addons["priority"]:
+        boarding_zone = "Zone 1"
+    elif active_addons["carry_on"]:
+        boarding_zone = "Zone 2"
+    elif active_addons["seat_selected"]:
+        boarding_zone = "Zone 3"
+    else:
+        boarding_zone = "Zone 4"
+
     checked_str = (
         f"🧳 {active_addons['checked_bags']} Checked"
         if active_addons["checked_bags"] > 0
