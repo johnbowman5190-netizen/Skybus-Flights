@@ -2700,44 +2700,10 @@ FLEET_SPECS = {
 }
 
 
-def simulate_booking_curve(
-    flight_num, capacity: int, projected_pax: int, days_out: int = 21
-) -> int:
-    """Converts projected departure load into seats currently sold at `days_out`
-    before departure, plus any live bookings made in this Streamlit session.
-    """
-    f_id = parse_flight_int(flight_num)
-    session_booked = st.session_state.booked_seats.get(f_id, 0)
-
-    if days_out <= 0:
-        return min(capacity, projected_pax + session_booked)
-
-    projected_lf = projected_pax / capacity
-    rng = random.Random(f"curve-{f_id}")
-
-    if projected_lf >= 0.90:
-        # Peak / holiday flights sell out their 10 $10 seats early
-        pace = rng.uniform(0.25, 0.55) if days_out <= 21 else rng.uniform(0.10, 0.25)
-        sold = int(projected_pax * pace)
-    elif projected_lf >= 0.78:
-        # Moderate-high routes: ~45% still have 1-5 $10 BIRD-10 seats 14+ days out
-        if days_out >= 14 and rng.random() < 0.45:
-            sold = rng.randint(5, 9)
-        else:
-            sold = rng.randint(11, int(capacity * 0.28))
-    else:
-        # Off-peak / counter-flow ("empty leg") flights keep $10 seats open until 7 days out
-        if days_out >= 7:
-            sold = rng.randint(2, 8)
-        else:
-            sold = int(projected_pax * 0.65)
-
-    return min(capacity, sold + session_booked)
-
-
-def get_flight_capacity_and_pax(leg, last_state=None, days_out: int = 21):
-    """Assigns aircraft model, tail registration, projected departure load, and
-    current advance-purchase seat count using ULCC network dynamics.
+def get_flight_capacity_and_pax(leg, last_state=None):
+    """Assigns aircraft model, tail registration, and realistic passenger load
+    factor considering ULCC network dynamics: day of week, seasonal calendar,
+    route type, and directional leisure asymmetry ("empty leg" effect).
     """
     flight_num = leg["Flight"]
     orig = str(leg["Origin"]).strip().upper()
@@ -2767,6 +2733,133 @@ def get_flight_capacity_and_pax(leg, last_state=None, days_out: int = 21):
         or orig == "BIKF"
         or dest == "BIKF"
     )
+
+    # ---------------------------------------------------------
+    # 1. AIRCRAFT TYPE SELECTION
+    # ---------------------------------------------------------
+    if is_long_haul_intl or distance >= 2000 or is_hub_to_hub:
+        ac_type = "A321"
+    elif is_near_intl:
+        ac_type = (
+            rng.choice(["A320", "A321"])
+            if distance >= 1000
+            else rng.choice(["A319", "A320"])
+        )
+    elif touches_hub:
+        ac_type = (
+            rng.choice(["A320", "A320", "A319"])
+            if distance >= 700
+            else rng.choice(["A319", "A319", "A320"])
+        )
+    else:
+        ac_type = (
+            rng.choice(["A319", "A319", "A320"])
+            if distance < 450
+            else rng.choice(["A320", "A319"])
+        )
+
+    spec = FLEET_SPECS[ac_type]
+
+    # Re-use tail registration for consecutive same-type legs
+    if (
+        last_state is not None
+        and last_state.get("type") == ac_type
+        and last_state.get("tail")
+    ):
+        tail_number = last_state["tail"]
+    else:
+        tail_number = rng.choice(spec["registrations"])
+
+    if last_state is not None:
+        last_state["type"] = ac_type
+        last_state["tail"] = tail_number
+
+    # ---------------------------------------------------------
+    # 2. REALISTIC ULCC DEMAND ENGINE
+    # ---------------------------------------------------------
+    dow = now.weekday()
+    dow_multipliers = {
+        0: 0.92,  # Monday (Business / Return leisure)
+        1: 0.72,  # Tuesday (Heavy ULCC mid-week lull)
+        2: 0.74,  # Wednesday (Mid-week lull)
+        3: 0.91,  # Thursday (Early weekend departures)
+        4: 1.02,  # Friday (Peak weekend outbound)
+        5: 0.82,  # Saturday (Moderate)
+        6: 1.05,  # Sunday (Peak weekend return)
+    }
+    dow_factor = dow_multipliers[dow]
+
+    month, day = now.month, now.day
+    is_thanksgiving = month == 11 and day >= 18
+    is_holiday_season = (month == 12 and day >= 14) or (month == 1 and day <= 6)
+    is_summer_peak = (month == 6 and day >= 15) or month in [7, 8]
+    is_spring_break = (month == 3 and day >= 10) or (month == 4 and day <= 20)
+    is_winter_lull = (month == 1 and day > 6) or month == 2
+    is_fall_lull = month == 9 or (month == 10 and day <= 24)
+
+    if is_holiday_season or is_thanksgiving:
+        season_factor = 1.18
+    elif is_summer_peak:
+        season_factor = 1.10
+    elif is_spring_break:
+        season_factor = 1.05
+    elif is_winter_lull or is_fall_lull:
+        season_factor = 0.80
+    else:
+        season_factor = 0.95
+
+    if is_long_haul_intl or is_hub_to_hub:
+        route_factor = 1.06
+    elif touches_hub:
+        route_factor = 0.97
+    else:
+        route_factor = 0.84
+
+    SUN_DESTINATIONS = {
+        "KSFB", "TJBQ", "TIST", "TISX", "KMYR", "KEYW", "KPBI", "KRSW",
+        "MMUN", "MMCZ", "MMSD", "MMPR", "MYNN", "MDPC", "MKJS", "TNCA",
+    }
+    is_heading_to_sun = dest in SUN_DESTINATIONS
+    is_heading_from_sun = orig in SUN_DESTINATIONS
+
+    directional_factor = 1.00
+    if is_heading_to_sun:
+        if dow in [3, 4]:
+            directional_factor = 1.12
+        elif dow in [0, 6]:
+            directional_factor = 0.82
+    elif is_heading_from_sun:
+        if dow in [0, 6]:
+            directional_factor = 1.12
+        elif dow in [3, 4]:
+            directional_factor = 0.82
+
+    # ---------------------------------------------------------
+    # 3. FINAL LOAD FACTOR CALCULATION
+    # ---------------------------------------------------------
+    baseline_load = 0.84
+    target_lf = (
+        baseline_load
+        * dow_factor
+        * season_factor
+        * route_factor
+        * directional_factor
+    )
+
+    variance = rng.uniform(-0.04, 0.04)
+    final_load_factor = max(0.48, min(0.99, target_lf + variance))
+
+    capacity = spec["capacity"]
+    pax_count = int(capacity * final_load_factor)
+
+    return {
+        "aircraft_code": ac_type,
+        "aircraft_name": spec["name"],
+        "tail_number": tail_number,
+        "capacity": capacity,
+        "pax_count": pax_count,
+        "load_factor": round((pax_count / capacity) * 100, 1),
+    }
 
     # ---------------------------------------------------------
     # 1. AIRCRAFT TYPE SELECTION
