@@ -6,7 +6,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 # ==========================================
-# 1. PAGE CONFIG & COLOR SETTINGS
+# 1. PAGE CONFIG, SESSION STATE & COLOR SETTINGS
 # ==========================================
 st.set_page_config(
     page_title="Skybus Route & Boarding System",
@@ -14,10 +14,14 @@ st.set_page_config(
     layout="wide"
 )
 
+# Live seat-booking tracker across Streamlit reruns
+if "booked_seats" not in st.session_state:
+    st.session_state.booked_seats = {}  # {int(flight_num): seats_booked_in_session}
+
 # Custom accent color matching the logo (#F28425)
 ACCENT_COLOR = "#F28425"
 
-# Styling using your custom accent color
+# Styling using your custom accent color + fare bucket badges
 st.markdown(f"""
 <style>
 .skybus-banner {{
@@ -40,6 +44,29 @@ st.markdown(f"""
     border-radius: 6px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.06);
     margin-bottom: 20px;
+}}
+.fare-badge {{
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}}
+.fare-bird10 {{
+    background-color: {ACCENT_COLOR};
+    color: #FFFFFF;
+}}
+.fare-standard {{
+    background-color: #F3F4F6;
+    color: #1F2937;
+    border: 1px solid #D1D5DB;
+}}
+.scarcity-pill {{
+    color: #B45309;
+    font-size: 12px;
+    font-weight: 600;
 }}
 </style>
 """, unsafe_allow_html=True)
@@ -72,6 +99,7 @@ st.markdown(
 
 st.markdown("---")
 
+
 def get_random_seat(flight_num):
     random.seed(int(flight_num) + 42)
     # Exclude row 13 for realism
@@ -87,19 +115,18 @@ def get_random_gate(flight_num):
     gate_num = random.randint(1, 25)
     return f"{concourse}{gate_num}"
 
-def get_random_seat(flight_num):
-    random.seed(int(flight_num) + 42)
-    row = random.randint(1, 32)
-    letter = random.choice(["A", "B", "C", "D", "E", "F"])
-    return f"{row}{letter}"
 
-
-def get_random_gate(flight_num):
-    random.seed(int(flight_num) + 99)
-    concourse = random.choice(["A", "B", "C", "D"])
-    gate_num = random.randint(1, 25)
-    return f"{concourse}{gate_num}"
-
+def get_seats_sold(flight_num, capacity=186):
+    """Returns deterministic baseline cabin load + live session bookings for a flight."""
+    f_id = int(flight_num)
+    random.seed(f_id + 77)
+    # ~55% of flights still have 1-8 $10 BIRD-10 seats available; others step into higher buckets
+    if random.random() < 0.55:
+        baseline = random.randint(2, 9)
+    else:
+        baseline = random.randint(10, int(capacity * 0.78))
+    live_booked = st.session_state.booked_seats.get(f_id, 0)
+    return min(capacity, baseline + live_booked)
 
 # ==========================================
 # 2. UPDATED FULL NETWORK DATASET
