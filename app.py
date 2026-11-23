@@ -2755,229 +2755,189 @@ def get_flight_capacity_and_pax(leg, last_state=None):
     }
 
 # ==========================================
-# 4. APP UI
+# 4. APP UI (POINT-TO-POINT NONSTOP BOOKING)
 # ==========================================
 
 network = get_full_network()
 all_airports = sorted(list(set([f["Origin"] for f in network])))
 airport_names_map = globals().get("AIRPORT_NAMES", {})
 
-st.subheader("🔍 Search Any Route on Network Map")
+st.subheader("✈️ Book a Nonstop Flight (Point-to-Point)")
 
-col1, col2, col3, col4 = st.columns([1, 1.3, 1, 1])
+col1, col2, col3, col4 = st.columns([1.1, 1.5, 0.8, 1])
 
-# 1. Origin Dropdown
+# 1. Origin Airport Dropdown
 with col1:
     orig_select = st.selectbox(
-        "Origin Airport",
+        "Departure Airport",
         options=all_airports,
         index=all_airports.index("KRIC") if "KRIC" in all_airports else 0,
         key="orig_select_val",
         format_func=lambda code: f"{code} - {airport_names_map.get(code, code)}",
     )
 
-# 2. Calculate Active Destinations for Today from selected Origin
-valid_destinations = get_reachable_destinations(
-    network, orig_select, max_connections=6
+# 2. All Nonstop Flights & Destinations Operating Today from Selected Origin
+todays_nonstop_flights = get_nonstop_flights(network, orig_select)
+nonstop_destinations = sorted(
+    list(set([f["Destination"] for f in todays_nonstop_flights]))
 )
+dest_options = ["ALL"] + nonstop_destinations if nonstop_destinations else []
 
 if (
     "dest_select_val" not in st.session_state
-    or st.session_state["dest_select_val"] not in valid_destinations
+    or st.session_state["dest_select_val"] not in dest_options
 ):
-    st.session_state["dest_select_val"] = (
-        valid_destinations[0] if valid_destinations else None
-    )
+    st.session_state["dest_select_val"] = "ALL" if dest_options else None
 
 
-# 3. Safe Callback for Random Selection
+# 3. Safe Callback for Random Nonstop Destination
 def set_random_destination():
     current_dest = st.session_state.get("dest_select_val", None)
-    available = [a for a in valid_destinations if a != current_dest]
+    available = [a for a in nonstop_destinations if a != current_dest]
     if available:
         st.session_state["dest_select_val"] = random.SystemRandom().choice(
             available
         )
 
 
-# 4. Destination Dropdown + Random Button
+# 4. Nonstop Destination Dropdown + Random Button
 with col2:
     st.markdown(
-        "<label style='font-size: 14px; font-weight: 500;'>Destination Airport</label>",
+        "<label style='font-size: 14px; font-weight: 500;'>Nonstop Destination</label>",
         unsafe_allow_html=True,
     )
-    d_col1, d_col2 = st.columns([2.2, 1])
+    d_col1, d_col2 = st.columns([2.3, 1])
 
     with d_col1:
-        if valid_destinations:
+        if dest_options:
             dest_select = st.selectbox(
-                "Destination Airport",
-                options=valid_destinations,
+                "Nonstop Destination",
+                options=dest_options,
                 key="dest_select_val",
                 label_visibility="collapsed",
-                format_func=lambda code: f"{code} - {airport_names_map.get(code, code)}",
+                format_func=lambda code: (
+                    f"ALL — All {len(nonstop_destinations)} Nonstop Cities from {orig_select}"
+                    if code == "ALL"
+                    else f"{code} - {airport_names_map.get(code, code)}"
+                ),
             )
         else:
-            st.warning("No flights operate today from this airport.")
+            st.warning("No nonstop flights operate today from this airport.")
             dest_select = None
 
     with d_col2:
         st.button(
             "🎲 Random",
             on_click=set_random_destination,
-            disabled=len(valid_destinations) <= 1,
-            help="Pick a random destination operating today",
+            disabled=len(nonstop_destinations) <= 1,
+            help="Pick a random nonstop city operating today",
         )
 
-# 5. Connections Allowed Dropdown
+# 5. Passengers Dropdown
 with col3:
-    conn_str = st.selectbox(
-        "Connections Allowed",
-        options=[
-            "Nonstop",
-            "1 Connection",
-            "2 Connections",
-            "3 Connections",
-            "4 Connections",
-            "5 Connections",
-            "6 Connections",
-        ],
-        index=2,
-    )
-
-# 6. Max Options Dropdown
-with col4:
-    max_display_count = st.selectbox(
-        "Max Options to Show",
-        options=[15, 25, 35, 50, 75],
-        index=4,
-    )
-
-# 7. Passenger & Sort Controls (No advance-booking selector — $10 fares drop randomly!)
-b_col1, b_col2 = st.columns([1, 2])
-with b_col1:
     pax_count_input = st.number_input(
         "Passengers", min_value=1, max_value=9, value=1, step=1
     )
 
-with b_col2:
+# 6. Sort Order Dropdown
+with col4:
     sort_mode = st.selectbox(
-        "Sort Results By",
+        "Sort Flights By",
         options=[
             "Lowest All-In Fare",
-            "Best Route Score",
-            "Fewest Connections",
+            "Destination (A–Z)",
+            "Flight Number",
         ],
         index=0,
     )
 
-conn_map = {
-    "Nonstop": 0,
-    "1 Connection": 1,
-    "2 Connections": 2,
-    "3 Connections": 3,
-    "4 Connections": 4,
-    "5 Connections": 5,
-    "6 Connections": 6,
-}
-exact_conn = conn_map[conn_str]
-
 # Search Action Button
-if st.button("Search Route Options", type="primary"):
+if st.button("Show Available Nonstop Flights", type="primary"):
     if not dest_select:
-        st.warning(
-            "No valid destination selected or no operating flights today."
-        )
-    elif orig_select == dest_select:
-        st.warning("Please choose two different airports.")
+        st.warning("No nonstop flights operate today from this airport.")
     else:
-        routes_found = find_routes(
-            network,
-            orig_select,
-            dest_select,
-            exact_connections=exact_conn,
-            max_display=max_display_count,
+        matching_flights = get_nonstop_flights(
+            network, orig_select, dest_select
         )
-        st.session_state["search_results"] = routes_found
+        st.session_state["search_results"] = matching_flights
         st.session_state["search_orig"] = orig_select
         st.session_state["search_dest"] = dest_select
-        st.session_state["search_conn_str"] = conn_str
-        # Fresh random roll for $10 BIRD-10 base fares on every new search
+        # Fresh random roll for $10 BIRD-10 base fares on every search
         st.session_state["search_nonce"] = random.SystemRandom().randint(
             1, 10_000_000
         )
 
 # ==========================================
-# 5. SEARCH RESULTS & FARE CALCULATOR
+# 5. AVAILABLE NONSTOP FLIGHTS & CHECKOUT
 # ==========================================
 
 if "search_results" in st.session_state:
     results = st.session_state["search_results"]
     orig = st.session_state["search_orig"]
     dest = st.session_state["search_dest"]
-    selected_conn_str = st.session_state.get("search_conn_str", conn_str)
     search_nonce = st.session_state.get("search_nonce", 1)
+
+    header_target = (
+        f"All Nonstop Destinations ({len(results)} flight(s))"
+        if dest == "ALL"
+        else f"{dest} — {airport_names_map.get(dest, dest)} ({len(results)} flight(s))"
+    )
 
     st.markdown("---")
     st.markdown(
-        f"### Possible Routes for **{orig} ➔ {dest}** ({len(results)} option(s) found)"
+        f"### Nonstop Flights Departing **{orig}** ➔ **{header_target}**"
     )
 
     if not results:
-        st.info(
-            f"No routes found connecting {orig} to {dest} with **{selected_conn_str}**."
-        )
+        st.info(f"No nonstop flights found departing {orig} today.")
     else:
-        quoted_options = []
-        for path in results:
-            q = quote_route_path(
-                path,
+        quoted_flights = []
+        for leg in results:
+            q = quote_single_leg(
+                leg,
                 passengers=int(pax_count_input),
                 search_nonce=search_nonce,
             )
             if not q.get("sold_out"):
-                quoted_options.append((path, q))
+                quoted_flights.append((leg, q))
 
         if sort_mode == "Lowest All-In Fare":
-            quoted_options.sort(key=lambda item: item[1]["per_pax_all_in"])
-        elif sort_mode == "Fewest Connections":
-            quoted_options.sort(
-                key=lambda item: (len(item[0]) - 1, item[1]["per_pax_all_in"])
+            quoted_flights.sort(
+                key=lambda item: (item[1]["all_in_total"], item[0]["Destination"])
             )
-
-        if not quoted_options:
-            st.warning(
-                "All matching flights are currently sold out for the selected passenger count."
+        elif sort_mode == "Destination (A–Z)":
+            quoted_flights.sort(
+                key=lambda item: (item[0]["Destination"], item[1]["all_in_total"])
             )
         else:
-            itinerary_labels = []
-            for i, (path, q) in enumerate(quoted_options):
-                stops = len(path) - 1
-                stop_str = "Nonstop" if stops == 0 else f"{stops} Stop(s)"
-                leg_chain = " ➔ ".join(
-                    [f"{leg['Origin']}" for leg in path]
-                    + [path[-1]["Destination"]]
-                )
-                if q["has_bird10"] and all(
-                    l["bucket"] == "BIRD-10" for l in q["legs"]
-                ):
-                    tag = f"🐦 $10 BIRD-10 ({q['min_bird10_seats']} left)"
-                elif q["has_bird10"]:
-                    tag = f"🐦 Mixed $10 / {q['legs'][-1]['bucket']}"
+            quoted_flights.sort(key=lambda item: item[1]["flight_int"])
+
+        if not quoted_flights:
+            st.warning(
+                "All matching nonstop flights are sold out for the selected passenger count."
+            )
+        else:
+            flight_labels = []
+            for leg, q in quoted_flights:
+                dest_code = leg["Destination"]
+                dest_city = airport_names_map.get(dest_code, dest_code)
+                if q["has_bird10"]:
+                    tag = f"🐦 $10 BIRD-10 ({q['seats_left_in_bucket']} left)"
                 else:
-                    tag = q["legs"][0]["bucket"]
+                    tag = f"{q['bucket']} ({q['seats_left_in_bucket']} left)"
 
-                itinerary_labels.append(
-                    f"Option {i+1} [{stop_str}] — ${q['per_pax_all_in']:.2f}/pax [{tag}]: {leg_chain}"
+                flight_labels.append(
+                    f"Flight SX #{leg['Flight']} | {orig} ➔ {dest_code} ({dest_city}) — ${q['all_in_total']:.2f}/pax [{tag}]"
                 )
 
-            selected_option_idx = st.radio(
-                "Select an option to view leg details, customize add-ons, and issue boarding pass:",
-                range(len(itinerary_labels)),
-                format_func=lambda x: itinerary_labels[x],
+            selected_idx = st.radio(
+                "Select a nonstop flight to customize add-ons and issue your boarding pass:",
+                range(len(flight_labels)),
+                format_func=lambda x: flight_labels[x],
             )
 
-            selected_path, selected_quote = quoted_options[selected_option_idx]
+            selected_leg, selected_quote = quoted_flights[selected_idx]
+            fleet_info = selected_quote["fleet_info"]
 
             badge_cls = (
                 "fare-bird10"
@@ -2985,9 +2945,9 @@ if "search_results" in st.session_state:
                 else "fare-standard"
             )
             scarcity_html = (
-                f"<span class='scarcity-pill'>🎉 Lucky Drop! {selected_quote['min_bird10_seats']} seat(s) available at the $10 base fare!</span>"
+                f"<span class='scarcity-pill'>🎉 Lucky Drop! {selected_quote['seats_left_in_bucket']} seat(s) available at the $10 base fare!</span>"
                 if selected_quote["has_bird10"]
-                else "<span style='font-size:12px; color:#555;'>Standard market pricing based on route distance &amp; cabin demand</span>"
+                else "<span style='font-size:12px; color:#555;'>Point-to-point nonstop pricing based on route distance &amp; cabin load</span>"
             )
 
             st.markdown(
@@ -2995,14 +2955,14 @@ if "search_results" in st.session_state:
                 <div class="info-card">
                     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
                         <div>
-                            <span class="fare-badge {badge_cls}">{selected_quote['legs'][0]['bucket']}</span>
+                            <span class="fare-badge {badge_cls}">{selected_quote['bucket']}</span>
                             <span style="margin-left:8px; font-weight:700; font-size:16px;">
-                                Base Fare: ${selected_quote['per_pax_base']:.2f} + Carrier Fee: ${selected_quote['per_pax_carrier_fees']:.2f} + Taxes/Fees: ${selected_quote['per_pax_taxes']:.2f}
+                                Base Fare: ${selected_quote['base_fare']:.2f} + Carrier Fee: ${selected_quote['carrier_fee']:.2f} + Taxes/Fees: ${selected_quote['taxes_total']:.2f}
                             </span>
                             <div style="margin-top:4px;">{scarcity_html}</div>
                         </div>
                         <div style="text-align:right;">
-                            <div style="font-size:11px; color:#777; text-transform:uppercase; font-weight:700;">All-In Airfare ({pax_count_input} Pax)</div>
+                            <div style="font-size:11px; color:#777; text-transform:uppercase; font-weight:700;">All-In Nonstop Airfare ({pax_count_input} Pax)</div>
                             <div style="font-size:24px; font-weight:900; color:#F28425;">${selected_quote['group_all_in']:.2f}</div>
                         </div>
                     </div>
@@ -3011,48 +2971,25 @@ if "search_results" in st.session_state:
                 unsafe_allow_html=True,
             )
 
-            st.markdown(
-                f"#### 📋 Leg Breakdown for Option {selected_option_idx + 1}"
+            st.write(
+                f"**Flight SX #{selected_leg['Flight']}** | `{selected_leg['Origin']}` ➔ `{selected_leg['Destination']}` ({selected_quote['distance_nm']} nm Nonstop) | "
+                f"Days: *{selected_leg['Days']}* | "
+                f"✈️ **{fleet_info['aircraft_name']}** (`{fleet_info['tail_number']}`) | "
+                f"👥 **Cabin Load:** {selected_quote['live_pax']}/{fleet_info['capacity']} ({selected_quote['live_load_factor']}%)"
             )
-            last_state = {}
-            for idx, (leg, lq) in enumerate(
-                zip(selected_path, selected_quote["legs"]), 1
-            ):
-                flight_info = get_flight_capacity_and_pax(
-                    leg, last_state=last_state
-                )
-                f_id = parse_flight_int(leg["Flight"])
-                live_pax = min(
-                    flight_info["capacity"],
-                    flight_info["pax_count"]
-                    + st.session_state.booked_seats.get(f_id, 0),
-                )
-                live_lf = round((live_pax / flight_info["capacity"]) * 100, 1)
-
-                st.write(
-                    f"**Leg {idx}:** Flight **SX #{leg['Flight']}** | `{leg['Origin']}` ➔ `{leg['Destination']}` ({lq['distance_nm']} nm) | "
-                    f"Days: *{leg['Days']}* | "
-                    f"✈️ **{flight_info['aircraft_name']}** (`{flight_info['tail_number']}`) | "
-                    f"👥 **Load:** {live_pax}/{flight_info['capacity']} ({live_lf}%) | "
-                    f"🎟️ **{lq['bucket']}**: `${lq['base_fare']:.2f}` base + `${lq['carrier_fee']:.2f}` fee + `${lq['taxes_total']:.2f}` tax = **`${lq['all_in_total']:.2f}`**"
-                )
 
             with st.expander("🧾 View Itemized 2026 Government Taxes & Airport Fees"):
-                for idx, lq in enumerate(selected_quote["legs"], 1):
-                    st.markdown(
-                        f"**Leg {idx} ({lq['route']} — Flight SX #{lq['flight']})**"
-                    )
-                    for fee_name, fee_val in lq["tax_breakdown"].items():
-                        st.write(f"- {fee_name}: **${fee_val:.2f}**")
+                for fee_name, fee_val in selected_quote["tax_breakdown"].items():
+                    st.write(f"- {fee_name}: **${fee_val:.2f}**")
 
-            # Optional Skybus Unbundled Ancillaries (including SkyFly Wi-Fi)
-            st.markdown("#### 🧳 Optional Skybus Add-Ons (Per Passenger)")
-            addons = selected_quote["per_pax_addons"]
+            # Optional Unbundled Add-Ons (Allegiant / Skybus Style)
+            st.markdown("#### 🧳 Optional Unbundled Add-Ons (Per Passenger)")
+            addons = selected_quote["ancillaries"]
             a_col1, a_col2, a_col3, a_col4, a_col5 = st.columns(5)
             with a_col1:
                 add_carryon = st.checkbox(
                     f"Carry-On Bag (+${addons['carry_on_bag']:.2f})",
-                    value=True,
+                    value=False,
                     help="1 under-seat personal item is always $0.00",
                 )
             with a_col2:
@@ -3071,23 +3008,23 @@ if "search_results" in st.session_state:
                             addons["checked_bag_1"] + addons["checked_bag_2"],
                         ),
                     ],
-                    index=1,
+                    index=0,
                     format_func=lambda x: x[0],
                 )
             with a_col3:
                 add_priority = st.checkbox(
                     f"Zone 1 Priority (+${addons['priority_boarding']:.2f})",
-                    value=True,
+                    value=False,
                 )
             with a_col4:
                 add_seat = st.checkbox(
                     f"Seat Selection (+${addons['seat_selection']:.2f})",
-                    value=True,
+                    value=False,
                 )
             with a_col5:
                 add_wifi = st.checkbox(
                     f"SkyFly Wi-Fi (+${addons['wifi']:.2f})",
-                    value=True,
+                    value=False,
                     help="High-speed gate-to-gate in-flight streaming & messaging",
                 )
 
@@ -3111,21 +3048,20 @@ if "search_results" in st.session_state:
                 )
             with c_col2:
                 if st.button(
-                    "🎟️ Book This Itinerary (Update Seat Inventory)",
+                    "🎟️ Book Nonstop Flight",
                     use_container_width=True,
                 ):
-                    for leg in selected_path:
-                        f_id = parse_flight_int(leg["Flight"])
-                        st.session_state.booked_seats[f_id] = (
-                            st.session_state.booked_seats.get(f_id, 0)
-                            + int(pax_count_input)
-                        )
+                    f_id = parse_flight_int(selected_leg["Flight"])
+                    st.session_state.booked_seats[f_id] = (
+                        st.session_state.booked_seats.get(f_id, 0)
+                        + int(pax_count_input)
+                    )
                     st.success(
-                        f"Booked {pax_count_input} seat(s)! Cabin availability updated."
+                        f"Booked {pax_count_input} seat(s) on SX #{selected_leg['Flight']}!"
                     )
                     st.rerun()
 
-            st.session_state["selected_itinerary"] = selected_path
+            st.session_state["selected_leg"] = selected_leg
             st.session_state["selected_quote"] = selected_quote
             st.session_state["selected_addons"] = {
                 "carry_on": add_carryon,
@@ -3137,55 +3073,40 @@ if "search_results" in st.session_state:
             }
 
 # ==========================================
-# 6. MOBILE BOARDING PASS
+# 6. MOBILE BOARDING PASS (SINGLE NONSTOP LEG)
 # ==========================================
 
-if "selected_itinerary" in st.session_state:
+if "selected_leg" in st.session_state:
     st.markdown("---")
     st.subheader("📲 Mobile Boarding Pass")
 
-    path = st.session_state["selected_itinerary"]
+    active_leg = st.session_state["selected_leg"]
     active_quote = st.session_state.get("selected_quote")
     active_addons = st.session_state.get(
         "selected_addons",
         {
-            "carry_on": True,
-            "checked_bags": 1,
-            "priority": True,
-            "seat_selected": True,
-            "wifi": True,
+            "carry_on": False,
+            "checked_bags": 0,
+            "priority": False,
+            "seat_selected": False,
+            "wifi": False,
             "grand_total": 26.15,
         },
     )
 
-    selected_leg_index = 0
-    if len(path) > 1:
-        leg_names = [
-            f"Leg {i+1}: {leg['Origin']} ➔ {leg['Destination']} (Flight SX #{leg['Flight']})"
-            for i, leg in enumerate(path)
-        ]
-        selected_leg_index = st.selectbox(
-            "Select Flight Leg for Pass:",
-            range(len(leg_names)),
-            format_func=lambda x: leg_names[x],
-        )
-
-    active_leg = path[selected_leg_index]
     assigned_seat = (
         get_random_seat(active_leg["Flight"])
         if active_addons["seat_selected"]
-        else "OPEN"
+        else "ASSIGN AT GATE"
     )
     assigned_gate = get_random_gate(active_leg["Flight"])
     today_date = datetime.now().strftime("%d %b %Y").upper()
 
-    bp_last_state = {}
-    path_flight_infos = [
-        get_flight_capacity_and_pax(leg, last_state=bp_last_state)
-        for leg in path
-    ]
-    flight_info = path_flight_infos[selected_leg_index]
-
+    flight_info = (
+        active_quote["fleet_info"]
+        if active_quote
+        else get_flight_capacity_and_pax(active_leg)
+    )
     f_id = parse_flight_int(active_leg["Flight"])
     live_pax = min(
         flight_info["capacity"],
@@ -3194,16 +3115,8 @@ if "selected_itinerary" in st.session_state:
     )
     live_lf = round((live_pax / flight_info["capacity"]) * 100, 1)
 
-    leg_fare_bucket = (
-        active_quote["legs"][selected_leg_index]["bucket"]
-        if active_quote
-        else "BIRD-10"
-    )
-    leg_all_in = (
-        active_quote["legs"][selected_leg_index]["all_in_total"]
-        if active_quote
-        else 26.15
-    )
+    leg_fare_bucket = active_quote["bucket"] if active_quote else "BIRD-10"
+    leg_all_in = active_quote["all_in_total"] if active_quote else 26.15
     boarding_zone = "Zone 1" if active_addons["priority"] else "Zone 2"
     checked_str = (
         f"🧳 {active_addons['checked_bags']} Checked"
@@ -3282,7 +3195,7 @@ if "selected_itinerary" in st.session_state:
         <div class="bp-header">
             <div>
                 <span style="font-size: 18px; font-weight: 800; letter-spacing: 1px;">SKYBUS</span>
-                <span style="font-size: 10px; margin-left: 6px; background: rgba(255,255,255,0.25); padding: 3px 7px; border-radius: 10px;">{leg_fare_bucket}</span>
+                <span style="font-size: 10px; margin-left: 6px; background: rgba(255,255,255,0.25); padding: 3px 7px; border-radius: 10px;">NONSTOP • {leg_fare_bucket}</span>
             </div>
             <div style="font-weight: bold; font-size: 14px;">SX #{active_leg['Flight']}</div>
         </div>
@@ -3295,7 +3208,7 @@ if "selected_itinerary" in st.session_state:
                     <div style="font-size: 11px; color: #F28425; font-weight: 700; margin-top: 3px;">👑 Rewards #: 6827165938</div>
                 </div>
                 <div style="text-align: right;">
-                    <div class="bp-field">Leg Fare (All-In)</div>
+                    <div class="bp-field">Nonstop Fare (All-In)</div>
                     <div class="bp-value" style="color: #F28425;">${leg_all_in:.2f}</div>
                     {wifi_html}
                 </div>
@@ -3355,7 +3268,7 @@ if "selected_itinerary" in st.session_state:
                 </div>
                 <div style="border-left: 1px solid #ddd;"></div>
                 <div style="flex: 1;">
-                    <div class="bp-field">Est. Flight Load</div>
+                    <div class="bp-field">Cabin Load</div>
                     <div class="bp-value" style="font-size: 13px;">👥 {live_pax} / {flight_info['capacity']} ({live_lf}%)</div>
                 </div>
             </div>
