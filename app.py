@@ -2360,319 +2360,81 @@ def quote_flight(
         "ancillaries": ancillaries,
     }
 
-
-def quote_route_path(
-    path: list[dict], passengers: int = 1, search_nonce: int | None = None
-) -> dict:
-    """Prices any `path` from `find_routes(...)` using realistic cabin loads,
-    random $10 BIRD-10 base-fare drops, and capped one-way TSA security fees.
+def get_nonstop_flights(
+    network: list[dict], origin: str, destination: str | None = None
+) -> list[dict]:
+    """Returns all active nonstop flights operating today from `origin`.
+    If `destination` is provided (and not 'ALL'), filters to that nonstop pair.
     """
-    leg_quotes = []
-    tsa_charged = False
-    tail_state = {}
-    total_addons = {
-        "carry_on_bag": 0.0,
-        "checked_bag_1": 0.0,
-        "checked_bag_2": 0.0,
-        "priority_boarding": 0.0,
-        "seat_selection": 0.0,
-        "wifi": 0.0,
-    }
-
-    for leg in path:
-        orig = str(leg["Origin"]).strip().upper()
-        dest = str(leg["Destination"]).strip().upper()
-        flt_num = parse_flight_int(leg.get("Flight", 100))
-        fleet_info = get_flight_capacity_and_pax(leg, last_state=tail_state)
-        aircraft = fleet_info["aircraft_code"]
-        session_booked = st.session_state.booked_seats.get(flt_num, 0)
-
-        charge_tsa_here = is_us_airport(orig) and not tsa_charged
-        q = quote_flight(
-            orig,
-            dest,
-            aircraft=aircraft,
-            seats_sold=fleet_info["pax_count"],
-            include_tsa=charge_tsa_here,
-            flight_num=flt_num,
-            search_nonce=search_nonce,
-            session_booked=session_booked,
-        )
-        if q.get("sold_out") or q["seats_left_in_bucket"] < passengers and q["bucket"] != "BIRD-10":
-            # Ensure enough total seats exist on the plane for the group
-            if q.get("sold_out") or (fleet_info["capacity"] - fleet_info["pax_count"] - session_booked) < passengers:
-                return {"sold_out": True, "failed_leg": f"{orig}-{dest}"}
-
-        if "TSA Sept 11 Security Fee" in q["tax_breakdown"]:
-            tsa_charged = True
-
-        q["flight"] = leg.get("Flight", flt_num)
-        q["flight_int"] = flt_num
-        leg_quotes.append(q)
-
-        for k in total_addons:
-            total_addons[k] = round(total_addons[k] + q["ancillaries"][k], 2)
-
-    per_pax_all_in = round(sum(x["all_in_total"] for x in leg_quotes), 2)
-    return {
-        "sold_out": False,
-        "segments": len(leg_quotes),
-        "passengers": passengers,
-        "total_distance_nm": round(sum(x["distance_nm"] for x in leg_quotes), 1),
-        "per_pax_base": round(sum(x["base_fare"] for x in leg_quotes), 2),
-        "per_pax_carrier_fees": round(sum(x["carrier_fee"] for x in leg_quotes), 2),
-        "per_pax_taxes": round(sum(x["taxes_total"] for x in leg_quotes), 2),
-        "per_pax_all_in": per_pax_all_in,
-        "group_all_in": round(per_pax_all_in * passengers, 2),
-        "has_bird10": any(x["bucket"] == "BIRD-10" for x in leg_quotes),
-        "min_bird10_seats": min(
-            (x["seats_left_in_bucket"] for x in leg_quotes if x["bucket"] == "BIRD-10"),
-            default=0,
-        ),
-        "per_pax_addons": total_addons,
-        "legs": leg_quotes,
-    }
-
-def calculate_route_score(path, origin=None, destination=None):
-    """Calculates total route score incorporating distance, layover penalties,
-    leg backtracking, and overall route circuity.
-    """
-    if not path:
-        return 0
-
-    if not origin:
-        origin = path[0].get("Origin", "")
-    if not destination:
-        destination = path[-1].get("Destination", "")
-
-    total_miles = 0
-    backtrack_penalty = 0
-
-    orig_coord = get_coords(origin)
-    dest_coord = get_coords(destination)
-    direct_miles = (
-        haversine_miles(orig_coord, dest_coord)
-        if (orig_coord and dest_coord)
-        else 0
-    )
-
-    for leg in path:
-        c1 = get_coords(leg.get("Origin"))
-        c2 = get_coords(leg.get("Destination"))
-
-        if c1 and c2:
-            leg_dist = haversine_miles(c1, c2)
-            total_miles += leg_dist
-
-            if dest_coord:
-                dist_from = haversine_miles(c1, dest_coord)
-                dist_to = haversine_miles(c2, dest_coord)
-                if dist_to > dist_from + 100:
-                    backtrack_penalty += (dist_to - dist_from) * 5
-        else:
-            total_miles += 800
-
-    layover_penalty = (len(path) - 1) * 150
-
-    circuity_penalty = 0
-    if direct_miles > 50:
-        ratio = total_miles / direct_miles
-        if ratio > 1.35:
-            circuity_penalty = (ratio - 1.35) * 3000
-
-    return total_miles + layover_penalty + backtrack_penalty + circuity_penalty
-
-
-def get_leg_days(leg):
-    """Safely retrieves the days string regardless of key casing."""
-    return leg.get("Days") or leg.get("days") or "Daily"
-
-
-def leg_operates_today(days_str):
-    """Checks if a flight leg operates today based on standard codes."""
-    if not days_str:
-        return True
-
-    days_clean = str(days_str).strip()
-
-    if "daily" in days_clean.lower():
-        return True
-
-    today_code = datetime.now().strftime("%a")
-    return today_code.lower() in days_clean.lower()
-
-
-def get_reachable_destinations(network, origin, max_connections=6):
-    """Returns a list of destination airport codes that have active operating flights
-    from the specified origin on today's schedule.
-    """
-    active_network = [
-        leg for leg in network if leg_operates_today(get_leg_days(leg))
-    ]
-
-    adj_map = defaultdict(list)
-    for leg in active_network:
-        adj_map[leg["Origin"]].append(leg["Destination"])
-
-    if origin not in adj_map:
-        return []
-
-    reachable = set()
-    queue = deque([(origin, 0)])
-    visited = {origin}
-
-    while queue:
-        curr, depth = queue.popleft()
-        if depth >= max_connections + 1:
-            continue
-        for nxt in adj_map.get(curr, []):
-            if nxt not in visited:
-                visited.add(nxt)
-                reachable.add(nxt)
-                queue.append((nxt, depth + 1))
-
-    return sorted(list(reachable))
-
-
-def find_routes(
-    network,
-    origin,
-    destination,
-    exact_connections=None,
-    max_connections=10,
-    max_display=75,
-):
     origin = str(origin).strip().upper()
-    destination = str(destination).strip().upper()
-
-    if origin == destination:
-        return []
-
-    # Block U.S. cabotage (Foreign -> U.S. Hub -> Foreign)
-    foreign_to_foreign = not is_us_airport(origin) and not is_us_airport(destination)
-
-    # 1. FILTER ACTIVE NETWORK FOR TODAY
-    active_network = [
-        leg for leg in network if leg_operates_today(get_leg_days(leg))
-    ]
-
-    adj_map = defaultdict(list)
-    for leg in active_network:
-        adj_map[leg["Origin"]].append(leg)
-
-    if origin not in adj_map:
-        return []
-
-    orig_coord = get_coords(origin)
-    dest_coord = get_coords(destination)
-    direct_miles = (
-        haversine_miles(orig_coord, dest_coord)
-        if (orig_coord and dest_coord)
-        else 0
+    dest_filter = (
+        str(destination).strip().upper()
+        if destination and str(destination).strip().upper() != "ALL"
+        else None
     )
 
-    if exact_connections is not None:
-        target_legs_list = [exact_connections + 1]
-    else:
-        max_depth = (
-            min(max_connections if max_connections is not None else 10, 6) + 1
-        )
-        target_legs_list = list(range(1, max_depth + 1))
+    flights = []
+    for leg in network:
+        if not leg_operates_today(get_leg_days(leg)):
+            continue
+        leg_orig = str(leg["Origin"]).strip().upper()
+        leg_dest = str(leg["Destination"]).strip().upper()
+        if leg_orig != origin:
+            continue
+        if dest_filter and leg_dest != dest_filter:
+            continue
+        flights.append(leg)
 
-    valid_paths = []
-    seen_signatures = set()
+    return flights
 
-    MAX_SEARCH_STEPS = 50000
 
-    # 2. TARGETED GEOGRAPHIC DFS SEARCH
-    for target_legs in target_legs_list:
-        if len(valid_paths) >= max_display * 2:
-            break
+def quote_single_leg(
+    leg: dict, passengers: int = 1, search_nonce: int | None = None
+) -> dict:
+    """Prices a single nonstop flight using realistic cabin loads,
+    random $10 BIRD-10 base-fare drops, and 2026 taxes/fees.
+    """
+    orig = str(leg["Origin"]).strip().upper()
+    dest = str(leg["Destination"]).strip().upper()
+    flt_num = parse_flight_int(leg.get("Flight", 100))
 
-        stack = []
-        steps = 0
-
-        initial_legs = adj_map[origin]
-        if dest_coord:
-            initial_legs = sorted(
-                initial_legs,
-                key=lambda l: (
-                    haversine_miles(
-                        get_coords(l.get("Destination")), dest_coord
-                    )
-                    if get_coords(l.get("Destination"))
-                    else 99999
-                ),
-                reverse=True,
-            )
-
-        for leg in initial_legs:
-            if foreign_to_foreign and is_us_airport(leg["Destination"]):
-                continue
-            stack.append([leg])
-
-        while stack and steps < MAX_SEARCH_STEPS:
-            steps += 1
-            path = stack.pop()
-            current_node = path[-1]["Destination"]
-
-            if len(path) == target_legs:
-                if current_node == destination:
-                    sig = tuple(
-                        (leg["Flight"], leg["Origin"], leg["Destination"])
-                        for leg in path
-                    )
-                    if sig not in seen_signatures:
-                        seen_signatures.add(sig)
-                        valid_paths.append(path)
-                        if len(valid_paths) >= max_display * 2:
-                            break
-                continue
-
-            if len(path) < target_legs:
-                if dest_coord and direct_miles > 0 and len(path) >= 3:
-                    curr_coord = get_coords(current_node)
-                    if curr_coord:
-                        dist_to_dest = haversine_miles(curr_coord, dest_coord)
-                        if dist_to_dest > max(direct_miles * 2.8, 1800):
-                            continue
-
-                visited_airports = {origin}
-                for p_leg in path:
-                    visited_airports.add(p_leg["Destination"])
-
-                next_legs = adj_map.get(current_node, [])
-
-                if dest_coord:
-                    next_legs = sorted(
-                        next_legs,
-                        key=lambda l: (
-                            haversine_miles(
-                                get_coords(l.get("Destination")), dest_coord
-                            )
-                            if get_coords(l.get("Destination"))
-                            else 99999
-                        ),
-                        reverse=True,
-                    )
-
-                if target_legs >= 5:
-                    next_legs = next_legs[-18:]
-
-                for nxt in next_legs:
-                    if foreign_to_foreign and is_us_airport(nxt["Destination"]):
-                        continue
-                    if nxt["Destination"] not in visited_airports:
-                        stack.append(path + [nxt])
-
-    if not valid_paths:
-        return []
-
-    # 3. SORT & RETURN BEST ROUTE OPTIONS
-    valid_paths.sort(
-        key=lambda p: calculate_route_score(p, origin, destination)
+    fleet_info = get_flight_capacity_and_pax(leg)
+    aircraft = fleet_info["aircraft_code"]
+    session_booked = st.session_state.booked_seats.get(flt_num, 0)
+    seats_remaining = (
+        fleet_info["capacity"] - fleet_info["pax_count"] - session_booked
     )
-    return valid_paths[:max_display]
+
+    if seats_remaining < passengers:
+        return {"sold_out": True}
+
+    q = quote_flight(
+        orig,
+        dest,
+        aircraft=aircraft,
+        seats_sold=fleet_info["pax_count"],
+        include_tsa=is_us_airport(orig),
+        flight_num=flt_num,
+        search_nonce=search_nonce,
+        session_booked=session_booked,
+    )
+    if q.get("sold_out"):
+        return {"sold_out": True}
+
+    q["flight"] = leg.get("Flight", flt_num)
+    q["flight_int"] = flt_num
+    q["passengers"] = passengers
+    q["group_base"] = round(q["base_fare"] * passengers, 2)
+    q["group_carrier_fees"] = round(q["carrier_fee"] * passengers, 2)
+    q["group_taxes"] = round(q["taxes_total"] * passengers, 2)
+    q["group_all_in"] = round(q["all_in_total"] * passengers, 2)
+    q["has_bird10"] = q["bucket"] == "BIRD-10"
+    q["fleet_info"] = fleet_info
+    q["live_pax"] = fleet_info["pax_count"] + session_booked
+    q["live_load_factor"] = round(
+        (q["live_pax"] / fleet_info["capacity"]) * 100, 1
+    )
+    return q
 
 # ==========================================
 # 3. FLEET, CAPACITY & ULCC DEMAND ENGINE
