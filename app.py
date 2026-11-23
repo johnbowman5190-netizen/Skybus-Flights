@@ -118,350 +118,350 @@ def get_random_seat(flight_num):
 # Any airport left blank ("") automatically uses gates 1-6.
 
 AIRPORT_GATES = {
-    # Hubs
+       # Hubs
     "PAFA": "2",  # Fairbanks, AK
     "KBLI": "6",  # Bellingham, WA
     "KIWA": "7",  # Phoenix / Mesa, AZ
     "KPVU": "4",  # Provo, UT
     "KOMA": "A1",  # Omaha, NE
     "KMSY": "B5",  # New Orleans, LA
-    "KGRR": "",  # Grand Rapids, MI
-    "KSWF": "",  # Newburgh / Stewart, NY
+    "KGRR": "A6",  # Grand Rapids, MI
+    "KSWF": "2",  # Newburgh / Stewart, NY
     "KBGR": "6",  # Bangor, ME
     "KRIC": "A13",  # Richmond, VA
     "KSFB": "1",  # Orlando / Sanford, FL
     "TJBQ": "3",  # Aguadilla, PR
 
     # Alaska & Hawaii
-    "PABE": "",  # Bethel, AK
-    "PABR": "",  # Utqiaġvik (Barrow), AK
-    "PACB": "",  # Cold Bay, AK
-    "PACV": "",  # Cordova, AK
-    "PADK": "",  # Adak, AK
-    "PADL": "",  # Dillingham, AK
-    "PADQ": "",  # Kodiak, AK
-    "PAEN": "",  # Kenai, AK
-    "PAGA": "",  # Galena, AK
-    "PAGS": "",  # Gustavus, AK
-    "PAHO": "",  # Homer, AK
-    "PAJN": "",  # Juneau, AK
-    "PAKN": "",  # King Salmon, AK
-    "PAKT": "",  # Ketchikan, AK
-    "PAKW": "",  # Wrangell, AK
-    "PANC": "",  # Anchorage, AK
-    "PAOM": "",  # Nome, AK
-    "PAOT": "",  # Kotzebue, AK
-    "PAPG": "",  # Petersburg, AK
-    "PASC": "",  # Deadhorse / Prudhoe Bay, AK
-    "PASI": "",  # Sitka, AK
-    "PAUL": "",  # Unalakleet, AK
-    "PAVD": "",  # Valdez, AK
-    "PAYA": "",  # Yakutat, AK
-    "PHKO": "",  # Kailua-Kona, HI
-    "PHLI": "",  # Lihue, HI
-    "PHNL": "",  # Honolulu, HI
-    "PHOG": "",  # Kahului, HI (Maui)
+    "PABE": "1",  # Bethel, AK
+    "PABR": "1",  # Utqiaġvik (Barrow), AK
+    "PACB": "1",  # Cold Bay, AK
+    "PACV": "1",  # Cordova, AK
+    "PADK": "1",  # Adak, AK
+    "PADL": "1",  # Dillingham, AK
+    "PADQ": "1",  # Kodiak, AK
+    "PAEN": "1",  # Kenai, AK
+    "PAGA": "1",  # Galena, AK
+    "PAGS": "1",  # Gustavus, AK
+    "PAHO": "1",  # Homer, AK
+    "PAJN": "3",  # Juneau, AK
+    "PAKN": "1",  # King Salmon, AK
+    "PAKT": "2",  # Ketchikan, AK
+    "PAKW": "1",  # Wrangell, AK
+    "PANC": "B4",  # Anchorage, AK
+    "PAOM": "1",  # Nome, AK
+    "PAOT": "1",  # Kotzebue, AK
+    "PAPG": "1",  # Petersburg, AK
+    "PASC": "1",  # Deadhorse / Prudhoe Bay, AK
+    "PASI": "1",  # Sitka, AK
+    "PAUL": "1",  # Unalakleet, AK
+    "PAVD": "1",  # Valdez, AK
+    "PAYA": "1",  # Yakutat, AK
+    "PHKO": "6",  # Kailua-Kona, HI
+    "PHLI": "5",  # Lihue, HI
+    "PHNL": "E4",  # Honolulu, HI
+    "PHOG": "15",  # Kahului, HI (Maui)
 
     # Intermountain West & Pacific Northwest
-    "KACV": "",  # Arcata / Eureka, CA
-    "KALW": "",  # Walla Walla, WA
-    "KBFL": "",  # Bakersfield, CA
-    "KBIL": "",  # Billings, MT
-    "KBJC": "",  # Broomfield, CO
-    "KBOI": "",  # Boise, ID
-    "KBZN": "",  # Bozeman, MT
-    "KCDC": "",  # Cedar City, UT
-    "KCLM": "",  # Port Angeles, WA
-    "KCNY": "",  # Moab, UT
-    "KCOD": "",  # Cody, WY
-    "KCOE": "",  # Coeur d'Alene, ID
-    "KCOS": "",  # Colorado Springs, CO
-    "KCPR": "",  # Casper, WY
-    "KCYS": "",  # Cheyenne, WY
-    "KDRO": "",  # Durango, CO
-    "KDVT": "",  # Phoenix / Deer Valley, AZ
-    "KEAT": "",  # Wenatchee, WA
-    "KEGE": "",  # Eagle / Vail, CO
-    "KEKO": "",  # Elko, NV
-    "KEUG": "",  # Eugene, OR
-    "KFAT": "",  # Fresno, CA
-    "KFLG": "",  # Flagstaff, AZ
-    "KGEG": "",  # Spokane, WA
-    "KGJT": "",  # Grand Junction, CO
-    "KGPI": "",  # Kalispell, MT
-    "KGTF": "",  # Great Falls, MT
-    "KHDN": "",  # Hayden / Steamboat Springs, CO
-    "KHLN": "",  # Helena, MT
-    "KIDA": "",  # Idaho Falls, ID
-    "KIFP": "",  # Bullhead City / Laughlin, AZ
-    "KJAC": "",  # Jackson Hole, WY
-    "KLAS": "",  # Las Vegas, NV
-    "KLMT": "",  # Klamath Falls, OR
-    "KLWS": "",  # Lewiston, ID
-    "KMFR": "",  # Medford / Rogue Valley, OR
-    "KMRY": "",  # Monterey, CA
-    "KMSO": "",  # Missoula, MT
-    "KMTJ": "",  # Montrose / Telluride, CO
-    "KMWH": "",  # Moses Lake, WA
-    "KOAK": "",  # Oakland, CA
-    "KOGD": "",  # Ogden, UT
-    "KONT": "",  # Ontario, CA
-    "KOTH": "",  # North Bend / Coos Bay, OR
-    "KPAE": "",  # Everett, WA
-    "KPDX": "",  # Portland, OR
-    "KPIH": "",  # Pocatello, ID
-    "KPRC": "",  # Prescott, AZ
-    "KPSC": "",  # Pasco / Tri-Cities, WA
-    "KPSP": "",  # Palm Springs, CA
-    "KPUB": "",  # Pueblo, CO
-    "KRDD": "",  # Redding, CA
-    "KRDM": "",  # Bend / Redmond, OR
-    "KRNO": "",  # Reno / Tahoe, NV
-    "KSAN": "",  # San Diego, CA
-    "KSBA": "",  # Santa Barbara, CA
-    "KSBD": "",  # San Bernardino, CA
-    "KSBP": "",  # San Luis Obispo, CA
-    "KSCK": "",  # Stockton, CA
-    "KSGU": "",  # St. George, UT
-    "KSJC": "",  # San Jose, CA
-    "KSLE": "",  # Salem, OR
-    "KSMF": "",  # Sacramento, CA
-    "KSTS": "",  # Santa Rosa / Sonoma, CA
-    "KSUN": "",  # Sun Valley, ID
-    "KTWF": "",  # Twin Falls, ID
-    "KVEL": "",  # Vernal, UT
-    "KYKM": "",  # Yakima, WA
-    "KYUM": "",  # Yuma, AZ
+    "KACV": "1",  # Arcata / Eureka, CA
+    "KALW": "1",  # Walla Walla, WA
+    "KBFL": "3",  # Bakersfield, CA
+    "KBIL": "A3",  # Billings, MT
+    "KBJC": "1",  # Broomfield, CO
+    "KBOI": "B15",  # Boise, ID
+    "KBZN": "B5",  # Bozeman, MT
+    "KCDC": "1",  # Cedar City, UT
+    "KCLM": "1",  # Port Angeles, WA
+    "KCNY": "1",  # Moab, UT
+    "KCOD": "1",  # Cody, WY
+    "KCOE": "1",  # Coeur d'Alene, ID
+    "KCOS": "2",  # Colorado Springs, CO
+    "KCPR": "2",  # Casper, WY
+    "KCYS": "1",  # Cheyenne, WY
+    "KDRO": "2",  # Durango, CO
+    "KDVT": "1",  # Phoenix / Deer Valley, AZ
+    "KEAT": "1",  # Wenatchee, WA
+    "KEGE": "3",  # Eagle / Vail, CO
+    "KEKO": "1",  # Elko, NV
+    "KEUG": "A4",  # Eugene, OR
+    "KFAT": "5",  # Fresno, CA
+    "KFLG": "2",  # Flagstaff, AZ
+    "KGEG": "A3",  # Spokane, WA
+    "KGJT": "3",  # Grand Junction, CO
+    "KGPI": "4",  # Kalispell, MT
+    "KGTF": "3",  # Great Falls, MT
+    "KHDN": "2",  # Hayden / Steamboat Springs, CO
+    "KHLN": "2",  # Helena, MT
+    "KIDA": "3",  # Idaho Falls, ID
+    "KIFP": "1",  # Bullhead City / Laughlin, AZ
+    "KJAC": "4",  # Jackson Hole, WY
+    "KLAS": "A21",  # Las Vegas, NV
+    "KLMT": "1",  # Klamath Falls, OR
+    "KLWS": "1",  # Lewiston, ID
+    "KMFR": "3",  # Medford / Rogue Valley, OR
+    "KMRY": "2",  # Monterey, CA
+    "KMSO": "3",  # Missoula, MT
+    "KMTJ": "3",  # Montrose / Telluride, CO
+    "KMWH": "1",  # Moses Lake, WA
+    "KOAK": "10",  # Oakland, CA
+    "KOGD": "1",  # Ogden, UT
+    "KONT": "210",  # Ontario, CA
+    "KOTH": "1",  # North Bend / Coos Bay, OR
+    "KPAE": "B1",  # Everett, WA
+    "KPDX": "E4",  # Portland, OR
+    "KPIH": "1",  # Pocatello, ID
+    "KPRC": "1",  # Prescott, AZ
+    "KPSC": "3",  # Pasco / Tri-Cities, WA
+    "KPSP": "14",  # Palm Springs, CA
+    "KPUB": "1",  # Pueblo, CO
+    "KRDD": "1",  # Redding, CA
+    "KRDM": "3",  # Bend / Redmond, OR
+    "KRNO": "B9",  # Reno / Tahoe, NV
+    "KSAN": "119",  # San Diego, CA
+    "KSBA": "3",  # Santa Barbara, CA
+    "KSBD": "2",  # San Bernardino, CA
+    "KSBP": "2",  # San Luis Obispo, CA
+    "KSCK": "2",  # Stockton, CA
+    "KSGU": "2",  # St. George, UT
+    "KSJC": "28",  # San Jose, CA
+    "KSLE": "1",  # Salem, OR
+    "KSMF": "B14",  # Sacramento, CA
+    "KSTS": "2",  # Santa Rosa / Sonoma, CA
+    "KSUN": "1",  # Sun Valley, ID
+    "KTWF": "1",  # Twin Falls, ID
+    "KVEL": "1",  # Vernal, UT
+    "KYKM": "1",  # Yakima, WA
+    "KYUM": "1",  # Yuma, AZ
 
     # Southwest & South Central
-    "KABI": "",  # Abilene, TX
-    "KABQ": "",  # Albuquerque, NM
-    "KACT": "",  # Waco, TX
-    "KAMA": "",  # Amarillo, TX
-    "KBPT": "",  # Beaumont / Port Arthur, TX
-    "KBRO": "",  # Brownsville, TX
-    "KCRP": "",  # Corpus Christi, TX
-    "KELP": "",  # El Paso, TX
-    "KGGG": "",  # Longview, TX
-    "KGRK": "",  # Killeen / Fort Cavazos, TX
-    "KHRL": "",  # Harlingen, TX
-    "KLAW": "",  # Lawton, OK
-    "KLBB": "",  # Lubbock, TX
-    "KLRD": "",  # Laredo, TX
-    "KMAF": "",  # Midland / Odessa, TX
-    "KMFE": "",  # McAllen, TX
-    "KOKC": "",  # Oklahoma City, OK
-    "KROW": "",  # Roswell, NM
-    "KSAF": "",  # Santa Fe, NM
-    "KSAT": "",  # San Antonio, TX
-    "KSJT": "",  # San Angelo, TX
-    "KTUL": "",  # Tulsa, OK
-    "KTUS": "",  # Tucson, AZ
-    "KTYR": "",  # Tyler, TX
-    "KVCT": "",  # Victoria, TX
+    "KABI": "1",  # Abilene, TX
+    "KABQ": "A6",  # Albuquerque, NM
+    "KACT": "1",  # Waco, TX
+    "KAMA": "2",  # Amarillo, TX
+    "KBPT": "1",  # Beaumont / Port Arthur, TX
+    "KBRO": "2",  # Brownsville, TX
+    "KCRP": "3",  # Corpus Christi, TX
+    "KELP": "B4",  # El Paso, TX
+    "KGGG": "1",  # Longview, TX
+    "KGRK": "2",  # Killeen / Fort Cavazos, TX
+    "KHRL": "3",  # Harlingen, TX
+    "KLAW": "1",  # Lawton, OK
+    "KLBB": "3",  # Lubbock, TX
+    "KLRD": "2",  # Laredo, TX
+    "KMAF": "3",  # Midland / Odessa, TX
+    "KMFE": "4",  # McAllen, TX
+    "KOKC": "4",  # Oklahoma City, OK
+    "KROW": "1",  # Roswell, NM
+    "KSAF": "2",  # Santa Fe, NM
+    "KSAT": "A14",  # San Antonio, TX
+    "KSJT": "1",  # San Angelo, TX
+    "KTUL": "A4",  # Tulsa, OK
+    "KTUS": "A5",  # Tucson, AZ
+    "KTYR": "1",  # Tyler, TX
+    "KVCT": "1",  # Victoria, TX
 
     # Gulf Coast & South
-    "KAEX": "",  # Alexandria, LA
-    "KBHM": "",  # Birmingham, AL
-    "KBTR": "",  # Baton Rouge, LA
-    "KBWG": "",  # Bowling Green, KY
-    "KCHA": "",  # Chattanooga, TN
-    "KFSM": "",  # Fort Smith, AR
-    "KGPT": "",  # Gulfport / Biloxi, MS
-    "KGTR": "",  # Columbus / Starkville, MS
-    "KHBG": "",  # Hattiesburg, MS
-    "KHEZ": "",  # Natchez, MS
-    "KHSV": "",  # Huntsville, AL
-    "KJKA": "",  # Gulf Shores, AL
-    "KLCH": "",  # Lake Charles, LA
-    "KLEX": "",  # Lexington, KY
-    "KLFT": "",  # Lafayette, LA
-    "KLIT": "",  # Little Rock, AR
-    "KMEI": "",  # Meridian, MS
-    "KMGM": "",  # Montgomery, AL
-    "KMLU": "",  # Monroe, LA
-    "KMOB": "",  # Mobile, AL
-    "KOWB": "",  # Owensboro, KY
-    "KPIB": "",  # Hattiesburg / Laurel, MS
-    "KSDF": "",  # Louisville, KY
-    "KSHV": "",  # Shreveport, LA
-    "KTRI": "",  # Tri-Cities / Bristol, TN
-    "KTUP": "",  # Tupelo, MS
-    "KTYS": "",  # Knoxville, TN
-    "KXNA": "",  # Fayetteville / Northwest Arkansas, AR
+    "KAEX": "2",  # Alexandria, LA
+    "KBHM": "A4",  # Birmingham, AL
+    "KBTR": "A3",  # Baton Rouge, LA
+    "KBWG": "1",  # Bowling Green, KY
+    "KCHA": "4",  # Chattanooga, TN
+    "KFSM": "1",  # Fort Smith, AR
+    "KGPT": "3",  # Gulfport / Biloxi, MS
+    "KGTR": "1",  # Columbus / Starkville, MS
+    "KHBG": "1",  # Hattiesburg, MS
+    "KHEZ": "1",  # Natchez, MS
+    "KHSV": "4",  # Huntsville, AL
+    "KJKA": "1",  # Gulf Shores, AL
+    "KLCH": "1",  # Lake Charles, LA
+    "KLEX": "B4",  # Lexington, KY
+    "KLFT": "3",  # Lafayette, LA
+    "KLIT": "4",  # Little Rock, AR
+    "KMEI": "1",  # Meridian, MS
+    "KMGM": "2",  # Montgomery, AL
+    "KMLU": "2",  # Monroe, LA
+    "KMOB": "2",  # Mobile, AL
+    "KOWB": "1",  # Owensboro, KY
+    "KPIB": "1",  # Hattiesburg / Laurel, MS
+    "KSDF": "A6",  # Louisville, KY
+    "KSHV": "3",  # Shreveport, LA
+    "KTRI": "3",  # Tri-Cities / Bristol, TN
+    "KTUP": "1",  # Tupelo, MS
+    "KTYS": "4",  # Knoxville, TN
+    "KXNA": "A4",  # Fayetteville / Northwest Arkansas, AR
 
     # Midwest
-    "KALO": "",  # Waterloo, IA
-    "KBIS": "",  # Bismarck, ND
-    "KBJI": "",  # Bemidji, MN
-    "KBLV": "",  # Belleville, IL
-    "KCID": "",  # Cedar Rapids, IA
-    "KCOU": "",  # Columbia, MO
-    "KDBQ": "",  # Dubuque, IA
-    "KDIK": "",  # Dickinson, ND
-    "KDLH": "",  # Duluth, MN
-    "KDSM": "",  # Des Moines, IA
-    "KDVL": "",  # Devils Lake, ND
-    "KFAR": "",  # Fargo, ND
-    "KFSD": "",  # Sioux Falls, SD
-    "KGCK": "",  # Garden City, KS
-    "KGFK": "",  # Grand Forks, ND
-    "KGRI": "",  # Grand Island, NE
-    "KICT": "",  # Wichita, KS
-    "KINL": "",  # International Falls, MN
-    "KJEF": "",  # Jefferson City, MO
-    "KJMS": "",  # Jamestown, ND
-    "KLNK": "",  # Lincoln, NE
-    "KMCI": "",  # Kansas City, MO
-    "KMLI": "",  # Moline / Quad Cities, IL
-    "KMOT": "",  # Minot, ND
-    "KPIA": "",  # Peoria, IL
-    "KPIR": "",  # Pierre, SD
-    "KRAP": "",  # Rapid City, SD
-    "KRFD": "",  # Rockford, IL
-    "KRST": "",  # Rochester, MN
-    "KSGF": "",  # Springfield, MO
-    "KSLN": "",  # Salina, KS
-    "KSPI": "",  # Springfield, IL
-    "KSTC": "",  # St. Cloud, MN
-    "KSTJ": "",  # St. Joseph, MO
-    "KSUX": "",  # Sioux City, IA
-    "KTOP": "",  # Topeka, KS
+    "KALO": "1",  # Waterloo, IA
+    "KBIS": "3",  # Bismarck, ND
+    "KBJI": "1",  # Bemidji, MN
+    "KBLV": "2",  # Belleville, IL
+    "KCID": "4",  # Cedar Rapids, IA
+    "KCOU": "2",  # Columbia, MO
+    "KDBQ": "1",  # Dubuque, IA
+    "KDIK": "1",  # Dickinson, ND
+    "KDLH": "3",  # Duluth, MN
+    "KDSM": "A4",  # Des Moines, IA
+    "KDVL": "1",  # Devils Lake, ND
+    "KFAR": "3",  # Fargo, ND
+    "KFSD": "4",  # Sioux Falls, SD
+    "KGCK": "1",  # Garden City, KS
+    "KGFK": "3",  # Grand Forks, ND
+    "KGRI": "1",  # Grand Island, NE
+    "KICT": "4",  # Wichita, KS
+    "KINL": "1",  # International Falls, MN
+    "KJEF": "1",  # Jefferson City, MO
+    "KJMS": "1",  # Jamestown, ND
+    "KLNK": "2",  # Lincoln, NE
+    "KMCI": "B57",  # Kansas City, MO
+    "KMLI": "B3",  # Moline / Quad Cities, IL
+    "KMOT": "2",  # Minot, ND
+    "KPIA": "3",  # Peoria, IL
+    "KPIR": "1",  # Pierre, SD
+    "KRAP": "4",  # Rapid City, SD
+    "KRFD": "2",  # Rockford, IL
+    "KRST": "2",  # Rochester, MN
+    "KSGF": "4",  # Springfield, MO
+    "KSLN": "1",  # Salina, KS
+    "KSPI": "2",  # Springfield, IL
+    "KSTC": "1",  # St. Cloud, MN
+    "KSTJ": "1",  # St. Joseph, MO
+    "KSUX": "1",  # Sioux City, IA
+    "KTOP": "1",  # Topeka, KS
 
     # Great Lakes
-    "KAPN": "",  # Alpena, MI
-    "KATW": "",  # Appleton, WI
-    "KAZO": "",  # Kalamazoo, MI
-    "KBMI": "",  # Bloomington, IL
-    "KCAK": "",  # Akron / Canton, OH
-    "KCIU": "",  # Sault Ste. Marie, MI
-    "KCMH": "",  # Columbus, OH
-    "KCMX": "",  # Houghton, MI
-    "KCVG": "",  # Cincinnati, OH
-    "KCWA": "",  # Mosinee / Wausau, WI
-    "KDAY": "",  # Dayton, OH
-    "KESC": "",  # Escanaba, MI
-    "KEVV": "",  # Evansville, IN
-    "KFNT": "",  # Flint, MI
-    "KFWA": "",  # Fort Wayne, IN
-    "KGRB": "",  # Green Bay, WI
-    "KGYY": "",  # Gary / Chicago, IN
-    "KIMT": "",  # Iron Mountain, MI
-    "KIND": "",  # Indianapolis, IN
-    "KISQ": "",  # Sault Ste. Marie, MI
-    "KJVY": "",  # Jeffersonville, IN
-    "KLAN": "",  # Lansing, MI
-    "KLSE": "",  # La Crosse, WI
-    "KMBS": "",  # Saginaw, MI
-    "KMKE": "",  # Milwaukee, WI
-    "KMQT": "",  # Marquette, MI
-    "KMSN": "",  # Madison, WI
-    "KPLN": "",  # Pellston / Mackinac, MI
-    "KSBN": "",  # South Bend, IN
-    "KTOL": "",  # Toledo, OH
-    "KTVC": "",  # Traverse City, MI
+    "KAPN": "1",  # Alpena, MI
+    "KATW": "4",  # Appleton, WI
+    "KAZO": "2",  # Kalamazoo, MI
+    "KBMI": "2",  # Bloomington, IL
+    "KCAK": "3",  # Akron / Canton, OH
+    "KCIU": "1",  # Sault Ste. Marie, MI
+    "KCMH": "C48",  # Columbus, OH
+    "KCMX": "1",  # Houghton, MI
+    "KCVG": "A6",  # Cincinnati, OH
+    "KCWA": "2",  # Mosinee / Wausau, WI
+    "KDAY": "A4",  # Dayton, OH
+    "KESC": "1",  # Escanaba, MI
+    "KEVV": "2",  # Evansville, IN
+    "KFNT": "4",  # Flint, MI
+    "KFWA": "4",  # Fort Wayne, IN
+    "KGRB": "B4",  # Green Bay, WI
+    "KGYY": "1",  # Gary / Chicago, IN
+    "KIMT": "1",  # Iron Mountain, MI
+    "KIND": "B7",  # Indianapolis, IN
+    "KISQ": "1",  # Sault Ste. Marie, MI
+    "KJVY": "1",  # Jeffersonville, IN
+    "KLAN": "3",  # Lansing, MI
+    "KLSE": "2",  # La Crosse, WI
+    "KMBS": "2",  # Saginaw, MI
+    "KMKE": "C14",  # Milwaukee, WI
+    "KMQT": "1",  # Marquette, MI
+    "KMSN": "4",  # Madison, WI
+    "KPLN": "1",  # Pellston / Mackinac, MI
+    "KSBN": "4",  # South Bend, IN
+    "KTOL": "2",  # Toledo, OH
+    "KTVC": "4",  # Traverse City, MI
 
     # Northeast & Mid-Atlantic
-    "KABE": "",  # Allentown / Lehigh Valley, PA
-    "KACK": "",  # Nantucket, MA
-    "KACY": "",  # Atlantic City, NJ
-    "KAGS": "",  # Augusta, GA
-    "KALB": "",  # Albany, NY
-    "KART": "",  # Watertown, NY
-    "KAUG": "",  # Augusta, ME
-    "KAVL": "",  # Asheville, NC
-    "KAVP": "",  # Wilkes-Barre / Scranton, PA
-    "KBFD": "",  # Bradford, PA
-    "KBGM": "",  # Binghamton, NY
-    "KBHB": "",  # Bar Harbor, ME
-    "KBLF": "",  # Bluefield, WV
-    "KBQK": "",  # Brunswick, GA
-    "KBTV": "",  # Burlington, VT
-    "KBUF": "",  # Buffalo, NY
-    "KCAE": "",  # Columbia, SC
-    "KCHO": "",  # Charlottesville, VA
-    "KCHS": "",  # Charleston, SC
-    "KCKB": "",  # Clarksburg, WV
-    "KCON": "",  # Concord, NH
-    "KCRW": "",  # Charleston, WV
-    "KCSG": "",  # Columbus, GA
-    "KDUJ": "",  # DuBois, PA
-    "KELM": "",  # Elmira / Corning, NY
-    "KERI": "",  # Erie, PA
-    "KEWB": "",  # New Bedford, MA
-    "KEWN": "",  # New Bern, NC
-    "KFAY": "",  # Fayetteville, NC
-    "KFLO": "",  # Florence, SC
-    "KFMH": "",  # Falmouth / Cape Cod, MA
-    "KFRG": "",  # Farmingdale / Long Island, NY
-    "KGON": "",  # Groton / New London, CT
-    "KGSO": "",  # Greensboro, NC
-    "KGSP": "",  # Greenville / Spartanburg, SC
-    "KHGR": "",  # Hagerstown, MD
-    "KHPN": "",  # White Plains / Westchester, NY
-    "KHTS": "",  # Huntington, WV
-    "KHVN": "",  # New Haven, CT
-    "KHYA": "",  # Hyannis / Cape Cod, MA
-    "KILG": "",  # Wilmington, DE
-    "KILM": "",  # Wilmington, NC
-    "KIPT": "",  # Williamsport, PA
-    "KISP": "",  # Islip / Long Island, NY
-    "KITH": "",  # Ithaca, NY
-    "KJQF": "",  # Concord / Charlotte, NC
-    "KJST": "",  # Johnstown, PA
-    "KLBE": "",  # Latrobe / Greensburg, PA
-    "KLEB": "",  # Lebanon, NH
-    "KLNS": "",  # Lancaster, PA
-    "KLWB": "",  # Lewisburg, WV
-    "KLYH": "",  # Lynchburg, VA
-    "KMCN": "",  # Macon, GA
-    "KMDT": "",  # Harrisburg, PA
-    "KMGW": "",  # Morgantown, WV
-    "KMHT": "",  # Manchester, NH
-    "KMIV": "",  # Millville, NJ
-    "KMPV": "",  # Barre / Montpelier, VT
-    "KMSS": "",  # Massena, NY
-    "KMVY": "",  # Martha's Vineyard, MA
-    "KMYR": "",  # Myrtle Beach, SC
-    "KOGS": "",  # Ogdensburg, NY
-    "KOQU": "",  # Quonset State / North Kingstown, RI
-    "KORF": "",  # Norfolk / Virginia Beach, VA
-    "KORH": "",  # Worcester, MA
-    "KPBG": "",  # Plattsburgh, NY
-    "KPGV": "",  # Greenville, NC
-    "KPHF": "",  # Newport News / Williamsburg, VA
-    "KPIT": "",  # Pittsburgh, PA
-    "KPKB": "",  # Parkersburg, WV
-    "KPQB": "",  # Presque Isle, ME
-    "KPSM": "",  # Portsmouth, NH
-    "KPVD": "",  # Providence, RI
-    "KPWM": "",  # Portland, ME
-    "KRDG": "",  # Reading, PA
-    "KRDU": "",  # Raleigh / Durham, NC
-    "KRKD": "",  # Rockland, ME
-    "KROA": "",  # Roanoke, VA
-    "KROC": "",  # Rochester, NY
-    "KSAV": "",  # Savannah, GA
-    "KSBY": "",  # Salisbury, MD
-    "KSFM": "",  # Sanford, ME
-    "KSLK": "",  # Saranac Lake, NY
-    "KSYR": "",  # Syracuse, NY
-    "KTTN": "",  # Trenton, NJ
+    "KABE": "6",  # Allentown / Lehigh Valley, PA
+    "KACK": "2",  # Nantucket, MA
+    "KACY": "3",  # Atlantic City, NJ
+    "KAGS": "2",  # Augusta, GA
+    "KALB": "A4",  # Albany, NY
+    "KART": "1",  # Watertown, NY
+    "KAUG": "1",  # Augusta, ME
+    "KAVL": "4",  # Asheville, NC
+    "KAVP": "3",  # Wilkes-Barre / Scranton, PA
+    "KBFD": "1",  # Bradford, PA
+    "KBGM": "2",  # Binghamton, NY
+    "KBHB": "1",  # Bar Harbor, ME
+    "KBLF": "1",  # Bluefield, WV
+    "KBQK": "1",  # Brunswick, GA
+    "KBTV": "4",  # Burlington, VT
+    "KBUF": "4",  # Buffalo, NY
+    "KCAE": "4",  # Columbia, SC
+    "KCHO": "2",  # Charlottesville, VA
+    "KCHS": "B8",  # Charleston, SC
+    "KCKB": "1",  # Clarksburg, WV
+    "KCON": "1",  # Concord, NH
+    "KCRW": "3",  # Charleston, WV
+    "KCSG": "1",  # Columbus, GA
+    "KDUJ": "1",  # DuBois, PA
+    "KELM": "2",  # Elmira / Corning, NY
+    "KERI": "2",  # Erie, PA
+    "KEWB": "1",  # New Bedford, MA
+    "KEWN": "1",  # New Bern, NC
+    "KFAY": "3",  # Fayetteville, NC
+    "KFLO": "1",  # Florence, SC
+    "KFMH": "1",  # Falmouth / Cape Cod, MA
+    "KFRG": "1",  # Farmingdale / Long Island, NY
+    "KGON": "1",  # Groton / New London, CT
+    "KGSO": "26",  # Greensboro, NC
+    "KGSP": "A4",  # Greenville / Spartanburg, SC
+    "KHGR": "1",  # Hagerstown, MD
+    "KHPN": "2",  # White Plains / Westchester, NY
+    "KHTS": "2",  # Huntington, WV
+    "KHVN": "2",  # New Haven, CT
+    "KHYA": "1",  # Hyannis / Cape Cod, MA
+    "KILG": "1",  # Wilmington, DE
+    "KILM": "3",  # Wilmington, NC
+    "KIPT": "1",  # Williamsport, PA
+    "KISP": "A2",  # Islip / Long Island, NY
+    "KITH": "1",  # Ithaca, NY
+    "KJQF": "2",  # Concord / Charlotte, NC
+    "KJST": "1",  # Johnstown, PA
+    "KLBE": "1",  # Latrobe / Greensburg, PA
+    "KLEB": "1",  # Lebanon, NH
+    "KLNS": "1",  # Lancaster, PA
+    "KLWB": "1",  # Lewisburg, WV
+    "KLYH": "1",  # Lynchburg, VA
+    "KMCN": "1",  # Macon, GA
+    "KMDT": "A4",  # Harrisburg, PA
+    "KMGW": "1",  # Morgantown, WV
+    "KMHT": "4",  # Manchester, NH
+    "KMIV": "1",  # Millville, NJ
+    "KMPV": "1",  # Barre / Montpelier, VT
+    "KMSS": "1",  # Massena, NY
+    "KMVY": "1",  # Martha's Vineyard, MA
+    "KMYR": "A4",  # Myrtle Beach, SC
+    "KOGS": "1",  # Ogdensburg, NY
+    "KOQU": "1",  # Quonset State / North Kingstown, RI
+    "KORF": "A4",  # Norfolk / Virginia Beach, VA
+    "KORH": "2",  # Worcester, MA
+    "KPBG": "2",  # Plattsburgh, NY
+    "KPGV": "1",  # Greenville, NC
+    "KPHF": "2",  # Newport News / Williamsburg, VA
+    "KPIT": "A14",  # Pittsburgh, PA
+    "KPKB": "1",  # Parkersburg, WV
+    "KPQB": "1",  # Presque Isle, ME
+    "KPSM": "1",  # Portsmouth, NH
+    "KPVD": "14",  # Providence, RI
+    "KPWM": "4",  # Portland, ME
+    "KRDG": "1",  # Reading, PA
+    "KRDU": "C21",  # Raleigh / Durham, NC
+    "KRKD": "1",  # Rockland, ME
+    "KROA": "3",  # Roanoke, VA
+    "KROC": "A4",  # Rochester, NY
+    "KSAV": "4",  # Savannah, GA
+    "KSBY": "1",  # Salisbury, MD
+    "KSFM": "1",  # Sanford, ME
+    "KSLK": "1",  # Saranac Lake, NY
+    "KSYR": "14",  # Syracuse, NY
+    "KTTN": "1",  # Trenton, NJ
 
     # Florida
-    "KECP": "",  # Panama City Beach, FL
-    "KEYW": "",  # Key West, FL
-    "KFLL": "",  # Fort Lauderdale, FL
-    "KGNV": "",  # Gainesville, FL
-    "KMLB": "",  # Melbourne, FL
-    "KPGD": "",  # Punta Gorda / Ft. Myers, FL
-    "KPIE": "",  # St. Petersburg / Clearwater, FL
-    "KPNS": "",  # Pensacola, FL
-    "KSGJ": "",  # St. Augustine, FL
-    "KSRQ": "",  # Sarasota / Bradenton, FL
-    "KTLH": "",  # Tallahassee, FL
-    "KVPS": "",  # Eglin / Destin, FL
-    "KVRB": "",  # Vero Beach, FL
+    "KECP": "3",  # Panama City Beach, FL
+    "KEYW": "3",  # Key West, FL
+    "KFLL": "C2",  # Fort Lauderdale, FL
+    "KGNV": "3",  # Gainesville, FL
+    "KMLB": "3",  # Melbourne, FL
+    "KPGD": "3",  # Punta Gorda / Ft. Myers, FL
+    "KPIE": "4",  # St. Petersburg / Clearwater, FL
+    "KPNS": "4",  # Pensacola, FL
+    "KSGJ": "1",  # St. Augustine, FL
+    "KSRQ": "B6",  # Sarasota / Bradenton, FL
+    "KTLH": "A3",  # Tallahassee, FL
+    "KVPS": "A3",  # Eglin / Destin, FL
+    "KVRB": "1",  # Vero Beach, FL
 
     # Caribbean & Latin America (Pre-filled with U.S.-bound gates)
     "MBPV": "2, 3, 4",        # Providenciales, Turks & Caicos
