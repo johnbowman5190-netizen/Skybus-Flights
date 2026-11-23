@@ -2926,15 +2926,13 @@ valid_destinations = get_reachable_destinations(
     network, orig_select, max_connections=6
 )
 
-# Keep dest_select_val valid when Origin changes
 if (
     "dest_select_val" not in st.session_state
     or st.session_state["dest_select_val"] not in valid_destinations
 ):
-    if valid_destinations:
-        st.session_state["dest_select_val"] = valid_destinations[0]
-    else:
-        st.session_state["dest_select_val"] = None
+    st.session_state["dest_select_val"] = (
+        valid_destinations[0] if valid_destinations else None
+    )
 
 
 # 3. Safe Callback for Random Selection
@@ -3000,29 +2998,14 @@ with col4:
         index=4,
     )
 
-# 7. Fare & Booking Window Controls
-b_col1, b_col2, b_col3 = st.columns([1.2, 1, 1.3])
+# 7. Passenger & Sort Controls (No advance-booking selector — $10 fares drop randomly!)
+b_col1, b_col2 = st.columns([1, 2])
 with b_col1:
-    days_out_label = st.selectbox(
-        "Advance Booking Window",
-        options=[
-            ("21+ Days Out (BIRD-10 Eligible)", 21),
-            ("14 Days Out (Early Bird)", 14),
-            ("7 Days Out (Smart Saver)", 7),
-            ("3 Days Out (Standard)", 3),
-            ("Same-Day Walk-Up (0 Days)", 0),
-        ],
-        index=0,
-        format_func=lambda x: x[0],
-    )
-    days_out_val = days_out_label[1]
-
-with b_col2:
     pax_count_input = st.number_input(
         "Passengers", min_value=1, max_value=9, value=1, step=1
     )
 
-with b_col3:
+with b_col2:
     sort_mode = st.selectbox(
         "Sort Results By",
         options=[
@@ -3064,6 +3047,10 @@ if st.button("Search Route Options", type="primary"):
         st.session_state["search_orig"] = orig_select
         st.session_state["search_dest"] = dest_select
         st.session_state["search_conn_str"] = conn_str
+        # Fresh random roll for $10 BIRD-10 base fares on every new search
+        st.session_state["search_nonce"] = random.SystemRandom().randint(
+            1, 10_000_000
+        )
 
 # ==========================================
 # 5. SEARCH RESULTS & FARE CALCULATOR
@@ -3074,6 +3061,7 @@ if "search_results" in st.session_state:
     orig = st.session_state["search_orig"]
     dest = st.session_state["search_dest"]
     selected_conn_str = st.session_state.get("search_conn_str", conn_str)
+    search_nonce = st.session_state.get("search_nonce", 1)
 
     st.markdown("---")
     st.markdown(
@@ -3085,11 +3073,12 @@ if "search_results" in st.session_state:
             f"No routes found connecting {orig} to {dest} with **{selected_conn_str}**."
         )
     else:
-        # Quote every candidate path using live cabin availability
         quoted_options = []
         for path in results:
             q = quote_route_path(
-                path, days_out=days_out_val, passengers=int(pax_count_input)
+                path,
+                passengers=int(pax_count_input),
+                search_nonce=search_nonce,
             )
             if not q.get("sold_out"):
                 quoted_options.append((path, q))
@@ -3119,7 +3108,7 @@ if "search_results" in st.session_state:
                 ):
                     tag = f"🐦 $10 BIRD-10 ({q['min_bird10_seats']} left)"
                 elif q["has_bird10"]:
-                    tag = f"🐦 Mixed BIRD-10 / {q['legs'][-1]['bucket']}"
+                    tag = f"🐦 Mixed $10 / {q['legs'][-1]['bucket']}"
                 else:
                     tag = q["legs"][0]["bucket"]
 
@@ -3135,16 +3124,15 @@ if "search_results" in st.session_state:
 
             selected_path, selected_quote = quoted_options[selected_option_idx]
 
-            # Highlight Banner for Fare Summary
             badge_cls = (
                 "fare-bird10"
                 if selected_quote["has_bird10"]
                 else "fare-standard"
             )
             scarcity_html = (
-                f"<span class='scarcity-pill'>🔥 Only {selected_quote['min_bird10_seats']} seat(s) left at the $10 base fare!</span>"
+                f"<span class='scarcity-pill'>🎉 Lucky Drop! {selected_quote['min_bird10_seats']} seat(s) available at the $10 base fare!</span>"
                 if selected_quote["has_bird10"]
-                else "<span style='font-size:12px; color:#555;'>All 10 promotional $10 seats sold — stepped to active cabin tier</span>"
+                else "<span style='font-size:12px; color:#555;'>Standard market pricing based on route distance &amp; cabin demand</span>"
             )
 
             st.markdown(
@@ -3176,13 +3164,21 @@ if "search_results" in st.session_state:
                 zip(selected_path, selected_quote["legs"]), 1
             ):
                 flight_info = get_flight_capacity_and_pax(
-                    leg, last_state=last_state, days_out=days_out_val
+                    leg, last_state=last_state
                 )
+                f_id = parse_flight_int(leg["Flight"])
+                live_pax = min(
+                    flight_info["capacity"],
+                    flight_info["pax_count"]
+                    + st.session_state.booked_seats.get(f_id, 0),
+                )
+                live_lf = round((live_pax / flight_info["capacity"]) * 100, 1)
+
                 st.write(
                     f"**Leg {idx}:** Flight **SX #{leg['Flight']}** | `{leg['Origin']}` ➔ `{leg['Destination']}` ({lq['distance_nm']} nm) | "
                     f"Days: *{leg['Days']}* | "
                     f"✈️ **{flight_info['aircraft_name']}** (`{flight_info['tail_number']}`) | "
-                    f"👥 **Booked:** {flight_info['seats_sold_now']}/{flight_info['capacity']} (Dep. Est. {flight_info['load_factor']}%) | "
+                    f"👥 **Load:** {live_pax}/{flight_info['capacity']} ({live_lf}%) | "
                     f"🎟️ **{lq['bucket']}**: `${lq['base_fare']:.2f}` base + `${lq['carrier_fee']:.2f}` fee + `${lq['taxes_total']:.2f}` tax = **`${lq['all_in_total']:.2f}`**"
                 )
 
@@ -3194,13 +3190,13 @@ if "search_results" in st.session_state:
                     for fee_name, fee_val in lq["tax_breakdown"].items():
                         st.write(f"- {fee_name}: **${fee_val:.2f}**")
 
-            # Optional Skybus Unbundled Ancillaries
+            # Optional Skybus Unbundled Ancillaries (including SkyFly Wi-Fi)
             st.markdown("#### 🧳 Optional Skybus Add-Ons (Per Passenger)")
             addons = selected_quote["per_pax_addons"]
-            a_col1, a_col2, a_col3, a_col4 = st.columns(4)
+            a_col1, a_col2, a_col3, a_col4, a_col5 = st.columns(5)
             with a_col1:
                 add_carryon = st.checkbox(
-                    f"Overhead Carry-On (+${addons['carry_on_bag']:.2f})",
+                    f"Carry-On Bag (+${addons['carry_on_bag']:.2f})",
                     value=True,
                     help="1 under-seat personal item is always $0.00",
                 )
@@ -3230,8 +3226,14 @@ if "search_results" in st.session_state:
                 )
             with a_col4:
                 add_seat = st.checkbox(
-                    f"Seat Assignment (+${addons['seat_selection']:.2f})",
+                    f"Seat Selection (+${addons['seat_selection']:.2f})",
                     value=True,
+                )
+            with a_col5:
+                add_wifi = st.checkbox(
+                    f"SkyFly Wi-Fi (+${addons['wifi']:.2f})",
+                    value=True,
+                    help="High-speed gate-to-gate in-flight streaming & messaging",
                 )
 
             per_pax_addon_total = (
@@ -3239,6 +3241,7 @@ if "search_results" in st.session_state:
                 + checked_bag_qty[2]
                 + (addons["priority_boarding"] if add_priority else 0.0)
                 + (addons["seat_selection"] if add_seat else 0.0)
+                + (addons["wifi"] if add_wifi else 0.0)
             )
             grand_checkout_total = round(
                 selected_quote["group_all_in"]
@@ -3274,6 +3277,7 @@ if "search_results" in st.session_state:
                 "checked_bags": checked_bag_qty[1],
                 "priority": add_priority,
                 "seat_selected": add_seat,
+                "wifi": add_wifi,
                 "grand_total": grand_checkout_total,
             }
 
@@ -3294,6 +3298,7 @@ if "selected_itinerary" in st.session_state:
             "checked_bags": 1,
             "priority": True,
             "seat_selected": True,
+            "wifi": True,
             "grand_total": 26.15,
         },
     )
@@ -3321,12 +3326,18 @@ if "selected_itinerary" in st.session_state:
 
     bp_last_state = {}
     path_flight_infos = [
-        get_flight_capacity_and_pax(
-            leg, last_state=bp_last_state, days_out=days_out_val
-        )
+        get_flight_capacity_and_pax(leg, last_state=bp_last_state)
         for leg in path
     ]
     flight_info = path_flight_infos[selected_leg_index]
+
+    f_id = parse_flight_int(active_leg["Flight"])
+    live_pax = min(
+        flight_info["capacity"],
+        flight_info["pax_count"]
+        + st.session_state.booked_seats.get(f_id, 0),
+    )
+    live_lf = round((live_pax / flight_info["capacity"]) * 100, 1)
 
     leg_fare_bucket = (
         active_quote["legs"][selected_leg_index]["bucket"]
@@ -3346,6 +3357,11 @@ if "selected_itinerary" in st.session_state:
     )
     carryon_str = (
         "🎒 1 Carry-on" if active_addons["carry_on"] else "👜 Personal Only"
+    )
+    wifi_html = (
+        '<div style="font-size: 11px; color: #F28425; font-weight: 700; margin-top: 2px;">📶 SkyFly Wi-Fi: Active</div>'
+        if active_addons.get("wifi")
+        else '<div style="font-size: 11px; color: #888; font-weight: 600; margin-top: 2px;">📶 SkyFly Wi-Fi: Not Added</div>'
     )
 
     card_html = f"""
@@ -3426,7 +3442,7 @@ if "selected_itinerary" in st.session_state:
                 <div style="text-align: right;">
                     <div class="bp-field">Leg Fare (All-In)</div>
                     <div class="bp-value" style="color: #F28425;">${leg_all_in:.2f}</div>
-                    <div style="font-size: 10px; color: #777; margin-top: 2px;">High-Speed SkyFly</div>
+                    {wifi_html}
                 </div>
             </div>
             
@@ -3485,7 +3501,7 @@ if "selected_itinerary" in st.session_state:
                 <div style="border-left: 1px solid #ddd;"></div>
                 <div style="flex: 1;">
                     <div class="bp-field">Est. Flight Load</div>
-                    <div class="bp-value" style="font-size: 13px;">👥 {flight_info['pax_count']} / {flight_info['capacity']} ({flight_info['load_factor']}%)</div>
+                    <div class="bp-value" style="font-size: 13px;">👥 {live_pax} / {flight_info['capacity']} ({live_lf}%)</div>
                 </div>
             </div>
 
