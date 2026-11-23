@@ -767,7 +767,7 @@ routes_raw = [
     (1378, "PAFA", "KPSP", "Tue, Thu, Sat"),  # Palm Springs, CA
 
     # ----------------------------------------------------
-    # KPVU Bridge Spokes (1400 Block - Intermountain West Hub)
+    # KPVU Bridge Spokes (1400 Block - Mountain West Hub)
     # ----------------------------------------------------
     (1400, "KPVU", "KBOI", "Mon, Wed, Fri, Sun"),  # Boise, ID
     (1402, "KPVU", "KSGU", "Mon, Wed, Fri, Sun"),  # St. George, UT
@@ -809,7 +809,6 @@ routes_raw = [
     (1474, "KPVU", "KABQ", "Mon, Wed, Fri, Sun"),  # Albuquerque, NM
     (1476, "KPVU", "KSAF", "Tue, Thu, Sat"),  # Santa Fe, NM
     (1478, "KPVU", "KBJC", "Mon, Wed, Fri, Sun"),  # Broomfield, CO
-    (1480, "KPVU", "KCOS", "Mon, Wed, Fri, Sun"),  # Colorado Springs, CO
     (1482, "KPVU", "KDRO", "Tue, Thu, Sat"),  # Durango, CO
     (1484, "KPVU", "KLAS", "Daily"),  # Las Vegas, NV
     (1486, "KPVU", "KEKO", "Thu, Sun"),  # Elko, NV
@@ -819,6 +818,15 @@ routes_raw = [
     (1494, "KPVU", "KCOD", "Mon, Fri"),  # Cody, WY
     (1496, "KPVU", "KSMF", "Mon, Wed, Fri, Sun"),  # Sacramento, CA
     (1498, "KPVU", "KPRC", "Mon, Wed, Fri"),  # Prescott, AZ
+    (2400, "KPVU", "KMTJ", "Tue, Thu, Sat"),  # Montrose / Telluride, CO
+    (2402, "KPVU", "KHDN", "Thu, Sun"),  # Hayden / Steamboat Springs, CO
+    (2404, "KPVU", "KEGE", "Thu, Sun"),  # Eagle / Vail, CO
+    (2406, "KPVU", "KBIL", "Mon, Wed, Fri, Sun"),  # Billings, MT
+    (2408, "KPVU", "KGPI", "Tue, Thu, Sat"),  # Kalispell / Glacier Park, MT
+    (2410, "KPVU", "KSUN", "Thu, Sun"),  # Sun Valley, ID
+    (2412, "KPVU", "KSAN", "Mon, Fri"),  # San Diego, CA
+    (2414, "KPVU", "KSBD", "Mon, Wed, Fri, Sun"),  # San Bernardino, CA
+    (2416, "KPVU", "PHKO", "Wed, Sat"),  # Kailua-Kona, HI
 
     # ----------------------------------------------------
     # KIWA Bridge Spokes (300 Block - Southwest Hub)
@@ -837,6 +845,7 @@ routes_raw = [
     (322, "KIWA", "KDRO", "Mon, Wed, Fri, Sun"),  # Durango, CO
     (324, "KIWA", "KEKO", "Tue, Thu, Sat"),  # Elko, NV
     (326, "KIWA", "KSBP", "Thu, Sun"),  # San Luis Obispo, CA
+    (328, "KIWA", "PHLI", "Mon, Fri"),  # Lihue, HI
     (330, "KIWA", "PHNL", "Wed, Sat"),  # Honolulu, HI
     (332, "KIWA", "PHOG", "Thu, Sun"),  # Kahului, HI
     (334, "KIWA", "PHKO", "Wed, Sat"),  # Kailua-Kona, HI
@@ -859,7 +868,6 @@ routes_raw = [
     (368, "KIWA", "KHRL", "Thu, Sun"),  # Harlingen, TX
     (370, "KIWA", "KMFE", "Tue, Thu, Sat"),  # McAllen, TX
     (372, "KIWA", "KLRD", "Mon, Fri"),  # Laredo, TX
-    (374, "KIWA", "KCOS", "Mon, Wed, Fri, Sun"),  # Colorado Springs, CO
     (376, "KIWA", "KGJT", "Tue, Thu, Sat"),  # Grand Junction, CO
     (378, "KIWA", "KPUB", "Thu, Sun"),  # Pueblo, CO
     (380, "KIWA", "KSAF", "Mon, Wed, Fri"),  # Santa Fe, NM
@@ -868,6 +876,10 @@ routes_raw = [
     (386, "KIWA", "KSMF", "Mon, Wed, Fri, Sun"),  # Sacramento, CA
     (388, "KIWA", "KRDD", "Mon, Wed, Fri"),  # Redding, CA
     (390, "KIWA", "KRNO", "Tue, Thu, Sat"),  # Reno, NV
+    (392, "KIWA", "KCNY", "Mon, Wed, Fri"),  # Moab, UT
+    (394, "KIWA", "KMTJ", "Tue, Thu, Sat"),  # Montrose / Telluride, CO
+    (396, "KIWA", "KLAS", "Daily"),  # Las Vegas, NV
+    (398, "KIWA", "KSUN", "Thu, Sun"),  # Sun Valley, ID
 
     # ----------------------------------------------------
     # KBLI Bridge Spokes (400 Block - Pacific Northwest Hub)
@@ -1745,6 +1757,24 @@ routes_raw = [
     (1964, "KCOS", "KOKC", "Mon, Wed, Fri, Sun"),  # Oklahoma City, OK
     (1966, "KCOS", "KAMA", "Tue, Thu, Sat"),  # Amarillo, TX
     (1968, "KCOS", "KLBB", "Tue, Thu, Sat"),  # Lubbock, TX
+    (1970, "KCOS", "KCNY", "Mon, Wed, Fri"),  # Moab, UT
+    (1972, "KCOS", "KVEL", "Tue, Thu, Sat"),  # Vernal, UT
+    (1974, "KCOS", "KFLG", "Tue, Thu, Sat"),  # Flagstaff, AZ
+    (1976, "KCOS", "KTUS", "Mon, Wed, Fri, Sun"),  # Tucson, AZ
+    (1978, "KCOS", "KSGU", "Mon, Wed, Fri, Sun"),  # St. George, UT
+    (1980, "KCOS", "KELP", "Mon, Wed, Fri, Sun"),  # El Paso, TX
+    (1982, "KCOS", "KLAS", "Daily"),  # Las Vegas, NV
+    (1984, "KCOS", "KCDC", "Thu, Sun"),  # Cedar City, UT
+    (1986, "KCOS", "KPRC", "Mon, Wed, Fri"),  # Prescott, AZ
+    (1988, "KCOS", "KIFP", "Thu, Sun"),  # Bullhead City / Laughlin, AZ
+    (1990, "KCOS", "KEKO", "Tue, Thu, Sat"),  # Elko, NV
+    (1992, "KCOS", "KRNO", "Tue, Thu, Sat"),  # Reno / Tahoe, NV
+    (1994, "KCOS", "KHLN", "Mon, Wed, Fri"),  # Helena, MT
+    (1996, "KCOS", "KPIH", "Mon, Wed, Fri"),  # Pocatello, ID
+    (1998, "KCOS", "KGPI", "Tue, Thu, Sat"),  # Kalispell / Glacier Park, MT
+    (2900, "KCOS", "KSUN", "Thu, Sun"),  # Sun Valley, ID
+    (2902, "KCOS", "KMAF", "Mon, Wed, Fri, Sun"),  # Midland / Odessa, TX
+
 
 ]
 
