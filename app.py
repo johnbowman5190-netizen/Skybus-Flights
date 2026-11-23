@@ -1083,84 +1083,6 @@ routes_raw = [
     (2222, "KSFB", "KFLL", "Mon, Fri"),  # Fort Lauderdale, FL
 
     # ----------------------------------------------------
-    # KONT Bridge Spokes (1300 Block - Southern California / West Coast Hub)
-    # ----------------------------------------------------
-    (1300, "KONT", "KFAT", "Mon, Wed, Fri, Sun"),  # Fresno, CA
-    (1302, "KONT", "KSBP", "Tue, Thu, Sat"),  # San Luis Obispo, CA
-    (1304, "KONT", "KSBA", "Mon, Wed, Fri, Sun"),  # Santa Barbara, CA
-    (1306, "KONT", "KMRY", "Tue, Thu, Sat"),  # Monterey, CA
-    (1308, "KONT", "KOAK", "Daily"),  # Oakland, CA
-    (1310, "KONT", "KSJC", "Mon, Wed, Fri, Sun"),  # San Jose, CA
-    (1312, "KONT", "KSMF", "Daily"),  # Sacramento, CA
-    (1314, "KONT", "KSCK", "Tue, Thu, Sat"),  # Stockton, CA
-    (1316, "KONT", "KRDD", "Mon, Fri"),  # Redding, CA
-    (1318, "KONT", "KACV", "Tue, Thu, Sat"),  # Arcata / Eureka, CA
-    (1320, "KONT", "KBFL", "Mon, Wed, Fri"),  # Bakersfield, CA
-    (1322, "KONT", "KSTS", "Tue, Thu, Sat"),  # Santa Rosa / Sonoma, CA
-    (1324, "KONT", "KLAS", "Daily"),  # Las Vegas, NV
-    (1326, "KONT", "KRNO", "Mon, Wed, Fri, Sun"),  # Reno / Tahoe, NV
-    (1328, "KONT", "KTUS", "Mon, Wed, Fri, Sun"),  # Tucson, AZ
-    (1330, "KONT", "KFLG", "Tue, Thu, Sat"),  # Flagstaff, AZ
-    (1332, "KONT", "KYUM", "Mon, Fri"),  # Yuma, AZ
-    (1334, "KONT", "KPDX", "Daily"),  # Portland, OR
-    (1336, "KONT", "KEUG", "Mon, Wed, Fri, Sun"),  # Eugene, OR
-    (1338, "KONT", "KMFR", "Tue, Thu, Sat"),  # Medford, OR
-    (1340, "KONT", "KRDM", "Mon, Wed, Fri"),  # Redmond / Bend, OR
-    (1342, "KONT", "KGEG", "Mon, Wed, Fri, Sun"),  # Spokane, WA
-    (1344, "KONT", "KPSC", "Tue, Thu, Sat"),  # Pasco / Tri-Cities, WA
-    (1346, "KONT", "KBOI", "Mon, Wed, Fri, Sun"),  # Boise, ID
-    (1348, "KONT", "KIDA", "Tue, Thu, Sat"),  # Idaho Falls, ID
-    (1350, "KONT", "KTWF", "Thu, Sun"),  # Twin Falls, ID
-    (1352, "KONT", "KOGD", "Tue, Thu, Sat"),  # Ogden, UT
-    (1354, "KONT", "KSGU", "Mon, Wed, Fri"),  # St. George, UT
-    (1356, "KONT", "KBZN", "Mon, Wed, Fri, Sun"),  # Bozeman, MT
-    (1358, "KONT", "KMSO", "Tue, Thu, Sat"),  # Missoula, MT
-    (1360, "KONT", "KFCA", "Thu, Sun"),  # Kalispell / Glacier Park, MT
-    (1362, "KONT", "KBIL", "Tue, Thu, Sat"),  # Billings, MT
-    (1364, "KONT", "KGJT", "Tue, Thu, Sat"),  # Grand Junction, CO
-    (1366, "KONT", "KABQ", "Mon, Wed, Fri, Sun"),  # Albuquerque, NM
-    (1368, "KONT", "KELP", "Mon, Wed, Fri, Sun"),  # El Paso, TX
-
-    # ----------------------------------------------------
-    # KCOS Bridge Spokes (1400 Block - Colorado / Rocky Mountain Hub)
-    # ----------------------------------------------------
-    (1400, "KCOS", "KGJT", "Mon, Wed, Fri, Sun"),  # Grand Junction, CO
-    (1402, "KCOS", "KMTJ", "Tue, Thu, Sat"),  # Montrose / Telluride, CO
-    (1404, "KCOS", "KDRO", "Mon, Wed, Fri"),  # Durango, CO
-    (1406, "KCOS", "KHDN", "Thu, Sun"),  # Hayden / Steamboat Springs, CO
-    (1408, "KCOS", "KEGE", "Thu, Sun"),  # Eagle / Vail, CO
-    (1410, "KCOS", "KABQ", "Mon, Wed, Fri, Sun"),  # Albuquerque, NM
-    (1412, "KCOS", "KSAF", "Tue, Thu, Sat"),  # Santa Fe, NM
-    (1414, "KCOS", "KROW", "Mon, Fri"),  # Roswell, NM
-    (1416, "KCOS", "KCYS", "Tue, Thu, Sat"),  # Cheyenne, WY
-    (1418, "KCOS", "KCPR", "Mon, Wed, Fri"),  # Casper, WY
-    (1420, "KCOS", "KJAC", "Thu, Sun"),  # Jackson Hole, WY
-    (1422, "KCOS", "KCOD", "Tue, Sat"),  # Cody / Yellowstone, WY
-    (1424, "KCOS", "KRAP", "Mon, Wed, Fri, Sun"),  # Rapid City, SD
-    (1426, "KCOS", "KFSD", "Mon, Wed, Fri, Sun"),  # Sioux Falls, SD
-    (1428, "KCOS", "KBIS", "Tue, Thu, Sat"),  # Bismarck, ND
-    (1430, "KCOS", "KFAR", "Mon, Wed, Fri, Sun"),  # Fargo, ND
-    (1432, "KCOS", "KGFK", "Tue, Thu, Sat"),  # Grand Forks, ND
-    (1434, "KCOS", "KMOT", "Mon, Fri"),  # Minot, ND
-    (1436, "KCOS", "KBIL", "Mon, Wed, Fri, Sun"),  # Billings, MT
-    (1438, "KCOS", "KBZN", "Mon, Wed, Fri, Sun"),  # Bozeman, MT
-    (1440, "KCOS", "KMSO", "Tue, Thu, Sat"),  # Missoula, MT
-    (1442, "KCOS", "KGTF", "Tue, Thu, Sat"),  # Great Falls, MT
-    (1444, "KCOS", "KBOI", "Mon, Wed, Fri, Sun"),  # Boise, ID
-    (1446, "KCOS", "KIDA", "Tue, Thu, Sat"),  # Idaho Falls, ID
-    (1448, "KCOS", "KICT", "Mon, Wed, Fri, Sun"),  # Wichita, KS
-    (1450, "KCOS", "KLNK", "Tue, Thu, Sat"),  # Lincoln, NE
-    (1452, "KCOS", "KGRI", "Mon, Fri"),  # Grand Island, NE
-    (1454, "KCOS", "KDSM", "Mon, Wed, Fri, Sun"),  # Des Moines, IA
-    (1456, "KCOS", "KCID", "Tue, Thu, Sat"),  # Cedar Rapids, IA
-    (1458, "KCOS", "KSGF", "Tue, Thu, Sat"),  # Springfield / Branson, MO
-    (1460, "KCOS", "KXNA", "Mon, Wed, Fri, Sun"),  # Bentonville / Fayetteville, AR
-    (1462, "KCOS", "KTUL", "Mon, Wed, Fri, Sun"),  # Tulsa, OK
-    (1464, "KCOS", "KOKC", "Mon, Wed, Fri, Sun"),  # Oklahoma City, OK
-    (1466, "KCOS", "KAMA", "Tue, Thu, Sat"),  # Amarillo, TX
-    (1468, "KCOS", "KLBB", "Tue, Thu, Sat"),  # Lubbock, TX
-
-    # ----------------------------------------------------
     # KSAT Bridge Spokes (1500 Block - Texas / South-Central Hub)
     # ----------------------------------------------------
     (1500, "KSAT", "KELP", "Daily"),  # El Paso, TX
@@ -1240,6 +1162,84 @@ routes_raw = [
     (1670, "KTYS", "KPGD", "Tue, Thu, Sat"),  # Punta Gorda / Ft. Myers, FL
     (1672, "KTYS", "KVPS", "Thu, Sun"),  # Eglin / Destin, FL
     (1674, "KTYS", "KPNS", "Mon, Wed, Fri, Sun"),  # Pensacola, FL
+
+    # ----------------------------------------------------
+    # KONT Bridge Spokes (1700 Block - Southern California / West Coast Hub)
+    # ----------------------------------------------------
+    (1700, "KONT", "KFAT", "Mon, Wed, Fri, Sun"),  # Fresno, CA
+    (1702, "KONT", "KSBP", "Tue, Thu, Sat"),  # San Luis Obispo, CA
+    (1704, "KONT", "KSBA", "Mon, Wed, Fri, Sun"),  # Santa Barbara, CA
+    (1706, "KONT", "KMRY", "Tue, Thu, Sat"),  # Monterey, CA
+    (1708, "KONT", "KOAK", "Daily"),  # Oakland, CA
+    (1710, "KONT", "KSJC", "Mon, Wed, Fri, Sun"),  # San Jose, CA
+    (1712, "KONT", "KSMF", "Daily"),  # Sacramento, CA
+    (1714, "KONT", "KSCK", "Tue, Thu, Sat"),  # Stockton, CA
+    (1716, "KONT", "KRDD", "Mon, Fri"),  # Redding, CA
+    (1718, "KONT", "KACV", "Tue, Thu, Sat"),  # Arcata / Eureka, CA
+    (1720, "KONT", "KBFL", "Mon, Wed, Fri"),  # Bakersfield, CA
+    (1722, "KONT", "KSTS", "Tue, Thu, Sat"),  # Santa Rosa / Sonoma, CA
+    (1724, "KONT", "KLAS", "Daily"),  # Las Vegas, NV
+    (1726, "KONT", "KRNO", "Mon, Wed, Fri, Sun"),  # Reno / Tahoe, NV
+    (1728, "KONT", "KTUS", "Mon, Wed, Fri, Sun"),  # Tucson, AZ
+    (1730, "KONT", "KFLG", "Tue, Thu, Sat"),  # Flagstaff, AZ
+    (1732, "KONT", "KYUM", "Mon, Fri"),  # Yuma, AZ
+    (1734, "KONT", "KPDX", "Daily"),  # Portland, OR
+    (1736, "KONT", "KEUG", "Mon, Wed, Fri, Sun"),  # Eugene, OR
+    (1738, "KONT", "KMFR", "Tue, Thu, Sat"),  # Medford, OR
+    (1740, "KONT", "KRDM", "Mon, Wed, Fri"),  # Redmond / Bend, OR
+    (1742, "KONT", "KGEG", "Mon, Wed, Fri, Sun"),  # Spokane, WA
+    (1744, "KONT", "KPSC", "Tue, Thu, Sat"),  # Pasco / Tri-Cities, WA
+    (1746, "KONT", "KBOI", "Mon, Wed, Fri, Sun"),  # Boise, ID
+    (1748, "KONT", "KIDA", "Tue, Thu, Sat"),  # Idaho Falls, ID
+    (1750, "KONT", "KTWF", "Thu, Sun"),  # Twin Falls, ID
+    (1752, "KONT", "KOGD", "Tue, Thu, Sat"),  # Ogden, UT
+    (1754, "KONT", "KSGU", "Mon, Wed, Fri"),  # St. George, UT
+    (1756, "KONT", "KBZN", "Mon, Wed, Fri, Sun"),  # Bozeman, MT
+    (1758, "KONT", "KMSO", "Tue, Thu, Sat"),  # Missoula, MT
+    (1760, "KONT", "KGPI", "Thu, Sun"),  # Kalispell / Glacier Park, MT
+    (1762, "KONT", "KBIL", "Tue, Thu, Sat"),  # Billings, MT
+    (1764, "KONT", "KGJT", "Tue, Thu, Sat"),  # Grand Junction, CO
+    (1766, "KONT", "KABQ", "Mon, Wed, Fri, Sun"),  # Albuquerque, NM
+    (1768, "KONT", "KELP", "Mon, Wed, Fri, Sun"),  # El Paso, TX
+
+    # ----------------------------------------------------
+    # KCOS Bridge Spokes (1900 Block - Colorado / Rocky Mountain Hub)
+    # ----------------------------------------------------
+    (1900, "KCOS", "KGJT", "Mon, Wed, Fri, Sun"),  # Grand Junction, CO
+    (1902, "KCOS", "KMTJ", "Tue, Thu, Sat"),  # Montrose / Telluride, CO
+    (1904, "KCOS", "KDRO", "Mon, Wed, Fri"),  # Durango, CO
+    (1906, "KCOS", "KHDN", "Thu, Sun"),  # Hayden / Steamboat Springs, CO
+    (1908, "KCOS", "KEGE", "Thu, Sun"),  # Eagle / Vail, CO
+    (1910, "KCOS", "KABQ", "Mon, Wed, Fri, Sun"),  # Albuquerque, NM
+    (1912, "KCOS", "KSAF", "Tue, Thu, Sat"),  # Santa Fe, NM
+    (1914, "KCOS", "KROW", "Mon, Fri"),  # Roswell, NM
+    (1916, "KCOS", "KCYS", "Tue, Thu, Sat"),  # Cheyenne, WY
+    (1918, "KCOS", "KCPR", "Mon, Wed, Fri"),  # Casper, WY
+    (1920, "KCOS", "KJAC", "Thu, Sun"),  # Jackson Hole, WY
+    (1922, "KCOS", "KCOD", "Tue, Sat"),  # Cody / Yellowstone, WY
+    (1924, "KCOS", "KRAP", "Mon, Wed, Fri, Sun"),  # Rapid City, SD
+    (1926, "KCOS", "KFSD", "Mon, Wed, Fri, Sun"),  # Sioux Falls, SD
+    (1928, "KCOS", "KBIS", "Tue, Thu, Sat"),  # Bismarck, ND
+    (1930, "KCOS", "KFAR", "Mon, Wed, Fri, Sun"),  # Fargo, ND
+    (1932, "KCOS", "KGFK", "Tue, Thu, Sat"),  # Grand Forks, ND
+    (1934, "KCOS", "KMOT", "Mon, Fri"),  # Minot, ND
+    (1936, "KCOS", "KBIL", "Mon, Wed, Fri, Sun"),  # Billings, MT
+    (1938, "KCOS", "KBZN", "Mon, Wed, Fri, Sun"),  # Bozeman, MT
+    (1940, "KCOS", "KMSO", "Tue, Thu, Sat"),  # Missoula, MT
+    (1942, "KCOS", "KGTF", "Tue, Thu, Sat"),  # Great Falls, MT
+    (1944, "KCOS", "KBOI", "Mon, Wed, Fri, Sun"),  # Boise, ID
+    (1946, "KCOS", "KIDA", "Tue, Thu, Sat"),  # Idaho Falls, ID
+    (1948, "KCOS", "KICT", "Mon, Wed, Fri, Sun"),  # Wichita, KS
+    (1950, "KCOS", "KLNK", "Tue, Thu, Sat"),  # Lincoln, NE
+    (1952, "KCOS", "KGRI", "Mon, Fri"),  # Grand Island, NE
+    (1954, "KCOS", "KDSM", "Mon, Wed, Fri, Sun"),  # Des Moines, IA
+    (1956, "KCOS", "KCID", "Tue, Thu, Sat"),  # Cedar Rapids, IA
+    (1958, "KCOS", "KSGF", "Tue, Thu, Sat"),  # Springfield / Branson, MO
+    (1960, "KCOS", "KXNA", "Mon, Wed, Fri, Sun"),  # Bentonville / Fayetteville, AR
+    (1962, "KCOS", "KTUL", "Mon, Wed, Fri, Sun"),  # Tulsa, OK
+    (1964, "KCOS", "KOKC", "Mon, Wed, Fri, Sun"),  # Oklahoma City, OK
+    (1966, "KCOS", "KAMA", "Tue, Thu, Sat"),  # Amarillo, TX
+    (1968, "KCOS", "KLBB", "Tue, Thu, Sat"),  # Lubbock, TX
 
 ]
 
