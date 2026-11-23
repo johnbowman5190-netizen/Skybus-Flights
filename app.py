@@ -2643,9 +2643,8 @@ def find_routes(
     )
     return valid_paths[:max_display]
 
-
 # ==========================================
-# FLEET & CAPACITY HELPER
+# 3. FLEET, CAPACITY & ULCC DEMAND ENGINE
 # ==========================================
 
 HUBS = {"KRIC", "KSFB", "KSWF", "KBGR", "TJBQ"}
@@ -2669,18 +2668,52 @@ FLEET_SPECS = {
     },
 }
 
-def get_flight_capacity_and_pax(leg, last_state=None):
-    """Assigns aircraft model, tail registration, and realistic passenger load
 
-    factor considering ULCC network dynamics: day of week, seasonal calendar,
-    route type, and directional leisure asymmetry ("empty leg" effect).
+def simulate_booking_curve(
+    flight_num, capacity: int, projected_pax: int, days_out: int = 21
+) -> int:
+    """Converts projected departure load into seats currently sold at `days_out`
+    before departure, plus any live bookings made in this Streamlit session.
+    """
+    f_id = parse_flight_int(flight_num)
+    session_booked = st.session_state.booked_seats.get(f_id, 0)
+
+    if days_out <= 0:
+        return min(capacity, projected_pax + session_booked)
+
+    projected_lf = projected_pax / capacity
+    rng = random.Random(f"curve-{f_id}")
+
+    if projected_lf >= 0.90:
+        # Peak / holiday flights sell out their 10 $10 seats early
+        pace = rng.uniform(0.25, 0.55) if days_out <= 21 else rng.uniform(0.10, 0.25)
+        sold = int(projected_pax * pace)
+    elif projected_lf >= 0.78:
+        # Moderate-high routes: ~45% still have 1-5 $10 BIRD-10 seats 14+ days out
+        if days_out >= 14 and rng.random() < 0.45:
+            sold = rng.randint(5, 9)
+        else:
+            sold = rng.randint(11, int(capacity * 0.28))
+    else:
+        # Off-peak / counter-flow ("empty leg") flights keep $10 seats open until 7 days out
+        if days_out >= 7:
+            sold = rng.randint(2, 8)
+        else:
+            sold = int(projected_pax * 0.65)
+
+    return min(capacity, sold + session_booked)
+
+
+def get_flight_capacity_and_pax(leg, last_state=None, days_out: int = 21):
+    """Assigns aircraft model, tail registration, projected departure load, and
+    current advance-purchase seat count using ULCC network dynamics.
     """
     flight_num = leg["Flight"]
-    orig = leg["Origin"]
-    dest = leg["Destination"]
+    orig = str(leg["Origin"]).strip().upper()
+    dest = str(leg["Destination"]).strip().upper()
 
-    c1 = AIRPORT_COORDS.get(orig)
-    c2 = AIRPORT_COORDS.get(dest)
+    c1 = get_coords(orig)
+    c2 = get_coords(dest)
     distance = haversine_miles(c1, c2) if (c1 and c2) else 600
 
     now = datetime.now()
@@ -2691,15 +2724,23 @@ def get_flight_capacity_and_pax(leg, last_state=None):
     # Route Classification Checks
     is_hub_to_hub = (orig in HUBS) and (dest in HUBS)
     touches_hub = (orig in HUBS) or (dest in HUBS)
-    is_near_intl = (orig in INTL_AIRPORTS) or (dest in INTL_AIRPORTS)
-    is_transatlantic = orig.startswith(("L", "E", "F")) or dest.startswith(
-        ("L", "E", "F")
+    is_near_intl = (
+        (orig in INTL_AIRPORTS)
+        or (dest in INTL_AIRPORTS)
+        or (not is_us_airport(orig))
+        or (not is_us_airport(dest))
+    )
+    is_long_haul_intl = (
+        orig.startswith(("L", "E", "F", "S", "R"))
+        or dest.startswith(("L", "E", "F", "S", "R"))
+        or orig == "BIKF"
+        or dest == "BIKF"
     )
 
     # ---------------------------------------------------------
     # 1. AIRCRAFT TYPE SELECTION
     # ---------------------------------------------------------
-    if is_transatlantic or distance >= 2000 or is_hub_to_hub:
+    if is_long_haul_intl or distance >= 2000 or is_hub_to_hub:
         ac_type = "A321"
     elif is_near_intl:
         ac_type = (
@@ -2739,8 +2780,6 @@ def get_flight_capacity_and_pax(leg, last_state=None):
     # ---------------------------------------------------------
     # 2. REALISTIC ULCC DEMAND ENGINE
     # ---------------------------------------------------------
-
-    # A. Day-of-Week Factor (Mon=0 ... Sun=6)
     dow = now.weekday()
     dow_multipliers = {
         0: 0.92,  # Monday (Business / Return leisure)
@@ -2753,64 +2792,53 @@ def get_flight_capacity_and_pax(leg, last_state=None):
     }
     dow_factor = dow_multipliers[dow]
 
-    # B. Seasonal Calendar Factor
     month, day = now.month, now.day
     is_thanksgiving = month == 11 and day >= 18
-    is_holiday_season = (month == 12 and day >= 14) or (
-        month == 1 and day <= 6
-    )
+    is_holiday_season = (month == 12 and day >= 14) or (month == 1 and day <= 6)
     is_summer_peak = (month == 6 and day >= 15) or month in [7, 8]
     is_spring_break = (month == 3 and day >= 10) or (month == 4 and day <= 20)
     is_winter_lull = (month == 1 and day > 6) or month == 2
     is_fall_lull = month == 9 or (month == 10 and day <= 24)
 
     if is_holiday_season or is_thanksgiving:
-        season_factor = 1.18  # Major holiday rush
+        season_factor = 1.18
     elif is_summer_peak:
-        season_factor = 1.10  # Peak summer vacation
+        season_factor = 1.10
     elif is_spring_break:
-        season_factor = 1.05  # Spring Break surge
+        season_factor = 1.05
     elif is_winter_lull or is_fall_lull:
-        season_factor = 0.80  # Post-holiday / off-peak lulls
+        season_factor = 0.80
     else:
-        season_factor = 0.95  # Standard shoulder period
+        season_factor = 0.95
 
-    # C. Route Hierarchy Factor
-    if is_transatlantic or is_hub_to_hub:
+    if is_long_haul_intl or is_hub_to_hub:
         route_factor = 1.06
     elif touches_hub:
         route_factor = 0.97
     else:
-        route_factor = 0.84  # Regional spoke-to-spoke routes carry lower average loads
+        route_factor = 0.84
 
-    # D. Directional Leisure Asymmetry ("Empty Leg" Effect)
     SUN_DESTINATIONS = {
-        "KSFB",
-        "TJBQ",
-        "TIST",
-        "TISX",
-        "KMYR",
-        "KEYW",
-        "KPBI",
-        "KRSW",
+        "KSFB", "TJBQ", "TIST", "TISX", "KMYR", "KEYW", "KPBI", "KRSW",
+        "MMUN", "MMCZ", "MMSD", "MMPR", "MYNN", "MDPC", "MKJS", "TNCA",
     }
     is_heading_to_sun = dest in SUN_DESTINATIONS
     is_heading_from_sun = orig in SUN_DESTINATIONS
 
     directional_factor = 1.00
     if is_heading_to_sun:
-        if dow in [3, 4]:  # Thu/Fri heading to leisure spots
+        if dow in [3, 4]:
             directional_factor = 1.12
-        elif dow in [0, 6]:  # Sun/Mon heading to leisure spots (counter-flow)
+        elif dow in [0, 6]:
             directional_factor = 0.82
     elif is_heading_from_sun:
-        if dow in [0, 6]:  # Sun/Mon returning from leisure spots
+        if dow in [0, 6]:
             directional_factor = 1.12
-        elif dow in [3, 4]:  # Thu/Fri returning from leisure spots (counter-flow)
+        elif dow in [3, 4]:
             directional_factor = 0.82
 
     # ---------------------------------------------------------
-    # 3. FINAL LOAD FACTOR CALCULATION
+    # 3. FINAL LOAD FACTOR & ADVANCE BOOKING CURVE
     # ---------------------------------------------------------
     baseline_load = 0.84
     target_lf = (
@@ -2821,15 +2849,14 @@ def get_flight_capacity_and_pax(leg, last_state=None):
         * directional_factor
     )
 
-    # Deterministic flight-level variance (+/- 4%)
     variance = rng.uniform(-0.04, 0.04)
-    final_load_factor = target_lf + variance
-
-    # Allow load factors to naturally range between 48% (off-peak Tuesday) and 99% (holiday Sunday)
-    final_load_factor = max(0.48, min(0.99, final_load_factor))
+    final_load_factor = max(0.48, min(0.99, target_lf + variance))
 
     capacity = spec["capacity"]
     pax_count = int(capacity * final_load_factor)
+    seats_sold_now = simulate_booking_curve(
+        flight_num, capacity, pax_count, days_out=days_out
+    )
 
     return {
         "aircraft_code": ac_type,
@@ -2837,6 +2864,7 @@ def get_flight_capacity_and_pax(leg, last_state=None):
         "tail_number": tail_number,
         "capacity": capacity,
         "pax_count": pax_count,
+        "seats_sold_now": seats_sold_now,
         "load_factor": round((pax_count / capacity) * 100, 1),
     }
 
@@ -2846,6 +2874,7 @@ def get_flight_capacity_and_pax(leg, last_state=None):
 
 network = get_full_network()
 all_airports = sorted(list(set([f["Origin"] for f in network])))
+airport_names_map = globals().get("AIRPORT_NAMES", {})
 
 st.subheader("🔍 Search Any Route on Network Map")
 
@@ -2858,7 +2887,7 @@ with col1:
         options=all_airports,
         index=all_airports.index("KRIC") if "KRIC" in all_airports else 0,
         key="orig_select_val",
-        format_func=lambda code: f"{code} - {AIRPORT_NAMES.get(code, 'Unknown Airport')}",
+        format_func=lambda code: f"{code} - {airport_names_map.get(code, code)}",
     )
 
 # 2. Calculate Active Destinations for Today from selected Origin
@@ -2880,9 +2909,7 @@ if (
 # 3. Safe Callback for Random Selection
 def set_random_destination():
     current_dest = st.session_state.get("dest_select_val", None)
-    # Pick exclusively from today's valid destinations, excluding current selection
     available = [a for a in valid_destinations if a != current_dest]
-
     if available:
         st.session_state["dest_select_val"] = random.SystemRandom().choice(
             available
@@ -2901,10 +2928,10 @@ with col2:
         if valid_destinations:
             dest_select = st.selectbox(
                 "Destination Airport",
-                options=valid_destinations,  # Hides destinations without active flights today
+                options=valid_destinations,
                 key="dest_select_val",
                 label_visibility="collapsed",
-                format_func=lambda code: f"{code} - {AIRPORT_NAMES.get(code, 'Unknown Airport')}",
+                format_func=lambda code: f"{code} - {airport_names_map.get(code, code)}",
             )
         else:
             st.warning("No flights operate today from this airport.")
@@ -2942,6 +2969,39 @@ with col4:
         index=4,
     )
 
+# 7. Fare & Booking Window Controls
+b_col1, b_col2, b_col3 = st.columns([1.2, 1, 1.3])
+with b_col1:
+    days_out_label = st.selectbox(
+        "Advance Booking Window",
+        options=[
+            ("21+ Days Out (BIRD-10 Eligible)", 21),
+            ("14 Days Out (Early Bird)", 14),
+            ("7 Days Out (Smart Saver)", 7),
+            ("3 Days Out (Standard)", 3),
+            ("Same-Day Walk-Up (0 Days)", 0),
+        ],
+        index=0,
+        format_func=lambda x: x[0],
+    )
+    days_out_val = days_out_label[1]
+
+with b_col2:
+    pax_count_input = st.number_input(
+        "Passengers", min_value=1, max_value=9, value=1, step=1
+    )
+
+with b_col3:
+    sort_mode = st.selectbox(
+        "Sort Results By",
+        options=[
+            "Lowest All-In Fare",
+            "Best Route Score",
+            "Fewest Connections",
+        ],
+        index=0,
+    )
+
 conn_map = {
     "Nonstop": 0,
     "1 Connection": 1,
@@ -2975,7 +3035,7 @@ if st.button("Search Route Options", type="primary"):
         st.session_state["search_conn_str"] = conn_str
 
 # ==========================================
-# 5. SEARCH RESULTS
+# 5. SEARCH RESULTS & FARE CALCULATOR
 # ==========================================
 
 if "search_results" in st.session_state:
@@ -2994,54 +3054,218 @@ if "search_results" in st.session_state:
             f"No routes found connecting {orig} to {dest} with **{selected_conn_str}**."
         )
     else:
-        itinerary_labels = []
-        for i, path in enumerate(results):
-            stops = len(path) - 1
-            stop_str = "Nonstop" if stops == 0 else f"{stops} Connection(s)"
-            leg_chain = " ➔ ".join(
-                [f"{leg['Origin']}" for leg in path]
-                + [path[-1]["Destination"]]
+        # Quote every candidate path using live cabin availability
+        quoted_options = []
+        for path in results:
+            q = quote_route_path(
+                path, days_out=days_out_val, passengers=int(pax_count_input)
             )
-            itinerary_labels.append(f"Option {i+1} [{stop_str}]: {leg_chain}")
+            if not q.get("sold_out"):
+                quoted_options.append((path, q))
 
-        selected_option_idx = st.radio(
-            "Select an option to view leg details and issue boarding pass:",
-            range(len(itinerary_labels)),
-            format_func=lambda x: itinerary_labels[x],
-        )
-
-        selected_path = results[selected_option_idx]
-
-        st.markdown(
-            f"#### 📋 Leg Breakdown for Option {selected_option_idx + 1}"
-        )
-        last_state = {}
-        for idx, leg in enumerate(selected_path, 1):
-            flight_info = get_flight_capacity_and_pax(
-                leg, last_state=last_state
-            )
-            st.write(
-                f"**Leg {idx}:** Flight **SX #{leg['Flight']}** | `{leg['Origin']}` ➔ `{leg['Destination']}` | "
-                f"Days: *{leg['Days']}* | "
-                f"✈️ **Aircraft:** {flight_info['aircraft_name']} (`{flight_info['tail_number']}`) | "
-                f"👥 **Est. Load:** {flight_info['pax_count']}/{flight_info['capacity']} ({flight_info['load_factor']}%)"
+        if sort_mode == "Lowest All-In Fare":
+            quoted_options.sort(key=lambda item: item[1]["per_pax_all_in"])
+        elif sort_mode == "Fewest Connections":
+            quoted_options.sort(
+                key=lambda item: (len(item[0]) - 1, item[1]["per_pax_all_in"])
             )
 
-        st.session_state["selected_itinerary"] = selected_path
+        if not quoted_options:
+            st.warning(
+                "All matching flights are currently sold out for the selected passenger count."
+            )
+        else:
+            itinerary_labels = []
+            for i, (path, q) in enumerate(quoted_options):
+                stops = len(path) - 1
+                stop_str = "Nonstop" if stops == 0 else f"{stops} Stop(s)"
+                leg_chain = " ➔ ".join(
+                    [f"{leg['Origin']}" for leg in path]
+                    + [path[-1]["Destination"]]
+                )
+                if q["has_bird10"] and all(
+                    l["bucket"] == "BIRD-10" for l in q["legs"]
+                ):
+                    tag = f"🐦 $10 BIRD-10 ({q['min_bird10_seats']} left)"
+                elif q["has_bird10"]:
+                    tag = f"🐦 Mixed BIRD-10 / {q['legs'][-1]['bucket']}"
+                else:
+                    tag = q["legs"][0]["bucket"]
+
+                itinerary_labels.append(
+                    f"Option {i+1} [{stop_str}] — ${q['per_pax_all_in']:.2f}/pax [{tag}]: {leg_chain}"
+                )
+
+            selected_option_idx = st.radio(
+                "Select an option to view leg details, customize add-ons, and issue boarding pass:",
+                range(len(itinerary_labels)),
+                format_func=lambda x: itinerary_labels[x],
+            )
+
+            selected_path, selected_quote = quoted_options[selected_option_idx]
+
+            # Highlight Banner for Fare Summary
+            badge_cls = (
+                "fare-bird10"
+                if selected_quote["has_bird10"]
+                else "fare-standard"
+            )
+            scarcity_html = (
+                f"<span class='scarcity-pill'>🔥 Only {selected_quote['min_bird10_seats']} seat(s) left at the $10 base fare!</span>"
+                if selected_quote["has_bird10"]
+                else "<span style='font-size:12px; color:#555;'>All 10 promotional $10 seats sold — stepped to active cabin tier</span>"
+            )
+
+            st.markdown(
+                f"""
+                <div class="info-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                        <div>
+                            <span class="fare-badge {badge_cls}">{selected_quote['legs'][0]['bucket']}</span>
+                            <span style="margin-left:8px; font-weight:700; font-size:16px;">
+                                Base Fare: ${selected_quote['per_pax_base']:.2f} + Carrier Fee: ${selected_quote['per_pax_carrier_fees']:.2f} + Taxes/Fees: ${selected_quote['per_pax_taxes']:.2f}
+                            </span>
+                            <div style="margin-top:4px;">{scarcity_html}</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="font-size:11px; color:#777; text-transform:uppercase; font-weight:700;">All-In Airfare ({pax_count_input} Pax)</div>
+                            <div style="font-size:24px; font-weight:900; color:#F28425;">${selected_quote['group_all_in']:.2f}</div>
+                        </div>
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+            st.markdown(
+                f"#### 📋 Leg Breakdown for Option {selected_option_idx + 1}"
+            )
+            last_state = {}
+            for idx, (leg, lq) in enumerate(
+                zip(selected_path, selected_quote["legs"]), 1
+            ):
+                flight_info = get_flight_capacity_and_pax(
+                    leg, last_state=last_state, days_out=days_out_val
+                )
+                st.write(
+                    f"**Leg {idx}:** Flight **SX #{leg['Flight']}** | `{leg['Origin']}` ➔ `{leg['Destination']}` ({lq['distance_nm']} nm) | "
+                    f"Days: *{leg['Days']}* | "
+                    f"✈️ **{flight_info['aircraft_name']}** (`{flight_info['tail_number']}`) | "
+                    f"👥 **Booked:** {flight_info['seats_sold_now']}/{flight_info['capacity']} (Dep. Est. {flight_info['load_factor']}%) | "
+                    f"🎟️ **{lq['bucket']}**: `${lq['base_fare']:.2f}` base + `${lq['carrier_fee']:.2f}` fee + `${lq['taxes_total']:.2f}` tax = **`${lq['all_in_total']:.2f}`**"
+                )
+
+            with st.expander("🧾 View Itemized 2026 Government Taxes & Airport Fees"):
+                for idx, lq in enumerate(selected_quote["legs"], 1):
+                    st.markdown(
+                        f"**Leg {idx} ({lq['route']} — Flight SX #{lq['flight']})**"
+                    )
+                    for fee_name, fee_val in lq["tax_breakdown"].items():
+                        st.write(f"- {fee_name}: **${fee_val:.2f}**")
+
+            # Optional Skybus Unbundled Ancillaries
+            st.markdown("#### 🧳 Optional Skybus Add-Ons (Per Passenger)")
+            addons = selected_quote["per_pax_addons"]
+            a_col1, a_col2, a_col3, a_col4 = st.columns(4)
+            with a_col1:
+                add_carryon = st.checkbox(
+                    f"Overhead Carry-On (+${addons['carry_on_bag']:.2f})",
+                    value=True,
+                    help="1 under-seat personal item is always $0.00",
+                )
+            with a_col2:
+                checked_bag_qty = st.selectbox(
+                    "Checked Bags (50 lb)",
+                    options=[
+                        ("0 Bags ($0.00)", 0, 0.0),
+                        (
+                            f"1 Bag (+${addons['checked_bag_1']:.2f})",
+                            1,
+                            addons["checked_bag_1"],
+                        ),
+                        (
+                            f"2 Bags (+${addons['checked_bag_1'] + addons['checked_bag_2']:.2f})",
+                            2,
+                            addons["checked_bag_1"] + addons["checked_bag_2"],
+                        ),
+                    ],
+                    index=1,
+                    format_func=lambda x: x[0],
+                )
+            with a_col3:
+                add_priority = st.checkbox(
+                    f"Zone 1 Priority (+${addons['priority_boarding']:.2f})",
+                    value=True,
+                )
+            with a_col4:
+                add_seat = st.checkbox(
+                    f"Seat Assignment (+${addons['seat_selection']:.2f})",
+                    value=True,
+                )
+
+            per_pax_addon_total = (
+                (addons["carry_on_bag"] if add_carryon else 0.0)
+                + checked_bag_qty[2]
+                + (addons["priority_boarding"] if add_priority else 0.0)
+                + (addons["seat_selection"] if add_seat else 0.0)
+            )
+            grand_checkout_total = round(
+                selected_quote["group_all_in"]
+                + (per_pax_addon_total * int(pax_count_input)),
+                2,
+            )
+
+            c_col1, c_col2 = st.columns([2, 1])
+            with c_col1:
+                st.info(
+                    f"**Checkout Grand Total ({pax_count_input} Passenger(s) + Selected Add-Ons):** **${grand_checkout_total:.2f}**"
+                )
+            with c_col2:
+                if st.button(
+                    "🎟️ Book This Itinerary (Update Seat Inventory)",
+                    use_container_width=True,
+                ):
+                    for leg in selected_path:
+                        f_id = parse_flight_int(leg["Flight"])
+                        st.session_state.booked_seats[f_id] = (
+                            st.session_state.booked_seats.get(f_id, 0)
+                            + int(pax_count_input)
+                        )
+                    st.success(
+                        f"Booked {pax_count_input} seat(s)! Cabin availability updated."
+                    )
+                    st.rerun()
+
+            st.session_state["selected_itinerary"] = selected_path
+            st.session_state["selected_quote"] = selected_quote
+            st.session_state["selected_addons"] = {
+                "carry_on": add_carryon,
+                "checked_bags": checked_bag_qty[1],
+                "priority": add_priority,
+                "seat_selected": add_seat,
+                "grand_total": grand_checkout_total,
+            }
 
 # ==========================================
 # 6. MOBILE BOARDING PASS
 # ==========================================
-
-import math
-import random
-from datetime import datetime
 
 if "selected_itinerary" in st.session_state:
     st.markdown("---")
     st.subheader("📲 Mobile Boarding Pass")
 
     path = st.session_state["selected_itinerary"]
+    active_quote = st.session_state.get("selected_quote")
+    active_addons = st.session_state.get(
+        "selected_addons",
+        {
+            "carry_on": True,
+            "checked_bags": 1,
+            "priority": True,
+            "seat_selected": True,
+            "grand_total": 26.15,
+        },
+    )
 
     selected_leg_index = 0
     if len(path) > 1:
@@ -3056,14 +3280,42 @@ if "selected_itinerary" in st.session_state:
         )
 
     active_leg = path[selected_leg_index]
-    assigned_seat = get_random_seat(active_leg["Flight"])
+    assigned_seat = (
+        get_random_seat(active_leg["Flight"])
+        if active_addons["seat_selected"]
+        else "OPEN"
+    )
     assigned_gate = get_random_gate(active_leg["Flight"])
     today_date = datetime.now().strftime("%d %b %Y").upper()
 
-    # Calculate aircraft model & passenger
-    used_tails = set()
-    path_flight_infos = [get_flight_capacity_and_pax(leg, last_state=last_state) for leg in path]
+    bp_last_state = {}
+    path_flight_infos = [
+        get_flight_capacity_and_pax(
+            leg, last_state=bp_last_state, days_out=days_out_val
+        )
+        for leg in path
+    ]
     flight_info = path_flight_infos[selected_leg_index]
+
+    leg_fare_bucket = (
+        active_quote["legs"][selected_leg_index]["bucket"]
+        if active_quote
+        else "BIRD-10"
+    )
+    leg_all_in = (
+        active_quote["legs"][selected_leg_index]["all_in_total"]
+        if active_quote
+        else 26.15
+    )
+    boarding_zone = "Zone 1" if active_addons["priority"] else "Zone 2"
+    checked_str = (
+        f"🧳 {active_addons['checked_bags']} Checked"
+        if active_addons["checked_bags"] > 0
+        else "🧳 0 Checked"
+    )
+    carryon_str = (
+        "🎒 1 Carry-on" if active_addons["carry_on"] else "👜 Personal Only"
+    )
 
     card_html = f"""
 <!DOCTYPE html>
@@ -3128,7 +3380,7 @@ if "selected_itinerary" in st.session_state:
         <div class="bp-header">
             <div>
                 <span style="font-size: 18px; font-weight: 800; letter-spacing: 1px;">SKYBUS</span>
-                <span style="font-size: 10px; margin-left: 6px; background: rgba(255,255,255,0.25); padding: 3px 7px; border-radius: 10px;">MOBILE PASS</span>
+                <span style="font-size: 10px; margin-left: 6px; background: rgba(255,255,255,0.25); padding: 3px 7px; border-radius: 10px;">{leg_fare_bucket}</span>
             </div>
             <div style="font-weight: bold; font-size: 14px;">SX #{active_leg['Flight']}</div>
         </div>
@@ -3141,8 +3393,9 @@ if "selected_itinerary" in st.session_state:
                     <div style="font-size: 11px; color: #F28425; font-weight: 700; margin-top: 3px;">👑 Rewards #: 6827165938</div>
                 </div>
                 <div style="text-align: right;">
-                    <div class="bp-field">Wi-Fi Access</div>
-                    <div class="bp-value" style="color: #F28425;">High-Speed SkyFly</div>
+                    <div class="bp-field">Leg Fare (All-In)</div>
+                    <div class="bp-value" style="color: #F28425;">${leg_all_in:.2f}</div>
+                    <div style="font-size: 10px; color: #777; margin-top: 2px;">High-Speed SkyFly</div>
                 </div>
             </div>
             
@@ -3171,7 +3424,7 @@ if "selected_itinerary" in st.session_state:
                 </div>
                 <div>
                     <div class="bp-field">Zone</div>
-                    <div class="bp-value">Zone 1</div>
+                    <div class="bp-value">{boarding_zone}</div>
                 </div>
                 <div>
                     <div class="bp-field">Seat</div>
@@ -3183,12 +3436,12 @@ if "selected_itinerary" in st.session_state:
             <div style="display: flex; justify-content: space-between; background: #F8F9FA; padding: 10px; border-radius: 8px; text-align: center; margin-top: 10px;">
                 <div style="flex: 1;">
                     <div class="bp-field">Checked Bags</div>
-                    <div class="bp-value" style="font-size: 13px;">🧳 1 Checked</div>
+                    <div class="bp-value" style="font-size: 13px;">{checked_str}</div>
                 </div>
                 <div style="border-left: 1px solid #ddd;"></div>
                 <div style="flex: 1;">
                     <div class="bp-field">Carry-On</div>
-                    <div class="bp-value" style="font-size: 13px;">🎒 1 Carry-on</div>
+                    <div class="bp-value" style="font-size: 13px;">{carryon_str}</div>
                 </div>
             </div>
 
@@ -3217,4 +3470,4 @@ if "selected_itinerary" in st.session_state:
 </html>
 """
 
-    st.components.v1.html(card_html, height=530)
+    st.components.v1.html(card_html, height=540)
