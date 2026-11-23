@@ -2360,6 +2360,25 @@ def quote_flight(
         "ancillaries": ancillaries,
     }
 
+def get_leg_days(leg):
+    """Safely retrieves the days string regardless of key casing."""
+    return leg.get("Days") or leg.get("days") or "Daily"
+
+
+def leg_operates_today(days_str):
+    """Checks if a flight leg operates today based on standard codes."""
+    if not days_str:
+        return True
+
+    days_clean = str(days_str).strip()
+
+    if "daily" in days_clean.lower():
+        return True
+
+    today_code = datetime.now().strftime("%a")
+    return today_code.lower() in days_clean.lower()
+
+
 def get_nonstop_flights(
     network: list[dict], origin: str, destination: str | None = None
 ) -> list[dict]:
@@ -2386,7 +2405,6 @@ def get_nonstop_flights(
         flights.append(leg)
 
     return flights
-
 
 def quote_single_leg(
     leg: dict, passengers: int = 1, search_nonce: int | None = None
