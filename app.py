@@ -767,7 +767,7 @@ routes_raw = [
     (1378, "PAFA", "KPSP", "Tue, Thu, Sat"),  # Palm Springs, CA
 
     # ----------------------------------------------------
-    # KPVU Bridge Spokes (1400 Block - Mountain West Hub)
+    # KPVU Bridge Spokes (1400 / 2400 Block - Mountain West Hub)
     # ----------------------------------------------------
     (1400, "KPVU", "KBOI", "Mon, Wed, Fri, Sun"),  # Boise, ID
     (1402, "KPVU", "KSGU", "Mon, Wed, Fri, Sun"),  # St. George, UT
@@ -818,18 +818,22 @@ routes_raw = [
     (1494, "KPVU", "KCOD", "Mon, Fri"),  # Cody, WY
     (1496, "KPVU", "KSMF", "Mon, Wed, Fri, Sun"),  # Sacramento, CA
     (1498, "KPVU", "KPRC", "Mon, Wed, Fri"),  # Prescott, AZ
-    (2400, "KPVU", "KMTJ", "Tue, Thu, Sat"),  # Montrose / Telluride, CO
-    (2402, "KPVU", "KHDN", "Thu, Sun"),  # Hayden / Steamboat Springs, CO
-    (2404, "KPVU", "KEGE", "Thu, Sun"),  # Eagle / Vail, CO
-    (2406, "KPVU", "KBIL", "Mon, Wed, Fri, Sun"),  # Billings, MT
-    (2408, "KPVU", "KGPI", "Tue, Thu, Sat"),  # Kalispell / Glacier Park, MT
-    (2410, "KPVU", "KSUN", "Thu, Sun"),  # Sun Valley, ID
-    (2412, "KPVU", "KSAN", "Mon, Fri"),  # San Diego, CA
-    (2414, "KPVU", "KSBD", "Mon, Wed, Fri, Sun"),  # San Bernardino, CA
-    (2416, "KPVU", "PHKO", "Wed, Sat"),  # Kailua-Kona, HI
+    (3400, "KPVU", "KMTJ", "Tue, Thu, Sat"),  # Montrose / Telluride, CO
+    (3402, "KPVU", "KHDN", "Thu, Sun"),  # Hayden / Steamboat Springs, CO
+    (3404, "KPVU", "KEGE", "Thu, Sun"),  # Eagle / Vail, CO
+    (3406, "KPVU", "KBIL", "Mon, Wed, Fri, Sun"),  # Billings, MT
+    (3408, "KPVU", "KGPI", "Tue, Thu, Sat"),  # Kalispell / Glacier Park, MT
+    (3410, "KPVU", "KSUN", "Thu, Sun"),  # Sun Valley, ID
+    (3412, "KPVU", "KSAN", "Mon, Fri"),  # San Diego, CA
+    (3414, "KPVU", "KSBD", "Mon, Wed, Fri, Sun"),  # San Bernardino, CA
+    (3416, "KPVU", "PHKO", "Wed, Sat"),  # Kailua-Kona, HI
+    (3418, "KPVU", "KOAK", "Mon, Wed, Fri, Sun"),  # Oakland, CA
+    (3420, "KPVU", "KSJC", "Tue, Thu, Sat"),  # San Jose, CA
+    (3422, "KPVU", "KSBP", "Thu, Sun"),  # San Luis Obispo, CA
+    (3424, "KPVU", "KSTS", "Tue, Thu, Sat"),  # Santa Rosa / Sonoma, CA
 
     # ----------------------------------------------------
-    # KIWA Bridge Spokes (300 Block - Southwest Hub)
+    # KIWA Bridge Spokes (300 / 2300 Block - Southwest Hub)
     # ----------------------------------------------------
     (300, "KIWA", "KSGU", "Mon, Wed, Fri, Sun"),  # St. George, UT
     (302, "KIWA", "KIFP", "Thu, Sun"),  # Bullhead City, AZ
@@ -880,9 +884,12 @@ routes_raw = [
     (394, "KIWA", "KMTJ", "Tue, Thu, Sat"),  # Montrose / Telluride, CO
     (396, "KIWA", "KLAS", "Daily"),  # Las Vegas, NV
     (398, "KIWA", "KSUN", "Thu, Sun"),  # Sun Valley, ID
+    (2300, "KIWA", "KOAK", "Mon, Wed, Fri, Sun"),  # Oakland, CA
+    (2302, "KIWA", "KSJC", "Tue, Thu, Sat"),  # San Jose, CA
+    (2304, "KIWA", "KSTS", "Thu, Sun"),  # Santa Rosa / Sonoma, CA
 
     # ----------------------------------------------------
-    # KBLI Bridge Spokes (400 Block - Pacific Northwest Hub)
+    # KBLI Bridge Spokes (400 / 2450 Block - Pacific Northwest Hub)
     # ----------------------------------------------------
     (400, "KBLI", "PAJN", "Tue, Thu, Sat"),  # Juneau, AK
     (402, "KBLI", "PAKT", "Mon, Wed, Fri, Sun"),  # Ketchikan, AK
@@ -917,6 +924,12 @@ routes_raw = [
     (460, "KBLI", "KMRY", "Mon, Wed, Fri"),  # Monterey, CA
     (462, "KBLI", "PAGS", "Tue, Thu, Sat"),  # Gustavus, AK
     (464, "KBLI", "KPSP", "Mon, Wed, Fri, Sun"),  # Palm Springs, CA
+    (466, "KBLI", "KFAT", "Mon, Fri"),  # Fresno, CA
+    (468, "KBLI", "KBFL", "Tue, Thu, Sat"),  # Bakersfield, CA
+    (470, "KBLI", "KSBA", "Thu, Sun"),  # Santa Barbara, CA
+    (472, "KBLI", "KSMF", "Mon, Wed, Fri"),  # Sacramento, CA
+    (474, "KBLI", "KOAK", "Daily"),  # Oakland, CA
+    (476, "KBLI", "KSJC", "Mon, Wed, Fri, Sun"),  # San Jose, CA
     (478, "KBLI", "KPDX", "Mon, Wed, Fri, Sun"),  # Portland, OR
     (480, "KBLI", "KLMT", "Mon, Fri"),  # Klamath Falls, OR
     (482, "KBLI", "KSLE", "Tue, Thu, Sat"),  # Salem, OR
@@ -928,10 +941,12 @@ routes_raw = [
     (494, "KBLI", "KSUN", "Mon, Fri"),  # Sun Valley, ID
     (496, "KBLI", "PASI", "Tue, Thu, Sat"),  # Sitka, AK
     (498, "KBLI", "PAYA", "Mon, Fri"),  # Yakutat, AK
-    (1400, "KBLI", "KFAT", "Mon, Fri"),  # Fresno, CA
-    (1402, "KBLI", "KBFL", "Tue, Thu, Sat"),  # Bakersfield, CA
-    (1404, "KBLI", "KSBA", "Thu, Sun"),  # Santa Barbara, CA
-    (1406, "KBLI", "KSMF", "Mon, Wed, Fri"),  # Sacramento, CA
+    (2400, "KBLI", "KSTS", "Tue, Thu, Sat"),  # Santa Rosa / Sonoma, CA
+    (2402, "KBLI", "KSBP", "Thu, Sun"),  # San Luis Obispo, CA
+    (2404, "KBLI", "KLAS", "Daily"),  # Las Vegas, NV
+    (2406, "KBLI", "KOGD", "Tue, Thu, Sat"),  # Ogden, UT
+    (2408, "KBLI", "KSGU", "Mon, Wed, Fri"),  # St. George, UT
+    (2410, "KBLI", "KEKO", "Thu, Sun"),  # Elko, NV
 
     # ----------------------------------------------------
     # KMSY Bridge Spokes (500 Block - Gulf Coast Hub)
