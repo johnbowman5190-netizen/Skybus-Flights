@@ -1742,6 +1742,7 @@ import math
 # ==============================================================================
 
 AIRPORT_COORDS = {
+
     # --------------------------------------------------------------------------
     # HUB AIRPORTS
     # --------------------------------------------------------------------------
@@ -1757,7 +1758,10 @@ AIRPORT_COORDS = {
     "KBGR": (44.8074, -68.8281),   # Bangor International, ME
     "KRIC": (37.5052, -77.3197),   # Richmond International, VA
     "KSFB": (28.7776, -81.2375),   # Orlando Sanford Intl, FL
-
+    "KONT": (34.0560, -117.6012),  # Ontario International, CA
+    "KCOS": (38.8058, -104.7008),  # Colorado Springs Airport, CO
+    "KSAT": (29.5337, -98.4698),   # San Antonio International, TX
+    "KTYS": (35.8110, -83.9940),   # McGhee Tyson Airport (Knoxville), TN
 
     # --------------------------------------------------------------------------
     # ALASKA SPOKES
@@ -1792,24 +1796,33 @@ AIRPORT_COORDS = {
     # INTERMOUNTAIN & PACIFIC NORTHWEST SPOKES
     # --------------------------------------------------------------------------
     "KALW": (46.0944, -118.2881),  # Walla Walla Regional Airport, WA
+    "KBIL": (45.8077, -108.5429),  # Billings Logan International Airport, MT
     "KBOI": (43.5644, -116.2228),  # Boise Airport, ID
     "KBZN": (45.7775, -111.1531),  # Bozeman Yellowstone International Airport, MT
     "KCDC": (37.7010, -113.0988),  # Cedar City Regional Airport, UT
     "KCLM": (48.1202, -123.4997),  # William R. Fairchild (Port Angeles), WA
     "KCNY": (38.7550, -109.7548),  # Canyonlands Regional Airport (Moab), UT
+    "KCOD": (44.5202, -109.0238),  # Yellowstone Regional Airport (Cody), WY
     "KCPR": (42.9080, -106.4644),  # Casper/Natrona County Intl, WY
+    "KCYS": (41.1557, -104.8118),  # Cheyenne Regional Airport, WY
     "KEAT": (47.3999, -120.2068),  # Pangborn Memorial Airport (Wenatchee), WA
+    "KEGE": (39.6426, -106.9177),  # Eagle County Regional Airport (Vail), CO
     "KEUG": (44.1233, -123.2186),  # Eugene Airport, OR
     "KGEG": (47.6199, -117.5338),  # Spokane International Airport, WA
     "KGJT": (39.1224, -108.5267),  # Grand Junction Regional, CO
+    "KGPI": (48.3105, -114.2560),  # Glacier Park International Airport (Kalispell), MT
     "KGTF": (47.4820, -111.3707),  # Great Falls International Airport, MT
+    "KHDN": (40.4812, -107.2177),  # Yampa Valley Regional (Hayden / Steamboat Springs), CO
     "KHLN": (46.6068, -111.9827),  # Helena Regional Airport, MT
     "KIDA": (43.5146, -112.0702),  # Idaho Falls Regional Airport, ID
     "KJAC": (43.6073, -110.7377),  # Jackson Hole Airport, WY
     "KLWS": (46.3745, -117.0154),  # Lewiston-Nez Perce County Airport, ID
     "KMFR": (42.3742, -122.8735),  # Rogue Valley International-Medford Airport, OR
     "KMSO": (46.9163, -114.0906),  # Missoula Montana Airport, MT
+    "KMTJ": (38.5098, -107.8943),  # Montrose Regional Airport (Telluride), CO
+    "KOGD": (41.1959, -112.0122),  # Ogden-Hinckley Airport, UT
     "KOTH": (43.4171, -124.2460),  # Southwest Oregon Regional (North Bend), OR
+    "KPDX": (45.5898, -122.5951),  # Portland International Airport, OR
     "KPIH": (42.9113, -112.5959),  # Pocatello Regional, ID
     "KPSC": (46.2647, -119.1190),  # Tri-Cities Airport (Pasco), WA
     "KRDM": (44.2541, -121.1500),  # Roberts Field (Redmond), OR
@@ -1833,17 +1846,24 @@ AIRPORT_COORDS = {
     "KFLG": (35.1384, -111.6712),  # Flagstaff Pulliam Airport, AZ
     "KSEZ": (34.8486, -111.7886),  # Sedona Airport, AZ
     "KIFP": (35.1561, -114.5595),  # Laughlin/Bullhead International Airport, AZ
+    "KLAS": (36.0840, -115.1537),  # Harry Reid International Airport (Las Vegas), NV
     "KMAF": (31.9425, -102.2019),  # Midland International, TX
     "KMRY": (36.5870, -121.8430),  # Monterey Regional Airport, CA
+    "KOAK": (37.7213, -122.2208),  # Oakland International Airport, CA
     "KPRC": (34.6545, -112.4196),  # Prescott Regional Airport, AZ
     "KPSP": (33.8297, -116.5067),  # Palm Springs International Airport, CA
     "KRDD": (40.5090, -122.2934),  # Redding Regional Airport, CA
     "KROW": (33.3015, -104.5306),  # Roswell Air Center, NM
+    "KSAF": (35.6171, -106.0894),  # Santa Fe Regional Airport, NM
     "KSBA": (34.4262, -119.8403),  # Santa Barbara Municipal Airport, CA
     "KSBD": (34.0953, -117.2349),  # San Bernardino International Airport, CA
     "KSBP": (35.2371, -120.6424),  # San Luis Obispo County Regional, CA
+    "KSCK": (37.8942, -121.2383),  # Stockton Metropolitan Airport, CA
+    "KSJC": (37.3626, -121.9290),  # Norman Y. Mineta San Jose International, CA
     "KSMF": (38.6954, -121.5908),  # Sacramento International Airport, CA
+    "KSTS": (38.5090, -122.8129),  # Charles M. Schulz-Sonoma County (Santa Rosa), CA
     "KTUS": (32.1161, -110.9410),  # Tucson International, AZ
+    "KYUM": (32.6566, -114.6060),  # Yuma International Airport, AZ
 
     # --------------------------------------------------------------------------
     # GULF COAST & MIDWEST SPOKES
@@ -1860,6 +1880,7 @@ AIRPORT_COORDS = {
     "KBLV": (38.5451, -89.8458),   # Belleville / St. Louis area, IL
     "KBMI": (40.4771, -88.9159),   # Central Illinois Regional Airport (Bloomington), IL
     "KBPT": (29.9508, -94.0207),   # Jack Brooks Regional Airport (Beaumont), TX
+    "KBRO": (25.9068, -97.4259),   # Brownsville/South Padre Island Intl, TX
     "KBTR": (30.5332, -91.1496),   # Baton Rouge Metropolitan, LA
     "KBWG": (36.9696, -86.4137),   # Bowling Green, KY
     "KCHA": (35.0353, -85.2038),   # Chattanooga, TN
@@ -1877,12 +1898,16 @@ AIRPORT_COORDS = {
     "KFSD": (43.5820, -96.7418),   # Sioux Falls Regional, SD
     "KFSM": (35.3364, -94.3687),   # Fort Smith, AR
     "KGCK": (37.9275, -100.7244),  # Garden City, KS
+    "KGFK": (47.9473, -97.1738),   # Grand Forks International Airport, ND
+    "KGGG": (32.3840, -94.7115),   # East Texas Regional Airport (Longview), TX
     "KGPT": (30.4073, -89.0701),   # Gulfport-Biloxi International, MS
     "KGRI": (40.9675, -98.3096),   # Central Nebraska Regional (Grand Island), NE
+    "KGRK": (31.0672, -97.8289),   # Killeen-Fort Cavazos Regional Airport, TX
     "KGTR": (33.4547, -88.5912),   # Columbus / Starkville, MS
     "KGYY": (41.6163, -87.4139),   # Gary / Chicago area, IN
     "KHBG": (31.2829, -89.2530),   # Hattiesburg-Laurel Regional, MS
     "KHEZ": (31.7915, -91.2991),   # Natchez, MS
+    "KHRL": (26.2285, -97.6544),   # Valley International Airport (Harlingen), TX
     "KHSV": (34.6404, -86.7756),   # Huntsville, AL
     "KICT": (37.6499, -97.4331),   # Wichita Dwight D. Eisenhower National, KS
     "KIMT": (45.8184, -88.1143),   # Iron Mountain, MI
@@ -1898,14 +1923,18 @@ AIRPORT_COORDS = {
     "KLFT": (30.2053, -91.9876),   # Lafayette Regional, LA
     "KLIT": (34.7294, -92.2243),   # Bill and Hillary Clinton National (Little Rock), AR
     "KLNK": (40.8510, -96.7592),   # Lincoln Airport, NE
+    "KLRD": (27.5438, -99.4616),   # Laredo International Airport, TX
     "KLSE": (43.8794, -91.2567),   # La Crosse, WI
+    "KMCI": (39.2976, -94.7139),   # Kansas City International Airport, MO
     "KMCN": (32.6939, -83.6431),   # Macon, GA
     "KMEI": (32.3432, -88.7554),   # Meridian, MS
+    "KMFE": (26.1758, -98.2386),   # McAllen International Airport, TX
     "KMGM": (32.3006, -86.3940),   # Montgomery Regional Airport, AL
     "KMLI": (41.4485, -90.5075),   # Quad Cities International (Moline), IL
     "KMLU": (32.5109, -92.0376),   # Monroe Regional, LA
     "KMOB": (30.6914, -88.2428),   # Mobile Regional, AL
     "KMOT": (48.2575, -101.2803),  # Minot, ND
+    "KOKC": (35.3931, -97.6007),   # Will Rogers World Airport (Oklahoma City), OK
     "KOWB": (37.7408, -87.1656),   # Owensboro, KY
     "KPIA": (40.6642, -89.6933),   # General Wayne A. Downing Peoria Intl, IL
     "KPIB": (31.4673, -89.3374),   # Hattiesburg / Laurel, MS
@@ -1913,6 +1942,7 @@ AIRPORT_COORDS = {
     "KPNS": (30.4734, -87.1866),   # Pensacola International, FL
     "KRAP": (44.0453, -103.0572),  # Rapid City, SD
     "KRFD": (42.1954, -89.0982),   # Rockford, IL
+    "KSDF": (38.1741, -85.7365),   # Louisville Muhammad Ali International, KY
     "KSGF": (37.2457, -93.3886),   # Springfield-Branson National, MO
     "KSHV": (32.4466, -93.8256),   # Shreveport Regional Airport, LA
     "KSJT": (31.3564, -100.4963),  # San Angelo, TX
@@ -1948,11 +1978,13 @@ AIRPORT_COORDS = {
     "KFWA": (40.9785, -85.1951),   # Fort Wayne International, IN
     "KGRB": (44.4846, -88.1297),   # Green Bay, WI
     "KHTS": (38.3667, -82.5580),   # Tri-State Airport (Huntington), WV
+    "KIND": (39.7173, -86.2944),   # Indianapolis International Airport, IN
     "KLAN": (42.7787, -84.5874),   # Capital Region Intl (Lansing), MI
     "KLEX": (38.0364, -84.6058),   # Lexington, KY
     "KMBS": (43.5328, -84.0796),   # Saginaw / Bay City / Midland, MI
     "KMKE": (42.9472, -87.8966),   # Milwaukee Mitchell International, WI
     "KMQT": (46.3536, -87.3953),   # Sawyer International Airport (Marquette), MI
+    "KMSN": (43.1399, -89.3375),   # Dane County Regional Airport (Madison), WI
     "KPIT": (40.4915, -80.2329),   # Pittsburgh International, PA
     "KPLN": (45.5708, -84.7967),   # Pellston Regional Airport, MI
     "KRST": (43.9083, -92.4980),   # Rochester International Airport, MN
@@ -2045,6 +2077,7 @@ AIRPORT_COORDS = {
     "KMGW": (39.6425, -79.9157),   # Morgantown Municipal, WV
     "KMLB": (28.1028, -80.6453),   # Melbourne Orlando International Airport, FL
     "KMYR": (33.6797, -78.9283),   # Myrtle Beach International, SC
+    "KORF": (36.8946, -76.2012),   # Norfolk International Airport, VA
     "KPGD": (26.9163, -82.0006),   # Punta Gorda Airport, FL
     "KPGV": (35.6353, -77.3853),   # Pitt-Greenville Airport, NC
     "KPHF": (37.1319, -76.4930),   # Newport News/Williamsburg Intl, VA
@@ -2056,7 +2089,6 @@ AIRPORT_COORDS = {
     "KSGJ": (29.9593, -81.3397),   # Northeast Florida Regional (St. Augustine), FL
     "KSRQ": (27.3954, -82.5544),   # Sarasota/Bradenton International, FL
     "KTLH": (30.3965, -84.3503),   # Tallahassee International, FL
-    "KTYS": (35.8110, -83.9940),   # McGhee Tyson Airport (Knoxville), TN
     "KVRB": (27.6556, -80.4179),   # Vero Beach Regional, FL
 
     # --------------------------------------------------------------------------
