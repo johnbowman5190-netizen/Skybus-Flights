@@ -951,219 +951,219 @@ routes_raw = [
     # ----------------------------------------------------
     # KMSY Bridge Spokes (500 Block - Gulf Coast Hub)
     # ----------------------------------------------------
-    (500, "KMSY", "KELP", "Mon, Wed, Fri, Sun"),  # El Paso, TX
-    (502, "KMSY", "KSGF", "Mon, Wed, Fri, Sun"),  # Springfield, MO
-    (504, "KMSY", "KLIT", "Mon, Wed, Fri, Sun"),  # Little Rock, AR
-    (506, "KMSY", "KPNS", "Mon, Wed, Fri, Sun"),  # Pensacola, FL
-    (508, "KMSY", "KMOB", "Tue, Thu, Sat"),  # Mobile, AL
-    (510, "KMSY", "KVPS", "Thu, Sun"),  # Eglin / Destin, FL
-    (512, "KMSY", "KMAF", "Mon, Wed, Fri, Sun"),  # Midland / Odessa, TX
-    (514, "KMSY", "KBTR", "Mon, Wed, Fri"),  # Baton Rouge, LA
-    (516, "KMSY", "KGPT", "Thu, Sun"),  # Gulfport / Biloxi, MS
-    (518, "KMSY", "KLFT", "Mon, Wed, Fri, Sun"),  # Lafayette, LA
-    (520, "KMSY", "KMLU", "Tue, Thu, Sat"),  # Monroe, LA
-    (522, "KMSY", "KHBG", "Mon, Fri"),  # Hattiesburg, MS
-    (524, "KMSY", "KAEX", "Tue, Thu, Sat"),  # Alexandria, LA
-    (526, "KMSY", "KLCH", "Mon, Wed, Fri"),  # Lake Charles, LA
-    (528, "KMSY", "KTYR", "Mon, Wed, Fri, Sun"),  # Tyler, TX
-    (530, "KMSY", "KAVL", "Thu, Sun"),  # Asheville, NC
-    (532, "KMSY", "KTRI", "Tue, Thu, Sat"),  # Tri-Cities / Bristol, TN
-    (534, "KMSY", "KCRP", "Tue, Thu, Sat"),  # Corpus Christi, TX
-    (536, "KMSY", "KBPT", "Mon, Wed, Fri"),  # Beaumont / Port Arthur, TX
-    (538, "KMSY", "KSHV", "Mon, Wed, Fri, Sun"),  # Shreveport, LA
-    (540, "KMSY", "KECP", "Thu, Sun"),  # Panama City Beach, FL
-    (542, "KMSY", "KMGM", "Tue, Thu, Sat"),  # Montgomery, AL
-    (544, "KMSY", "KBHM", "Tue, Thu, Sat"),  # Birmingham, AL
-    (546, "KMSY", "KPGD", "Tue, Thu, Sat"),  # Punta Gorda / Ft. Myers, FL
-    (548, "KMSY", "KTYS", "Tue, Thu, Sat"),  # Knoxville, TN
-    (550, "KMSY", "KDAY", "Tue, Thu, Sat"),  # Dayton, OH
-    (552, "KMSY", "KCMH", "Mon, Wed, Fri, Sun"),  # Columbus, OH
-    (554, "KMSY", "KCVG", "Mon, Wed, Fri, Sun"),  # Cincinnati, OH
-    (556, "KMSY", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
-    (558, "KMSY", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
-    (560, "KMSY", "KJVY", "Tue, Thu, Sat"),  # Jeffersonville / Louisville area
-    (562, "KMSY", "KOWB", "Mon, Wed, Fri, Sun"),  # Owensboro, KY
-    (564, "KMSY", "KJEF", "Tue, Thu, Sat"),  # Jefferson City, MO
-    (566, "KMSY", "KSPI", "Mon, Wed, Fri, Sun"),  # Springfield, IL
-    (568, "KMSY", "KGCK", "Tue, Thu, Sat"),  # Garden City, KS
-    (570, "KMSY", "KSLN", "Mon, Wed, Fri, Sun"),  # Salina, KS
-    (572, "KMSY", "KICT", "Mon, Wed, Fri, Sun"),  # Wichita, KS
-    (574, "KMSY", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka, KS
-    (576, "KMSY", "KSTJ", "Tue, Thu, Sat"),  # St. Joseph, MO
-    (578, "KMSY", "KBLV", "Mon, Wed, Fri, Sun"),  # Belleville / St. Louis area
-    (580, "KMSY", "KTRI", "Tue, Thu, Sat"),  # Tri-Cities, TN
-    (582, "KMSY", "KBLF", "Mon, Wed, Fri, Sun"),  # Bluefield, WV
-    (584, "KMSY", "KCHA", "Tue, Thu, Sat"),  # Chattanooga, TN
-    (586, "KMSY", "KLAW", "Tue, Thu, Sat"),  # Lawton, OK
-    (588, "KMSY", "KTUL", "Mon, Wed, Fri, Sun"),  # Tulsa, OK
-    (590, "KMSY", "KFSM", "Mon, Wed, Fri, Sun"),  # Fort Smith, AR
-    (592, "KMSY", "KXNA", "Mon, Wed, Fri, Sun"),  # Northwest Arkansas
-    (594, "KMSY", "KTUP", "Tue, Thu, Sat"),  # Tupelo, MS
-    (596, "KMSY", "KMEI", "Mon, Wed, Fri, Sun"),  # Meridian, MS
-    (598, "KMSY", "KHSV", "Mon, Wed, Fri, Sun"),  # Huntsville, AL
-    (1500, "KMSY", "KPIB", "Tue, Thu, Sat"),  # Hattiesburg / Laurel, MS
-    (1502, "KMSY", "KGTR", "Mon, Wed, Fri, Sun"),  # Columbus / Starkville, MS
-    (1504, "KMSY", "KHEZ", "Tue, Thu, Sat"),  # Natchez, MS
-    (1506, "KMSY", "KMOB", "Tue, Thu, Sat"),  # Mobile, AL
-    (1508, "KMSY", "KJKA", "Mon, Wed, Fri, Sun"),  # Gulf Shores, AL
-    (1510, "KMSY", "KCSG", "Tue, Thu, Sat"),  # Columbus, GA
-    (1512, "KMSY", "KMCN", "Mon, Wed, Fri, Sun"),  # Macon, GA
-    (1514, "KMSY", "KBWG", "Tue, Thu, Sat"),  # Bowling Green, KY
-    (1516, "KMSY", "KGSP", "Mon, Wed, Fri, Sun"),  # Greenville / Spartanburg, SC
-    (1518, "KMSY", "KACT", "Tue, Thu, Sat"),  # Waco, TX
-    (1520, "KMSY", "KSJT", "Mon, Wed, Fri, Sun"),  # San Angelo, TX
-    (1522, "KMSY", "KVCT", "Tue, Thu, Sat"),  # Victoria, TX
-    (1524, "KMSY", "KABI", "Tue, Thu, Sat"),  # Abilene, TX
-    (1526, "KMSY", "KAMA", "Tue, Thu, Sat"),  # Amarillo, TX
-    (1528, "KMSY", "KLBB", "Mon, Wed, Fri, Sun"),  # Lubbock, TX
-
-    # ----------------------------------------------------
-    # KOMA Bridge Spokes (600 Block - Midwest Hub)
-    # ----------------------------------------------------
-    (600, "KOMA", "KMLI", "Mon, Wed, Fri, Sun"),  # Moline / Quad Cities, IL
-    (602, "KOMA", "KSGF", "Mon, Wed, Fri, Sun"),  # Springfield, MO
-    (604, "KOMA", "KLIT", "Mon, Wed, Fri, Sun"),  # Little Rock, AR
-    (606, "KOMA", "KFSD", "Mon, Wed, Fri, Sun"),  # Sioux Falls, SD
-    (608, "KOMA", "KCID", "Mon, Wed, Fri, Sun"),  # Cedar Rapids, IA
-    (610, "KOMA", "KPIA", "Mon, Wed, Fri"),  # Peoria, IL
-    (612, "KOMA", "KDSM", "Mon, Wed, Fri"),  # Des Moines, IA
-    (614, "KOMA", "KLNK", "Tue, Thu, Sat"),  # Lincoln, NE
-    (616, "KOMA", "KICT", "Mon, Wed, Fri, Sun"),  # Wichita, KS
-    (618, "KOMA", "KBIS", "Mon, Wed, Fri, Sun"),  # Bismarck, ND
-    (620, "KOMA", "KFAR", "Mon, Wed, Fri, Sun"),  # Fargo, ND
-    (622, "KOMA", "KGRI", "Tue, Thu, Sat"),  # Grand Island, NE
-    (624, "KOMA", "KSUX", "Mon, Wed, Fri"),  # Sioux City, IA
-    (626, "KOMA", "KCOU", "Tue, Thu, Sat"),  # Columbia, MO
-    (628, "KOMA", "KALO", "Mon, Fri"),  # Waterloo, IA
-    (630, "KOMA", "KELP", "Tue, Thu, Sat"),  # El Paso, TX
-    (632, "KOMA", "KMAF", "Tue, Thu, Sat"),  # Midland / Odessa, TX
-    (634, "KOMA", "KABQ", "Mon, Wed, Fri, Sun"),  # Albuquerque, NM
-    (636, "KOMA", "KTUS", "Mon, Wed, Fri, Sun"),  # Tucson, AZ
-    (638, "KOMA", "KROW", "Tue, Thu, Sat"),  # Roswell, NM
-    (640, "KOMA", "KPRC", "Thu, Sun"),  # Prescott, AZ
-    (642, "KOMA", "KDRO", "Mon, Wed, Fri"),  # Durango, CO
-    (646, "KOMA", "KBTR", "Thu, Sun"),  # Baton Rouge, LA
-    (648, "KOMA", "KGPT", "Fri, Mon"),  # Gulfport / Biloxi, MS
-    (650, "KOMA", "KLFT", "Tue, Thu, Sat"),  # Lafayette, LA
-    (652, "KOMA", "KMLU", "Mon, Wed, Fri"),  # Monroe, LA
-    (654, "KOMA", "KHBG", "Thu, Sun"),  # Hattiesburg, MS
-    (656, "KOMA", "KAEX", "Tue, Thu, Sat"),  # Alexandria, LA
-    (658, "KOMA", "KLCH", "Mon, Fri"),  # Lake Charles, LA
-    (660, "KOMA", "KTYR", "Mon, Wed, Fri"),  # Tyler, TX
-    (662, "KOMA", "KMKE", "Mon, Wed, Fri, Sun"),  # Milwaukee, WI
-    (664, "KOMA", "KBMI", "Mon, Wed, Fri, Sun"),  # Bloomington / Normal, IL
-    (666, "KOMA", "KDBQ", "Tue, Thu, Sat"),  # Dubuque, IA
-    (668, "KOMA", "KRST", "Tue, Thu, Sat"),  # Rochester, MN
-    (670, "KOMA", "KDLH", "Mon, Wed, Fri, Sun"),  # Duluth, MN
-    (672, "KOMA", "KCRP", "Thu, Sun"),  # Corpus Christi, TX
-    (674, "KOMA", "KSHV", "Mon, Fri"),  # Shreveport, LA
-    (676, "KOMA", "KMQT", "Tue, Thu, Sat"),  # Marquette, MI
-    (678, "KOMA", "KPLN", "Mon, Wed, Fri"),  # Pellston / Mackinac, MI
-    (680, "KOMA", "KMGM", "Tue, Thu, Sat"),  # Montgomery, AL
-    (682, "KOMA", "KBHM", "Tue, Thu, Sat"),  # Birmingham, AL
-    (684, "KOMA", "KCIU", "Tue, Thu, Sat"),  # Sault Ste. Marie, MI
-    (686, "KOMA", "KCMX", "Tue, Thu, Sat"),  # Houghton, MI
-    (688, "KOMA", "KGRB", "Tue, Thu, Sat"),  # Green Bay, WI
-    (690, "KOMA", "KDAY", "Tue, Thu, Sat"),  # Dayton, OH
-    (692, "KOMA", "KCMH", "Mon, Wed, Fri, Sun"),  # Columbus, OH
-    (694, "KOMA", "KCVG", "Mon, Wed, Fri, Sun"),  # Cincinnati, OH
-    (696, "KOMA", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
-    (698, "KOMA", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
-    (1600, "KOMA", "KRFD", "Mon, Wed, Fri, Sun"),  # Chicago Rockford, IL
-    (1602, "KOMA", "KGYY", "Tue, Thu, Sat"),  # Gary, IN
-    (1604, "KOMA", "KCWA", "Tue, Thu, Sat"),  # Central Wisconsin
-    (1606, "KOMA", "KATW", "Tue, Thu, Sat"),  # Appleton / Fox Cities, WI
-    (1608, "KOMA", "KSTC", "Mon, Wed, Fri, Sun"),  # St. Cloud, MN
-    (1610, "KOMA", "KLSE", "Tue, Thu, Sat"),  # La Crosse, WI
-    (1612, "KOMA", "KIMT", "Mon, Wed, Fri, Sun"),  # Iron Mountain, MI
-    (1614, "KOMA", "KESC", "Thu, Sun"),  # Escanaba, MI
-    (1616, "KOMA", "KISQ", "Tue, Thu, Sat"),  # Schoolcraft County / Manistique, MI
-    (1618, "KOMA", "KAPN", "Mon, Wed, Fri, Sun"),  # Alpena, MI
-    (1620, "KOMA", "KINL", "Tue, Thu, Sat"),  # International Falls, MN
-    (1622, "KOMA", "KBJI", "Mon, Wed, Fri, Sun"),  # Bemidji, MN
-    (1624, "KOMA", "KMOT", "Tue, Thu, Sat"),  # Minot, ND
-    (1626, "KOMA", "KDVL", "Tue, Thu, Sat"),  # Devils Lake, ND
-    (1628, "KOMA", "KDIK", "Mon, Wed, Fri, Sun"),  # Dickinson, ND
-    (1630, "KOMA", "KJMS", "Tue, Thu, Sat"),  # Jamestown, ND
-    (1632, "KOMA", "KRAP", "Mon, Wed, Fri, Sun"),  # Rapid City, SD
-    (1634, "KOMA", "KPIR", "Mon, Wed, Fri, Sun"),  # Pierre, SD
-    (1636, "KOMA", "KJVY", "Tue, Thu, Sat"),  # Jeffersonville / Louisville area
-    (1638, "KOMA", "KOWB", "Mon, Wed, Fri, Sun"),  # Owensboro, KY
-    (1640, "KOMA", "KJEF", "Tue, Thu, Sat"),  # Jefferson City, MO
-    (1642, "KOMA", "KSPI", "Mon, Wed, Fri, Sun"),  # Springfield, IL
-    (1644, "KOMA", "KGCK", "Tue, Thu, Sat"),  # Garden City, KS
-    (1646, "KOMA", "KSLN", "Mon, Wed, Fri, Sun"),  # Salina, KS
-    (1648, "KOMA", "KICT", "Mon, Wed, Fri, Sun"),  # Wichita, KS
-    (1650, "KOMA", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka, KS
-    (1652, "KOMA", "KSTJ", "Tue, Thu, Sat"),  # St. Joseph, MO
-    (1654, "KOMA", "KBLV", "Mon, Wed, Fri, Sun"),  # Belleville / St. Louis area
+        (500, "KMSY", "KELP", "Mon, Wed, Fri, Sun"),  # El Paso, TX
+        (502, "KMSY", "KSGF", "Mon, Wed, Fri, Sun"),  # Springfield, MO
+        (504, "KMSY", "KLIT", "Mon, Wed, Fri, Sun"),  # Little Rock, AR
+        (506, "KMSY", "KPNS", "Mon, Wed, Fri, Sun"),  # Pensacola, FL
+        (508, "KMSY", "KMOB", "Tue, Thu, Sat"),  # Mobile, AL
+        (510, "KMSY", "KVPS", "Thu, Sun"),  # Eglin / Destin, FL
+        (512, "KMSY", "KMAF", "Mon, Wed, Fri, Sun"),  # Midland / Odessa, TX
+        (514, "KMSY", "KBTR", "Mon, Wed, Fri"),  # Baton Rouge, LA
+        (516, "KMSY", "KGPT", "Thu, Sun"),  # Gulfport / Biloxi, MS
+        (518, "KMSY", "KLFT", "Mon, Wed, Fri, Sun"),  # Lafayette, LA
+        (520, "KMSY", "KMLU", "Tue, Thu, Sat"),  # Monroe, LA
+        (522, "KMSY", "KHBG", "Mon, Fri"),  # Hattiesburg, MS
+        (524, "KMSY", "KAEX", "Tue, Thu, Sat"),  # Alexandria, LA
+        (526, "KMSY", "KLCH", "Mon, Wed, Fri"),  # Lake Charles, LA
+        (528, "KMSY", "KTYR", "Mon, Wed, Fri, Sun"),  # Tyler, TX
+        (530, "KMSY", "KAVL", "Thu, Sun"),  # Asheville, NC
+        (532, "KMSY", "KTRI", "Tue, Thu, Sat"),  # Tri-Cities / Bristol, TN
+        (534, "KMSY", "KCRP", "Tue, Thu, Sat"),  # Corpus Christi, TX
+        (536, "KMSY", "KBPT", "Mon, Wed, Fri"),  # Beaumont / Port Arthur, TX
+        (538, "KMSY", "KSHV", "Mon, Wed, Fri, Sun"),  # Shreveport, LA
+        (540, "KMSY", "KECP", "Thu, Sun"),  # Panama City Beach, FL
+        (542, "KMSY", "KMGM", "Tue, Thu, Sat"),  # Montgomery, AL
+        (544, "KMSY", "KBHM", "Tue, Thu, Sat"),  # Birmingham, AL
+        (546, "KMSY", "KPGD", "Tue, Thu, Sat"),  # Punta Gorda / Ft. Myers, FL
+        (548, "KMSY", "KTYS", "Tue, Thu, Sat"),  # Knoxville, TN
+        (550, "KMSY", "KDAY", "Tue, Thu, Sat"),  # Dayton, OH
+        (552, "KMSY", "KCMH", "Mon, Wed, Fri, Sun"),  # Columbus, OH
+        (554, "KMSY", "KCVG", "Mon, Wed, Fri, Sun"),  # Cincinnati, OH
+        (556, "KMSY", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
+        (558, "KMSY", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
+        (560, "KMSY", "KJVY", "Tue, Thu, Sat"),  # Jeffersonville / Louisville area
+        (562, "KMSY", "KOWB", "Mon, Wed, Fri, Sun"),  # Owensboro, KY
+        (564, "KMSY", "KJEF", "Tue, Thu, Sat"),  # Jefferson City, MO
+        (566, "KMSY", "KSPI", "Mon, Wed, Fri, Sun"),  # Springfield, IL
+        (568, "KMSY", "KGCK", "Tue, Thu, Sat"),  # Garden City, KS
+        (570, "KMSY", "KSLN", "Mon, Wed, Fri, Sun"),  # Salina, KS
+        (572, "KMSY", "KICT", "Mon, Wed, Fri, Sun"),  # Wichita, KS
+        (574, "KMSY", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka, KS
+        (576, "KMSY", "KSTJ", "Tue, Thu, Sat"),  # St. Joseph, MO
+        (578, "KMSY", "KBLV", "Mon, Wed, Fri, Sun"),  # Belleville / St. Louis area
+        (580, "KMSY", "KTRI", "Tue, Thu, Sat"),  # Tri-Cities, TN
+        (582, "KMSY", "KBLF", "Mon, Wed, Fri, Sun"),  # Bluefield, WV
+        (584, "KMSY", "KCHA", "Tue, Thu, Sat"),  # Chattanooga, TN
+        (586, "KMSY", "KLAW", "Tue, Thu, Sat"),  # Lawton, OK
+        (588, "KMSY", "KTUL", "Mon, Wed, Fri, Sun"),  # Tulsa, OK
+        (590, "KMSY", "KFSM", "Mon, Wed, Fri, Sun"),  # Fort Smith, AR
+        (592, "KMSY", "KXNA", "Mon, Wed, Fri, Sun"),  # Northwest Arkansas
+        (594, "KMSY", "KTUP", "Tue, Thu, Sat"),  # Tupelo, MS
+        (596, "KMSY", "KMEI", "Mon, Wed, Fri, Sun"),  # Meridian, MS
+        (598, "KMSY", "KHSV", "Mon, Wed, Fri, Sun"),  # Huntsville, AL
+        (1500, "KMSY", "KPIB", "Tue, Thu, Sat"),  # Hattiesburg / Laurel, MS
+        (1502, "KMSY", "KGTR", "Mon, Wed, Fri, Sun"),  # Columbus / Starkville, MS
+        (1504, "KMSY", "KHEZ", "Tue, Thu, Sat"),  # Natchez, MS
+        (1506, "KMSY", "KMOB", "Tue, Thu, Sat"),  # Mobile, AL
+        (1508, "KMSY", "KJKA", "Mon, Wed, Fri, Sun"),  # Gulf Shores, AL
+        (1510, "KMSY", "KCSG", "Tue, Thu, Sat"),  # Columbus, GA
+        (1512, "KMSY", "KMCN", "Mon, Wed, Fri, Sun"),  # Macon, GA
+        (1514, "KMSY", "KBWG", "Tue, Thu, Sat"),  # Bowling Green, KY
+        (1516, "KMSY", "KGSP", "Mon, Wed, Fri, Sun"),  # Greenville / Spartanburg, SC
+        (1518, "KMSY", "KACT", "Tue, Thu, Sat"),  # Waco, TX
+        (1520, "KMSY", "KSJT", "Mon, Wed, Fri, Sun"),  # San Angelo, TX
+        (1522, "KMSY", "KVCT", "Tue, Thu, Sat"),  # Victoria, TX
+        (1524, "KMSY", "KABI", "Tue, Thu, Sat"),  # Abilene, TX
+        (1526, "KMSY", "KAMA", "Tue, Thu, Sat"),  # Amarillo, TX
+        (1528, "KMSY", "KLBB", "Mon, Wed, Fri, Sun"),  # Lubbock, TX
     
-    
-    # ----------------------------------------------------
-    # KGRR Bridge Spokes (700 Block - Great Lakes Hub)
-    # ----------------------------------------------------
-    (700, "KGRR", "KMLI", "Mon, Wed, Fri, Sun"),  # Moline / Quad Cities, IL
-    (702, "KGRR", "KPNS", "Thu, Sun"),  # Pensacola, FL
-    (704, "KGRR", "KPIT", "Mon, Wed, Fri, Sun"),  # Pittsburgh, PA
-    (706, "KGRR", "KCAK", "Mon, Wed, Fri, Sun"),  # Akron / Canton, OH
-    (708, "KGRR", "KTVC", "Mon, Wed, Fri, Sun"),  # Traverse City, MI
-    (710, "KGRR", "KHTS", "Tue, Thu, Sat"),  # Huntington, WV
-    (712, "KGRR", "KCID", "Mon, Wed, Fri, Sun"),  # Cedar Rapids, IA
-    (714, "KGRR", "KPIA", "Mon, Wed, Fri"),  # Peoria, IL
-    (716, "KGRR", "KSBN", "Tue, Thu, Sat"),  # South Bend, IN
-    (718, "KGRR", "KMKE", "Mon, Wed, Fri, Sun"),  # Milwaukee, WI
-    (720, "KGRR", "KFWA", "Tue, Thu, Sat"),  # Fort Wayne, IN
-    (722, "KGRR", "KLAN", "Mon, Fri"),  # Lansing, MI
-    (724, "KGRR", "KAZO", "Mon, Fri"),  # Kalamazoo, MI
-    (726, "KGRR", "KFNT", "Tue, Thu, Sat"),  # Flint, MI
-    (728, "KGRR", "KTOL", "Mon, Wed, Fri"),  # Toledo, OH
-    (730, "KGRR", "KMQT", "Mon, Wed, Fri, Sun"),  # Marquette, MI
-    (732, "KGRR", "KPLN", "Tue, Thu, Sat"),  # Pellston / Mackinac, MI
-    (734, "KGRR", "KERI", "Mon, Wed, Fri"),  # Erie, PA
-    (736, "KGRR", "KBMI", "Thu, Sun"),  # Bloomington, IL
-    (738, "KGRR", "KDBQ", "Mon, Fri"),  # Dubuque, IA
-    (740, "KGRR", "KIPT", "Tue, Thu, Sat"),  # Williamsport, PA
-    (742, "KGRR", "KTYS", "Tue, Thu, Sat"),  # Knoxville, TN
-    (744, "KGRR", "KGRB", "Tue, Thu, Sat"),  # Green Bay, WI
-    (746, "KGRR", "KDAY", "Tue, Thu, Sat"),  # Dayton, OH
-    (748, "KGRR", "KCMH", "Mon, Wed, Fri, Sun"),  # Columbus, OH
-    (750, "KGRR", "KCVG", "Mon, Wed, Fri, Sun"),  # Cincinnati, OH
-    (752, "KGRR", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
-    (754, "KGRR", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
-    (756, "KGRR", "KRST", "Thu, Sun"),  # Rochester, MN
-    (758, "KGRR", "KDLH", "Mon, Wed, Fri, Sun"),  # Duluth, MN
-    (760, "KGRR", "KCIU", "Tue, Thu, Sat"),  # Sault Ste. Marie, MI
-    (762, "KGRR", "KCMX", "Tue, Thu, Sat"),  # Houghton, MI
-    (764, "KGRR", "KRFD", "Mon, Wed, Fri, Sun"),  # Chicago Rockford, IL
-    (766, "KGRR", "KGYY", "Tue, Thu, Sat"),  # Gary, IN
-    (768, "KGRR", "KCWA", "Tue, Thu, Sat"),  # Central Wisconsin
-    (770, "KGRR", "KATW", "Mon, Wed, Fri, Sun"),  # Appleton / Fox Cities, WI
-    (772, "KGRR", "KSTC", "Mon, Wed, Fri, Sun"),  # St. Cloud, MN
-    (774, "KGRR", "KLSE", "Tue, Thu, Sat"),  # La Crosse, WI
-    (776, "KGRR", "KIMT", "Mon, Wed, Fri, Sun"),  # Iron Mountain, MI
-    (778, "KGRR", "KESC", "Thu, Sun"),  # Escanaba, MI
-    (780, "KGRR", "KISQ", "Tue, Thu, Sat"),  # Manistique, MI
-    (782, "KGRR", "KAPN", "Mon, Wed, Fri, Sun"),  # Alpena, MI
-    (784, "KGRR", "KINL", "Tue, Thu, Sat"),  # International Falls, MN
-    (786, "KGRR", "KBJI", "Mon, Wed, Fri, Sun"),  # Bemidji, MN
-    (788, "KGRR", "KMOT", "Tue, Thu, Sat"),  # Minot, ND
-    (790, "KGRR", "KDVL", "Tue, Thu, Sat"),  # Devils Lake, ND
-    (792, "KGRR", "KDIK", "Mon, Wed, Fri, Sun"),  # Dickinson, ND
-    (794, "KGRR", "KJMS", "Tue, Thu, Sat"),  # Jamestown, ND
-    (796, "KGRR", "KRAP", "Mon, Wed, Fri, Sun"),  # Rapid City, SD
-    (798, "KGRR", "KPIR", "Mon, Wed, Fri, Sun"),  # Pierre, SD
-    (1700, "KGRR", "KJVY", "Tue, Thu, Sat"),  # Jeffersonville / Louisville area
-    (1702, "KGRR", "KOWB", "Mon, Wed, Fri, Sun"),  # Owensboro, KY
-    (1704, "KGRR", "KJEF", "Tue, Thu, Sat"),  # Jefferson City, MO
-    (1706, "KGRR", "KSPI", "Mon, Wed, Fri, Sun"),  # Springfield, IL
-    (1708, "KGRR", "KGCK", "Tue, Thu, Sat"),  # Garden City, KS
-    (1710, "KGRR", "KSLN", "Mon, Wed, Fri, Sun"),  # Salina, KS
-    (1712, "KGRR", "KICT", "Mon, Wed, Fri, Sun"),  # Wichita, KS
-    (1714, "KGRR", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka, KS
-    (1716, "KGRR", "KSTJ", "Tue, Thu, Sat"),  # St. Joseph, MO
-    (1718, "KGRR", "KBLV", "Mon, Wed, Fri, Sun"),  # Belleville / St. Louis area
-    (1720, "KGRR", "KMBS", "Mon, Wed, Fri"),  # Saginaw, MI
-    (1722, "KGRR", "KBLF", "Mon, Wed, Fri, Sun"),  # Bluefield, WV
+        # ----------------------------------------------------
+        # KOMA Bridge Spokes (600 Block - Midwest Hub)
+        # ----------------------------------------------------
+        (600, "KOMA", "KMLI", "Mon, Wed, Fri, Sun"),  # Moline / Quad Cities, IL
+        (602, "KOMA", "KSGF", "Mon, Wed, Fri, Sun"),  # Springfield, MO
+        (604, "KOMA", "KLIT", "Mon, Wed, Fri, Sun"),  # Little Rock, AR
+        (606, "KOMA", "KFSD", "Mon, Wed, Fri, Sun"),  # Sioux Falls, SD
+        (608, "KOMA", "KCID", "Mon, Wed, Fri, Sun"),  # Cedar Rapids, IA
+        (610, "KOMA", "KPIA", "Mon, Wed, Fri"),  # Peoria, IL
+        (612, "KOMA", "KDSM", "Mon, Wed, Fri"),  # Des Moines, IA
+        (614, "KOMA", "KLNK", "Tue, Thu, Sat"),  # Lincoln, NE
+        (616, "KOMA", "KICT", "Mon, Wed, Fri, Sun"),  # Wichita, KS
+        (618, "KOMA", "KBIS", "Mon, Wed, Fri, Sun"),  # Bismarck, ND
+        (620, "KOMA", "KFAR", "Mon, Wed, Fri, Sun"),  # Fargo, ND
+        (622, "KOMA", "KGRI", "Tue, Thu, Sat"),  # Grand Island, NE
+        (624, "KOMA", "KSUX", "Mon, Wed, Fri"),  # Sioux City, IA
+        (626, "KOMA", "KCOU", "Tue, Thu, Sat"),  # Columbia, MO
+        (628, "KOMA", "KALO", "Mon, Fri"),  # Waterloo, IA
+        (630, "KOMA", "KELP", "Tue, Thu, Sat"),  # El Paso, TX
+        (632, "KOMA", "KMAF", "Tue, Thu, Sat"),  # Midland / Odessa, TX
+        (634, "KOMA", "KABQ", "Mon, Wed, Fri, Sun"),  # Albuquerque, NM
+        (636, "KOMA", "KTUS", "Mon, Wed, Fri, Sun"),  # Tucson, AZ
+        (638, "KOMA", "KROW", "Tue, Thu, Sat"),  # Roswell, NM
+        (640, "KOMA", "KPRC", "Thu, Sun"),  # Prescott, AZ
+        (642, "KOMA", "KDRO", "Mon, Wed, Fri"),  # Durango, CO
+        (646, "KOMA", "KBTR", "Thu, Sun"),  # Baton Rouge, LA
+        (648, "KOMA", "KGPT", "Fri, Mon"),  # Gulfport / Biloxi, MS
+        (650, "KOMA", "KLFT", "Tue, Thu, Sat"),  # Lafayette, LA
+        (652, "KOMA", "KMLU", "Mon, Wed, Fri"),  # Monroe, LA
+        (654, "KOMA", "KHBG", "Thu, Sun"),  # Hattiesburg, MS
+        (656, "KOMA", "KAEX", "Tue, Thu, Sat"),  # Alexandria, LA
+        (658, "KOMA", "KLCH", "Mon, Fri"),  # Lake Charles, LA
+        (660, "KOMA", "KTYR", "Mon, Wed, Fri"),  # Tyler, TX
+        (662, "KOMA", "KMKE", "Mon, Wed, Fri, Sun"),  # Milwaukee, WI
+        (664, "KOMA", "KBMI", "Mon, Wed, Fri, Sun"),  # Bloomington / Normal, IL
+        (666, "KOMA", "KDBQ", "Tue, Thu, Sat"),  # Dubuque, IA
+        (668, "KOMA", "KRST", "Tue, Thu, Sat"),  # Rochester, MN
+        (670, "KOMA", "KDLH", "Mon, Wed, Fri, Sun"),  # Duluth, MN
+        (672, "KOMA", "KCRP", "Thu, Sun"),  # Corpus Christi, TX
+        (674, "KOMA", "KSHV", "Mon, Fri"),  # Shreveport, LA
+        (676, "KOMA", "KMQT", "Tue, Thu, Sat"),  # Marquette, MI
+        (678, "KOMA", "KPLN", "Mon, Wed, Fri"),  # Pellston / Mackinac, MI
+        (680, "KOMA", "KMGM", "Tue, Thu, Sat"),  # Montgomery, AL
+        (682, "KOMA", "KBHM", "Tue, Thu, Sat"),  # Birmingham, AL
+        (684, "KOMA", "KCIU", "Tue, Thu, Sat"),  # Sault Ste. Marie, MI
+        (686, "KOMA", "KCMX", "Tue, Thu, Sat"),  # Houghton, MI
+        (688, "KOMA", "KGRB", "Tue, Thu, Sat"),  # Green Bay, WI
+        (690, "KOMA", "KDAY", "Tue, Thu, Sat"),  # Dayton, OH
+        (692, "KOMA", "KCMH", "Mon, Wed, Fri, Sun"),  # Columbus, OH
+        (694, "KOMA", "KCVG", "Mon, Wed, Fri, Sun"),  # Cincinnati, OH
+        (696, "KOMA", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
+        (698, "KOMA", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
+        (1600, "KOMA", "KRFD", "Mon, Wed, Fri, Sun"),  # Chicago Rockford, IL
+        (1602, "KOMA", "KGYY", "Tue, Thu, Sat"),  # Gary, IN
+        (1604, "KOMA", "KCWA", "Tue, Thu, Sat"),  # Central Wisconsin
+        (1606, "KOMA", "KATW", "Tue, Thu, Sat"),  # Appleton / Fox Cities, WI
+        (1608, "KOMA", "KSTC", "Mon, Wed, Fri, Sun"),  # St. Cloud, MN
+        (1610, "KOMA", "KLSE", "Tue, Thu, Sat"),  # La Crosse, WI
+        (1612, "KOMA", "KIMT", "Mon, Wed, Fri, Sun"),  # Iron Mountain, MI
+        (1614, "KOMA", "KESC", "Thu, Sun"),  # Escanaba, MI
+        (1616, "KOMA", "KISQ", "Tue, Thu, Sat"),  # Schoolcraft County / Manistique, MI
+        (1618, "KOMA", "KAPN", "Mon, Wed, Fri, Sun"),  # Alpena, MI
+        (1620, "KOMA", "KINL", "Tue, Thu, Sat"),  # International Falls, MN
+        (1622, "KOMA", "KBJI", "Mon, Wed, Fri, Sun"),  # Bemidji, MN
+        (1624, "KOMA", "KMOT", "Tue, Thu, Sat"),  # Minot, ND
+        (1626, "KOMA", "KDVL", "Tue, Thu, Sat"),  # Devils Lake, ND
+        (1628, "KOMA", "KDIK", "Mon, Wed, Fri, Sun"),  # Dickinson, ND
+        (1630, "KOMA", "KJMS", "Tue, Thu, Sat"),  # Jamestown, ND
+        (1632, "KOMA", "KRAP", "Mon, Wed, Fri, Sun"),  # Rapid City, SD
+        (1634, "KOMA", "KPIR", "Mon, Wed, Fri, Sun"),  # Pierre, SD
+        (1636, "KOMA", "KJVY", "Tue, Thu, Sat"),  # Jeffersonville / Louisville area
+        (1638, "KOMA", "KOWB", "Mon, Wed, Fri, Sun"),  # Owensboro, KY
+        (1640, "KOMA", "KJEF", "Tue, Thu, Sat"),  # Jefferson City, MO
+        (1642, "KOMA", "KSPI", "Mon, Wed, Fri, Sun"),  # Springfield, IL
+        (1644, "KOMA", "KGCK", "Tue, Thu, Sat"),  # Garden City, KS
+        (1646, "KOMA", "KSLN", "Mon, Wed, Fri, Sun"),  # Salina, KS
+        (1648, "KOMA", "KICT", "Mon, Wed, Fri, Sun"),  # Wichita, KS
+        (1650, "KOMA", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka, KS
+        (1652, "KOMA", "KSTJ", "Tue, Thu, Sat"),  # St. Joseph, MO
+        (1654, "KOMA", "KBLV", "Mon, Wed, Fri, Sun"),  # Belleville / St. Louis area
+        
+        
+        # ----------------------------------------------------
+        # KGRR Bridge Spokes (700 Block - Great Lakes Hub)
+        # ----------------------------------------------------
+        (700, "KGRR", "KMLI", "Mon, Wed, Fri, Sun"),  # Moline / Quad Cities, IL
+        (702, "KGRR", "KPNS", "Thu, Sun"),  # Pensacola, FL
+        (704, "KGRR", "KPIT", "Mon, Wed, Fri, Sun"),  # Pittsburgh, PA
+        (706, "KGRR", "KCAK", "Mon, Wed, Fri, Sun"),  # Akron / Canton, OH
+        (708, "KGRR", "KTVC", "Mon, Wed, Fri, Sun"),  # Traverse City, MI
+        (710, "KGRR", "KHTS", "Tue, Thu, Sat"),  # Huntington, WV
+        (712, "KGRR", "KCID", "Mon, Wed, Fri, Sun"),  # Cedar Rapids, IA
+        (714, "KGRR", "KPIA", "Mon, Wed, Fri"),  # Peoria, IL
+        (716, "KGRR", "KSBN", "Tue, Thu, Sat"),  # South Bend, IN
+        (718, "KGRR", "KMKE", "Mon, Wed, Fri, Sun"),  # Milwaukee, WI
+        (720, "KGRR", "KFWA", "Tue, Thu, Sat"),  # Fort Wayne, IN
+        (722, "KGRR", "KLAN", "Mon, Fri"),  # Lansing, MI
+        (724, "KGRR", "KAZO", "Mon, Fri"),  # Kalamazoo, MI
+        (726, "KGRR", "KFNT", "Tue, Thu, Sat"),  # Flint, MI
+        (728, "KGRR", "KTOL", "Mon, Wed, Fri"),  # Toledo, OH
+        (730, "KGRR", "KMQT", "Mon, Wed, Fri, Sun"),  # Marquette, MI
+        (732, "KGRR", "KPLN", "Tue, Thu, Sat"),  # Pellston / Mackinac, MI
+        (734, "KGRR", "KERI", "Mon, Wed, Fri"),  # Erie, PA
+        (736, "KGRR", "KBMI", "Thu, Sun"),  # Bloomington, IL
+        (738, "KGRR", "KDBQ", "Mon, Fri"),  # Dubuque, IA
+        (740, "KGRR", "KIPT", "Tue, Thu, Sat"),  # Williamsport, PA
+        (742, "KGRR", "KTYS", "Tue, Thu, Sat"),  # Knoxville, TN
+        (744, "KGRR", "KGRB", "Tue, Thu, Sat"),  # Green Bay, WI
+        (746, "KGRR", "KDAY", "Tue, Thu, Sat"),  # Dayton, OH
+        (748, "KGRR", "KCMH", "Mon, Wed, Fri, Sun"),  # Columbus, OH
+        (750, "KGRR", "KCVG", "Mon, Wed, Fri, Sun"),  # Cincinnati, OH
+        (752, "KGRR", "KLEX", "Tue, Thu, Sat"),  # Lexington, KY
+        (754, "KGRR", "KEVV", "Mon, Wed, Fri"),  # Evansville, IN
+        (756, "KGRR", "KRST", "Thu, Sun"),  # Rochester, MN
+        (758, "KGRR", "KDLH", "Mon, Wed, Fri, Sun"),  # Duluth, MN
+        (760, "KGRR", "KCIU", "Tue, Thu, Sat"),  # Sault Ste. Marie, MI
+        (762, "KGRR", "KCMX", "Tue, Thu, Sat"),  # Houghton, MI
+        (764, "KGRR", "KRFD", "Mon, Wed, Fri, Sun"),  # Chicago Rockford, IL
+        (766, "KGRR", "KGYY", "Tue, Thu, Sat"),  # Gary, IN
+        (768, "KGRR", "KCWA", "Tue, Thu, Sat"),  # Central Wisconsin
+        (770, "KGRR", "KATW", "Mon, Wed, Fri, Sun"),  # Appleton / Fox Cities, WI
+        (772, "KGRR", "KSTC", "Mon, Wed, Fri, Sun"),  # St. Cloud, MN
+        (774, "KGRR", "KLSE", "Tue, Thu, Sat"),  # La Crosse, WI
+        (776, "KGRR", "KIMT", "Mon, Wed, Fri, Sun"),  # Iron Mountain, MI
+        (778, "KGRR", "KESC", "Thu, Sun"),  # Escanaba, MI
+        (780, "KGRR", "KISQ", "Tue, Thu, Sat"),  # Manistique, MI
+        (782, "KGRR", "KAPN", "Mon, Wed, Fri, Sun"),  # Alpena, MI
+        (784, "KGRR", "KINL", "Tue, Thu, Sat"),  # International Falls, MN
+        (786, "KGRR", "KBJI", "Mon, Wed, Fri, Sun"),  # Bemidji, MN
+        (788, "KGRR", "KMOT", "Tue, Thu, Sat"),  # Minot, ND
+        (790, "KGRR", "KDVL", "Tue, Thu, Sat"),  # Devils Lake, ND
+        (792, "KGRR", "KDIK", "Mon, Wed, Fri, Sun"),  # Dickinson, ND
+        (794, "KGRR", "KJMS", "Tue, Thu, Sat"),  # Jamestown, ND
+        (796, "KGRR", "KRAP", "Mon, Wed, Fri, Sun"),  # Rapid City, SD
+        (798, "KGRR", "KPIR", "Mon, Wed, Fri, Sun"),  # Pierre, SD
+        (1700, "KGRR", "KJVY", "Tue, Thu, Sat"),  # Jeffersonville / Louisville area
+        (1702, "KGRR", "KOWB", "Mon, Wed, Fri, Sun"),  # Owensboro, KY
+        (1704, "KGRR", "KJEF", "Tue, Thu, Sat"),  # Jefferson City, MO
+        (1706, "KGRR", "KSPI", "Mon, Wed, Fri, Sun"),  # Springfield, IL
+        (1708, "KGRR", "KGCK", "Tue, Thu, Sat"),  # Garden City, KS
+        (1710, "KGRR", "KSLN", "Mon, Wed, Fri, Sun"),  # Salina, KS
+        (1712, "KGRR", "KICT", "Mon, Wed, Fri, Sun"),  # Wichita, KS
+        (1714, "KGRR", "KTOP", "Mon, Wed, Fri, Sun"),  # Topeka, KS
+        (1716, "KGRR", "KSTJ", "Tue, Thu, Sat"),  # St. Joseph, MO
+        (1718, "KGRR", "KBLV", "Mon, Wed, Fri, Sun"),  # Belleville / St. Louis area
+        (1720, "KGRR", "KMBS", "Mon, Wed, Fri"),  # Saginaw, MI
+        (1722, "KGRR", "KBLF", "Mon, Wed, Fri, Sun"),  # Bluefield, WV
 
     # ----------------------------------------------------
     # International Flights (800 Block - Skybus Network)
