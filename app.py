@@ -108,12 +108,491 @@ def get_random_seat(flight_num):
     letter = random.choice(["A", "B", "C", "D", "E", "F"])
     return f"{row}{letter}"
 
+# ==========================================
+# CUSTOM AIRPORT GATE ASSIGNMENTS
+# ==========================================
+# Type any gate inside the quotes for U.S. airports:
+#   Single gate:     "KRIC": "A12",
+#   Multiple gates:  "KSFB": "4, 5, 6",
+# International & Caribbean airports are pre-filled with real U.S.-bound gates.
+# Any airport left blank ("") automatically uses gates 1-6.
 
-def get_random_gate(flight_num):
-    random.seed(int(flight_num) + 99)
-    concourse = random.choice(["A", "B", "C", "D"])
-    gate_num = random.randint(1, 25)
-    return f"{concourse}{gate_num}"
+AIRPORT_GATES = {
+    # Hubs
+    "PAFA": "2",  # Fairbanks, AK
+    "KBLI": "6",  # Bellingham, WA
+    "KIWA": "7",  # Phoenix / Mesa, AZ
+    "KPVU": "4",  # Provo, UT
+    "KOMA": "A1",  # Omaha, NE
+    "KMSY": "B5",  # New Orleans, LA
+    "KGRR": "",  # Grand Rapids, MI
+    "KSWF": "",  # Newburgh / Stewart, NY
+    "KBGR": "6",  # Bangor, ME
+    "KRIC": "A13",  # Richmond, VA
+    "KSFB": "1",  # Orlando / Sanford, FL
+    "TJBQ": "3",  # Aguadilla, PR
+
+    # Alaska & Hawaii
+    "PABE": "",  # Bethel, AK
+    "PABR": "",  # Utqiaġvik (Barrow), AK
+    "PACB": "",  # Cold Bay, AK
+    "PACV": "",  # Cordova, AK
+    "PADK": "",  # Adak, AK
+    "PADL": "",  # Dillingham, AK
+    "PADQ": "",  # Kodiak, AK
+    "PAEN": "",  # Kenai, AK
+    "PAGA": "",  # Galena, AK
+    "PAGS": "",  # Gustavus, AK
+    "PAHO": "",  # Homer, AK
+    "PAJN": "",  # Juneau, AK
+    "PAKN": "",  # King Salmon, AK
+    "PAKT": "",  # Ketchikan, AK
+    "PAKW": "",  # Wrangell, AK
+    "PANC": "",  # Anchorage, AK
+    "PAOM": "",  # Nome, AK
+    "PAOT": "",  # Kotzebue, AK
+    "PAPG": "",  # Petersburg, AK
+    "PASC": "",  # Deadhorse / Prudhoe Bay, AK
+    "PASI": "",  # Sitka, AK
+    "PAUL": "",  # Unalakleet, AK
+    "PAVD": "",  # Valdez, AK
+    "PAYA": "",  # Yakutat, AK
+    "PHKO": "",  # Kailua-Kona, HI
+    "PHLI": "",  # Lihue, HI
+    "PHNL": "",  # Honolulu, HI
+    "PHOG": "",  # Kahului, HI (Maui)
+
+    # Intermountain West & Pacific Northwest
+    "KACV": "",  # Arcata / Eureka, CA
+    "KALW": "",  # Walla Walla, WA
+    "KBFL": "",  # Bakersfield, CA
+    "KBIL": "",  # Billings, MT
+    "KBJC": "",  # Broomfield, CO
+    "KBOI": "",  # Boise, ID
+    "KBZN": "",  # Bozeman, MT
+    "KCDC": "",  # Cedar City, UT
+    "KCLM": "",  # Port Angeles, WA
+    "KCNY": "",  # Moab, UT
+    "KCOD": "",  # Cody, WY
+    "KCOE": "",  # Coeur d'Alene, ID
+    "KCOS": "",  # Colorado Springs, CO
+    "KCPR": "",  # Casper, WY
+    "KCYS": "",  # Cheyenne, WY
+    "KDRO": "",  # Durango, CO
+    "KDVT": "",  # Phoenix / Deer Valley, AZ
+    "KEAT": "",  # Wenatchee, WA
+    "KEGE": "",  # Eagle / Vail, CO
+    "KEKO": "",  # Elko, NV
+    "KEUG": "",  # Eugene, OR
+    "KFAT": "",  # Fresno, CA
+    "KFLG": "",  # Flagstaff, AZ
+    "KGEG": "",  # Spokane, WA
+    "KGJT": "",  # Grand Junction, CO
+    "KGPI": "",  # Kalispell, MT
+    "KGTF": "",  # Great Falls, MT
+    "KHDN": "",  # Hayden / Steamboat Springs, CO
+    "KHLN": "",  # Helena, MT
+    "KIDA": "",  # Idaho Falls, ID
+    "KIFP": "",  # Bullhead City / Laughlin, AZ
+    "KJAC": "",  # Jackson Hole, WY
+    "KLAS": "",  # Las Vegas, NV
+    "KLMT": "",  # Klamath Falls, OR
+    "KLWS": "",  # Lewiston, ID
+    "KMFR": "",  # Medford / Rogue Valley, OR
+    "KMRY": "",  # Monterey, CA
+    "KMSO": "",  # Missoula, MT
+    "KMTJ": "",  # Montrose / Telluride, CO
+    "KMWH": "",  # Moses Lake, WA
+    "KOAK": "",  # Oakland, CA
+    "KOGD": "",  # Ogden, UT
+    "KONT": "",  # Ontario, CA
+    "KOTH": "",  # North Bend / Coos Bay, OR
+    "KPAE": "",  # Everett, WA
+    "KPDX": "",  # Portland, OR
+    "KPIH": "",  # Pocatello, ID
+    "KPRC": "",  # Prescott, AZ
+    "KPSC": "",  # Pasco / Tri-Cities, WA
+    "KPSP": "",  # Palm Springs, CA
+    "KPUB": "",  # Pueblo, CO
+    "KRDD": "",  # Redding, CA
+    "KRDM": "",  # Bend / Redmond, OR
+    "KRNO": "",  # Reno / Tahoe, NV
+    "KSAN": "",  # San Diego, CA
+    "KSBA": "",  # Santa Barbara, CA
+    "KSBD": "",  # San Bernardino, CA
+    "KSBP": "",  # San Luis Obispo, CA
+    "KSCK": "",  # Stockton, CA
+    "KSGU": "",  # St. George, UT
+    "KSJC": "",  # San Jose, CA
+    "KSLE": "",  # Salem, OR
+    "KSMF": "",  # Sacramento, CA
+    "KSTS": "",  # Santa Rosa / Sonoma, CA
+    "KSUN": "",  # Sun Valley, ID
+    "KTWF": "",  # Twin Falls, ID
+    "KVEL": "",  # Vernal, UT
+    "KYKM": "",  # Yakima, WA
+    "KYUM": "",  # Yuma, AZ
+
+    # Southwest & South Central
+    "KABI": "",  # Abilene, TX
+    "KABQ": "",  # Albuquerque, NM
+    "KACT": "",  # Waco, TX
+    "KAMA": "",  # Amarillo, TX
+    "KBPT": "",  # Beaumont / Port Arthur, TX
+    "KBRO": "",  # Brownsville, TX
+    "KCRP": "",  # Corpus Christi, TX
+    "KELP": "",  # El Paso, TX
+    "KGGG": "",  # Longview, TX
+    "KGRK": "",  # Killeen / Fort Cavazos, TX
+    "KHRL": "",  # Harlingen, TX
+    "KLAW": "",  # Lawton, OK
+    "KLBB": "",  # Lubbock, TX
+    "KLRD": "",  # Laredo, TX
+    "KMAF": "",  # Midland / Odessa, TX
+    "KMFE": "",  # McAllen, TX
+    "KOKC": "",  # Oklahoma City, OK
+    "KROW": "",  # Roswell, NM
+    "KSAF": "",  # Santa Fe, NM
+    "KSAT": "",  # San Antonio, TX
+    "KSJT": "",  # San Angelo, TX
+    "KTUL": "",  # Tulsa, OK
+    "KTUS": "",  # Tucson, AZ
+    "KTYR": "",  # Tyler, TX
+    "KVCT": "",  # Victoria, TX
+
+    # Gulf Coast & South
+    "KAEX": "",  # Alexandria, LA
+    "KBHM": "",  # Birmingham, AL
+    "KBTR": "",  # Baton Rouge, LA
+    "KBWG": "",  # Bowling Green, KY
+    "KCHA": "",  # Chattanooga, TN
+    "KFSM": "",  # Fort Smith, AR
+    "KGPT": "",  # Gulfport / Biloxi, MS
+    "KGTR": "",  # Columbus / Starkville, MS
+    "KHBG": "",  # Hattiesburg, MS
+    "KHEZ": "",  # Natchez, MS
+    "KHSV": "",  # Huntsville, AL
+    "KJKA": "",  # Gulf Shores, AL
+    "KLCH": "",  # Lake Charles, LA
+    "KLEX": "",  # Lexington, KY
+    "KLFT": "",  # Lafayette, LA
+    "KLIT": "",  # Little Rock, AR
+    "KMEI": "",  # Meridian, MS
+    "KMGM": "",  # Montgomery, AL
+    "KMLU": "",  # Monroe, LA
+    "KMOB": "",  # Mobile, AL
+    "KOWB": "",  # Owensboro, KY
+    "KPIB": "",  # Hattiesburg / Laurel, MS
+    "KSDF": "",  # Louisville, KY
+    "KSHV": "",  # Shreveport, LA
+    "KTRI": "",  # Tri-Cities / Bristol, TN
+    "KTUP": "",  # Tupelo, MS
+    "KTYS": "",  # Knoxville, TN
+    "KXNA": "",  # Fayetteville / Northwest Arkansas, AR
+
+    # Midwest
+    "KALO": "",  # Waterloo, IA
+    "KBIS": "",  # Bismarck, ND
+    "KBJI": "",  # Bemidji, MN
+    "KBLV": "",  # Belleville, IL
+    "KCID": "",  # Cedar Rapids, IA
+    "KCOU": "",  # Columbia, MO
+    "KDBQ": "",  # Dubuque, IA
+    "KDIK": "",  # Dickinson, ND
+    "KDLH": "",  # Duluth, MN
+    "KDSM": "",  # Des Moines, IA
+    "KDVL": "",  # Devils Lake, ND
+    "KFAR": "",  # Fargo, ND
+    "KFSD": "",  # Sioux Falls, SD
+    "KGCK": "",  # Garden City, KS
+    "KGFK": "",  # Grand Forks, ND
+    "KGRI": "",  # Grand Island, NE
+    "KICT": "",  # Wichita, KS
+    "KINL": "",  # International Falls, MN
+    "KJEF": "",  # Jefferson City, MO
+    "KJMS": "",  # Jamestown, ND
+    "KLNK": "",  # Lincoln, NE
+    "KMCI": "",  # Kansas City, MO
+    "KMLI": "",  # Moline / Quad Cities, IL
+    "KMOT": "",  # Minot, ND
+    "KPIA": "",  # Peoria, IL
+    "KPIR": "",  # Pierre, SD
+    "KRAP": "",  # Rapid City, SD
+    "KRFD": "",  # Rockford, IL
+    "KRST": "",  # Rochester, MN
+    "KSGF": "",  # Springfield, MO
+    "KSLN": "",  # Salina, KS
+    "KSPI": "",  # Springfield, IL
+    "KSTC": "",  # St. Cloud, MN
+    "KSTJ": "",  # St. Joseph, MO
+    "KSUX": "",  # Sioux City, IA
+    "KTOP": "",  # Topeka, KS
+
+    # Great Lakes
+    "KAPN": "",  # Alpena, MI
+    "KATW": "",  # Appleton, WI
+    "KAZO": "",  # Kalamazoo, MI
+    "KBMI": "",  # Bloomington, IL
+    "KCAK": "",  # Akron / Canton, OH
+    "KCIU": "",  # Sault Ste. Marie, MI
+    "KCMH": "",  # Columbus, OH
+    "KCMX": "",  # Houghton, MI
+    "KCVG": "",  # Cincinnati, OH
+    "KCWA": "",  # Mosinee / Wausau, WI
+    "KDAY": "",  # Dayton, OH
+    "KESC": "",  # Escanaba, MI
+    "KEVV": "",  # Evansville, IN
+    "KFNT": "",  # Flint, MI
+    "KFWA": "",  # Fort Wayne, IN
+    "KGRB": "",  # Green Bay, WI
+    "KGYY": "",  # Gary / Chicago, IN
+    "KIMT": "",  # Iron Mountain, MI
+    "KIND": "",  # Indianapolis, IN
+    "KISQ": "",  # Sault Ste. Marie, MI
+    "KJVY": "",  # Jeffersonville, IN
+    "KLAN": "",  # Lansing, MI
+    "KLSE": "",  # La Crosse, WI
+    "KMBS": "",  # Saginaw, MI
+    "KMKE": "",  # Milwaukee, WI
+    "KMQT": "",  # Marquette, MI
+    "KMSN": "",  # Madison, WI
+    "KPLN": "",  # Pellston / Mackinac, MI
+    "KSBN": "",  # South Bend, IN
+    "KTOL": "",  # Toledo, OH
+    "KTVC": "",  # Traverse City, MI
+
+    # Northeast & Mid-Atlantic
+    "KABE": "",  # Allentown / Lehigh Valley, PA
+    "KACK": "",  # Nantucket, MA
+    "KACY": "",  # Atlantic City, NJ
+    "KAGS": "",  # Augusta, GA
+    "KALB": "",  # Albany, NY
+    "KART": "",  # Watertown, NY
+    "KAUG": "",  # Augusta, ME
+    "KAVL": "",  # Asheville, NC
+    "KAVP": "",  # Wilkes-Barre / Scranton, PA
+    "KBFD": "",  # Bradford, PA
+    "KBGM": "",  # Binghamton, NY
+    "KBHB": "",  # Bar Harbor, ME
+    "KBLF": "",  # Bluefield, WV
+    "KBQK": "",  # Brunswick, GA
+    "KBTV": "",  # Burlington, VT
+    "KBUF": "",  # Buffalo, NY
+    "KCAE": "",  # Columbia, SC
+    "KCHO": "",  # Charlottesville, VA
+    "KCHS": "",  # Charleston, SC
+    "KCKB": "",  # Clarksburg, WV
+    "KCON": "",  # Concord, NH
+    "KCRW": "",  # Charleston, WV
+    "KCSG": "",  # Columbus, GA
+    "KDUJ": "",  # DuBois, PA
+    "KELM": "",  # Elmira / Corning, NY
+    "KERI": "",  # Erie, PA
+    "KEWB": "",  # New Bedford, MA
+    "KEWN": "",  # New Bern, NC
+    "KFAY": "",  # Fayetteville, NC
+    "KFLO": "",  # Florence, SC
+    "KFMH": "",  # Falmouth / Cape Cod, MA
+    "KFRG": "",  # Farmingdale / Long Island, NY
+    "KGON": "",  # Groton / New London, CT
+    "KGSO": "",  # Greensboro, NC
+    "KGSP": "",  # Greenville / Spartanburg, SC
+    "KHGR": "",  # Hagerstown, MD
+    "KHPN": "",  # White Plains / Westchester, NY
+    "KHTS": "",  # Huntington, WV
+    "KHVN": "",  # New Haven, CT
+    "KHYA": "",  # Hyannis / Cape Cod, MA
+    "KILG": "",  # Wilmington, DE
+    "KILM": "",  # Wilmington, NC
+    "KIPT": "",  # Williamsport, PA
+    "KISP": "",  # Islip / Long Island, NY
+    "KITH": "",  # Ithaca, NY
+    "KJQF": "",  # Concord / Charlotte, NC
+    "KJST": "",  # Johnstown, PA
+    "KLBE": "",  # Latrobe / Greensburg, PA
+    "KLEB": "",  # Lebanon, NH
+    "KLNS": "",  # Lancaster, PA
+    "KLWB": "",  # Lewisburg, WV
+    "KLYH": "",  # Lynchburg, VA
+    "KMCN": "",  # Macon, GA
+    "KMDT": "",  # Harrisburg, PA
+    "KMGW": "",  # Morgantown, WV
+    "KMHT": "",  # Manchester, NH
+    "KMIV": "",  # Millville, NJ
+    "KMPV": "",  # Barre / Montpelier, VT
+    "KMSS": "",  # Massena, NY
+    "KMVY": "",  # Martha's Vineyard, MA
+    "KMYR": "",  # Myrtle Beach, SC
+    "KOGS": "",  # Ogdensburg, NY
+    "KOQU": "",  # Quonset State / North Kingstown, RI
+    "KORF": "",  # Norfolk / Virginia Beach, VA
+    "KORH": "",  # Worcester, MA
+    "KPBG": "",  # Plattsburgh, NY
+    "KPGV": "",  # Greenville, NC
+    "KPHF": "",  # Newport News / Williamsburg, VA
+    "KPIT": "",  # Pittsburgh, PA
+    "KPKB": "",  # Parkersburg, WV
+    "KPQB": "",  # Presque Isle, ME
+    "KPSM": "",  # Portsmouth, NH
+    "KPVD": "",  # Providence, RI
+    "KPWM": "",  # Portland, ME
+    "KRDG": "",  # Reading, PA
+    "KRDU": "",  # Raleigh / Durham, NC
+    "KRKD": "",  # Rockland, ME
+    "KROA": "",  # Roanoke, VA
+    "KROC": "",  # Rochester, NY
+    "KSAV": "",  # Savannah, GA
+    "KSBY": "",  # Salisbury, MD
+    "KSFM": "",  # Sanford, ME
+    "KSLK": "",  # Saranac Lake, NY
+    "KSYR": "",  # Syracuse, NY
+    "KTTN": "",  # Trenton, NJ
+
+    # Florida
+    "KECP": "",  # Panama City Beach, FL
+    "KEYW": "",  # Key West, FL
+    "KFLL": "",  # Fort Lauderdale, FL
+    "KGNV": "",  # Gainesville, FL
+    "KMLB": "",  # Melbourne, FL
+    "KPGD": "",  # Punta Gorda / Ft. Myers, FL
+    "KPIE": "",  # St. Petersburg / Clearwater, FL
+    "KPNS": "",  # Pensacola, FL
+    "KSGJ": "",  # St. Augustine, FL
+    "KSRQ": "",  # Sarasota / Bradenton, FL
+    "KTLH": "",  # Tallahassee, FL
+    "KVPS": "",  # Eglin / Destin, FL
+    "KVRB": "",  # Vero Beach, FL
+
+    # Caribbean & Latin America (Pre-filled with U.S.-bound gates)
+    "MBPV": "2, 3, 4",        # Providenciales, Turks & Caicos
+    "MDPC": "B24, B25, B26",  # Punta Cana, Dominican Republic
+    "MGGT": "8, 9, 10",       # Guatemala City, Guatemala
+    "MKJP": "4, 5, 6",        # Kingston, Jamaica
+    "MKJS": "9, 10, 11",      # Montego Bay, Jamaica
+    "MMBT": "2, 3",           # Huatulco, Mexico
+    "MMCZ": "4, 5",           # Cozumel, Mexico
+    "MMGL": "B4, B5, B6",     # Guadalajara, Mexico
+    "MMHO": "3, 4",           # Hermosillo, Mexico
+    "MMMZ": "3, 4",           # Mazatlán, Mexico
+    "MMPB": "2, 3",           # Puebla, Mexico
+    "MMPR": "B6, B7, B8",     # Puerto Vallarta, Mexico
+    "MMSD": "14, 15, 16",     # Los Cabos, Mexico
+    "MMTJ": "A4, A5",         # Tijuana, Mexico
+    "MMUN": "C12, C14, 54",   # Cancún, Mexico
+    "MMVR": "3, 4",           # Veracruz, Mexico
+    "MNMG": "3, 4",           # Managua, Nicaragua
+    "MPPA": "1, 2",           # Howard / Panama Pacifico, Panama
+    "MRLB": "3, 4, 5",        # Liberia / Guanacaste, Costa Rica
+    "MROC": "5, 6, 7",        # San José, Costa Rica
+    "MUHA": "3, 4",           # Havana, Cuba
+    "MUVR": "2, 3",           # Varadero, Cuba
+    "MWCR": "3, 4, 5",        # Grand Cayman, Cayman Islands
+    "MYNN": "A4, A5, A6",     # Nassau, Bahamas (U.S. Preclearance)
+    "MYSM": "1",              # San Salvador, Bahamas
+    "MZBZ": "2, 3, 4",        # Belize City, Belize
+    "SAEZ": "15, 16, 17",     # Buenos Aires Ezeiza, Argentina
+    "SCEL": "C4, D6, E3",     # Santiago, Chile
+    "SEQM": "A3, A4, A5",     # Quito, Ecuador
+    "SKBO": "A5, A6, A7",     # Bogota, Colombia
+    "SKCG": "2, 3",           # Cartagena, Colombia
+    "SKCL": "2, 3",           # Cali, Colombia
+    "SKRG": "12, 13, 14",     # Medellin, Colombia
+    "SMJP": "1, 2",           # Paramaribo, Suriname
+    "SPJC": "18, 19, 20",     # Lima, Peru
+    "SPQU": "2, 3",           # Arequipa, Peru
+    "SYCJ": "2, 3",           # Georgetown, Guyana
+    "TAPA": "2, 3",           # Antigua
+    "TBPB": "8, 9, 10",       # Bridgetown, Barbados
+    "TFFF": "2, 3",           # Martinique
+    "TFFR": "3, 4",           # Guadeloupe
+    "TIST": "4, 5, 6",        # St. Thomas, USVI
+    "TISX": "2, 3",           # St. Croix, USVI
+    "TJPS": "1, 2",           # Ponce, PR
+    "TJSJ": "B4, B6, C3",     # San Juan, PR
+    "TKPK": "2, 3",           # St. Kitts
+    "TLPL": "2, 3",           # St. Lucia
+    "TNCA": "3, 4, 5",        # Aruba (U.S. Preclearance)
+    "TNCB": "2, 3",           # Bonaire
+    "TNCC": "2, 3, 4",        # Curaçao
+    "TNCM": "A2, A3, B2",     # St. Maarten
+    "TVSA": "2, 3",           # St. Vincent
+
+    # Canada (Pre-filled with U.S. Transborder / Preclearance gates)
+    "CYDF": "1, 2",           # Deer Lake, NL, Canada
+    "CYEG": "70, 72",         # Edmonton, AB, Canada (U.S. Preclearance)
+    "CYEV": "1",              # Inuvik, NT, Canada
+    "CYFC": "1, 2",           # Fredericton, NB, Canada
+    "CYHM": "2, 3",           # Hamilton / Toronto South, ON, Canada
+    "CYHZ": "24, 26",         # Halifax, NS, Canada (U.S. Preclearance)
+    "CYLW": "3, 4",           # Kelowna, BC, Canada
+    "CYQB": "25, 27",         # Quebec City, QC, Canada
+    "CYQM": "2, 3",           # Moncton, NB, Canada
+    "CYQY": "1, 2",           # Sydney, NS, Canada
+    "CYSJ": "1, 2",           # Saint John, NB, Canada
+    "CYUL": "76, 78, 80",     # Montréal, QC, Canada (U.S. Preclearance)
+    "CYVR": "E76, E80, E84",  # Vancouver, BC, Canada (U.S. Preclearance)
+    "CYWG": "2, 3",           # Winnipeg, MB, Canada (U.S. Preclearance)
+    "CYXS": "1, 2",           # Prince George, BC, Canada
+    "CYXX": "2, 3",           # Abbotsford, BC, Canada
+    "CYXY": "1, 2",           # Whitehorse, YT, Canada
+    "CYYC": "E74, E78, E82",  # Calgary, AB, Canada (U.S. Preclearance)
+    "CYYG": "1, 2",           # Charlottetown, PE, Canada
+    "CYYJ": "1, 2",           # Victoria, BC, Canada (U.S. Preclearance)
+    "CYYT": "3, 4",           # St. John's, NL, Canada
+    "CYZF": "1, 2",           # Yellowknife, NT, Canada
+
+    # Europe, Asia & Transatlantic (Pre-filled with Non-Schengen / U.S.-bound gates)
+    "BIKF": "D18, D22, D26",  # Reykjavik / Keflavik, Iceland
+    "EBBR": "B15, B19, B23",  # Brussels, Belgium
+    "EDDF": "Z15, Z19, E5",   # Frankfurt, Germany
+    "EDDM": "H12, H18, H24",  # Munich, Germany
+    "EFHK": "40, 44, 50",     # Helsinki, Finland
+    "EGCC": "204, 208, 210",  # Manchester, United Kingdom
+    "EGLL": "B36, B42, 28",   # London Heathrow, United Kingdom
+    "EGPK": "2, 3, 4",        # Glasgow, Scotland
+    "EHAM": "D24, E8, G5",    # Amsterdam, Netherlands
+    "EIDW": "404, 408, 412",  # Dublin, Ireland (U.S. Preclearance)
+    "EINN": "2, 3, 4",        # Shannon, Ireland (U.S. Preclearance)
+    "EKCH": "C28, C32, C36",  # Copenhagen, Denmark
+    "ENGM": "F14, F18, F22",  # Oslo, Norway
+    "ESSA": "F60, F64, F66",  # Stockholm Arlanda, Sweden
+    "LEBL": "D12, D16, E72",  # Barcelona, Spain
+    "LEMD": "S14, S22, S30",  # Madrid, Spain
+    "LFPG": "K34, L26, M42",  # Paris Charles de Gaulle, France
+    "LGAV": "A3, A6, A9",     # Athens, Greece
+    "LIRF": "E12, E22, E34",  # Rome Fiumicino, Italy
+    "LOWW": "G06, G12, G18",  # Vienna, Austria
+    "LPPD": "4, 5",           # Ponta Delgada (Azores), Portugal
+    "LPPT": "N42, N44, N46",  # Lisbon, Portugal
+    "LROP": "12, 14, 16",     # Bucharest, Romania
+    "LSZH": "E24, E36, E48",  # Zurich, Switzerland
+    "RKPK": "4, 5, 6",        # Busan, South Korea
+    "ROAH": "41, 42, 43",     # Naha, Japan
+    "RORS": "2, 3",           # Shimojishima, Japan
+    "RPLC": "4, 5, 6",        # Clark, Philippines
+    "TXKF": "2, 3",           # Bermuda (U.S. Preclearance)
+}
+
+def get_random_gate(flight_num, origin: str | None = None) -> str:
+    """Assigns the gate(s) typed into AIRPORT_GATES for the departure airport."""
+    orig_code = str(origin).strip().upper() if origin else ""
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    rng = random.Random(f"gate-{orig_code}-{flight_num}-{today_str}")
+
+    custom = AIRPORT_GATES.get(orig_code)
+
+    if isinstance(custom, (list, tuple)):
+        gates = [str(g).strip() for g in custom if str(g).strip()]
+    elif isinstance(custom, (str, int)):
+        gates = [g.strip() for g in str(custom).split(",") if g.strip()]
+    else:
+        gates = []
+
+    if gates:
+        return rng.choice(gates)
+
+    return rng.choice(["1", "2", "3", "4", "5", "6"])
+
 
 def get_seats_sold(flight_num, capacity=180):
     """Returns deterministic baseline cabin load + live session bookings for a flight."""
@@ -3135,7 +3614,7 @@ if "selected_leg" in st.session_state:
         if active_addons["seat_selected"]
         else "ASSIGN AT GATE"
     )
-    assigned_gate = get_random_gate(active_leg["Flight"])
+    assigned_gate = get_random_gate(active_leg["Flight"], active_leg["Origin"])
     today_date = datetime.now().strftime("%d %b %Y").upper()
 
     flight_info = (
